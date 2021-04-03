@@ -1,0 +1,7 @@
+{
+  "name": "PAT.FHIR.Common",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "PAT Pty Ltd",
+  "license": "Apache2"
+}

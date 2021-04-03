@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Utils.fs" />
+    <None Include="PracticeDatabase\Database.fs" />
+    <None Include="PracticeDatabase\Staff.fs" />
+    <None Include="PracticeDatabase\Patients.fs" />
+    <Compile Include="FHIR\ActivityDefinitions.fs" />
+    <Compile Include="FHIR\AuditEvent.fs" />
+    <Compile Include="FHIR\Contacts.fs" />
+    <Compile Include="FHIR\DocumentReference.fs" />
+    <Compile Include="FHIR\Task.fs" />
+    <Compile Include="FHIR\Patients.fs" />
+    <Compile Include="FHIR\CareTeam.fs" />
+    <Compile Include="FHIR\Encounter.fs" />
+    <Compile Include="FHIR\CarePlans.fs" />
+    <Compile Include="FHIR\Procedure.fs" />
+    <Compile Include="FHIR\QuestionnaireResponses.fs" />
+    <Compile Include="FHIR\Observation.fs" />
+    <Compile Include="FHIR\Practitioners.fs" />
+    <Compile Include="FHIR\ReferralRequest.fs" />
+    <Compile Include="FHIR\Provenance.fs" />
+    <Compile Include="Main.fs" />
+    <None Include="App.config" />
+    <None Include="patients.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="staff.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="paket.references" />
+    <None Include="conditions.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Dockerfile" />
+    <None Include="cloudBuild.json" />
+    <None Include="occupationsData.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Bogus" Version="33.0.2" />
+    <PackageReference Include="Hl7.Fhir.STU3" Version="1.1.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FHIR.Common\PAT.FHIR.Common.fsproj" />
+  </ItemGroup>
+</Project>
