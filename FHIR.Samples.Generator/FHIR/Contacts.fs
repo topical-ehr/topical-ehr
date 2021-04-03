@@ -1,10 +1,7 @@
 ﻿module PAT.Samples.Generator.FHIR.Contacts
 
-open System
 open Hl7.Fhir.Model
 open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Codes
-open PAT.FHIR.Questions
 open PAT.FHIR.Extensions
 open PAT.Samples.Generator.Utils
 open FSharp.Data

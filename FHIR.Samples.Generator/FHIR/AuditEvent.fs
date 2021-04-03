@@ -1,9 +1,10 @@
 ﻿module PAT.Samples.Generator.FHIR.AuditEvent
 
 open System
+
 open Hl7.Fhir.Model
+
 open PAT.Samples.Generator.Utils
-open PAT.FHIR.Extensions
 open PAT.FHIR.DotNetUtils
 
 
@@ -21,7 +22,7 @@ let create (CR: CreateResource) =
                 L [ AuditEvent.AgentComponent(
                         Role = L [ CodeableConcept("https://fhir.patsoftware.com.au/audit-role", "logged-in-user") ],
                         Requestor = N true,
-                        Reference = ResourceReference("Practitioner/admin"),
+                        Who = ResourceReference("Practitioner/admin"),
                         Extension =
                             L [ Extension("https://fhir.patsoftware.com.au/useragent", FhirString("Mozilla/..."))
                                 Extension(
@@ -29,14 +30,11 @@ let create (CR: CreateResource) =
                                     FhirString("5d9474c0309b7ca09a182d888f73b37a8fe1362c")
                                 ) ]
                     ) ],
-            Source =
-                AuditEvent.SourceComponent(
-                    Identifier = Identifier("https://fhir.patsoftware.com.au/audit-source", "pat-web-backend")
-                ),
             Entity =
                 L [ AuditEvent.EntityComponent(
-                        Reference = ResourceReference("Practitioner/123"),
-                        Detail = L [ AuditEvent.DetailComponent(Type = "newVersionId", Value = bytes ("55")) ]
+                        What = ResourceReference("Practitioner/123"),
+                        Detail =
+                            L [ AuditEvent.DetailComponent(Type = "newVersionId", Value = Base64Binary(bytes "123")) ]
                     ) ]
         )
 
@@ -51,7 +49,7 @@ let create (CR: CreateResource) =
                 L [ AuditEvent.AgentComponent(
                         Role = L [ CodeableConcept("https://fhir.patsoftware.com.au/audit-role", "logged-in-user") ],
                         Requestor = N true,
-                        Reference = ResourceReference("Practitioner/doctor"),
+                        Who = ResourceReference("Practitioner/doctor"),
                         Network =
                             AuditEvent.NetworkComponent(
                                 Address = "1.2.3.4",
@@ -64,10 +62,6 @@ let create (CR: CreateResource) =
                                     FhirString("5d9474c0309b7ca09a182d888f73b37a8fe1362c")
                                 ) ]
                     ) ],
-            Source =
-                AuditEvent.SourceComponent(
-                    Identifier = Identifier("https://fhir.patsoftware.com.au/audit-source", "pat-web-backend")
-                ),
             Entity = L [ AuditEvent.EntityComponent(Query = bytes "Patients?name=a") ]
         )
 
@@ -82,7 +76,7 @@ let create (CR: CreateResource) =
                 L [ AuditEvent.AgentComponent(
                         Role = L [ CodeableConcept("https://fhir.patsoftware.com.au/audit-role", "logged-in-user") ],
                         Requestor = N true,
-                        Reference = ResourceReference("Practitioner/doctor"),
+                        Who = ResourceReference("Practitioner/doctor"),
                         Network =
                             AuditEvent.NetworkComponent(
                                 Address = "1.2.3.4",
@@ -95,11 +89,7 @@ let create (CR: CreateResource) =
                                     FhirString("5d9474c0309b7ca09a182d888f73b37a8fe1362c")
                                 ) ]
                     ) ],
-            Source =
-                AuditEvent.SourceComponent(
-                    Identifier = Identifier("https://fhir.patsoftware.com.au/audit-source", "pat-web-backend")
-                ),
-            Entity = L [ AuditEvent.EntityComponent(Reference = ResourceReference("Encounter/456")) ]
+            Entity = L [ AuditEvent.EntityComponent(What = ResourceReference("Encounter/456")) ]
         )
 
 

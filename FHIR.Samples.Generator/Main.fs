@@ -6,8 +6,8 @@ open Hl7.Fhir.Rest
 open Hl7.Fhir.Model
 
 open PAT.FHIR.DotNetUtils
-open PAT.Samples.Generator.FHIR.CarePlans
 open PAT.FHIR.Codes
+open PAT.Samples.Generator.FHIR.CarePlans
 
 
 let recreatePatients CR fhir onlyDeleteSamples =
@@ -42,21 +42,18 @@ let main argv =
         Environment.GetEnvironmentVariable >> Option.ofObj
 
     Bogus.Randomizer.Seed <- Random(7777777)
-    let faker = Bogus.Faker()
 
     let fhirEndpointUrl =
         getEnv "FHIR_BASE_URL"
         |> Option.defaultValue "http://work-kube:3001/db/pat_samples_fhir"
 
-    let fhir =
-        new FhirClient(fhirEndpointUrl, verifyFhirVersion = false)
-
+    let fhir = new FhirClient(fhirEndpointUrl)
     fhir.PreferredFormat <- ResourceFormat.Json
     fhir.ParserSettings.AcceptUnknownMembers <- true // FIXME: remove once figure out what's going on
     fhir.ParserSettings.AllowUnrecognizedEnums <- true
 
     let CR (resource: #Resource) =
-        printfn "Creating resource %s..." (resource.ResourceType.ToString())
+        printfn "Creating resource %s..." (resource.TypeName)
         let start = System.Diagnostics.Stopwatch()
         start.Start()
         setTag resource PatCodes.Tags.PatVersion
@@ -195,7 +192,7 @@ let main argv =
 
             let activityDefinition =
                 (planDefinition.Action
-                 |> Seq.find (fun a -> a.TriggerDefinition.Count > 0))
+                 |> Seq.find (fun a -> a.Trigger.Count > 0))
                     .Definition
 
             for qe in questionnaireBundle.Entry do
@@ -215,7 +212,7 @@ let main argv =
                     FHIR.CarePlans.SampleContext.patient = fst patient
                     encounter = encounter
                     planDefinition = planDefinition
-                    activityDefinitionRef = activityDefinition
+                    activityDefinitionRef = ResourceReference(activityDefinition.ToString())
 
                     practitionerGP = doctor
                     careteamForPharmacists = FHIR.CareTeam.create CR patient "Pharmacists" "46255001" pharmacist
@@ -264,7 +261,7 @@ let main argv =
 
         let activityDefinition =
             (planDefinition.Action
-             |> Seq.find (fun a -> a.TriggerDefinition.Count > 0))
+             |> Seq.find (fun a -> a.Trigger.Count > 0))
                 .Definition
 
         let procedures =
@@ -287,7 +284,7 @@ let main argv =
                 FHIR.CarePlans.SampleContext.patient = fst patient
                 encounter = encounter
                 planDefinition = planDefinition
-                activityDefinitionRef = activityDefinition
+                activityDefinitionRef = ResourceReference(activityDefinition.ToString())
 
                 practitionerGP = doctor
                 careteamForPharmacists = FHIR.CareTeam.create CR patient "Pharmacists" "46255001" pharmacist
@@ -334,7 +331,7 @@ let main argv =
 
         let activityDefinition =
             (planDefinition.Action
-             |> Seq.find (fun a -> a.TriggerDefinition.Count > 0))
+             |> Seq.find (fun a -> a.Trigger.Count > 0))
                 .Definition
 
         for qe in questionnaireBundle.Entry do

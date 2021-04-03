@@ -1,16 +1,12 @@
 ﻿module PAT.Samples.Generator.FHIR.CarePlans
 
-
 open System
 
 open Hl7.Fhir.Support
 open Hl7.Fhir.Model
-open Hl7.Fhir.Rest
 
 open PAT.FHIR.DotNetUtils
 open PAT.FHIR.Codes
-open PAT.FHIR.Questions
-open PAT.FHIR.Extensions
 open PAT.FHIR.Urls
 
 type SampleContext =
@@ -37,8 +33,8 @@ let makeCarePlans (context: SampleContext) =
 
             yield
                 CarePlan(
-                    Definition = L [ referenceToResource context.planDefinition ],
-                    Status = N CarePlan.CarePlanStatus.Active,
+                    InstantiatesCanonical = L [ canonicalUrlForResource context.planDefinition ],
+                    Status = N RequestStatus.Active,
                     Intent = N CarePlan.CarePlanIntent.Plan,
                     Category =
                         L [ PatCodes.CarePlan.Category.PatChronicDiseaseManagement
@@ -46,8 +42,8 @@ let makeCarePlans (context: SampleContext) =
                     Title = "General GPMP Management Plan",
                     Description = "",
                     Subject = referenceToResource context.patient,
-                    Context = referenceToResource context.encounter,
-                    Author = L [ referenceToResource context.practitionerGP ],
+                    Encounter = referenceToResource context.encounter,
+                    Author = referenceToResource context.practitionerGP,
                     Extension =
                         L [ Extension(
                                 PAT.FHIR.Extensions.PatExtensions.Urls.ActivityTriggeredButDeleted,
@@ -58,7 +54,7 @@ let makeCarePlans (context: SampleContext) =
                         L [ CarePlan.ActivityComponent(
                                 Detail =
                                     CarePlan.DetailComponent(
-                                        Definition = context.activityDefinitionRef,
+                                        InstantiatesCanonical = L [ string context.activityDefinitionRef ],
                                         Code =
                                             CodeableConcept(
                                                 Coding =
@@ -71,13 +67,12 @@ let makeCarePlans (context: SampleContext) =
                                         ReasonCode = L [ CodeableConcept(Text = "'Goal' field goes here") ],
                                         Description = "Management plan goes here",
                                         Status = N CarePlan.CarePlanActivityStatus.NotStarted,
-                                        Prohibited = N false,
                                         Performer = L [ referenceToResource context.careteamForPharmacists ],
                                         Scheduled = Period(Start = time)
                                     ),
                                 Progress =
                                     L [ Annotation(
-                                            Text = "Comment 1 for a CarePlan activity",
+                                            Text = Markdown "Comment 1 for a CarePlan activity",
                                             Time = time,
                                             Author = referenceToResource context.practitionerGP
                                         ) ]
@@ -98,8 +93,7 @@ let makeCarePlans (context: SampleContext) =
                                         ReasonCode = L [ CodeableConcept(Text = "'Goal' field goes here") ],
                                         Description = "Management plan goes here",
                                         Status = N CarePlan.CarePlanActivityStatus.InProgress,
-                                        StatusReason = "Referred",
-                                        Prohibited = N false,
+                                        StatusReason = CodeableConcept(Text = "Referred"),
                                         Performer = L [ referenceToResource context.careteamForPharmacists ],
                                         Extension =
                                             L [ Extension(
@@ -113,7 +107,7 @@ let makeCarePlans (context: SampleContext) =
                                     ),
                                 Progress =
                                     L [ Annotation(
-                                            Text = "Comment 1 for a CarePlan activity",
+                                            Text = Markdown "Comment 1 for a CarePlan activity",
                                             Time = time,
                                             Author = referenceToResource context.practitionerGP
                                         ) ]
@@ -127,7 +121,6 @@ let makeCarePlans (context: SampleContext) =
                                                     L [ Coding(KnownUrls.patGoalId, "New-with-bad-UUID-and-no-text") ]
                                             ),
                                         Status = N CarePlan.CarePlanActivityStatus.InProgress,
-                                        Prohibited = N false,
                                         Performer = L [ referenceToResource context.careteamForPharmacists ],
                                         Extension =
                                             L [ Extension(
@@ -141,14 +134,14 @@ let makeCarePlans (context: SampleContext) =
                                     ),
                                 Progress =
                                     L [ Annotation(
-                                            Text = "Comment 1 for a CarePlan activity",
+                                            Text = Markdown "Comment 1 for a CarePlan activity",
                                             Time = time,
                                             Author = referenceToResource context.practitionerGP
                                         ) ]
                             ) ],
                     Note =
                         L [ Annotation(
-                                Text = "Comment 1",
+                                Text = Markdown "Comment 1",
                                 Time = time,
                                 Author = referenceToResource context.practitionerGP
                             ) ]

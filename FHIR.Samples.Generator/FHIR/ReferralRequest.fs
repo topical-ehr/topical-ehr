@@ -1,7 +1,7 @@
 ﻿module PAT.Samples.Generator.FHIR.ReferralRequest
 
-open System
 open Hl7.Fhir.Model
+
 open PAT.Samples.Generator.Utils
 open PAT.FHIR.DotNetUtils
 open PAT.FHIR.Extensions
@@ -19,9 +19,9 @@ let create
             yield
                 ReferralRequest(
                     Subject = referenceToResource patient,
-                    Context = referenceToResource encounter,
-                    Requester = ReferralRequest.RequesterComponent(Agent = referenceToResource doctor),
-                    Recipient = L [ referenceToResource recipient ],
+                    Encounter = referenceToResource encounter,
+                    Requester = referenceToResource doctor,
+                    Performer = L [ referenceToResource recipient ],
                     Extension =
                         L [ Extension(
                                 PatExtensions.Urls.ReferralRequest.SecretToken,

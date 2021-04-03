@@ -15,7 +15,7 @@ let create (createResource: CreateResource) (practitioner: Practitioner) (target
                 Provenance(
                     Target = (targets |> Seq.map referenceToResource |> L),
                     Agent = L [ Provenance.AgentComponent(Who = referenceToResource (practitioner)) ],
-                    Reason = L [ Coding("http://hl7.org/fhir/v3/ActReason", "CAREMGT") ],
+                    Reason = L [ CodeableConcept("http://hl7.org/fhir/v3/ActReason", "CAREMGT") ],
                     Recorded = N DateTimeOffset.UtcNow
                 )
         }

@@ -81,6 +81,7 @@ let referenceToResource (r: Resource) =
         let ref = sprintf "%s/%s" r.TypeName r.Id
         ResourceReference(Reference = ref)
 
+let canonicalUrlForResource (r: Resource) = r.TypeName + "/" + r.Id
 
 ////////////////////////////////////////////
 // Filter helpers
@@ -148,8 +149,7 @@ let toResources (s: 'T seq when 'T :> Resource) : Resource seq = s |> Seq.map (f
 
 
 let makeFhirClient (timeoutMilliseconds: int) (fhirEndpointUrl: string) =
-    let client =
-        FhirClient(fhirEndpointUrl, verifyFhirVersion = false) // not planning to dispose..
+    let client = new FhirClient(fhirEndpointUrl) // not planning to dispose..
 
     client.PreferredFormat <- ResourceFormat.Json
     client.Timeout <- timeoutMilliseconds

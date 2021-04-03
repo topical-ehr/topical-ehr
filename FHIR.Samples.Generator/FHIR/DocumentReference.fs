@@ -14,8 +14,7 @@ let create createResource ((patient: Resource), _) (encounter: Resource) (carePl
             Status = N DocumentReferenceStatus.Current,
             DocStatus = N CompositionStatus.Final,
             Type = CodeableConcept("http://loinc.org", "18776-5", "Plan of care note", "GPMP (example!)"),
-            CreatedElement = FhirDateTime.Now(),
-            Indexed = N(DateTimeOffset()),
+            Date = N DateTimeOffset.Now,
             Author = L [ referenceToResource patient ],
             Description = "PAT Management Plan",
             Content =
@@ -24,8 +23,8 @@ let create createResource ((patient: Resource), _) (encounter: Resource) (carePl
                     ) ],
             Context =
                 DocumentReference.ContextComponent(
-                    Encounter = referenceToResource encounter,
-                    Related = L [ DocumentReference.RelatedComponent(Ref = referenceToResource carePlan) ]
+                    Encounter = L [ referenceToResource encounter ],
+                    Related = L [ referenceToResource carePlan ]
                 )
 
         )

@@ -1,19 +1,17 @@
 ﻿module PAT.Samples.Generator.FHIR.Patients
 
 open System
+open FSharp.Data
+
+open Bogus.DataSets
 open Hl7.Fhir.Support
 open Hl7.Fhir.Model
-open Hl7.Fhir.Rest
+
 open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Codes
-open PAT.FHIR.Questions
 open PAT.FHIR.Extensions
-open FSharp.Data
-open System.Text.RegularExpressions
 open PAT.Samples.Generator
-open Bogus.DataSets
-open FSharp.Data.Runtime.WorldBank
 open PAT.Samples.Generator.Utils
+open PAT.FHIR.Codes
 
 
 type PatientsCsvFormat = CsvProvider<"patients.csv">
@@ -47,13 +45,14 @@ let createCondition createResource (patient: Resource) (condition: string) =
 
     let resource =
         Condition(
-            ClinicalStatus = N Condition.ConditionClinicalStatusCodes.Active,
-            VerificationStatus = N Condition.ConditionVerificationStatus.Confirmed,
+            ClinicalStatus = ConditionCodes.ClinicalStatus.Active,
+            VerificationStatus = ConditionCodes.VerificationStatus.Confirmed,
             Subject = referenceToResource patient,
             Code = (CodeableConcept(Text = condition)),
-            Note = L [ Annotation(Text = sprintf "comment for %s" condition) ]
+            Note = L [ Annotation(Text = Markdown(sprintf "comment for %s" condition)) ]
         )
 
+    let a = Annotation()
     createResource resource
 
 let createConditions createResource (patient: Resource) =

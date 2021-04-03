@@ -19,10 +19,10 @@ let create
             yield
                 Procedure(
                     Subject = referenceToResource patient,
-                    Context = referenceToResource encounter,
+                    Encounter = referenceToResource encounter,
                     Performer = L [ Procedure.PerformerComponent(Actor = referenceToResource patient) ],
                     Status = N EventStatus.Completed,
-                    Definition = L [ referenceToResource plan ],
+                    InstantiatesCanonical = L [ canonicalUrlForResource plan ],
                     Performed = Period(StartElement = FhirDateTime(2017, 10, 20)),
                     Code = CodeableConcept("system - TODO", "ddaa3be9-6dd3-489b-9e83-b0693c4d5689", "Smoking education")
                 )
@@ -30,10 +30,10 @@ let create
             yield
                 Procedure(
                     Subject = referenceToResource patient,
-                    Context = referenceToResource encounter,
+                    Encounter = referenceToResource encounter,
                     Performer = L [ Procedure.PerformerComponent(Actor = referenceToResource patient) ],
                     Status = N EventStatus.Completed,
-                    Definition = L [ referenceToResource plan ],
+                    InstantiatesCanonical = L [ canonicalUrlForResource plan ],
                     Category = CodeableConcept(Text = "PAT Patient Education"),
                     Performed =
                         Period(StartElement = FhirDateTime(2017, 10, 20), EndElement = FhirDateTime(2017, 10, 20)),

@@ -1,9 +1,10 @@
 ﻿module PAT.Samples.Generator.FHIR.ActivityDefinitions
 
 open System
+
 open Hl7.Fhir.Model
+
 open PAT.Samples.Generator.Utils
-open PAT.FHIR.Extensions
 open PAT.FHIR.DotNetUtils
 open PAT.FHIR.Codes
 
@@ -40,13 +41,7 @@ let createCustomGoal
             Title = goal.name,
             Status = N PublicationStatus.Active,
             Date = goal.dateModified.ToString(),
-            Contributor =
-                L [ Contributor(
-                        Type = N Contributor.ContributorType.Author,
-                        Name = goal.author.Name.[0].Family,
-                        Extension = L [ PatCodes.ActivityDefinition.Contributor.Extension.Practitioner goal.author ]
-                    ) ],
-            Kind = N ResourceType.CarePlan,
+            Kind = N ActivityDefinition.RequestResourceType.CarePlan,
             Extension =
                 L [ if goal.autoReplaceDerivedFrom then
                         yield PatCodes.ActivityDefinition.Extensions.UseAutomaticallyFor autoReplaceFor
@@ -61,7 +56,7 @@ let createCustomGoal
             activity.RelatedArtifact.Add(
                 RelatedArtifact(
                     Type = N RelatedArtifact.RelatedArtifactType.DerivedFrom,
-                    Resource = ResourceReference("ActivityDefinition/" + basedOn.Id)
+                    Resource = "ActivityDefinition/" + basedOn.Id
                 )
             ))
 
@@ -77,7 +72,7 @@ let createCustomGoal
 
 
     activity.DynamicValue <-
-        L [ DynamicValue(Path = "description", Expression = goal.goal)
-            DynamicValue(Path = "note", Expression = goal.plan) ]
+        L [ DynamicValue(Path = "description", Expression = Expression(Expression_ = goal.goal))
+            DynamicValue(Path = "note", Expression = Expression(Expression_ = goal.plan)) ]
 
     createResource activity

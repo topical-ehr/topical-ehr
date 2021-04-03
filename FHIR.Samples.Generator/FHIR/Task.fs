@@ -15,10 +15,10 @@ let create createResource ((patient: Resource), _) (encounter: Resource) (carePl
             Code = PatCodes.Task.Code.CareplanRtfImport,
             Status = N Task.TaskStatus.Received,
             BusinessStatus = PatCodes.Task.BusinessStatus.FileAdded,
-            Intent = N RequestIntent.Order,
+            Intent = N Task.TaskIntent.Order,
             For = referenceToResource patient,
             Focus = referenceToResource carePlan,
-            Context = referenceToResource encounter,
+            Encounter = referenceToResource encounter,
             AuthoredOn = DateTime.UtcNow.ToFhirDateTime(),
             LastModified = DateTime.UtcNow.ToFhirDateTime(),
             Input =

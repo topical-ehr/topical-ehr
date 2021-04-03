@@ -4,6 +4,13 @@ open System
 open Hl7.Fhir.Model
 open PAT.FHIR.Urls
 
+module ConditionCodes =
+    module ClinicalStatus =
+        let Active = CodeableConcept("http://terminology.hl7.org/CodeSystem/condition-clinical", "active")
+
+    module VerificationStatus =
+        let Confirmed = CodeableConcept("http://terminology.hl7.org/CodeSystem/condition-ver-status", "confirmed")
+
 module PatCodes =
     type private L<'T> = ResizeArray<'T>
 

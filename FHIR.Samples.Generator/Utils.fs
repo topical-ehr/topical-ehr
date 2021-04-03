@@ -1,7 +1,5 @@
 ﻿module PAT.Samples.Generator.Utils
 
-open System
-
 let rand = new System.Random()
 
 let swap (a: _ []) x y =
@@ -16,8 +14,6 @@ open Hl7.Fhir.Model
 open Hl7.Fhir.Rest
 open PAT.FHIR.DotNetUtils
 open PAT.FHIR.Codes
-open PAT.FHIR.Questions
-open PAT.FHIR.Extensions
 
 
 let createResource (client: FhirClient) (resource: #Resource) =

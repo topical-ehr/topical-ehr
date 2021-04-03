@@ -3,14 +3,13 @@
 open System
 
 open Hl7.Fhir.Model
-open Hl7.Fhir.Rest
+
 open PAT.FHIR.DotNetUtils
 open PAT.FHIR.Codes
 open PAT.FHIR.Questions
 open PAT.FHIR.Extensions
 
 open PAT.Samples.Generator.Utils
-open Hl7.Fhir.Support
 
 
 let getAnswer
@@ -45,16 +44,21 @@ let getAnswer
                     Text = questionSummary
                 ),
             Value = valueElement,
-            Related = L [ Observation.RelatedComponent(Target = referenceToResource qr) ],
+            DerivedFrom = L [ referenceToResource qr ],
             Subject = referenceToResource patient,
-            Context = referenceToResource encounter,
+            Encounter = referenceToResource encounter,
             Effective = FhirDateTime(datetime),
             Performer = L [ referenceToResource performer ],
-            Comment =
-                if answerFraction > 0.5f then
-                    "some comment"
-                else
-                    null
+            Note =
+                L [ Annotation(
+                        Text =
+                            Markdown(
+                                if answerFraction > 0.5f then
+                                    "some comment"
+                                else
+                                    null
+                            )
+                    ) ]
         )
 
     let makeObservationWithComponents questionSummary (components: seq<Observation.ComponentComponent>) =
@@ -133,7 +137,6 @@ let getAnswer
                         upcast FhirString(sprintf "this is just some test data for %s" questionSummary)
 
                     | Questionnaire.QuestionnaireItemType.Choice ->
-                        let options = qi.Options
                         upcast CodeableConcept(Coding = L [ Coding("http://hl7.org/fhir/v2/0136", "Y") ])
 
                     | Questionnaire.QuestionnaireItemType.Quantity
@@ -210,8 +213,8 @@ let create
             Subject = referenceToResource patient,
             Author = referenceToResource author,
             Source = referenceToResource source,
-            Context = referenceToResource encounter,
-            Questionnaire = referenceToResource questionnaire,
+            Encounter = referenceToResource encounter,
+            Questionnaire = canonicalUrlForResource questionnaire,
             Status = N QuestionnaireResponse.QuestionnaireResponseStatus.InProgress,
             AuthoredElement = FhirDateTime(DateTime(2017, 2, 1, 9, 30, 0)),
             Item = L items,

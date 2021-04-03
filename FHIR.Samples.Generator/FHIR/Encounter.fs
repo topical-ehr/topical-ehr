@@ -48,20 +48,20 @@ let create
             Contained =
                 L [ Condition(
                         Id = "CurrentCondition1",
-                        ClinicalStatus = N Condition.ConditionClinicalStatusCodes.Active,
-                        VerificationStatus = N Condition.ConditionVerificationStatus.Confirmed,
+                        ClinicalStatus = ConditionCodes.ClinicalStatus.Active,
+                        VerificationStatus = ConditionCodes.VerificationStatus.Confirmed,
                         Subject = referenceToResource patient,
                         Code = (CodeableConcept(Text = "current condition 1")),
-                        Note = L [ Annotation(Text = "comment for current condition") ]
+                        Note = L [ Annotation(Text = Markdown "comment for current condition") ]
                     )
                     :> Resource
                     Condition(
                         Id = "CurrentCondition2",
-                        ClinicalStatus = N Condition.ConditionClinicalStatusCodes.Active,
-                        VerificationStatus = N Condition.ConditionVerificationStatus.Confirmed,
+                        ClinicalStatus = ConditionCodes.ClinicalStatus.Active,
+                        VerificationStatus = ConditionCodes.VerificationStatus.Confirmed,
                         Subject = referenceToResource patient,
                         Code = (CodeableConcept(Text = "current condition 2")),
-                        Note = L [ Annotation(Text = "comment for current condition") ]
+                        Note = L [ Annotation(Text = Markdown "comment for current condition") ]
                     )
                     :> Resource ],
             Participant =

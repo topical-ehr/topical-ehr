@@ -1,13 +1,9 @@
 ﻿module PAT.Samples.Generator.FHIR.CareTeam
 
-open System
-open Hl7.Fhir.Support
 open Hl7.Fhir.Model
-open Hl7.Fhir.Rest
+
 open PAT.FHIR.DotNetUtils
 open PAT.FHIR.Codes
-open PAT.FHIR.Questions
-open PAT.FHIR.Extensions
 
 
 let create
@@ -31,10 +27,10 @@ let create
             Participant =
                 L [ CareTeam.ParticipantComponent(
                         Role =
-                            CodeableConcept(
-                                Coding = L [ Coding("http://snomed.info/sct", snomedCode, specialityName) ],
-                                Text = specialityName
-                            ),
+                            L [ CodeableConcept(
+                                    Coding = L [ Coding("http://snomed.info/sct", snomedCode, specialityName) ],
+                                    Text = specialityName
+                                ) ],
                         Extension =
                             (if practitioner = null then
                                  (L())
@@ -59,10 +55,10 @@ let create
             Participant =
                 L [ CareTeam.ParticipantComponent(
                         Role =
-                            CodeableConcept(
-                                Coding = L [ Coding("http://snomed.info/sct", snomedCode, specialityName) ],
-                                Text = specialityName
-                            ),
+                            L [ CodeableConcept(
+                                    Coding = L [ Coding("http://snomed.info/sct", snomedCode, specialityName) ],
+                                    Text = specialityName
+                                ) ],
                         Extension =
                             (if practitioner = null then
                                  (L())
