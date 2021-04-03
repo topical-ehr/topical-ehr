@@ -6,8 +6,9 @@ open Hl7.Fhir.Support
 open PAT.FHIR.DotNetUtils
 open PAT.FHIR.Codes
 
-let create createResource ((patient: Resource),_) (encounter: Resource) (carePlan: Resource) =
-    let bytes = System.Text.UTF8Encoding.UTF8.GetBytes("document contents")
+let create createResource ((patient: Resource), _) (encounter: Resource) (carePlan: Resource) =
+    let bytes =
+        System.Text.UTF8Encoding.UTF8.GetBytes("document contents")
 
     let t =
         Task(
@@ -20,14 +21,12 @@ let create createResource ((patient: Resource),_) (encounter: Resource) (carePla
             Context = referenceToResource encounter,
             AuthoredOn = DateTime.UtcNow.ToFhirDateTime(),
             LastModified = DateTime.UtcNow.ToFhirDateTime(),
-            Input = L [
-                Task.ParameterComponent(
-                    Type = PatCodes.Task.Input.HL7RTF,
-                    Value = FhirString("document will go here"))
-            ]
+            Input =
+                L [ Task.ParameterComponent(
+                        Type = PatCodes.Task.Input.HL7RTF,
+                        Value = FhirString("document will go here")
+                    ) ]
         )
 
 
     createResource t
-    
-    
