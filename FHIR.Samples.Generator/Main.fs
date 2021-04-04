@@ -1,13 +1,13 @@
-﻿module PAT.Samples.Generator.Main
+﻿module NextEHR.Samples.Generator.Main
 
 open System
 
 open Hl7.Fhir.Rest
 open Hl7.Fhir.Model
 
-open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Codes
-open PAT.Samples.Generator.FHIR.CarePlans
+open NextEHR.FHIR.DotNetUtils
+open NextEHR.FHIR.Codes
+open NextEHR.Samples.Generator.FHIR.CarePlans
 
 
 let recreatePatients CR fhir onlyDeleteSamples =
@@ -35,7 +35,7 @@ let recreatePatients CR fhir onlyDeleteSamples =
 
 [<EntryPoint>]
 let main argv =
-    printfn "PAT.Samples.Generator: args: %A" argv
+    printfn "NextEHR.Samples.Generator: args: %A" argv
     let haveArg arg = Array.contains arg argv
 
     let getEnv =
@@ -199,7 +199,7 @@ let main argv =
                 let questionnaire = qe.Resource :?> Questionnaire
 
                 let section =
-                    PAT.FHIR.Questions.QuestionSectionType.GetQuestionnaireIdentifierSectionType(
+                    NextEHR.FHIR.Questions.QuestionSectionType.GetQuestionnaireIdentifierSectionType(
                         questionnaire.Identifier |> Seq.exactlyOne
                     )
 
@@ -271,7 +271,7 @@ let main argv =
             let questionnaire = qe.Resource :?> Questionnaire
 
             let section =
-                PAT.FHIR.Questions.QuestionSectionType.GetQuestionnaireIdentifierSectionType(
+                NextEHR.FHIR.Questions.QuestionSectionType.GetQuestionnaireIdentifierSectionType(
                     questionnaire.Identifier |> Seq.exactlyOne
                 )
 
@@ -338,7 +338,7 @@ let main argv =
             let questionnaire = qe.Resource :?> Questionnaire
 
             let section =
-                PAT.FHIR.Questions.QuestionSectionType.GetQuestionnaireIdentifierSectionType(
+                NextEHR.FHIR.Questions.QuestionSectionType.GetQuestionnaireIdentifierSectionType(
                     questionnaire.Identifier |> Seq.exactlyOne
                 )
 

@@ -1,4 +1,4 @@
-﻿module PAT.FHIR.V5Guid
+﻿module NextEHR.FHIR.V5Guid
 
 open System
 open System.Text

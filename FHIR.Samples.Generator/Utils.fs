@@ -1,4 +1,7 @@
-﻿module PAT.Samples.Generator.Utils
+﻿module NextEHR.Samples.Generator.Utils
+
+open Hl7.Fhir.Model
+open Hl7.Fhir.Rest
 
 let rand = new System.Random()
 
@@ -10,22 +13,13 @@ let swap (a: _ []) x y =
 let shuffle a =
     Array.iteri (fun i _ -> swap a i (rand.Next(i, Array.length a))) a
 
-open Hl7.Fhir.Model
-open Hl7.Fhir.Rest
-open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Codes
-
-
-let createResource (client: FhirClient) (resource: #Resource) =
-    resource.Meta <- Meta(Tag = L [ PatCodes.Tags.PatVersion ])
-    client.Create(resource)
+let createResource (client: FhirClient) (resource: #Resource) = client.Create(resource)
 
 let createResources (client: FhirClient) (resources: #Resource seq) =
     resources
     |> Seq.map (createResource client)
     |> Seq.toList
 
-//type CreateResource<'R when 'R :> Resource> = 'R -> 'R
 type CreateResource = Resource -> Resource
 type DeleteResource = string -> string [] -> unit
 
@@ -45,15 +39,9 @@ let findAndDelete (fhirClient: FhirClient) (searchCriteria: string array) (resou
         deleteBundled found
         found <- fhirClient.Search(resourceType, searchCriteria)
 
-let deleteResources (fhirClient: FhirClient) (onlyDeleteSamples: bool) resourceTypesToDelete =
+let deleteResources (fhirClient: FhirClient) resourceTypesToDelete =
 
-    let searchCriteria =
-        if onlyDeleteSamples then
-            [|
-                "_tag=https://metadata.patsoftware.com.au/v3.0/FHIR/tags/SampleData|true"
-            |]
-        else
-            [||]
+    let searchCriteria = [||]
 
     resourceTypesToDelete
     |> List.iter (findAndDelete fhirClient searchCriteria)

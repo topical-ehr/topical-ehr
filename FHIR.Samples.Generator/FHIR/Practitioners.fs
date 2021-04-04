@@ -1,14 +1,9 @@
-﻿module PAT.Samples.Generator.FHIR.Practitioners
+﻿module NextEHR.Samples.Generator.FHIR.Practitioners
 
-open System
-open Hl7.Fhir.Support
 open Hl7.Fhir.Model
-open Hl7.Fhir.Rest
-open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Codes
-open PAT.FHIR.Questions
-open PAT.FHIR.Extensions
-open PAT.Samples.Generator.Utils
+open NextEHR.FHIR.DotNetUtils
+open NextEHR.FHIR.Codes
+open NextEHR.Samples.Generator.Utils
 
 
 let create (createResource: CreateResource) givenName familyName occupationCode =

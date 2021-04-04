@@ -1,10 +1,10 @@
-﻿module PAT.Samples.Generator.FHIR.Observation
+﻿module NextEHR.Samples.Generator.FHIR.Observation
 
 open Hl7.Fhir.Model
 
-open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Extensions
-open PAT.Samples.Generator.Utils
+open NextEHR.FHIR.DotNetUtils
+open NextEHR.FHIR.Extensions
+open NextEHR.Samples.Generator.Utils
 
 let create (createResource: CreateResource) (patient: Patient) =
 

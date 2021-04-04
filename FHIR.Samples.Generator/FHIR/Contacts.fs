@@ -1,10 +1,10 @@
-﻿module PAT.Samples.Generator.FHIR.Contacts
+﻿module NextEHR.Samples.Generator.FHIR.Contacts
 
-open Hl7.Fhir.Model
-open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Extensions
-open PAT.Samples.Generator.Utils
 open FSharp.Data
+open Hl7.Fhir.Model
+
+open NextEHR.FHIR.DotNetUtils
+open NextEHR.Samples.Generator.Utils
 
 
 [<Literal>]
@@ -37,58 +37,33 @@ let insertOrganizationsFromBogus (createResource: CreateResource) =
                         + " "
                         + occupation.Occupation.Replace('_', ' '),
                     Address =
-                        L [ Hl7.Fhir.Model.Address(
+                        L [ Address(
                                 Type = N Address.AddressType.Postal,
                                 Line = [ faker.Address.StreetAddress() ],
                                 City = faker.Address.City(),
                                 PostalCode = faker.Address.ZipCode()
                             )
-                            Hl7.Fhir.Model.Address(
-                                Type = N Address.AddressType.Postal,
-                                Line = [ faker.Address.StreetAddress() ]
-                            ) ],
+                            Address(Type = N Address.AddressType.Postal, Line = [ faker.Address.StreetAddress() ]) ],
                     Telecom =
-                        L [ ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Email,
-                                Value = faker.Person.Email
-                            )
+                        L [ ContactPoint(System = N ContactPoint.ContactPointSystem.Email, Value = faker.Person.Email)
+                            ContactPoint(System = N ContactPoint.ContactPointSystem.Phone, Value = faker.Person.Phone)
                             ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Phone,
-                                Value = faker.Person.Phone
-                            )
-                            ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Phone,
+                                System = N ContactPoint.ContactPointSystem.Phone,
                                 Value = faker.Person.Phone,
                                 Rank = N 1
                             )
                             ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Phone,
+                                System = N ContactPoint.ContactPointSystem.Phone,
                                 Value = faker.Person.Phone,
                                 Rank = N 10
                             )
-                            ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Sms,
-                                Value = faker.Person.Phone
-                            )
-                            ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Pager,
-                                Value = faker.Person.Phone
-                            ) ],
+                            ContactPoint(System = N ContactPoint.ContactPointSystem.Sms, Value = faker.Person.Phone)
+                            ContactPoint(System = N ContactPoint.ContactPointSystem.Pager, Value = faker.Person.Phone) ],
                     Active =
                         (if i = 0 then
                              Option.toNullable None
                          else
-                             N true),
-                    Identifier =
-                        L [ Identifier(
-                                Value = "123",
-                                System = PatExtensions.Urls.PRACTICE_SOFTWARE_INTERNAL_ID,
-                                Type =
-                                    (if i = 0 then
-                                         null
-                                     else
-                                         CodeableConcept("https://hl7.org/fhir/v2/0203", "MR", "INTERNALID"))
-                            ) ]
+                             N true)
                 )
                 :> Resource
                 |> createResource
@@ -97,17 +72,7 @@ let insertOrganizationsFromBogus (createResource: CreateResource) =
                 HealthcareService(
                     ProvidedBy = ResourceReference(sprintf "Organization/%s" organization.Id),
                     Active = N true,
-                    Type = L [ CodeableConcept("http://snomed.info/sct", snomedCode, occupation.Occupation) ],
-                    Identifier =
-                        L [ Identifier(
-                                Value = "456",
-                                System = PatExtensions.Urls.PRACTICE_SOFTWARE_INTERNAL_ID,
-                                Type =
-                                    (if i = 0 then
-                                         null
-                                     else
-                                         CodeableConcept("https://hl7.org/fhir/v2/0203", "MR", "INTERNALID"))
-                            ) ]
+                    Type = L [ CodeableConcept("http://snomed.info/sct", snomedCode, occupation.Occupation) ]
                 )
                 :> Resource
                 |> createResource
@@ -152,43 +117,28 @@ let insertPractitionersFromBogus (createResource: CreateResource) =
                                 Family = faker.Name.LastName()
                             ) ],
                     Address =
-                        L [ Hl7.Fhir.Model.Address(
+                        L [ Address(
                                 Type = N Address.AddressType.Postal,
                                 Line = [ sample.Address.Street ],
                                 City = sample.Address.City,
                                 PostalCode = sample.Address.ZipCode
                             )
-                            Hl7.Fhir.Model.Address(
-                                Type = N Address.AddressType.Postal,
-                                Line = [ sample.Address.Street ]
-                            ) ],
+                            Address(Type = N Address.AddressType.Postal, Line = [ sample.Address.Street ]) ],
                     Telecom =
-                        L [ ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Email,
-                                Value = faker.Person.Email
-                            )
+                        L [ ContactPoint(System = N ContactPoint.ContactPointSystem.Email, Value = faker.Person.Email)
+                            ContactPoint(System = N ContactPoint.ContactPointSystem.Phone, Value = faker.Person.Phone)
                             ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Phone,
-                                Value = faker.Person.Phone
-                            )
-                            ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Phone,
+                                System = N ContactPoint.ContactPointSystem.Phone,
                                 Value = faker.Person.Phone,
                                 Rank = N 1
                             )
                             ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Phone,
+                                System = N ContactPoint.ContactPointSystem.Phone,
                                 Value = faker.Person.Phone,
                                 Rank = N 10
                             )
-                            ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Sms,
-                                Value = faker.Person.Phone
-                            )
-                            ContactPoint(
-                                System = N Hl7.Fhir.Model.ContactPoint.ContactPointSystem.Pager,
-                                Value = faker.Person.Phone
-                            ) ],
+                            ContactPoint(System = N ContactPoint.ContactPointSystem.Sms, Value = faker.Person.Phone)
+                            ContactPoint(System = N ContactPoint.ContactPointSystem.Pager, Value = faker.Person.Phone) ],
                     Gender = gender,
                     Active =
                         (if i = 0 then
@@ -198,16 +148,6 @@ let insertPractitionersFromBogus (createResource: CreateResource) =
                     Qualification =
                         L [ Practitioner.QualificationComponent(
                                 Code = CodeableConcept("http://snomed.info/sct", snomedCode, occupation.Occupation)
-                            ) ],
-                    Identifier =
-                        L [ Identifier(
-                                Value = "123",
-                                System = PatExtensions.Urls.PRACTICE_SOFTWARE_INTERNAL_ID,
-                                Type =
-                                    (if i = 0 then
-                                         null
-                                     else
-                                         CodeableConcept("https://hl7.org/fhir/v2/0203", "MR", "INTERNALID"))
                             ) ]
                 )
                 :> Resource

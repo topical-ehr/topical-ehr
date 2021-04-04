@@ -1,5 +1,5 @@
 {
-  "name": "PAT.FHIR.Common",
+  "name": "NextEHR.FHIR.Common",
   "version": "0.0.1",
   "main": "index.js",
   "author": "PAT Pty Ltd",

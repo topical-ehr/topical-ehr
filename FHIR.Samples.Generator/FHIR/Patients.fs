@@ -1,17 +1,17 @@
-﻿module PAT.Samples.Generator.FHIR.Patients
+﻿module NextEHR.Samples.Generator.FHIR.Patients
 
 open System
-open FSharp.Data
 
+open FSharp.Data
 open Bogus.DataSets
+
 open Hl7.Fhir.Support
 open Hl7.Fhir.Model
 
-open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Extensions
-open PAT.Samples.Generator
-open PAT.Samples.Generator.Utils
-open PAT.FHIR.Codes
+open NextEHR.FHIR.DotNetUtils
+open NextEHR.Samples.Generator
+open NextEHR.Samples.Generator.Utils
+open NextEHR.FHIR.Codes
 
 
 type PatientsCsvFormat = CsvProvider<"patients.csv">
@@ -45,7 +45,7 @@ let createCondition createResource (patient: Resource) (condition: string) =
 
     let resource =
         Condition(
-            ClinicalStatus = ConditionCodes.ClinicalStatus.Active,
+            ClinicalStatus = Condition.ConditionClinicalStatusCodes.Active,
             VerificationStatus = ConditionCodes.VerificationStatus.Confirmed,
             Subject = referenceToResource patient,
             Code = (CodeableConcept(Text = condition)),
@@ -64,13 +64,6 @@ let createConditions createResource (patient: Resource) =
     }
 
 let create (sample: Bogus.Person) patientId gender prefix firstName lastName middleName medicareNo medicareLineNo =
-
-    let practiceSoftwareId =
-        Identifier(
-            Value = patientId.ToString(),
-            System = PatExtensions.Urls.PRACTICE_SOFTWARE_INTERNAL_ID,
-            Type = CodeableConcept("https://hl7.org/fhir/v2/0203", "MR", "Best Practice INTERNALID")
-        )
 
     // Medicare - see http://fhir.hl7.org.au/smart-on-fhir/profiles/profile-medicare/
     let medicareString =
@@ -167,7 +160,7 @@ let create (sample: Bogus.Person) patientId gender prefix firstName lastName mid
         ]
 
     let address =
-        Hl7.Fhir.Model.Address(
+        Address(
             Type = N Address.AddressType.Postal,
             Line = [ sample.Address.Street ],
             City = sample.Address.City,
@@ -175,19 +168,15 @@ let create (sample: Bogus.Person) patientId gender prefix firstName lastName mid
         )
 
     let addressNoCity =
-        Hl7.Fhir.Model.Address(Type = N Address.AddressType.Postal, Line = [ sample.Address.Street ])
+        Address(Type = N Address.AddressType.Postal, Line = [ sample.Address.Street ])
 
     let addressNoLine =
-        Hl7.Fhir.Model.Address(
-            Type = N Address.AddressType.Postal,
-            City = sample.Address.City,
-            PostalCode = sample.Address.ZipCode
-        )
+        Address(Type = N Address.AddressType.Postal, City = sample.Address.City, PostalCode = sample.Address.ZipCode)
 
     let patient =
-        Hl7.Fhir.Model.Patient(
+        Patient(
             Identifier =
-                ([ medicareId; Some practiceSoftwareId ]
+                ([ medicareId ]
                  |> List.map Option.toList
                  |> List.collect id
                  |> L),
@@ -210,17 +199,7 @@ let create (sample: Bogus.Person) patientId gender prefix firstName lastName mid
                 L [ address
                     addressNoCity
                     addressNoLine ],
-            Active = N true,
-            Link =
-                L [ Patient.LinkComponent(
-                        Other =
-                            ResourceReference(
-                                Identifier = practiceSoftwareId,
-                                Display =
-                                    "sample placeholder for link to identify patient in the source practice software"
-                            ),
-                        Type = N Patient.LinkType.Seealso
-                    ) ]
+            Active = N true
         )
 
     patient
@@ -284,15 +263,3 @@ let createPatientsFromCSV (createResource: CreateResource) =
 
             yield (created, conditions)
     }
-
-let createAdHocPatient (createResource: CreateResource) =
-    let patient =
-        Hl7.Fhir.Model.Patient(
-            Extension =
-                L [ Extension(PatExtensions.Urls.ADHOC_PATIENT, FhirBoolean(N true))
-                    Extension(PatExtensions.Urls.PRACTICE_SOFTWARE_INTERNAL_ID, FhirString("adhoc1")) ],
-            Active = N true
-        )
-
-    let created = createResource patient :?> Patient
-    created

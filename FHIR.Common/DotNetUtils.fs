@@ -1,29 +1,16 @@
-﻿module PAT.FHIR.DotNetUtils
+﻿module NextEHR.FHIR.DotNetUtils
 
 open System
 
 open Hl7.Fhir.Rest
 open Hl7.Fhir.Model
 
-open PAT.FHIR.Urls
-open PAT.FHIR.Codes
-
 ////////////////////////////////////////////
 // FHIR.NET object construction helpers
 ////////////////////////////////////////////
 
-let makeStaticIdentifier identifier =
-    let system = patFhirUrl "static-identifiers"
-    Identifier(System = system, Value = identifier)
-
 let makeUuidIdentifier (g: Guid) =
-    let value = sprintf "urn:uuid:%s" (g.ToString())
-
-    let identifier =
-        Identifier(System = "urn:ietf:rfc:3986", Value = value)
-    //    if not (String.IsNullOrEmpty description) then
-//        identifier.Type <- CodeableConcept(Text=description)
-    identifier
+    Identifier(System = "urn:ietf:rfc:3986", Value = sprintf "urn:uuid:%s" (g.ToString()))
 
 let referenceForExpression exp = ResourceReference(Reference = exp)
 
@@ -31,33 +18,7 @@ let expressionForIdentifier (r: DomainResource) (i: Identifier) =
     sprintf "%s?identifier=%s|%s" r.TypeName i.System i.Value
 
 let referenceToUuidIdentifier (r: DomainResource) (g: Guid) =
-    //let exp = sprintf "%s?identifier=urn:uuid|%s" r.TypeName (g.ToString())
-    //ResourceReference(Reference=exp)
     ResourceReference(Identifier = makeUuidIdentifier g)
-
-let identifierToFhirGuid (identifier: Identifier) =
-    let namespaceGuid =
-        Guid("f41e529e-4551-46fe-875d-ffd554e88bbd")
-
-    let v5guid =
-        V5Guid.makeV5Guid namespaceGuid (sprintf "%s|%s" identifier.System identifier.Value)
-
-    "urn:uuid:" + v5guid.ToString()
-
-let referenceToBundleUuid (g: Guid) =
-    ResourceReference(Reference = sprintf "urn:uuid:%s" (g.ToString()))
-
-let referenceToBundleIdentifier (identifier: Identifier) =
-    if identifier.System = "urn:ietf:rfc:3986" then
-        if not <| identifier.Value.StartsWith("urn:uuid:") then
-            failwithf "identifier missing urn:uuid: prefix: %s" identifier.Value
-
-        ResourceReference(Reference = identifier.Value)
-    else
-        ResourceReference(Reference = identifierToFhirGuid identifier)
-
-let referenceToBundleIdentifierWithDisplay (display: string) (identifier: Identifier) =
-    ResourceReference(Display = display, Reference = identifierToFhirGuid identifier)
 
 let referenceToUuid (r: DomainResource) (g: Guid) =
     let exp =
@@ -67,9 +28,6 @@ let referenceToUuid (r: DomainResource) (g: Guid) =
 
 let referenceToIdentifier identifier =
     ResourceReference(Identifier = identifier)
-
-let referenceToStaticIdentifier (r: DomainResource) (identifier) =
-    ResourceReference(Identifier = makeStaticIdentifier identifier)
 
 let referenceToResource (r: Resource) =
     if r = null then
@@ -149,10 +107,10 @@ let toResources (s: 'T seq when 'T :> Resource) : Resource seq = s |> Seq.map (f
 
 
 let makeFhirClient (timeoutMilliseconds: int) (fhirEndpointUrl: string) =
-    let client = new FhirClient(fhirEndpointUrl) // not planning to dispose..
+    let client = new FhirClient(fhirEndpointUrl)
 
-    client.PreferredFormat <- ResourceFormat.Json
-    client.Timeout <- timeoutMilliseconds
+    client.Settings.PreferredFormat <- ResourceFormat.Json
+    client.Settings.Timeout <- timeoutMilliseconds
 
     // let token = ""
     // client.OnBeforeRequest.Add(
@@ -168,92 +126,3 @@ let setTag (r: Resource) (tag: Coding) =
         r.Meta.Tag.Add(tag)
     else
         r.Meta <- Meta(Tag = L [ tag ])
-
-let getResourceIdentifier (resource: Resource) =
-    // unfortunately FHIR's Identifier field is not on the Resource/DomainResource type
-    //   so we use reflection to get at it.. (better way?)
-    let prop =
-        resource.GetType().GetProperty("Identifier")
-
-    let value = prop.GetValue(resource)
-
-    let identifier =
-        match value with
-        | :? (seq<Identifier>) as collection ->
-            if Seq.length collection <> 1 then
-                failwithf "Resource with multiple Identifiers (%s)" resource.TypeName
-
-            Seq.head collection
-        | :? Identifier as i -> i
-        | _ -> failwithf "Resource without Identifier (%s)" resource.TypeName
-
-    identifier
-
-
-type ImportedResourcesListArgs =
-    {
-        clinicsPackageId: string
-        clinicsPackageTitle: string
-        resources: Resource seq
-    }
-
-let makeImportedResourcesList (args: ImportedResourcesListArgs) =
-
-    let entries =
-        args.resources
-        |> Seq.map
-            (fun r ->
-                let identifier = getResourceIdentifier r
-                List.EntryComponent(Item = referenceToBundleIdentifier identifier))
-
-    List(
-        Code = PatCodes.List.Infrastructure.ImportedResourcesList,
-        Identifier = L [ PatCodes.List.Infrastructure.ClinicsPackage args.clinicsPackageId ],
-        Title = args.clinicsPackageTitle,
-        Entry = L entries,
-        DateElement = FhirDateTime.Now(),
-        Status = N List.ListStatus.Current,
-        Mode = N ListMode.Working
-    )
-
-let getFullUrlBasedOnIdentifier (identifier: Identifier) =
-    let fullUrl =
-        if identifier.System = "urn:ietf:rfc:3986" then
-            if not <| identifier.Value.StartsWith("urn:uuid:") then
-                failwithf "identifier missing urn:uuid: prefix: %s" identifier.Value
-
-            identifier.Value
-        else
-            identifierToFhirGuid identifier
-
-    fullUrl
-
-let makeUpdatesBundle (tags: Coding list) (resources: Resource seq) =
-    let bundleEntries =
-        resources
-        |> Seq.map
-            (fun r ->
-
-                r.Meta <- Meta(Tag = L tags)
-
-                let identifier = getResourceIdentifier r
-                let fullUrl = getFullUrlBasedOnIdentifier identifier
-
-                Bundle.EntryComponent(
-                    FullUrl = fullUrl,
-                    Resource = r,
-                    Request =
-                        Bundle.RequestComponent(
-                            Method = N Bundle.HTTPVerb.PUT, // this updates or creates
-                            Url = (sprintf "%s?identifier=%s|%s" r.TypeName identifier.System identifier.Value)
-                        )
-
-                ))
-
-    let bundle =
-        Bundle(
-            Type = N Bundle.BundleType.Batch, // TODO: change back to Transaction after solving excessive size errors
-            Entry = L bundleEntries
-        )
-
-    bundle

@@ -1,9 +1,9 @@
-﻿module PAT.Samples.Generator.FHIR.Encounter
+﻿module NextEHR.Samples.Generator.FHIR.Encounter
 
 open Hl7.Fhir.Model
-open PAT.FHIR.DotNetUtils
-open PAT.FHIR.Codes
-open PAT.FHIR.Extensions
+open NextEHR.FHIR.DotNetUtils
+open NextEHR.FHIR.Codes
+open NextEHR.FHIR.Extensions
 
 type NeedsSubclinicSelection = NeedsSubclinicSelection of bool
 type IsFinished = IsFinished of bool

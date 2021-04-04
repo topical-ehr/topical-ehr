@@ -4,14 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Urls.fs" />
     <Compile Include="Extensions.fs" />
-    <Compile Include="Codes.fs" />
-    <Compile Include="Libraries.fs" />
-    <Compile Include="V5Guid.fs" />
     <Compile Include="DotNetUtils.fs" />
-    <Compile Include="ValueSets.fs" />
-    <Compile Include="Questions.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="4.5.4" />
