@@ -5,7 +5,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Extensions.fs" />
-    <Compile Include="DotNetUtils.fs" />
+    <Compile Include="Utils.fs" />
+    <Compile Include="Urls.fs" />
+    <Compile Include="Codes.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharp.Core" Version="4.5.4" />

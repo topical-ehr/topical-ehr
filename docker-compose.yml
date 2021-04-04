@@ -1,0 +1,13 @@
+version: "3.7"
+services:
+  fhir:
+    image: "hapiproject/hapi:v5.4.0"
+    ports:
+      - "8080:8080"
+    volumes:
+      - hapi-data:/data/hapi
+    environment:
+      hapi.fhir.default_encoding: json
+volumes:
+  hapi-data:
+    external: true

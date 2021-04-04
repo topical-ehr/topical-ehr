@@ -8,7 +8,7 @@ open Bogus.DataSets
 open Hl7.Fhir.Support
 open Hl7.Fhir.Model
 
-open NextEHR.FHIR.DotNetUtils
+open NextEHR.FHIR.Utils
 open NextEHR.Samples.Generator
 open NextEHR.Samples.Generator.Utils
 open NextEHR.FHIR.Codes
@@ -45,7 +45,7 @@ let createCondition createResource (patient: Resource) (condition: string) =
 
     let resource =
         Condition(
-            ClinicalStatus = Condition.ConditionClinicalStatusCodes.Active,
+            ClinicalStatus = ConditionCodes.ClinicalStatus.Active,
             VerificationStatus = ConditionCodes.VerificationStatus.Confirmed,
             Subject = referenceToResource patient,
             Code = (CodeableConcept(Text = condition)),
@@ -64,6 +64,13 @@ let createConditions createResource (patient: Resource) =
     }
 
 let create (sample: Bogus.Person) patientId gender prefix firstName lastName middleName medicareNo medicareLineNo =
+
+    let patientIdentifier =
+        Identifier(
+            Value = patientId.ToString(),
+            System = "urn:oid:1.2.36.146.595.217.0.1",
+            Type = CodeableConcept("https://hl7.org/fhir/v2/0203", "MR", "Best Practice INTERNALID")
+        )
 
     // Medicare - see http://fhir.hl7.org.au/smart-on-fhir/profiles/profile-medicare/
     let medicareString =
@@ -176,7 +183,7 @@ let create (sample: Bogus.Person) patientId gender prefix firstName lastName mid
     let patient =
         Patient(
             Identifier =
-                ([ medicareId ]
+                ([ medicareId; Some patientIdentifier ]
                  |> List.map Option.toList
                  |> List.collect id
                  |> L),

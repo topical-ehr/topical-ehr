@@ -1,9 +1,11 @@
 ﻿module NextEHR.Samples.Generator.FHIR.Encounter
 
+open System
+
 open Hl7.Fhir.Model
-open NextEHR.FHIR.DotNetUtils
+
+open NextEHR.FHIR.Utils
 open NextEHR.FHIR.Codes
-open NextEHR.FHIR.Extensions
 
 type NeedsSubclinicSelection = NeedsSubclinicSelection of bool
 type IsFinished = IsFinished of bool
@@ -26,22 +28,13 @@ let create
                     else
                         Encounter.EncounterStatus.InProgress
                 ),
-            Extension =
-                L [ Extension(
-                        PatExtensions.Urls.Encounter.NeedsSubclinicSelection,
-                        FhirBoolean(N needsSubclinicSelection)
-                    )
-                    Extension(PatExtensions.Urls.Encounter.LabResultsLoaded, FhirBoolean(N true)) ],
             Class = Coding("http://hl7.org/fhir/v3/ActCode", "AMB"), // http://build.fhir.org/v3/ActEncounterCode/vs.html
-            Type =
-                L [ PatCodes.EncounterTypes.OnSiteClinic
-                    PatCodes.EncounterTypes.OnSiteClinicWithText ],
             Period =
                 Period(
-                    StartElement = FhirDateTime(2017, 10, 1, 9, 30),
+                    StartElement = FhirDateTime(2017, 10, 1, 9, 30, 0, TimeSpan.FromHours(0.0)),
                     EndElement =
                         if isFinished then
-                            FhirDateTime(2017, 10, 1, 10, 55)
+                            FhirDateTime(2017, 10, 1, 10, 55, 0, TimeSpan.FromHours(0.0))
                         else
                             null
                 ),

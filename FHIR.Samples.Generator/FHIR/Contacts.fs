@@ -3,7 +3,7 @@
 open FSharp.Data
 open Hl7.Fhir.Model
 
-open NextEHR.FHIR.DotNetUtils
+open NextEHR.FHIR.Utils
 open NextEHR.Samples.Generator.Utils
 
 

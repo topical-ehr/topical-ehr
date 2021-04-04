@@ -2,8 +2,7 @@
 
 open Hl7.Fhir.Model
 
-open NextEHR.FHIR.DotNetUtils
-open NextEHR.FHIR.Extensions
+open NextEHR.FHIR.Utils
 open NextEHR.Samples.Generator.Utils
 
 let create (createResource: CreateResource) (patient: Patient) =
@@ -12,21 +11,10 @@ let create (createResource: CreateResource) (patient: Patient) =
         seq {
             yield
                 Observation(
-                    Identifier =
-                        L [ Identifier(
-                                Value = "123",
-                                System = PatExtensions.Urls.PRACTICE_SOFTWARE_RECORD_ID,
-                                Type = CodeableConcept("https://hl7.org/fhir/v2/0203", "MR", "INTERNALID")
-                            ) ],
                     Status = N ObservationStatus.Final,
                     Category = L [ CodeableConcept("http://hl7.org/fhir/observation-category", "laboratory") ],
                     Code =
-                        CodeableConcept(
-                            Coding =
-                                L [ Coding("http://loinc.org", "14749-6")
-                                    Coding(PatExtensions.Urls.BPCODE, "14") ],
-                            Text = "Glucose, Serum"
-                        ),
+                        CodeableConcept(Coding = L [ Coding("http://loinc.org", "14749-6") ], Text = "Glucose, Serum"),
                     Value = Quantity(2.0m, "mmol/L"),
                     ReferenceRange =
                         L [ Observation.ReferenceRangeComponent(Text = "<5.5", High = Quantity(Value = N 5.5m)) ],
@@ -36,8 +24,6 @@ let create (createResource: CreateResource) (patient: Patient) =
 
             yield
                 Observation(
-                    Identifier =
-                        L [ Identifier(Value = "124", System = PatExtensions.Urls.PRACTICE_SOFTWARE_RECORD_ID) ],
                     Status = N ObservationStatus.Final,
                     Category = L [ CodeableConcept("http://hl7.org/fhir/observation-category", "laboratory") ],
                     Code = CodeableConcept(Coding = L [ Coding("http://loinc.org", "1988-5") ]),
@@ -48,17 +34,9 @@ let create (createResource: CreateResource) (patient: Patient) =
 
             yield
                 Observation(
-                    Identifier =
-                        L [ Identifier(Value = "125", System = PatExtensions.Urls.PRACTICE_SOFTWARE_RECORD_ID) ],
                     Status = N ObservationStatus.Final,
                     Category = L [ CodeableConcept("http://hl7.org/fhir/observation-category", "laboratory") ],
-                    Code =
-                        CodeableConcept(
-                            Coding =
-                                L [ Coding("http://loinc.org", "6301-6")
-                                    Coding(PatExtensions.Urls.BPCODE, "12") ],
-                            Text = "INR"
-                        ),
+                    Code = CodeableConcept(Coding = L [ Coding("http://loinc.org", "6301-6") ], Text = "INR"),
                     Value = Quantity(5.0m, null, Comparator = N Quantity.QuantityComparator.LessThan),
                     ReferenceRange =
                         L [ Observation.ReferenceRangeComponent(

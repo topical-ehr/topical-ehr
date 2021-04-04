@@ -1,7 +1,7 @@
 ﻿module NextEHR.Samples.Generator.FHIR.Practitioners
 
 open Hl7.Fhir.Model
-open NextEHR.FHIR.DotNetUtils
+open NextEHR.FHIR.Utils
 open NextEHR.FHIR.Codes
 open NextEHR.Samples.Generator.Utils
 
