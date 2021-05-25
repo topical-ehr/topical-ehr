@@ -26,7 +26,11 @@ type DeleteResource = string -> string [] -> unit
 let findAndDelete (fhirClient: FhirClient) (searchCriteria: string array) (resourceType: string) =
     let deleteBundled (bundle: Bundle) =
         for entry in bundle.Entry do
-            fhirClient.Delete(sprintf "%s/%s" entry.Resource.TypeName entry.Resource.Id)
+            let ref =
+                sprintf "%s/%s" entry.Resource.TypeName entry.Resource.Id
+
+            printfn "   deleting %s" ref
+            fhirClient.Delete ref
 
     printfn "Deleting %s" resourceType
 

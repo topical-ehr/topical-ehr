@@ -6,7 +6,7 @@
   <ItemGroup>
     <Compile Include="Extensions.fs" />
     <Compile Include="Utils.fs" />
-    <Compile Include="Urls.fs" />
+    <Compile Include="URLs.fs" />
     <Compile Include="Codes.fs" />
   </ItemGroup>
   <ItemGroup>

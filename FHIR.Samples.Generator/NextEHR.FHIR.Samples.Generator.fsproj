@@ -9,7 +9,7 @@
     <Compile Include="FHIR\Contacts.fs" />
     <Compile Include="FHIR\Patients.fs" />
     <Compile Include="FHIR\Encounter.fs" />
-    <Compile Include="FHIR\Observation.fs" />
+    <Compile Include="FHIR\Observations.fs" />
     <Compile Include="FHIR\Practitioners.fs" />
     <Compile Include="Main.fs" />
     <None Include="App.config" />
@@ -30,6 +30,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Argu" Version="6.1.1" />
     <PackageReference Include="Bogus" Version="33.0.2" />
     <PackageReference Include="Hl7.Fhir.R4" Version="2.0.2" />
   </ItemGroup>

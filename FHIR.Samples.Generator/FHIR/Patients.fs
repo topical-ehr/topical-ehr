@@ -69,7 +69,7 @@ let create (sample: Bogus.Person) patientId gender prefix firstName lastName mid
         Identifier(
             Value = patientId.ToString(),
             System = "urn:oid:1.2.36.146.595.217.0.1",
-            Type = CodeableConcept("https://hl7.org/fhir/v2/0203", "MR", "Best Practice INTERNALID")
+            Type = CodeableConcept("https://hl7.org/fhir/v2/0203", "MR", "internal id")
         )
 
     // Medicare - see http://fhir.hl7.org.au/smart-on-fhir/profiles/profile-medicare/
