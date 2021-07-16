@@ -7,7 +7,6 @@ import {
 } from "@fluentui/react";
 import React from "react";
 import useSWR from "swr";
-import { PatientDOB, PatientName } from "../../utils/display";
 import { fetcher } from "../../utils/fetcher";
 
 import { Bundle, Patient } from "../../utils/FhirTypes";
