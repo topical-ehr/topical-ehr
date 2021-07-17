@@ -1,13 +1,7 @@
-import {
-  DetailsList,
-  DetailsListLayoutMode,
-  IColumn,
-  Link,
-  SelectionMode,
-} from "@fluentui/react";
+import { DetailsList, DetailsListLayoutMode, IColumn, Link, SelectionMode } from "@fluentui/react";
 import React from "react";
 import useSWR from "swr";
-import { PatientDOB, PatientName } from "../../utils/display";
+import { PatientFormatter } from "../../utils/display/PatientFormatter";
 import { fetcher } from "../../utils/fetcher";
 
 import { Bundle, Patient } from "../../utils/FhirTypes";
@@ -19,11 +13,7 @@ interface Props {
 }
 
 function Filtered(props: Props) {
-  console.log("PatientList rendering");
-  const { data, error } = useSWR<Bundle<Patient>>(
-    "/fhir/Patient?_count=1000",
-    fetcher
-  );
+  const { data, error } = useSWR<Bundle<Patient>>("Patient?_count=1000", fetcher);
 
   if (error) {
     return <ErrorMessage error={error} />;
@@ -66,11 +56,12 @@ function Filtered(props: Props) {
   const items = data.entry
     .filter((e) => props.filter(e.resource))
     .map(({ resource: patient }, i) => {
+      const pf = new PatientFormatter(patient);
       return {
         key: patient.id,
         index: i,
-        name: PatientName(patient),
-        dob: PatientDOB(patient),
+        name: pf.name,
+        dob: pf.dateOfBirth,
       };
     });
 
@@ -95,9 +86,7 @@ export function All() {
 }
 
 export function Recent() {
-  return (
-    <Filtered filter={(patient) => PatientName(patient).includes("Ira")} />
-  );
+  return <Filtered filter={(patient) => new PatientFormatter(patient).name.includes("Ira")} />;
 }
 
 export const PatientList = {

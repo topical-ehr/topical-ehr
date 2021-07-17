@@ -8,8 +8,7 @@ interface Props {
 }
 
 function JSON(props: Props) {
-  const slash = props.path.startsWith("/") ? "" : "/";
-  const { data, error } = useSWR(`/fhir${slash}${props.path}`, fetcher);
+  const { data, error } = useSWR(props.path, fetcher);
 
   if (error) {
     return <ErrorMessage error={error} />;
@@ -18,11 +17,7 @@ function JSON(props: Props) {
     return <div>Loading...</div>;
   }
 
-  return (
-    <pre style={{ marginLeft: "1em" }}>
-      {window.JSON.stringify(data, null, 2)}
-    </pre>
-  );
+  return <pre style={{ marginLeft: "1em" }}>{window.JSON.stringify(data, null, 2)}</pre>;
 }
 
 export const FHIR = {

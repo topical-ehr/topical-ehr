@@ -1,7 +1,10 @@
+import css from "./Logo.module.scss";
+
 export function Logo() {
-    return (
-        <div>
-            <b>Next-EHR</b><span> 0.0.1</span>
-        </div>
-    );
+  return (
+    <a href="/" class={css.container}>
+      <b>Next-EHR</b>
+      <span> 0.0.1</span>
+    </a>
+  );
 }

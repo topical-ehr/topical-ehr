@@ -1,28 +1,20 @@
-import {
-  DetailsList,
-  DetailsListLayoutMode,
-  IColumn,
-  Link,
-  SelectionMode,
-} from "@fluentui/react";
+import { DetailsList, DetailsListLayoutMode, IColumn, Link, SelectionMode } from "@fluentui/react";
 import React from "react";
 import useSWR from "swr";
+import { ObservationFormatter } from "../../utils/display/ObservationFormatter";
 import { fetcher } from "../../utils/fetcher";
 
-import { Bundle, Patient } from "../../utils/FhirTypes";
+import { Bundle, Observation } from "../../utils/FhirTypes";
 
 import { ErrorMessage } from "../feedback/ErrorMessage";
 
 interface Props {
-  filter: (patient: Patient) => boolean;
+  path: string;
+  filter: (patient: Observation) => boolean;
 }
 
 function Filtered(props: Props) {
-  console.log("PatientList rendering");
-  const { data, error } = useSWR<Bundle<Patient>>(
-    "/fhir/Patient?_count=1000",
-    fetcher
-  );
+  const { data, error } = useSWR<Bundle<Observation>>(`${props.path}&_count=1000`, fetcher);
 
   if (error) {
     return <ErrorMessage error={error} />;
@@ -44,19 +36,25 @@ function Filtered(props: Props) {
       },
     },
     {
-      key: "name",
-      name: "Name",
-      fieldName: "name",
+      key: "date",
+      name: "Date",
+      fieldName: "date",
       minWidth: 100,
       isResizable: true,
-      onRender(item) {
-        return <Link href={`/patient/${item.key}`}>{item.name}</Link>;
-      },
+      flexGrow: 4,
     },
     {
-      key: "DOB",
-      name: "DOB",
-      fieldName: "dob",
+      key: "code",
+      name: "Code",
+      fieldName: "code",
+      minWidth: 100,
+      isResizable: true,
+      flexGrow: 20,
+    },
+    {
+      key: "value",
+      name: "Value",
+      fieldName: "value",
       minWidth: 100,
       isResizable: true,
     },
@@ -64,12 +62,14 @@ function Filtered(props: Props) {
 
   const items = data.entry
     .filter((e) => props.filter(e.resource))
-    .map(({ resource: patient }, i) => {
+    .map(({ resource: observation }, i) => {
+      const of = new ObservationFormatter(observation);
       return {
-        key: patient.id,
+        key: observation.id,
         index: i,
-        name: PatientName(patient),
-        dob: PatientDOB(patient),
+        date: of.date,
+        code: of.code,
+        value: of.value,
       };
     });
 
@@ -89,18 +89,11 @@ function Filtered(props: Props) {
   );
 }
 
-export function All() {
-  return <Filtered filter={() => true} />;
+export function All({ path }: { path: string }) {
+  return <Filtered path={path} filter={() => true} />;
 }
 
-export function Recent() {
-  return (
-    <Filtered filter={(patient) => PatientName(patient).includes("Ira")} />
-  );
-}
-
-export const PatientList = {
+export const ObservationList = {
   All,
-  Recent,
   Filtered,
 };
