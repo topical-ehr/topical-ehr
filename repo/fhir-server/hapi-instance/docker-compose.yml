@@ -1,0 +1,28 @@
+version: "3.7"
+services:
+  fhir:
+    image: "hapiproject/hapi:v5.4.0"
+    ports:
+      - "8080:8080"
+    volumes:
+      - hapi-data:/data/hapi
+    environment:
+      hapi.fhir.default_encoding: json
+      spring.datasource.url: jdbc:postgresql://fhir-db:5432/hapi_r4
+      spring.datasource.username: hapi
+      spring.datasource.password: hapi
+      spring.datasource.driverClassName: org.postgresql.Driver
+  fhir-db:
+    image: postgres:12
+    volumes:
+      - ./fhir-db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=hapi_r4
+      - POSTGRES_USER=hapi
+      - POSTGRES_PASSWORD=hapi
+configs:
+  hapi:
+    external: true
+volumes:
+  hapi-data:
+    external: true
