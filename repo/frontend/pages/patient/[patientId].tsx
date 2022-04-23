@@ -10,6 +10,7 @@ import { PatientHeader } from "../../components/patient/PatientHeader";
 import { Logo } from "../../components/layout/Logo";
 import { ObservationList } from "../../components/observations/ObservationList";
 import { ObservationGroups } from "../../components/observations/ObservationGroups";
+import { Column, ColumnLayout } from "../../components/layout/ColumnLayout";
 
 export default function Home() {
   const router = useRouter();
@@ -26,34 +27,28 @@ export default function Home() {
 
       <PatientHeader />
 
-      <ResizableGridLayout
-        layout={[
-          { i: "item-1", x: 0, y: 0, w: 4, h: 5 },
-          { i: "item-2", x: 4, y: 0, w: 4, h: 5 },
-          { i: "item-3", x: 0, y: 5, w: 4, h: 2 },
-          { i: "item-4", x: 4, y: 5, w: 4, h: 2 },
-        ]}
-      >
-        <div key="item-1">
-          <Tile title="🔥 FHIR">
-            <FHIR.JSON path={`Patient/${patientId}/$everything?_count=1000`} />
-          </Tile>
-        </div>
+      <ColumnLayout>
+        <Column></Column>
 
-        <div key="item-2">
+        <Column>
           <Tile title="">
             <ObservationGroups patientId={patientId} />
           </Tile>
-        </div>
-
-        <div key="item-4">
-          <Tile title="Results">
+          <Tile title="All results">
             <ObservationList.All
               path={`Observation?subject=Patient/${patientId}`}
             />
           </Tile>
-        </div>
-      </ResizableGridLayout>
+        </Column>
+
+        {/* <Column>
+          <Tile title="🔥 FHIR">
+            <FHIR.JSON path={`Patient/${patientId}/$everything?_count=1000`} />
+          </Tile>
+        </Column> */}
+
+        <div key="item-4"></div>
+      </ColumnLayout>
     </div>
   );
 }

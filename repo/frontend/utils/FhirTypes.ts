@@ -12,7 +12,7 @@ export interface Bundle<TResource> {
     url: string;
   }[];
 
-  entry: {
+  entry?: {
     fullUrl: string;
     resource: TResource;
     search: {
@@ -256,4 +256,54 @@ interface ObservationValue {
   valueTime?: FhirTime;
   valueDateTime?: FhirDateTime;
   valuePeriod?: Period;
+}
+
+export interface Condition extends Resource {
+  subject: Reference;
+  encounter?: Reference;
+  asserter?: Reference;
+  recorder?: Reference;
+  recordedDate?: FhirDateTime;
+
+  onsetDateTime?: FhirDateTime;
+  onsetAge?: Quantity;
+  onsetPeriod?: Period;
+  onsetRange?: Range;
+  onsetString?: string;
+
+  abatementDateTime?: FhirDateTime;
+  abatementAge?: Quantity;
+  abatementPeriod?: Period;
+  abatementRange?: Range;
+  abatementString?: string;
+
+  note?: Annotation[];
+  stage?: {
+    summary?: CodeableConcept;
+    type?: CodeableConcept;
+    assessment?: Reference[];
+  }[];
+  evidence?: {
+    code?: CodeableConcept[];
+    detail?: Reference[];
+  }[];
+
+  clinicalStatus?:
+    | "active"
+    | "recurrence"
+    | "relapse"
+    | "inactive"
+    | "remission"
+    | "resolved";
+  verificationStatus?:
+    | "unconfirmed"
+    | "provisional"
+    | "differential"
+    | "confirmed"
+    | "refuted"
+    | "entered-in-error";
+  code?: CodeableConcept;
+  severity?: CodeableConcept;
+  category?: CodeableConcept[];
+  bodySite?: CodeableConcept[];
 }

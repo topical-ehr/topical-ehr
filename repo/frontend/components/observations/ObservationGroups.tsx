@@ -37,7 +37,7 @@ export function ObservationGroups(props: Props) {
 
     const getObservationByReference = React.useMemo(() => {
         const observationsById = new Map<string, Observation>();
-        observations.entry.forEach((entry) => {
+        observations.entry?.forEach((entry) => {
             observationsById.set(entry.resource.id, entry.resource);
         });
         return (reference: string) => observationsById.get(reference.split("/")[1]);
@@ -45,7 +45,7 @@ export function ObservationGroups(props: Props) {
 
     const groupedReports = React.useMemo(() => {
         const groupedReports = new Map<string, DiagnosticReport[]>();
-        reports.entry.forEach((entry) => {
+        reports.entry?.forEach((entry) => {
             const r = entry.resource;
             const text = r.code.text?.replace(/\(.*/, ""); // trim everything after a '('
             if (text && r.result?.length) {
@@ -109,7 +109,7 @@ export function ObservationGroups(props: Props) {
                         </div>
                         <div class={css.results_grid}>
                             <div></div>
-                            <div>
+                            <div class={css.latest_date}>
                                 {ob1 &&
                                     new ObservationFormatter(ob1).date?.toLocaleString(
                                         DateTime.DATE_MED
