@@ -8,6 +8,7 @@ services:
       - hapi-data:/data/hapi
     environment:
       hapi.fhir.default_encoding: json
+      cors.allowed_origin: "*"
       spring.datasource.url: jdbc:postgresql://fhir-db:5432/hapi_r4
       spring.datasource.username: hapi
       spring.datasource.password: hapi
