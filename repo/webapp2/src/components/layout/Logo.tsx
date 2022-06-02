@@ -6,7 +6,7 @@ export function Logo() {
     return (
         <a href="/" className={css.container}>
             <Helmet>
-                <title>Next-EHR</title>
+                <title>Topical-EHR</title>
 
                 {/* 🏥 favicon using SVG trick */}
                 <link
@@ -15,8 +15,9 @@ export function Logo() {
                 ></link>
             </Helmet>
 
-            <b>Next-EHR</b>
-            <span> 0.0.1</span>
+            {/* <b>TopicalEHR</b> */}
+            <b>Eugene Lubarsky</b>
+            {/* <span> 0.0.1</span> */}
         </a>
     );
 }

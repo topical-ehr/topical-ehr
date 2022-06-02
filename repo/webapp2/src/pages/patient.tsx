@@ -1,14 +1,11 @@
-import { ResizableGridLayout } from "../components/layout/ResizableGridLayout";
-import { Tile } from "../components/layout/Tile";
-import { PatientList } from "../components/patients/PatientList";
-import { FHIR } from "../components/dev/FHIR";
-import { PatientHeader } from "../components/patient/PatientHeader";
-import { Logo } from "../components/layout/Logo";
-import { ObservationList } from "../components/observations/ObservationList";
-import { ObservationGroups } from "../components/observations/ObservationGroups";
-
-import { Column, ColumnLayout } from "../components/layout/ColumnLayout";
 import { useParams } from "react-router-dom";
+import { ConditionList } from "../components/conditions/ConditionList";
+import { Column, ColumnLayout } from "../components/layout/ColumnLayout";
+import { Logo } from "../components/layout/Logo";
+import { Tile } from "../components/layout/Tile";
+import { ObservationGroups } from "../components/observations/ObservationGroups";
+import { ObservationList } from "../components/observations/ObservationList";
+import { PatientHeader } from "../components/patient/PatientHeader";
 
 export default function PatientPage() {
   const { patientId } = useParams();
@@ -23,9 +20,11 @@ export default function PatientPage() {
       <PatientHeader />
 
       <ColumnLayout>
-        <Column>Column 1</Column>
+        <Column width="50%">
+          <ConditionList patientId={patientId} />
+        </Column>
 
-        <Column>
+        <Column width="60%">
           <Tile title="">
             <ObservationGroups patientId={patientId} />
           </Tile>

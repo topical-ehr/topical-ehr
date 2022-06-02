@@ -33,20 +33,18 @@ type Modification =
       original: FHIR.Resource;
     };
 
-export interface State {
-  queries: FhirQueryState;
-  resources: {
-    patients: FhirResourceById<FHIR.Patient>;
-    observations: FhirResourceById<FHIR.Observation>;
-    diagnosticReports: FhirResourceById<FHIR.DiagnosticReport>;
-  };
-  modifications: {
-    [id: string]: Modification;
-  };
+interface Resources<T = never> {
+  conditions: FhirResourceById<FHIR.Condition | T>;
+  patients: FhirResourceById<FHIR.Patient | T>;
+  observations: FhirResourceById<FHIR.Observation | T>;
+  diagnosticReports: FhirResourceById<FHIR.DiagnosticReport | T>;
 }
+
 function getObjectForResource(state: State, r: FHIR.Resource) {
   const { resources } = state;
   switch (r.resourceType) {
+    case "Condition":
+      return resources.conditions;
     case "Patient":
       return resources.patients;
     case "Observation":
@@ -58,14 +56,24 @@ function getObjectForResource(state: State, r: FHIR.Resource) {
   }
 }
 
+export interface State {
+  queries: FhirQueryState;
+  resources: Resources;
+  added: Resources;
+  modified: Resources<null>; // null for deleted
+}
+
+const emptyResources = {
+  conditions: {},
+  patients: {},
+  observations: {},
+  diagnosticReports: {},
+};
 const initialState: State = {
   queries: {},
-  resources: {
-    patients: {},
-    observations: {},
-    diagnosticReports: {},
-  },
-  modifications: {},
+  resources: emptyResources,
+  added: emptyResources,
+  modified: emptyResources,
 };
 
 export const fhirSlice = createSlice({

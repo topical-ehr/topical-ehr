@@ -22,10 +22,22 @@ export function PatientHeader() {
     }
 
     const pf = new PatientFormatter(patient);
+    const { age, gender, born } = pf.ageGenderBorn;
+    const lines = [
+        `${age}  ·  ${gender} · ${born}`,
+        // `${age}  ·  ${gender}`,
+        // born,
+    ];
     return (
         <div className={css.container}>
             <div className={css.name}>{pf.name}</div>
-            <div className={css.summary}>{pf.ageGenderBorn}</div>
+            <div className={css.details}>
+                {lines.map((line) => (
+                    <div className={css.summary} key={line}>
+                        {line}
+                    </div>
+                ))}
+            </div>
         </div>
     );
 }

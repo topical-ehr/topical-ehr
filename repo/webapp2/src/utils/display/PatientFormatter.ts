@@ -85,11 +85,13 @@ export class PatientFormatter {
     const dobTimestamp = Date.parse(this.patient.birthDate ?? "");
     const dob = isNaN(dobTimestamp) ? null : new Date(dobTimestamp);
     if (dob) {
-      return `${this.getAgeFullYears(
-        dob
-      )} years old  ·  ${gender}  ·  born ${dobFormatter.format(dob)}`;
+      const age = `${this.getAgeFullYears(dob)} years old`;
+      const born = "born " + dobFormatter.format(dob);
+      return { age, gender, born };
+      // return `${age}  ·  ${gender}  ·  born ${dobFormatter.format(dob)}`;
     } else {
-      return `NO DOB | ${gender}`;
+      return { age: "NO DOB", gender, born: "" };
+      // return `NO DOB | ${gender}`;
     }
   }
 

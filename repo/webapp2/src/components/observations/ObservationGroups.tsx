@@ -93,8 +93,8 @@ export function ObservationGroups(props: Props) {
                 return (
                     <div>
                         <div className={css.group_heading}>
-                            <h2>{text}</h2>
-                            <h3>{relativeDateString}</h3>
+                            <h3>{text}</h3>
+                            <h4>{relativeDateString}</h4>
                         </div>
                         <div className={css.results_grid}>
                             <div></div>
@@ -124,7 +124,9 @@ export function ObservationGroups(props: Props) {
                                 const of = new ObservationFormatter(ob);
                                 return (
                                     <>
-                                        <div title={of.codeFull}>{of.code}</div>
+                                        <div className={css.title} title={of.codeFull}>
+                                            {of.code}
+                                        </div>
                                         <div>
                                             <span className={css.value}>{of.value}</span>
                                             <span className={css.units}>{of.units}</span>

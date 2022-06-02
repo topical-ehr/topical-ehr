@@ -1,0 +1,19 @@
+.container {
+    border: 1px solid black;
+    padding: 0.5em;
+    margin-bottom: 1em;
+
+    :global(.hover-buttons) {
+        display: none;
+    }
+    &:hover :global(.hover-buttons) {
+        display: inherit;
+    }
+}
+
+.title {
+    font-weight: bold;
+}
+.status {
+    margin-left: 1em;
+}

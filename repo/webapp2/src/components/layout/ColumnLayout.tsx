@@ -9,7 +9,8 @@ export function ColumnLayout(props: LayoutProps) {
 
 interface ColumnProps {
     children: React.ReactNode;
+    width: string;
 }
 export function Column(props: ColumnProps) {
-    return <div>{props.children}</div>;
+    return <div style={{ width: props.width }}>{props.children}</div>;
 }

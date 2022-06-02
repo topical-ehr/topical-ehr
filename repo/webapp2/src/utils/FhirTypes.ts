@@ -292,21 +292,26 @@ export interface Condition extends Resource {
     detail?: Reference[];
   }[];
 
-  clinicalStatus?:
-    | "active"
-    | "recurrence"
-    | "relapse"
-    | "inactive"
-    | "remission"
-    | "resolved";
-  verificationStatus?:
-    | "unconfirmed"
-    | "provisional"
-    | "differential"
-    | "confirmed"
-    | "refuted"
-    | "entered-in-error";
   code?: CodeableConcept;
+
+  clinicalStatus?: CodeableConcept;
+  // clinicalStatus?:
+  //   | "active"
+  //   | "recurrence"
+  //   | "relapse"
+  //   | "inactive"
+  //   | "remission"
+  //   | "resolved";
+
+  verificationStatus?: CodeableConcept;
+  // verificationStatus?:
+  //   | "unconfirmed"
+  //   | "provisional"
+  //   | "differential"
+  //   | "confirmed"
+  //   | "refuted"
+  //   | "entered-in-error";
+
   severity?: CodeableConcept;
   category?: CodeableConcept[];
   bodySite?: CodeableConcept[];
