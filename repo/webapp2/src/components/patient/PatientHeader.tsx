@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import patient from "../../pages/patient";
-import { useFHIRQuery, useFHIR } from "../../redux/FHIR";
+import { useFHIRQuery, useFHIR } from "../../redux/FhirState";
 import { PatientFormatter } from "../../utils/display/PatientFormatter";
 import { ErrorMessage } from "../feedback/ErrorMessage";
 import { Loading } from "../feedback/Loading";

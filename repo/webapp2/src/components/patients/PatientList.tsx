@@ -1,5 +1,5 @@
 import { DetailsList, DetailsListLayoutMode, IColumn, Link, SelectionMode } from "@fluentui/react";
-import { useFHIRQuery, useFHIR } from "../../redux/FHIR";
+import { useFHIRQuery, useFHIR } from "../../redux/FhirState";
 import { PatientFormatter } from "../../utils/display/PatientFormatter";
 
 import { Patient } from "../../utils/FhirTypes";

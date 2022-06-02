@@ -11,7 +11,7 @@ import { ObservationFormatter } from "../../utils/display/ObservationFormatter";
 import { Observation } from "../../utils/FhirTypes";
 import { ErrorMessage } from "../feedback/ErrorMessage";
 import { Loading } from "../feedback/Loading";
-import { useFHIR, useFHIRQuery } from "../../redux/FHIR";
+import { useFHIR, useFHIRQuery } from "../../redux/FhirState";
 
 interface Props {
     fhirQuery: string;

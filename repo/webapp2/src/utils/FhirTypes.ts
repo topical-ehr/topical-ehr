@@ -24,6 +24,26 @@ export function isBundle(r: Resource): r is Bundle<Resource> {
   return r.resourceType === "Bundle";
 }
 
+export function parseRef(
+  ref: string | null | undefined,
+  resourceType?: string
+) {
+  if (!ref) {
+    return null;
+  }
+  if (resourceType) {
+    if (ref.startsWith(resourceType) && ref[resourceType.length] === "/") {
+      return { resourceType, id: ref.substring(resourceType.length + 1) };
+    } else {
+      // not of the required type
+      return null;
+    }
+  } else {
+    const s = ref.split("/");
+    return { resourceType: s[0], id: s[1] };
+  }
+}
+
 type Markdown = string;
 type FhirDateTime = string;
 type FhirTime = string;
@@ -139,8 +159,10 @@ interface Attachment {
   creation?: FhirDateTime;
 }
 
+type FhirId = string;
+
 export interface Resource {
-  id: string;
+  id: FhirId;
   resourceType: string;
   meta: {
     lastUpdated: string;
@@ -260,6 +282,28 @@ interface ObservationValue {
   valueTime?: FhirTime;
   valueDateTime?: FhirDateTime;
   valuePeriod?: Period;
+}
+
+export interface Composition extends Resource {
+  status: "preliminary" | "final" | "amended" | "entered-in-error";
+  type: CodeableConcept;
+  category?: CodeableConcept[];
+  subject?: Reference;
+  encounter?: Reference;
+  author?: Reference[];
+  date: FhirDateTime;
+
+  title: string;
+  section?: CompositionSection[];
+}
+
+interface CompositionSection {
+  title?: string;
+  code?: CodeableConcept;
+  text?: string;
+  entry?: Reference[];
+  section?: CompositionSection[];
+  author?: Reference[];
 }
 
 export interface Condition extends Resource {

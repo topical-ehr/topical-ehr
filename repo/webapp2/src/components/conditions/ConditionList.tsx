@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFHIR, useFHIRQuery } from "../../redux/FHIR";
+import { useFHIR, useFHIRQuery } from "../../redux/FhirState";
 import { ErrorMessage } from "../feedback/ErrorMessage";
 import { Loading } from "../feedback/Loading";
 import { ConditionTile } from "./ConditionTile";

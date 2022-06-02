@@ -16,7 +16,7 @@ interface FhirQueryState {
     | { state: "loaded" };
 }
 
-interface FhirResourceById<R> {
+export interface FhirResourceById<R> {
   [id: string]: R;
 }
 
@@ -34,15 +34,24 @@ type Modification =
     };
 
 interface Resources<T = never> {
+  compositions: FhirResourceById<FHIR.Composition | T>;
   conditions: FhirResourceById<FHIR.Condition | T>;
   patients: FhirResourceById<FHIR.Patient | T>;
   observations: FhirResourceById<FHIR.Observation | T>;
   diagnosticReports: FhirResourceById<FHIR.DiagnosticReport | T>;
 }
+const emptyResources: Resources = {
+  compositions: {},
+  conditions: {},
+  patients: {},
+  observations: {},
+  diagnosticReports: {},
+};
 
-function getObjectForResource(state: State, r: FHIR.Resource) {
-  const { resources } = state;
+function getObjectForResource({ resources }: State, r: FHIR.Resource) {
   switch (r.resourceType) {
+    case "Composition":
+      return resources.compositions;
     case "Condition":
       return resources.conditions;
     case "Patient":
@@ -59,21 +68,13 @@ function getObjectForResource(state: State, r: FHIR.Resource) {
 export interface State {
   queries: FhirQueryState;
   resources: Resources;
-  added: Resources;
-  modified: Resources<null>; // null for deleted
+  modifications: FhirResourceById<Modification>;
 }
 
-const emptyResources = {
-  conditions: {},
-  patients: {},
-  observations: {},
-  diagnosticReports: {},
-};
 const initialState: State = {
   queries: {},
   resources: emptyResources,
-  added: emptyResources,
-  modified: emptyResources,
+  modifications: {},
 };
 
 export const fhirSlice = createSlice({

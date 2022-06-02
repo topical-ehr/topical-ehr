@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { useMemo } from "react";
-import { useFHIRQuery, useFHIR } from "../../redux/FHIR";
+import { useFHIRQuery, useFHIR } from "../../redux/FhirState";
 
 import { ObservationFormatter } from "../../utils/display/ObservationFormatter";
 import { areOverlapping, DiagnosticReport, Observation } from "../../utils/FhirTypes";
