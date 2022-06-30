@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom";
-import { ConditionList } from "../components/conditions/ConditionList";
+import { TopicsList } from "../components/topics/TopicsList";
 import { Column, ColumnLayout } from "../components/layout/ColumnLayout";
 import { Logo } from "../components/layout/Logo";
 import { Tile } from "../components/layout/Tile";
 import { ObservationGroups } from "../components/observations/ObservationGroups";
 import { ObservationList } from "../components/observations/ObservationList";
 import { PatientHeader } from "../components/patient/PatientHeader";
+import { DefaultButton } from "@fluentui/react";
 
 export default function PatientPage() {
   const { patientId } = useParams();
@@ -21,7 +22,9 @@ export default function PatientPage() {
 
       <ColumnLayout>
         <Column width="50%">
-          <ConditionList patientId={patientId} />
+          <DefaultButton text="New topic" onClick={() => {}} />
+
+          <TopicsList patientId={patientId} />
         </Column>
 
         <Column width="60%">

@@ -3,11 +3,13 @@ import * as FHIR from "../utils/FhirTypes";
 import { FhirResourceById } from "../redux/FhirState";
 
 export interface Topic {
+  id: string;
   composition: FHIR.Composition | null;
   conditions: FHIR.Condition[];
 }
 
 export interface TopicGroup {
+  id: string;
   title: string;
   topics: Topic[];
   collapsedByDefault: boolean;
@@ -29,9 +31,11 @@ export function groupTopics(
   }
 
   const fromCompositions: TopicGroup = {
+    id: "compositions",
     title: "",
     collapsedByDefault: false,
     topics: Object.values(compositions).map((c) => ({
+      id: c.id,
       composition: c,
       conditions: conditionsFromComposition(c),
     })),
@@ -48,14 +52,19 @@ export function groupTopics(
   const [active, inactive] = R.partition(
     conditionsWithoutTopics,
     (c) => c.clinicalStatus?.coding?.[0]?.code === "active"
-  ).map((c) => ({ conditions: c, composition: null }));
+  ).flatMap((conditions) =>
+    // create topic for each condition
+    conditions.map((c) => ({ id: c.id, conditions: [c], composition: null }))
+  );
 
   const activeConditions: TopicGroup = {
+    id: "active-conditions",
     title: "",
     collapsedByDefault: false,
     topics: [active],
   };
   const inactiveConditions: TopicGroup = {
+    id: "inactive-conditions",
     title: "Inactive",
     collapsedByDefault: true,
     topics: [inactive],

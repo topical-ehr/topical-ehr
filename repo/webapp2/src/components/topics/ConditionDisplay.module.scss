@@ -1,0 +1,21 @@
+.container {
+    padding: 0.5em;
+    margin-bottom: 1em;
+
+    background: rgb(217, 217, 255);
+
+    :global(.hover-buttons) {
+        display: none;
+    }
+    &:hover :global(.hover-buttons) {
+        display: inherit;
+    }
+}
+
+.title {
+    font-weight: bold;
+    font-size: smaller;
+}
+.status {
+    margin-left: 1em;
+}

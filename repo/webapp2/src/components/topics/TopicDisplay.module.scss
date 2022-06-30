@@ -1,5 +1,5 @@
 .container {
-    border: 1px solid black;
+    border: 1px solid darkblue;
     padding: 0.5em;
     margin-bottom: 1em;
 
@@ -9,11 +9,4 @@
     &:hover :global(.hover-buttons) {
         display: inherit;
     }
-}
-
-.title {
-    font-weight: bold;
-}
-.status {
-    margin-left: 1em;
 }

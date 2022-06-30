@@ -25,7 +25,7 @@ export function HoverButtons(props: Props) {
 
     return (
         <div className="hover-buttons" style={{ float: "right" }}>
-            <a href="#" onClick={onEdit}>
+            <a href="#" onClick={onEdit} title="Edit (or double-click)">
                 {editIcon}
             </a>
         </div>

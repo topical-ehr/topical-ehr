@@ -1,3 +1,4 @@
+import { SearchBox } from "@fluentui/react";
 import { useParams } from "react-router-dom";
 import patient from "../../pages/patient";
 import { useFHIRQuery, useFHIR } from "../../redux/FhirState";
@@ -38,6 +39,11 @@ export function PatientHeader() {
                     </div>
                 ))}
             </div>
+            <SearchBox
+                placeholder="Search"
+                showIcon
+                onSearch={(newValue) => console.log("value is " + newValue)}
+            />
         </div>
     );
 }

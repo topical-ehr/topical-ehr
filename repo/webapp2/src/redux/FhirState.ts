@@ -1,20 +1,21 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import * as FHIR from "../utils/FhirTypes";
-import { put, takeEvery, fork, all } from "redux-saga/effects";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
-import { select, call } from "typed-redux-saga";
-import { fetchFHIR } from "../utils/fetcher";
 import React from "react";
-import type { RootState } from "./store";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { put, takeEvery } from "redux-saga/effects";
+import { select, call } from "typed-redux-saga";
+import { v4 as uuidv4 } from "uuid";
 
-interface FhirQueryState {
-  [query: string]:
-    | {
-        state: "loading";
-      }
-    | { state: "error"; error: unknown }
-    | { state: "loaded" };
-}
+import * as FHIR from "../utils/FhirTypes";
+import { fetchFHIR } from "../utils/fetcher";
+import type { RootState } from "./store";
+import { Topic } from "../utils/topics";
+
+type FhirQueryState =
+  | {
+      state: "loading";
+    }
+  | { state: "error"; error: unknown }
+  | { state: "loaded" };
 
 export interface FhirResourceById<R> {
   [id: string]: R;
@@ -66,15 +67,28 @@ function getObjectForResource({ resources }: State, r: FHIR.Resource) {
 }
 
 export interface State {
-  queries: FhirQueryState;
+  queries: {
+    [query: string]: FhirQueryState;
+  };
   resources: Resources;
   modifications: FhirResourceById<Modification>;
+
+  activePatient?: FHIR.Patient;
+
+  editingTopics: {
+    [topicId: string]: {
+      // composition id is null for topics that have been
+      // generated from standalone conditions
+      compositionId: string;
+    };
+  };
 }
 
 const initialState: State = {
   queries: {},
   resources: emptyResources,
   modifications: {},
+  editingTopics: {},
 };
 
 export const fhirSlice = createSlice({
@@ -102,6 +116,35 @@ export const fhirSlice = createSlice({
         state: "error",
         error,
       };
+    },
+
+    editTopic(state, action: PayloadAction<Topic>) {
+      const topic = action.payload;
+      const composition = topic.composition;
+
+      if (composition) {
+        state.editingTopics[topic.id] = {
+          compositionId: composition.id,
+        };
+      } else {
+        // add a new Composition
+        const now = new Date().toISOString();
+        const newComposition: FHIR.Composition = {
+          resourceType: "Composition",
+          id: `urn:uuid:${uuidv4()}`,
+          meta: { lastUpdated: now },
+          subject: { reference: `Patient/${state.activePatient?.id}` },
+          status: "preliminary",
+          type: { text: "topic" },
+          date: now,
+          title: "",
+        };
+        state.resources.compositions[newComposition.id] = newComposition;
+        state.modifications[newComposition.id] = { type: "added" };
+        state.editingTopics[topic.id] = {
+          compositionId: newComposition.id,
+        };
+      }
     },
   },
 });
@@ -135,7 +178,7 @@ export function* fhirSagas() {
 
 export const useFHIR: TypedUseSelectorHook<{ fhir: State }> = useSelector;
 
-export function useFHIRQuery(query: string) {
+export function useFHIRQuery(query: string): FhirQueryState {
   // request the query
   const dispatch = useDispatch();
   React.useEffect(() => {
@@ -145,6 +188,21 @@ export function useFHIRQuery(query: string) {
   // load & watch query status
   const state = useFHIR((s) => s.fhir.queries[query]) ?? { state: "loading" };
   return state;
+}
+export function useFHIRQueries(queries: string[]): FhirQueryState {
+  const states = queries.map(useFHIRQuery);
+
+  const errors = states.filter((s) => s.state === "error" && s.error);
+  if (errors.length > 0) {
+    return { state: "error", error: errors[0] };
+  }
+
+  const loading = states.some((s) => s.state === "loading");
+  if (loading) {
+    return { state: "loading" };
+  }
+
+  return { state: "loaded" };
 }
 
 export const actions = fhirSlice.actions;

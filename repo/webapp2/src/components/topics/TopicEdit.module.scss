@@ -1,0 +1,12 @@
+.container {
+    border: 1px solid darkblue;
+    padding: 0.5em;
+    margin-bottom: 1em;
+
+    :global(.hover-buttons) {
+        display: none;
+    }
+    &:hover :global(.hover-buttons) {
+        display: inherit;
+    }
+}

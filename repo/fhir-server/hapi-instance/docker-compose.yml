@@ -8,6 +8,9 @@ services:
       - hapi-data:/data/hapi
     environment:
       hapi.fhir.default_encoding: json
+      hapi.fhir.bulk_export: enabled
+      hapi.fhir.bulk_export_enabled: "true"
+      bulk_export_enabled: "true"
       cors.allowed_origin: "*"
       spring.datasource.url: jdbc:postgresql://fhir-db:5432/hapi_r4
       spring.datasource.username: hapi

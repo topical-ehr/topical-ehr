@@ -10,3 +10,7 @@
 .summary {
   margin-left: 0.5em;
 }
+
+.container :global(.ms-SearchBox) {
+  margin-left: 3em;
+}
