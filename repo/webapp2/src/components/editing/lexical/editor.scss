@@ -1,0 +1,41 @@
+.editor-placeholder {
+    font-size: 15px;
+    color: #999;
+    overflow: hidden;
+    position: absolute;
+    text-overflow: ellipsis;
+    top: 3px;
+    left: 10px;
+    right: 10px;
+    user-select: none;
+    white-space: nowrap;
+    display: inline-block;
+    pointer-events: none;
+}
+
+.editor-root-div {
+    /* background-color: lightskyblue; */
+    border: 2px solid lightblue;
+
+    min-height: 10em;
+
+    p:not(:first-child) {
+        margin-bottom: 0.8em;
+    }
+}
+.editor-container {
+    position: relative; /* to position the placeholder */
+}
+
+@for $i from 1 through 6 {
+  .editor-h#{$i} {
+    font-size: larger;
+    font-weight: bold;
+
+    margin-top: 1.3em;
+    margin-left: #{$i}rem;
+  }
+  .editor-h#{$i} ~ p {
+    margin-left: #{$i}rem;
+  }
+}

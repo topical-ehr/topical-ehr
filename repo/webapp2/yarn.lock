@@ -2650,7 +2650,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remeda@npm:^0.0.35":
+"remeda@npm:0.0.35":
   version: 0.0.35
   resolution: "remeda@npm:0.0.35"
   checksum: 961049e7d05bae277d402129c266fbdef05552b24577606ceaf454c090fa5a48bbf1dd9572ca7080749d5817077ffc0959337246270fdd3ae4c34141da15a7f5
@@ -3037,7 +3037,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.3.2":
+"uuid@npm:8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:
@@ -3112,12 +3112,12 @@ __metadata:
     react-redux: 8.0.1
     react-router-dom: 6.3.0
     redux-saga: 1.1.3
-    remeda: ^0.0.35
+    remeda: 0.0.35
     sass: 1.51.0
     swr: 1.3.0
     typed-redux-saga: 1.4.0
     typescript: 4.5.4
-    uuid: ^8.3.2
+    uuid: 8.3.2
     vite: 2.9.5
   languageName: unknown
   linkType: soft
