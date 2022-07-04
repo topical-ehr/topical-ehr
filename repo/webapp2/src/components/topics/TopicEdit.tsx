@@ -1,9 +1,9 @@
-import { HoverButtons } from "../editing/HoverButtons";
+import { DefaultButton, PrimaryButton, Stack, TextField } from "@fluentui/react";
+
 import { Topic } from "../../utils/topics";
 import { ConditionDisplay } from "./ConditionDisplay";
-import css from "./TopicEdit.module.scss";
 import { useFHIR } from "../../redux/FhirState";
-import { DefaultButton, PrimaryButton, Stack, TextField } from "@fluentui/react";
+import css from "./TopicEdit.module.scss";
 
 interface Props {
     topic: Topic;

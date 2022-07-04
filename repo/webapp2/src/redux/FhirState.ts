@@ -9,6 +9,7 @@ import * as FHIR from "../utils/FhirTypes";
 import { fetchFHIR } from "../utils/fetcher";
 import type { RootState } from "./store";
 import { Topic } from "../utils/topics";
+import { Exception } from "sass";
 
 type FhirQueryState =
   | {
@@ -82,6 +83,7 @@ export interface State {
       compositionId: string;
     };
   };
+  autoAddedCompositions: { [id: string]: {} };
 }
 
 const initialState: State = {
@@ -89,6 +91,7 @@ const initialState: State = {
   resources: emptyResources,
   modifications: {},
   editingTopics: {},
+  autoAddedCompositions: {},
 };
 
 export const fhirSlice = createSlice({
@@ -107,6 +110,15 @@ export const fhirSlice = createSlice({
       for (const resource of resources) {
         // @ts-ignore
         getObjectForResource(state, resource)[resource.id] = resource;
+
+        // save active patient
+        if (resource.resourceType === "Patient") {
+          if (state.activePatient) {
+            throw new Error(`Multiple patients being loaded`);
+          } else {
+            state.activePatient = resource as FHIR.Patient;
+          }
+        }
       }
       state.queries[query] = { state: "loaded" };
     },
@@ -129,18 +141,24 @@ export const fhirSlice = createSlice({
       } else {
         // add a new Composition
         const now = new Date().toISOString();
+        if (!state.activePatient) {
+          throw new Error("no active patient");
+        }
         const newComposition: FHIR.Composition = {
           resourceType: "Composition",
           id: `urn:uuid:${uuidv4()}`,
           meta: { lastUpdated: now },
-          subject: { reference: `Patient/${state.activePatient?.id}` },
+          subject: { reference: FHIR.referenceTo(state.activePatient) },
           status: "preliminary",
           type: { text: "topic" },
           date: now,
           title: "",
         };
         state.resources.compositions[newComposition.id] = newComposition;
-        state.modifications[newComposition.id] = { type: "added" };
+        state.autoAddedCompositions[newComposition.id] = {};
+        state.modifications[FHIR.referenceTo(newComposition)] = {
+          type: "added",
+        };
         state.editingTopics[topic.id] = {
           compositionId: newComposition.id,
         };

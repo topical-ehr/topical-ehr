@@ -1,9 +1,9 @@
 import { HoverButtons } from "../editing/HoverButtons";
 import { Topic } from "../../utils/topics";
 import { ConditionDisplay } from "./ConditionDisplay";
-import css from "./TopicDisplay.module.scss";
 import { useAppDispatch } from "../../redux/store";
 import { actions } from "../../redux/FhirState";
+import css from "./TopicDisplay.module.scss";
 
 interface Props {
     topic: Topic;

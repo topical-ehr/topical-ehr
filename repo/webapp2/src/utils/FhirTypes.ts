@@ -173,6 +173,9 @@ export interface Resource {
     div: string;
   };
 }
+export function referenceTo(resource: Resource) {
+  return resource.resourceType + "/" + resource.id;
+}
 
 interface Address {
   use?: "home" | "work" | "temp" | "old" | "billing";

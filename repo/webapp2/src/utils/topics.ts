@@ -52,22 +52,30 @@ export function groupTopics(
   const [active, inactive] = R.partition(
     conditionsWithoutTopics,
     (c) => c.clinicalStatus?.coding?.[0]?.code === "active"
-  ).flatMap((conditions) =>
+  ).map((conditions) =>
     // create topic for each condition
     conditions.map((c) => ({ id: c.id, conditions: [c], composition: null }))
   );
+
+  console.log("groupTopics", {
+    conditions,
+    compositions,
+    conditionsWithoutTopics,
+    active,
+    inactive,
+  });
 
   const activeConditions: TopicGroup = {
     id: "active-conditions",
     title: "",
     collapsedByDefault: false,
-    topics: [active],
+    topics: active,
   };
   const inactiveConditions: TopicGroup = {
     id: "inactive-conditions",
     title: "Inactive",
     collapsedByDefault: true,
-    topics: [inactive],
+    topics: inactive,
   };
 
   return [fromCompositions, activeConditions, inactiveConditions];
