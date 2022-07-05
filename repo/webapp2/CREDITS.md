@@ -1,3 +1,7 @@
+# UXWing Icons
+
+https://uxwing.com
+
 # Lexical Editor
 
 MIT License

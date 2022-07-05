@@ -18,6 +18,7 @@ import "./editor-popups.css";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 interface Props {
     initialMarkdown: string;
+    placeholder: JSX.Element;
     newNodeFloatingToolbar?: boolean;
     setEditor: (editor: LexicalEditor) => void;
 }
@@ -40,14 +41,7 @@ export function RichTextEditor(props: Props) {
             console.error("lexical onError", err);
         },
     };
-    const placeholder = (
-        <div className="editor-placeholder">
-            <p>Summary</p>
-            <p></p>
-            <p># Heading</p>
-            <p>Details</p>
-        </div>
-    );
+    const placeholder = <div className="editor-placeholder">{props.placeholder}</div>;
 
     return (
         <LexicalComposer initialConfig={initialConfig}>

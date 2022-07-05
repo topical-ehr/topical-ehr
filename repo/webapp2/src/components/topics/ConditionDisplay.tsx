@@ -1,6 +1,5 @@
 import * as FHIR from "../../utils/FhirTypes";
 import { CodeFormatter } from "../../utils/display/CodeFormatter";
-import { HoverButtons } from "../editing/HoverButtons";
 import css from "./ConditionDisplay.module.scss";
 
 interface Props {

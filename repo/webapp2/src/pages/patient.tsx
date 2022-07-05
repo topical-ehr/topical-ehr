@@ -6,7 +6,8 @@ import { Tile } from "../components/layout/Tile";
 import { ObservationGroups } from "../components/observations/ObservationGroups";
 import { ObservationList } from "../components/observations/ObservationList";
 import { PatientHeader } from "../components/patient/PatientHeader";
-import { DefaultButton } from "@fluentui/react";
+import { DefaultButton, Stack } from "@fluentui/react";
+import { EditsPanel } from "../components/editing/EditsPanel";
 
 export default function PatientPage() {
   const { patientId } = useParams();
@@ -21,13 +22,22 @@ export default function PatientPage() {
       <PatientHeader />
 
       <ColumnLayout>
-        <Column width="50%">
-          <DefaultButton text="New topic" onClick={() => {}} />
+        <Column width="33%">
+          <DefaultButton text="➕ New topic" onClick={() => {}} />
 
           <TopicsList patientId={patientId} />
         </Column>
 
-        <Column width="60%">
+        <Column width="33%">
+          <Stack
+            style={{ marginLeft: "1em" }}
+            horizontal
+            tokens={{ childrenGap: 10 }}
+          >
+            <DefaultButton text="💓 Add obs" onClick={() => {}} />
+            <DefaultButton text="💊 Record medication" onClick={() => {}} />
+          </Stack>
+
           <Tile title="">
             <ObservationGroups patientId={patientId} />
           </Tile>
@@ -36,6 +46,9 @@ export default function PatientPage() {
               fhirQuery={`Observation?subject=Patient/${patientId}`}
             />
           </Tile>
+        </Column>
+        <Column width="33%">
+          <EditsPanel />
         </Column>
 
         {/* <Column>

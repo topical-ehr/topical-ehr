@@ -9,7 +9,7 @@ import * as FHIR from "../utils/FhirTypes";
 import { fetchFHIR } from "../utils/fetcher";
 import type { RootState } from "./store";
 import { Topic } from "../utils/topics";
-import { Exception } from "sass";
+import { CodeFormatter } from "../utils/display/CodeFormatter";
 
 type FhirQueryState =
   | {
@@ -139,6 +139,12 @@ export const fhirSlice = createSlice({
           compositionId: composition.id,
         };
       } else {
+        // create title based on conditions
+        const conditionCode = topic.conditions[0]?.code;
+        const title = conditionCode
+          ? new CodeFormatter(conditionCode).shortText
+          : "";
+
         // add a new Composition
         const now = new Date().toISOString();
         if (!state.activePatient) {
@@ -152,7 +158,7 @@ export const fhirSlice = createSlice({
           status: "preliminary",
           type: { text: "topic" },
           date: now,
-          title: "",
+          title,
         };
         state.resources.compositions[newComposition.id] = newComposition;
         state.autoAddedCompositions[newComposition.id] = {};

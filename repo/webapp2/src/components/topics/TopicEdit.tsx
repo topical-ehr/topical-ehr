@@ -8,6 +8,12 @@ import { RichTextEditor } from "../editing/lexical/RichTextEditor";
 import React from "react";
 import { LexicalEditor } from "lexical";
 import { $convertToMarkdownString } from "@lexical/markdown";
+import {
+    HoverButtonDelete,
+    HoverButtonEdit,
+    HoverButtons,
+    HoverButtonUndo,
+} from "../editing/HoverButtons";
 
 interface Props {
     topic: Topic;
@@ -39,30 +45,45 @@ export function TopicEdit(props: Props) {
         });
     }
 
+    const placeholder = (
+        <>
+            <p>Summary</p>
+            <p></p>
+            <p># Heading</p>
+            <p>Details</p>
+        </>
+    );
+
     return (
         <div className={css.container} onClick={onContainerClick}>
-            <TextField
-                label=""
-                placeholder="Topic title"
-                errorMessage=" "
-                defaultValue={composition.title}
-                onChange={onTitleChanged}
-            />
+            <HoverButtons>
+                <HoverButtonDelete onClick={onSave} />
+                <HoverButtonUndo onClick={onSave} />
+            </HoverButtons>
+
+            <div className={css.horizontalLabel}>
+                <h5>Topic Title</h5>
+                <TextField
+                    label=""
+                    errorMessage=" "
+                    defaultValue={composition.title}
+                    onChange={onTitleChanged}
+                />
+            </div>
 
             <RichTextEditor
                 initialMarkdown="Summary"
+                placeholder={placeholder}
                 setEditor={(editor) => (editorRef.current = editor)}
             />
 
-            <h5>Conditions</h5>
             {props.topic.conditions.map((c) => (
                 <ConditionDisplay key={c.id} condition={c} />
             ))}
 
             <Stack horizontal tokens={{ childrenGap: 10 }}>
-                <PrimaryButton text="Save" onClick={onSave} />
-                <DefaultButton text="Cancel" onClick={() => {}} />
-                <DefaultButton text="Delete" onClick={() => {}} />
+                <PrimaryButton text="Add condition" onClick={onSave} />
+                <PrimaryButton text="Add medication" onClick={onSave} />
             </Stack>
         </div>
     );

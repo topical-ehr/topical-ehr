@@ -2,19 +2,12 @@
     padding: 0.5em;
     margin-bottom: 1em;
 
-    background: rgb(217, 217, 255);
-
-    :global(.hover-buttons) {
-        display: none;
-    }
-    &:hover :global(.hover-buttons) {
-        display: inherit;
-    }
+    // background: rgb(217, 217, 255);
 }
 
 .title {
     font-weight: bold;
-    font-size: smaller;
+    font-size: larger;
 }
 .status {
     margin-left: 1em;

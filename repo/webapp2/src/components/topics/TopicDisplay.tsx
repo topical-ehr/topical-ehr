@@ -1,4 +1,4 @@
-import { HoverButtons } from "../editing/HoverButtons";
+import { HoverButtonEdit, HoverButtons } from "../editing/HoverButtons";
 import { Topic } from "../../utils/topics";
 import { ConditionDisplay } from "./ConditionDisplay";
 import { useAppDispatch } from "../../redux/store";
@@ -25,7 +25,9 @@ export function TopicDisplay(props: Props) {
 
     return (
         <div className={css.container} onClick={onContainerClick}>
-            <HoverButtons onEdit={onEdit} />
+            <HoverButtons>
+                <HoverButtonEdit onClick={onEdit} />
+            </HoverButtons>
             {composition?.title && <h2>{composition.title}</h2>}
 
             {conditions.map((c) => (
