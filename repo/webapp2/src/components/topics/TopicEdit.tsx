@@ -1,19 +1,19 @@
+import React from "react";
 import { DefaultButton, PrimaryButton, Stack, TextField } from "@fluentui/react";
+import { $convertToMarkdownString } from "@lexical/markdown";
+import { LexicalEditor } from "lexical";
 
+import * as FHIR from "../../utils/FhirTypes";
 import { Topic } from "../../utils/topics";
 import { ConditionDisplay } from "./ConditionDisplay";
-import { useFHIR } from "../../redux/FhirState";
-import css from "./TopicEdit.module.scss";
+import { actions, useFHIR } from "../../redux/FhirState";
 import { RichTextEditor } from "../editing/lexical/RichTextEditor";
-import React from "react";
-import { LexicalEditor } from "lexical";
-import { $convertToMarkdownString } from "@lexical/markdown";
-import {
-    HoverButtonDelete,
-    HoverButtonEdit,
-    HoverButtons,
-    HoverButtonUndo,
-} from "../editing/HoverButtons";
+import { HoverButtonDelete, HoverButtons, HoverButtonUndo } from "../editing/HoverButtons";
+
+import css from "./TopicEdit.module.scss";
+import { useDispatch } from "react-redux";
+import { ConditionEdit } from "./ConditionEdit";
+import { ConditionAdd } from "./ConditionAdd";
 
 interface Props {
     topic: Topic;
@@ -23,8 +23,11 @@ export function TopicEdit(props: Props) {
     const topicId = props.topic.id;
 
     const editState = useFHIR((s) => s.fhir.editingTopics[topicId]);
-    const composition = useFHIR((s) => s.fhir.resources.compositions[editState.compositionId]);
+    const composition = useFHIR(
+        (s) => s.fhir.edits.compositions[editState.compositionId]
+    ) as FHIR.Composition;
 
+    const dispatch = useDispatch();
     const editorRef = React.useRef<LexicalEditor>();
 
     function onContainerClick(e: React.MouseEvent<HTMLDivElement>) {
@@ -36,7 +39,14 @@ export function TopicEdit(props: Props) {
     function onTitleChanged(
         event: React.FormEvent<HTMLInputElement | HTMLTextAreaElement>,
         newValue?: string
-    ) {}
+    ) {
+        dispatch(
+            actions.edit({
+                ...composition,
+                title: newValue,
+            } as FHIR.Resource)
+        );
+    }
 
     function onSave() {
         editorRef.current?.update(() => {
@@ -44,6 +54,26 @@ export function TopicEdit(props: Props) {
             alert(markdown);
         });
     }
+    function onUndo() {
+        dispatch(actions.undoEditTopic(props.topic));
+    }
+    function onDelete() {}
+
+    function onAddCondition() {
+        const now = new Date().toISOString();
+        const newCondition: FHIR.Condition = {
+            resourceType: "Condition",
+            id: FHIR.newId(),
+            meta: { lastUpdated: now },
+            subject: composition.subject,
+        };
+        const updatedComposition: FHIR.Composition = JSON.parse(JSON.stringify(composition));
+        const section0 = updatedComposition.section;
+        updatedComposition.section[0].entry;
+
+        dispatch(actions.edit(newCondition));
+    }
+    function onAddMedication() {}
 
     const placeholder = (
         <>
@@ -57,17 +87,18 @@ export function TopicEdit(props: Props) {
     return (
         <div className={css.container} onClick={onContainerClick}>
             <HoverButtons>
-                <HoverButtonDelete onClick={onSave} />
-                <HoverButtonUndo onClick={onSave} />
+                <HoverButtonDelete onClick={onDelete} />
+                <HoverButtonUndo onClick={onUndo} title="Undo all edits" />
             </HoverButtons>
 
             <div className={css.horizontalLabel}>
-                <h5>Topic Title</h5>
+                <h5>Topic title</h5>
                 <TextField
                     label=""
                     errorMessage=" "
-                    defaultValue={composition.title}
+                    value={composition.title}
                     onChange={onTitleChanged}
+                    className={css.titleTextbox}
                 />
             </div>
 
@@ -78,12 +109,13 @@ export function TopicEdit(props: Props) {
             />
 
             {props.topic.conditions.map((c) => (
-                <ConditionDisplay key={c.id} condition={c} />
+                <ConditionEdit key={c.id} condition={c} />
             ))}
+            <ConditionAdd />
 
             <Stack horizontal tokens={{ childrenGap: 10 }}>
-                <PrimaryButton text="Add condition" onClick={onSave} />
-                <PrimaryButton text="Add medication" onClick={onSave} />
+                <PrimaryButton text="Add condition" onClick={onAddCondition} />
+                <PrimaryButton text="Add medication" onClick={onAddMedication} />
             </Stack>
         </div>
     );

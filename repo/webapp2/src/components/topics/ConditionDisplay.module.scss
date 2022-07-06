@@ -1,6 +1,5 @@
 .container {
     padding: 0.5em;
-    margin-bottom: 1em;
 
     // background: rgb(217, 217, 255);
 }
@@ -11,4 +10,10 @@
 }
 .status {
     margin-left: 1em;
+}
+
+.deleted {
+    text-decoration: line-through;
+    text-decoration-color: red;
+    text-decoration-thickness: 2px;
 }

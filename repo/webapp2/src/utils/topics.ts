@@ -15,21 +15,23 @@ export interface TopicGroup {
   collapsedByDefault: boolean;
 }
 
+export function conditionsFromComposition(
+  c: FHIR.Composition,
+  conditions: FhirResourceById<FHIR.Condition>
+) {
+  const _conditions = (c.section ?? [])
+    .flatMap((section) => section.entry)
+    .map(
+      (ref) => conditions[FHIR.parseRef(ref?.reference, "Condition")?.id ?? ""]
+    )
+    .filter((c) => c);
+  return _conditions;
+}
+
 export function groupTopics(
   conditions: FhirResourceById<FHIR.Condition>,
   compositions: FhirResourceById<FHIR.Composition>
 ): TopicGroup[] {
-  function conditionsFromComposition(c: FHIR.Composition) {
-    const _conditions = (c.section ?? [])
-      .flatMap((section) => section.entry)
-      .map(
-        (ref) =>
-          conditions[FHIR.parseRef(ref?.reference, "Condition")?.id ?? ""]
-      )
-      .filter((c) => c);
-    return _conditions;
-  }
-
   const fromCompositions: TopicGroup = {
     id: "compositions",
     title: "",
@@ -37,7 +39,7 @@ export function groupTopics(
     topics: Object.values(compositions).map((c) => ({
       id: c.id,
       composition: c,
-      conditions: conditionsFromComposition(c),
+      conditions: conditionsFromComposition(c, conditions),
     })),
   };
 

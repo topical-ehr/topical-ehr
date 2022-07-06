@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { put, takeEvery } from "redux-saga/effects";
 import { select, call } from "typed-redux-saga";
-import { v4 as uuidv4 } from "uuid";
 
 import * as FHIR from "../utils/FhirTypes";
 import { fetchFHIR } from "../utils/fetcher";
 import type { RootState } from "./store";
 import { Topic } from "../utils/topics";
 import { CodeFormatter } from "../utils/display/CodeFormatter";
+import { WritableDraft } from "immer/dist/internal";
 
 type FhirQueryState =
   | {
@@ -22,27 +22,24 @@ export interface FhirResourceById<R> {
   [id: string]: R;
 }
 
-type Modification =
+export type FhirModification =
   | {
       type: "added";
+      draft: FHIR.Resource;
     }
   | {
-      type: "deleted";
-      original: FHIR.Resource;
-    }
-  | {
-      type: "updated";
-      original: FHIR.Resource;
+      type: "edited";
+      draft: FHIR.Resource;
     };
 
-interface Resources<T = never> {
+export interface FhirResources<T = never> {
   compositions: FhirResourceById<FHIR.Composition | T>;
   conditions: FhirResourceById<FHIR.Condition | T>;
   patients: FhirResourceById<FHIR.Patient | T>;
   observations: FhirResourceById<FHIR.Observation | T>;
   diagnosticReports: FhirResourceById<FHIR.DiagnosticReport | T>;
 }
-const emptyResources: Resources = {
+const emptyResources: FhirResources = {
   compositions: {},
   conditions: {},
   patients: {},
@@ -50,8 +47,11 @@ const emptyResources: Resources = {
   diagnosticReports: {},
 };
 
-function getObjectForResource({ resources }: State, r: FHIR.Resource) {
-  switch (r.resourceType) {
+function getResourceContainer(
+  resources: WritableDraft<FhirResources>,
+  resourceType: string
+) {
+  switch (resourceType) {
     case "Composition":
       return resources.compositions;
     case "Condition":
@@ -63,16 +63,34 @@ function getObjectForResource({ resources }: State, r: FHIR.Resource) {
     case "DiagnosticReport":
       return resources.diagnosticReports;
     default:
-      throw new Error(`No state object for resource ${r.resourceType}`);
+      throw new Error(`No state object for resource ${resourceType}`);
   }
+}
+
+function setResource(
+  resources: WritableDraft<FhirResources>,
+  r: FHIR.Resource
+) {
+  const container = getResourceContainer(resources, r.resourceType);
+  // @ts-expect-error
+  container[r.id] = r;
+}
+
+function deleteResource(
+  resources: WritableDraft<FhirResources>,
+  r: FHIR.Resource
+) {
+  const container = getResourceContainer(resources, r.resourceType);
+  delete container[r.id];
 }
 
 export interface State {
   queries: {
     [query: string]: FhirQueryState;
   };
-  resources: Resources;
-  modifications: FhirResourceById<Modification>;
+  resources: FhirResources;
+  edits: FhirResources;
+  deletions: FhirResourceById<FHIR.Resource>;
 
   activePatient?: FHIR.Patient;
 
@@ -89,7 +107,8 @@ export interface State {
 const initialState: State = {
   queries: {},
   resources: emptyResources,
-  modifications: {},
+  edits: emptyResources,
+  deletions: {},
   editingTopics: {},
   autoAddedCompositions: {},
 };
@@ -108,8 +127,7 @@ export const fhirSlice = createSlice({
     queryLoaded(state, action: PayloadAction<[string, FHIR.Resource[]]>) {
       const [query, resources] = action.payload;
       for (const resource of resources) {
-        // @ts-ignore
-        getObjectForResource(state, resource)[resource.id] = resource;
+        setResource(state.resources, resource);
 
         // save active patient
         if (resource.resourceType === "Patient") {
@@ -130,6 +148,22 @@ export const fhirSlice = createSlice({
       };
     },
 
+    edit(state, action: PayloadAction<FHIR.Resource>) {
+      setResource(state.edits, action.payload);
+    },
+    undoEdits(state, action: PayloadAction<FHIR.Resource>) {
+      deleteResource(state.edits, action.payload);
+    },
+
+    delete(state, action: PayloadAction<FHIR.Resource>) {
+      const resource = action.payload;
+      state.deletions[FHIR.referenceTo(resource).reference] = resource;
+    },
+    undoDelete(state, action: PayloadAction<FHIR.Resource>) {
+      const resource = action.payload;
+      delete state.deletions[FHIR.referenceTo(resource).reference];
+    },
+
     editTopic(state, action: PayloadAction<Topic>) {
       const topic = action.payload;
       const composition = topic.composition;
@@ -138,6 +172,7 @@ export const fhirSlice = createSlice({
         state.editingTopics[topic.id] = {
           compositionId: composition.id,
         };
+        setResource(state.edits, JSON.parse(JSON.stringify(composition)));
       } else {
         // create title based on conditions
         const conditionCode = topic.conditions[0]?.code;
@@ -152,22 +187,38 @@ export const fhirSlice = createSlice({
         }
         const newComposition: FHIR.Composition = {
           resourceType: "Composition",
-          id: `urn:uuid:${uuidv4()}`,
+          id: FHIR.newId(),
           meta: { lastUpdated: now },
-          subject: { reference: FHIR.referenceTo(state.activePatient) },
+          subject: FHIR.referenceTo(state.activePatient),
           status: "preliminary",
           type: { text: "topic" },
           date: now,
           title,
+          section: [
+            {
+              entry: topic.conditions.map(FHIR.referenceTo),
+            },
+          ],
         };
-        state.resources.compositions[newComposition.id] = newComposition;
+        // state.resources.compositions[newComposition.id] = newComposition;
         state.autoAddedCompositions[newComposition.id] = {};
-        state.modifications[FHIR.referenceTo(newComposition)] = {
-          type: "added",
-        };
         state.editingTopics[topic.id] = {
           compositionId: newComposition.id,
         };
+        setResource(state.edits, newComposition);
+      }
+    },
+    undoEditTopic(state, action: PayloadAction<Topic>) {
+      const topic = action.payload;
+
+      const compositionId = state.editingTopics[topic.id].compositionId;
+
+      delete state.editingTopics[topic.id];
+      delete state.edits.compositions[compositionId];
+
+      if (state.autoAddedCompositions[compositionId]) {
+        delete state.resources.compositions[compositionId];
+        delete state.autoAddedCompositions[compositionId];
       }
     },
   },

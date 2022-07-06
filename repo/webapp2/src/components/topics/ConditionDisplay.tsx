@@ -4,6 +4,7 @@ import css from "./ConditionDisplay.module.scss";
 
 interface Props {
     condition: FHIR.Condition;
+    deleted?: boolean;
 }
 
 export function ConditionDisplay(props: Props) {
@@ -39,7 +40,7 @@ export function ConditionDisplay(props: Props) {
 
     return (
         <div title="Condition" className={css.container} onClick={onContainerClick}>
-            <div className="">
+            <div className={props.deleted ? css.deleted : ""}>
                 <span className={css.title}>
                     {"⚕ "}
                     {c.code

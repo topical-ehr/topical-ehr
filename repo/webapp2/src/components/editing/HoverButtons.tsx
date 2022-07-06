@@ -14,8 +14,9 @@ export function HoverButtons(props: ContainerProps) {
 }
 
 function IconButton(props: ButtonProps & { children: JSX.Element; title: string }) {
-    function onClick() {
+    function onClick(ev: React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
         props.onClick();
+        ev.preventDefault();
         return false;
     }
 
@@ -61,12 +62,12 @@ export function HoverButtonDelete(props: ButtonProps) {
     );
 }
 
-export function HoverButtonUndo(props: ButtonProps) {
+export function HoverButtonUndo(props: ButtonProps & { title: string }) {
     // THANKS TO https://uxwing.com/rotate-left-arrow-icon/
     // https://react-svgr.com/playground/?expandProps=none
 
     return (
-        <IconButton {...props} title="Undo all edits">
+        <IconButton {...props}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 shapeRendering="geometricPrecision"

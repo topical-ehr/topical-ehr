@@ -24,7 +24,7 @@ export function TopicDisplay(props: Props) {
     }
 
     return (
-        <div className={css.container} onClick={onContainerClick}>
+        <div className={css.container} onClick={onContainerClick} onDoubleClick={onEdit}>
             <HoverButtons>
                 <HoverButtonEdit onClick={onEdit} />
             </HoverButtons>

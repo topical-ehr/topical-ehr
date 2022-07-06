@@ -215,7 +215,6 @@ function useNewNodeFloatingToolbar(editor: LexicalEditor): JSX.Element | null {
             const emptyParagraph = $isParagraphNode(node) && node.getTextContentSize() === 0;
 
             const firstParagraph = selection.anchor.getNode() === $getRoot().getFirstChild();
-            console.log({ selection });
 
             setShow(startOfLine && emptyParagraph && !firstParagraph);
         });

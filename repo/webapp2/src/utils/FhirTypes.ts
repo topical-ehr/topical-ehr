@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from "uuid";
+
 export interface Bundle<TResource> {
   resourceType: "Bundle";
   id: string;
@@ -42,6 +44,10 @@ export function parseRef(
     const s = ref.split("/");
     return { resourceType: s[0], id: s[1] };
   }
+}
+
+export function newId() {
+  return `urn:uuid:${uuidv4()}`;
 }
 
 type Markdown = string;
@@ -174,7 +180,7 @@ export interface Resource {
   };
 }
 export function referenceTo(resource: Resource) {
-  return resource.resourceType + "/" + resource.id;
+  return { reference: resource.resourceType + "/" + resource.id };
 }
 
 interface Address {
@@ -291,7 +297,7 @@ export interface Composition extends Resource {
   status: "preliminary" | "final" | "amended" | "entered-in-error";
   type: CodeableConcept;
   category?: CodeableConcept[];
-  subject?: Reference;
+  subject: Reference;
   encounter?: Reference;
   author?: Reference[];
   date: FhirDateTime;
@@ -310,6 +316,8 @@ interface CompositionSection {
 }
 
 export interface Condition extends Resource {
+  resourceType: "Condition";
+
   subject: Reference;
   encounter?: Reference;
   asserter?: Reference;
@@ -362,4 +370,26 @@ export interface Condition extends Resource {
   severity?: CodeableConcept;
   category?: CodeableConcept[];
   bodySite?: CodeableConcept[];
+}
+
+export interface ValueSet extends Resource {
+  expansion: {
+    contains: [
+      {
+        system: string;
+        code: string;
+        display: string;
+        designation: [
+          {
+            language: string;
+            value: string;
+            use: {
+              system: string;
+              code: string;
+            };
+          }
+        ];
+      }
+    ];
+  };
 }
