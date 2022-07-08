@@ -1,5 +1,5 @@
 import { HoverButtonEdit, HoverButtons } from "../editing/HoverButtons";
-import { Topic } from "../../utils/topics";
+import { Topic } from "../../utils/TopicGroup";
 import { ConditionDisplay } from "./ConditionDisplay";
 import { useAppDispatch } from "../../redux/store";
 import { actions } from "../../redux/FhirState";

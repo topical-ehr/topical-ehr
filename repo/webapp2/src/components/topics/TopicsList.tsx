@@ -1,5 +1,5 @@
 import { useFHIR, useFHIRQueries } from "../../redux/FhirState";
-import { groupTopics } from "../../utils/topics";
+import { groupTopics } from "../../utils/TopicGroup";
 import { ErrorMessage } from "../feedback/ErrorMessage";
 import { Loading } from "../feedback/Loading";
 import { TopicGroupDisplay } from "./TopicGroup";

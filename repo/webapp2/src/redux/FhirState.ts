@@ -7,7 +7,7 @@ import { select, call } from "typed-redux-saga";
 import * as FHIR from "../utils/FhirTypes";
 import { fetchFHIR } from "../utils/fetcher";
 import type { RootState } from "./store";
-import { Topic } from "../utils/topics";
+import { Topic } from "../utils/TopicGroup";
 import { CodeFormatter } from "../utils/display/CodeFormatter";
 import { WritableDraft } from "immer/dist/internal";
 

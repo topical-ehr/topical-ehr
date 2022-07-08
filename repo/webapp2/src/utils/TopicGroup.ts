@@ -1,5 +1,5 @@
 import * as R from "remeda";
-import * as FHIR from "../utils/FhirTypes";
+import * as FHIR from "./FhirTypes";
 import { FhirResourceById } from "../redux/FhirState";
 
 export interface Topic {

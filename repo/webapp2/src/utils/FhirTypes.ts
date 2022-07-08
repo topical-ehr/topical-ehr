@@ -217,6 +217,7 @@ export interface Patient extends Resource {
 }
 
 export interface DiagnosticReport extends Resource {
+  resourceType: "DiagnosticReport";
   status: string;
   code: CodeableConcept;
   category?: CodeableConcept[];
@@ -301,6 +302,7 @@ interface ObservationValue {
 }
 
 export interface Composition extends Resource {
+  resourceType: "Composition";
   status: "preliminary" | "final" | "amended" | "entered-in-error";
   type: CodeableConcept;
   category?: CodeableConcept[];

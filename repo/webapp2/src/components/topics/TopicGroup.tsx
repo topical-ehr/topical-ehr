@@ -1,6 +1,6 @@
 import React from "react";
 import { useFHIR } from "../../redux/FhirState";
-import { Topic, TopicGroup } from "../../utils/topics";
+import { Topic, TopicGroup } from "../../utils/TopicGroup";
 import { TopicDisplay } from "./TopicDisplay";
 import { TopicEdit } from "./TopicEdit";
 

@@ -1,0 +1,42 @@
+.item {
+    border-bottom: 1px solid grey;
+    padding-bottom: 1em;
+    padding-top: 1em;
+}
+
+.date {
+    white-space: nowrap;
+}
+
+.dateRow {
+    display: flex;
+
+    .title {
+        font-weight: bold;
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}
+
+.grid {
+    margin: 1em;
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+    span:nth-child(6n +4),
+    span:nth-child(6n + 5),
+    span:nth-child(6n + 6) {
+        background-color: #dbd3f8;
+    }
+}
+.value {
+    min-width: 3em;
+    display: inline-block;
+    text-align: right;
+    margin-right: 0.5em;
+}
+
+.units {
+    color: grey;
+}

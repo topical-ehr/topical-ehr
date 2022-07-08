@@ -4,7 +4,7 @@ import { $convertToMarkdownString } from "@lexical/markdown";
 import { LexicalEditor } from "lexical";
 
 import * as FHIR from "../../utils/FhirTypes";
-import { Topic } from "../../utils/topics";
+import { Topic } from "../../utils/TopicGroup";
 import { ConditionDisplay } from "./ConditionDisplay";
 import { actions, useFHIR } from "../../redux/FhirState";
 import { RichTextEditor } from "../editing/lexical/RichTextEditor";

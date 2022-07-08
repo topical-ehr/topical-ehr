@@ -8,6 +8,7 @@ import { ObservationList } from "../components/observations/ObservationList";
 import { PatientHeader } from "../components/patient/PatientHeader";
 import { DefaultButton, Stack } from "@fluentui/react";
 import { EditsPanel } from "../components/editing/EditsPanel";
+import { ObservationGroups2 } from "../components/observations/ObservationGroups2";
 
 export default function PatientPage() {
   const { patientId } = useParams();
@@ -38,6 +39,9 @@ export default function PatientPage() {
             <DefaultButton text="💊 Record medication" onClick={() => {}} />
           </Stack>
 
+          <ObservationGroups2 patientId={patientId} />
+          {/* <Tile title="">
+          </Tile>
           <Tile title="">
             <ObservationGroups patientId={patientId} />
           </Tile>
@@ -45,7 +49,7 @@ export default function PatientPage() {
             <ObservationList.All
               fhirQuery={`Observation?subject=Patient/${patientId}`}
             />
-          </Tile>
+          </Tile> */}
         </Column>
         <Column width="33%">
           <EditsPanel />
