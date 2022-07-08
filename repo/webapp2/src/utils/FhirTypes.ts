@@ -183,6 +183,13 @@ export function referenceTo(resource: Resource) {
   return { reference: resource.resourceType + "/" + resource.id };
 }
 
+function newMeta() {
+  return {
+    id: newId(),
+    meta: { lastUpdated: new Date().toISOString() },
+  };
+}
+
 interface Address {
   use?: "home" | "work" | "temp" | "old" | "billing";
   type?: "postal" | "physical" | "both";
@@ -305,7 +312,6 @@ export interface Composition extends Resource {
   title: string;
   section?: CompositionSection[];
 }
-
 interface CompositionSection {
   title?: string;
   code?: CodeableConcept;
@@ -314,6 +320,34 @@ interface CompositionSection {
   section?: CompositionSection[];
   author?: Reference[];
 }
+
+export const Composition = {
+  new(
+    props: Pick<
+      Composition,
+      "subject" | "status" | "type" | "date" | "title" | "section"
+    >
+  ): Composition {
+    return {
+      resourceType: "Composition",
+      ...newMeta(),
+      ...props,
+    };
+  },
+  setEntries(newEntries: Reference[], c: Composition): Composition {
+    const sections = c.section ?? [];
+    const newSections = [
+      { ...sections[0], entry: newEntries },
+      ...sections.slice(1),
+    ];
+    return { ...c, section: newSections };
+  },
+  addEntry(newEntry: Reference, c: Composition): Composition {
+    const entries = c.section?.[0]?.entry ?? [];
+    const newEntries = [...entries, newEntry];
+    return Composition.setEntries(newEntries, c);
+  },
+};
 
 export interface Condition extends Resource {
   resourceType: "Condition";
@@ -371,6 +405,15 @@ export interface Condition extends Resource {
   category?: CodeableConcept[];
   bodySite?: CodeableConcept[];
 }
+export const Condition = {
+  new({ subject }: { subject: Reference }): Condition {
+    return {
+      resourceType: "Condition",
+      ...newMeta(),
+      subject,
+    };
+  },
+};
 
 export interface ValueSet extends Resource {
   expansion: {

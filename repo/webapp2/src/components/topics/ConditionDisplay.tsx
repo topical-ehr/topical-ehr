@@ -42,7 +42,7 @@ export function ConditionDisplay(props: Props) {
         <div title="Condition" className={css.container} onClick={onContainerClick}>
             <div className={props.deleted ? css.deleted : ""}>
                 <span className={css.title}>
-                    {"⚕ "}
+                    {/* {"⚕ "} */}
                     {c.code
                         ? new CodeFormatter(c.code).shortText
                         : "NO CODE - control click for more info (FIXME)"}

@@ -185,10 +185,7 @@ export const fhirSlice = createSlice({
         if (!state.activePatient) {
           throw new Error("no active patient");
         }
-        const newComposition: FHIR.Composition = {
-          resourceType: "Composition",
-          id: FHIR.newId(),
-          meta: { lastUpdated: now },
+        const newComposition = FHIR.Composition.new({
           subject: FHIR.referenceTo(state.activePatient),
           status: "preliminary",
           type: { text: "topic" },
@@ -199,13 +196,12 @@ export const fhirSlice = createSlice({
               entry: topic.conditions.map(FHIR.referenceTo),
             },
           ],
-        };
-        // state.resources.compositions[newComposition.id] = newComposition;
+        });
         state.autoAddedCompositions[newComposition.id] = {};
         state.editingTopics[topic.id] = {
           compositionId: newComposition.id,
         };
-        setResource(state.edits, newComposition);
+        state.edits.compositions[newComposition.id] = newComposition;
       }
     },
     undoEditTopic(state, action: PayloadAction<Topic>) {

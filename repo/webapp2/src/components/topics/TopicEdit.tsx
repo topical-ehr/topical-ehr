@@ -23,9 +23,7 @@ export function TopicEdit(props: Props) {
     const topicId = props.topic.id;
 
     const editState = useFHIR((s) => s.fhir.editingTopics[topicId]);
-    const composition = useFHIR(
-        (s) => s.fhir.edits.compositions[editState.compositionId]
-    ) as FHIR.Composition;
+    const composition = useFHIR((s) => s.fhir.edits.compositions[editState.compositionId]);
 
     const dispatch = useDispatch();
     const editorRef = React.useRef<LexicalEditor>();
@@ -60,18 +58,15 @@ export function TopicEdit(props: Props) {
     function onDelete() {}
 
     function onAddCondition() {
-        const now = new Date().toISOString();
-        const newCondition: FHIR.Condition = {
-            resourceType: "Condition",
-            id: FHIR.newId(),
-            meta: { lastUpdated: now },
-            subject: composition.subject,
-        };
-        const updatedComposition: FHIR.Composition = JSON.parse(JSON.stringify(composition));
-        const section0 = updatedComposition.section;
-        updatedComposition.section[0].entry;
+        const newCondition = FHIR.Condition.new({ subject: composition.subject });
+
+        const updatedComposition = FHIR.Composition.addEntry(
+            FHIR.referenceTo(newCondition),
+            composition
+        );
 
         dispatch(actions.edit(newCondition));
+        dispatch(actions.edit(updatedComposition));
     }
     function onAddMedication() {}
 
@@ -83,6 +78,11 @@ export function TopicEdit(props: Props) {
             <p>Details</p>
         </>
     );
+
+    const addedConditions = (composition.section ?? [])
+        .flatMap((s) => s.entry)
+        .flatMap((r) => (r?.reference ? [r?.reference] : []))
+        .filter((r) => r.startsWith("Condition/urn:"));
 
     return (
         <div className={css.container} onClick={onContainerClick}>
@@ -111,7 +111,9 @@ export function TopicEdit(props: Props) {
             {props.topic.conditions.map((c) => (
                 <ConditionEdit key={c.id} condition={c} />
             ))}
-            <ConditionAdd />
+            {addedConditions.map((id) => (
+                <ConditionAdd conditionId={id} />
+            ))}
 
             <Stack horizontal tokens={{ childrenGap: 10 }}>
                 <PrimaryButton text="Add condition" onClick={onAddCondition} />

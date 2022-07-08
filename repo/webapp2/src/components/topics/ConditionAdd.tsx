@@ -1,13 +1,29 @@
 import * as FHIR from "../../utils/FhirTypes";
 import css from "./ConditionAdd.module.scss";
 import AsyncSelect, { useAsync } from "react-select/async";
-import { OptionsOrGroups } from "react-select";
+import { actions, useFHIR } from "../../redux/FhirState";
+import { useDispatch } from "react-redux";
+import { HoverButtonDelete } from "../editing/HoverButtons";
 
-interface Props {}
+interface Props {
+    conditionId: string;
+}
+
+const minInputLengthForSearch = 4;
+const showCodes = false;
+
+type Option = FHIR.ValueSet["expansion"]["contains"][0];
+// interface Option {
+//     label: string;
+//     value: string;
+// }
 
 export function ConditionAdd(props: Props) {
+    const condition = useFHIR((s) => s.fhir.edits.conditions[props.conditionId]);
+    const dispatch = useDispatch();
+
     async function loadOptions(input: string) {
-        if (input.length < 4) {
+        if (input.length < minInputLengthForSearch) {
             return [];
         }
         const codeSystemUrl = "http://snomed.info/sct?fhir_vs=isa/138875005";
@@ -26,16 +42,45 @@ export function ConditionAdd(props: Props) {
         }));
     }
 
-    function onChange() {}
+    function onChange(newValue: Option | null) {
+        if (newValue) {
+            const { system, code, display } = newValue;
+            condition.code = {
+                text: newValue?.display,
+                coding: [{ system, code, display, userSelected: true }],
+            };
+            dispatch(actions.edit(condition));
+        }
+    }
+
+    function onDelete() {}
+
+    function formatOptionWithCode(option: Option) {
+        return (
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div>{option.display}</div>
+                <div>{option.code}</div>
+            </div>
+        );
+    }
 
     return (
         <div className={css.conditionAdd}>
             <AsyncSelect
                 loadOptions={loadOptions}
-                onChange={(newValue, actionMeta) => onChange()}
-                getOptionLabel={(val) => val.display}
-                getOptionValue={(val) => val.code}
+                placeholder="Type a condition"
+                isClearable
+                components={{
+                    DropdownIndicator: null,
+                }}
+                onChange={onChange}
+                noOptionsMessage={(input) =>
+                    input.inputValue.length < minInputLengthForSearch ? null : "Loading..."
+                }
+                formatOptionLabel={showCodes ? formatOptionWithCode : undefined}
             />
+
+            <HoverButtonDelete onClick={onDelete} />
         </div>
     );
 }

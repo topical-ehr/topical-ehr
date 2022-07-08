@@ -14,7 +14,7 @@ export function ChangesPanel() {
             const orig = originals[key][r.id];
             const origJSON = JSON.stringify(orig);
             const editedJSON = JSON.stringify(r);
-            console.log({ origJSON, editedJSON, key, id: r.id, originals });
+            // console.log({ origJSON, editedJSON, key, id: r.id, originals });
             return origJSON !== editedJSON;
         });
     }
