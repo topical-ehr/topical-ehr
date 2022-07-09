@@ -5,7 +5,9 @@ import { Observation } from "../../utils/FhirTypes";
 import { groupObservations } from "../../utils/ObservationsGroup";
 import { ErrorMessage } from "../feedback/ErrorMessage";
 import { Loading } from "../feedback/Loading";
+import { ChartMini } from "./ChartMini";
 import css from "./ObservationGroups2.module.scss";
+import * as VegaTooltip from "vega-tooltip";
 
 interface Props {
     patientId: string;
@@ -43,12 +45,21 @@ export function ObservationGroups2(props: Props) {
                 <span className={css.title}>{of.code}</span>
                 <span className={css.value}>{of.value}</span>
                 <span className={css.units}>{of.units}</span>
+                <span className={css.chart}>
+                    <ChartMini
+                        renderer="svg"
+                        tooltip={new VegaTooltip.Handler().call}
+                        actions={false}
+                    />
+                </span>
             </>
         );
     }
 
     return (
         <div>
+            <ChartMini renderer="svg" tooltip={new VegaTooltip.Handler().call} actions={false} />
+
             {items.map((item) => (
                 <div key={item.id} className={css.item}>
                     <div className={css.dateRow}>

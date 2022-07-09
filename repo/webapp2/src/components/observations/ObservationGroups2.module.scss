@@ -22,13 +22,14 @@
     margin: 1em;
 
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto 1fr;
 
-    span:nth-child(6n +4),
-    span:nth-child(6n + 5),
-    span:nth-child(6n + 6) {
-        background-color: #dbd3f8;
-    }
+    // span:nth-child(6n +4),
+    // span:nth-child(6n + 5),
+    // span:nth-child(6n + 6),
+    // span:nth-child(6n + 7) {
+    //     background-color: #dbd3f8;
+    // }
 }
 .value {
     min-width: 3em;
