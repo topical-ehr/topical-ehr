@@ -8,6 +8,7 @@ import { Loading } from "../feedback/Loading";
 import { ChartMini } from "./ChartMini";
 import css from "./ObservationGroups2.module.scss";
 import * as VegaTooltip from "vega-tooltip";
+import { interpretObservation } from "../../utils/display/ObservationRanges";
 
 interface Props {
     patientId: string;
@@ -38,16 +39,36 @@ export function ObservationGroups2(props: Props) {
         return luxonDate.toLocaleString(DateTime.DATE_MED);
     }
 
-    function renderObservation(ob: Observation) {
-        const of = new ObservationFormatter(ob);
+    function renderObservation(obToRender: Observation) {
+        const of = new ObservationFormatter(obToRender);
+
+        const allObservations = (obToRender.code.coding ?? []).flatMap((code) => {
+            const obKey = code.system + "|" + code.code;
+            return observationsByCode.get(obKey) ?? [];
+        });
+        const vegaData = allObservations.map((ob) => {
+            const of = new ObservationFormatter(ob);
+            const interpretation = interpretObservation(of);
+            return {
+                date: ob.effectiveDateTime,
+                value: of.value,
+                units: of.units,
+                range: interpretation.interpretation,
+                current: ob.id === obToRender.id,
+            };
+        });
+
         return (
             <>
-                <span className={css.title}>{of.code}</span>
+                <span className={css.title} title={of.codeFull}>
+                    {of.code}
+                </span>
                 <span className={css.value}>{of.value}</span>
                 <span className={css.units}>{of.units}</span>
                 <span className={css.chart}>
                     <ChartMini
                         renderer="svg"
+                        data={{ main: vegaData }}
                         tooltip={new VegaTooltip.Handler().call}
                         actions={false}
                     />
@@ -58,8 +79,6 @@ export function ObservationGroups2(props: Props) {
 
     return (
         <div>
-            <ChartMini renderer="svg" tooltip={new VegaTooltip.Handler().call} actions={false} />
-
             {items.map((item) => (
                 <div key={item.id} className={css.item}>
                     <div className={css.dateRow}>

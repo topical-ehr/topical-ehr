@@ -268,7 +268,7 @@ export interface Observation extends Resource, ObservationValue {
   referenceRange?: ObservationReferenceRange;
 
   component?: ({
-    code: string;
+    code: CodeableConcept;
     referenceRange?: ObservationReferenceRange;
   } & ObservationValue)[];
 

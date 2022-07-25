@@ -1064,6 +1064,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-dsv@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@rollup/plugin-dsv@npm:2.0.3"
+  dependencies:
+    "@rollup/pluginutils": ^3.1.0
+    "@types/d3-dsv": ~1.2.0
+    d3-dsv: 1.2.0
+    tosource: ^1.0.0
+  checksum: 560c75227ec477f99e075c94e86d49b3fe0cff7b7fab4284be58d1f793a6f09f8d10c0f455737f2432e39f24ecdeddc47960f0e8e8b7fde9529dec540db7c3e7
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@rollup/pluginutils@npm:3.1.0"
+  dependencies:
+    "@types/estree": 0.0.39
+    estree-walker: ^1.0.1
+    picomatch: ^2.2.2
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0
+  checksum: 8be16e27863c219edbb25a4e6ec2fe0e1e451d9e917b6a43cf2ae5bc025a6b8faaa40f82a6e53b66d0de37b58ff472c6c3d57a83037ae635041f8df959d6d9aa
+  languageName: node
+  linkType: hard
+
 "@rollup/pluginutils@npm:^4.2.0":
   version: 4.2.1
   resolution: "@rollup/pluginutils@npm:4.2.1"
@@ -1085,6 +1110,20 @@ __metadata:
   version: 2.1.1
   resolution: "@types/clone@npm:2.1.1"
   checksum: bda9668b9d6e0875d64bbe00763676f566e8647bc224333a03ac7fd66655dfed56a98a9f8304d0145c4411b964649c84c4d1a03adbdb6547eafb9ab8f303d254
+  languageName: node
+  linkType: hard
+
+"@types/d3-dsv@npm:~1.2.0":
+  version: 1.2.1
+  resolution: "@types/d3-dsv@npm:1.2.1"
+  checksum: 62e271128530c6bac589f3be76f95b11a052c6af3606b65f82e378981300b5f1d6c3841448744c07680bf40af35a8aad3b6100bbd357007ffe4e111c5e4a34fe
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:0.0.39":
+  version: 0.0.39
+  resolution: "@types/estree@npm:0.0.39"
+  checksum: 412fb5b9868f2c418126451821833414189b75cc6bf84361156feed733e3d92ec220b9d74a89e52722e03d5e241b2932732711b7497374a404fad49087adc248
   languageName: node
   linkType: hard
 
@@ -1662,6 +1701,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"d3-dsv@npm:1.2.0":
+  version: 1.2.0
+  resolution: "d3-dsv@npm:1.2.0"
+  dependencies:
+    commander: 2
+    iconv-lite: 0.4
+    rw: 1
+  bin:
+    csv2json: bin/dsv2json
+    csv2tsv: bin/dsv2dsv
+    dsv2dsv: bin/dsv2dsv
+    dsv2json: bin/dsv2json
+    json2csv: bin/json2dsv
+    json2dsv: bin/json2dsv
+    json2tsv: bin/json2dsv
+    tsv2csv: bin/dsv2dsv
+    tsv2json: bin/dsv2json
+  checksum: 96c6e3d5ca1566624ca613b5941bc6fa916082cbe4b2b71cb6c5978c471db58c489b17206e3e31fbe30719dbd75e9c8ed8ab12a9d353cff90a35102690de7823
+  languageName: node
+  linkType: hard
+
 "d3-dsv@npm:^3.0.1":
   version: 3.0.1
   resolution: "d3-dsv@npm:3.0.1"
@@ -2127,6 +2187,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"estree-walker@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "estree-walker@npm:1.0.1"
+  checksum: 7e70da539691f6db03a08e7ce94f394ce2eef4180e136d251af299d41f92fb2d28ebcd9a6e393e3728d7970aeb5358705ddf7209d52fbcb2dd4693f95dcf925f
+  languageName: node
+  linkType: hard
+
 "estree-walker@npm:^2.0.1":
   version: 2.0.2
   resolution: "estree-walker@npm:2.0.2"
@@ -2369,6 +2436,15 @@ __metadata:
   dependencies:
     ms: ^2.0.0
   checksum: 9c7a74a2827f9294c009266c82031030eae811ca87b0da3dceb8d6071b9bde22c9f3daef0469c3c533cc67a97d8a167cd9fc0389350e5f415f61a79b171ded16
+  languageName: node
+  linkType: hard
+
+"iconv-lite@npm:0.4":
+  version: 0.4.24
+  resolution: "iconv-lite@npm:0.4.24"
+  dependencies:
+    safer-buffer: ">= 2.1.2 < 3"
+  checksum: bd9f120f5a5b306f0bc0b9ae1edeb1577161503f5f8252a20f1a9e56ef8775c9959fd01c55f2d3a39d9a8abaf3e30c1abeb1895f367dcbbe0a8fd1c9ca01c4f6
   languageName: node
   linkType: hard
 
@@ -3395,7 +3471,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safer-buffer@npm:>= 2.1.2 < 3.0.0":
+"safer-buffer@npm:>= 2.1.2 < 3, safer-buffer@npm:>= 2.1.2 < 3.0.0":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: cab8f25ae6f1434abee8d80023d7e72b598cf1327164ddab31003c51215526801e40b66c5e65d658a0af1e9d6478cadcb4c745f4bd6751f97d8644786c0978b0
@@ -3610,6 +3686,13 @@ __metadata:
     topomerge: bin/topomerge
     topoquantize: bin/topoquantize
   checksum: 8c029a4f18324ace0b8b55dd90edbd40c9e3c6de18bafbb5da37ca20ebf20e26fbd4420891acb3c2c264e214185f7557871f5651a9eee517028663be98d836de
+  languageName: node
+  linkType: hard
+
+"tosource@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "tosource@npm:1.0.0"
+  checksum: 683fc64700484cd749b6eed461c2d105e251df7caf886484ff824bcf1249e365210d65c4f2ca3ced30baa34ea7912c656984e084aaada669920b44e2437c1c05
   languageName: node
   linkType: hard
 
@@ -4232,6 +4315,7 @@ __metadata:
     "@lexical/selection": 0.3.6
     "@lexical/utils": 0.3.6
     "@reduxjs/toolkit": 1.8.1
+    "@rollup/plugin-dsv": ^2.0.3
     "@types/luxon": 2.3.1
     "@types/node": 17.0.31
     "@types/react": ^18.0.0

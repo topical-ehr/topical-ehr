@@ -1,0 +1,186 @@
+{
+    "height": 50,
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "datasets": {
+        "main": [
+            {
+                "date": "2022-07-09",
+                "value": 260,
+                "range": "high",
+                "current": true
+            },
+            {
+                "date": "2022-07-01",
+                "value": 220,
+                "range": "normal",
+                "current": false
+            },
+            {
+                "date": "2022-06-10",
+                "value": 240,
+                "range": "normal",
+                "current": false
+            },
+            {
+                "date": "2022-06-2",
+                "value": 300,
+                "range": "high",
+                "current": false
+            }
+        ]
+    },
+    "data": {
+        "name": "main"
+    },
+    "resolve": {
+        "scale": {
+            "color": "independent"
+        }
+    },
+    "layer": [
+        {
+            "mark": {
+                "type": "rule",
+                "size": 30
+            },
+            "transform": [
+                {
+                    "filter": "datum.current == true"
+                }
+            ],
+            "encoding": {
+                "color": {
+                    "field": "range",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "normal",
+                            "low",
+                            "high",
+                            "unknown"
+                        ],
+                        "range": [
+                            "#a9d4a9",
+                            "#ff110032",
+                            "#ff110032",
+                            "#b7b7ff"
+                        ]
+                    },
+                    "legend": null
+                },
+                "x": {
+                    "field": "date",
+                    "type": "temporal",
+                    "title": null,
+                    "axis": null
+                }
+            }
+        },
+        {
+            "mark": {
+                "type": "point",
+                "tooltip": true,
+                "size": 120,
+                "opacity": 1
+            },
+            "data": {
+                "name": "main"
+            },
+            "transform": [
+                {
+                    "filter": "datum.current == false"
+                }
+            ],
+            "encoding": {
+                "color": {
+                    "field": "range",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "normal",
+                            "low",
+                            "high",
+                            "unknown"
+                        ],
+                        "range": [
+                            "green",
+                            "red",
+                            "red",
+                            "blue"
+                        ]
+                    },
+                    "legend": null
+                },
+                "x": {
+                    "field": "date",
+                    "type": "temporal",
+                    "title": null,
+                    "axis": null
+                },
+                "y": {
+                    "field": "value",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": false
+                    },
+                    "title": null,
+                    "axis": null
+                }
+            }
+        },
+        {
+            "mark": {
+                "type": "point",
+                "shape": "circle",
+                "tooltip": true,
+                "filled": true,
+                "size": 160,
+                "opacity": 1
+            },
+            "data": {
+                "name": "main"
+            },
+            "transform": [
+                {
+                    "filter": "datum.current == true"
+                }
+            ],
+            "encoding": {
+                "color": {
+                    "field": "range",
+                    "type": "nominal",
+                    "scale": {
+                        "domain": [
+                            "normal",
+                            "low",
+                            "high",
+                            "unknown"
+                        ],
+                        "range": [
+                            "green",
+                            "red",
+                            "red",
+                            "blue"
+                        ]
+                    },
+                    "legend": null
+                },
+                "x": {
+                    "field": "date",
+                    "type": "temporal",
+                    "title": null,
+                    "axis": null
+                },
+                "y": {
+                    "field": "value",
+                    "type": "quantitative",
+                    "scale": {
+                        "zero": false
+                    },
+                    "title": null,
+                    "axis": null
+                }
+            }
+        }
+    ]
+}

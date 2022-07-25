@@ -10,6 +10,7 @@
 
 .dateRow {
     display: flex;
+    align-items: center;
 
     .title {
         font-weight: bold;
@@ -22,6 +23,7 @@
     margin: 1em;
 
     display: grid;
+    align-items: center;
     grid-template-columns: auto auto auto 1fr;
 
     // span:nth-child(6n +4),

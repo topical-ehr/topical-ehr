@@ -46,6 +46,7 @@
     "vega-tooltip": "^0.28.0"
   },
   "devDependencies": {
+    "@rollup/plugin-dsv": "^2.0.3",
     "@types/luxon": "2.3.1",
     "@types/node": "17.0.31",
     "@types/react": "^18.0.0",
