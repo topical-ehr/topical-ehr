@@ -9,28 +9,28 @@ import "./ChartMini.scss";
 const worker = new Worker(new URL("./ChartWorker.js", import.meta.url));
 worker.postMessage({ vegaliteSpec });
 
-const requests = new Map<number, (svg: string) => void>();
+const workerRequests = new Map<number, (svg: string) => void>();
 worker.onmessage = (event) => {
     const { requestId, svg } = event.data;
-    const setSvg = requests.get(requestId);
+    const setSvg = workerRequests.get(requestId);
     if (setSvg) {
-        requests.delete(requestId);
+        workerRequests.delete(requestId);
         setSvg(svg);
     } else {
         console.error("request not found!", event);
     }
 };
-let nextRequestId = 1;
+let nextWorkerRequestId = 1;
 
 interface SelectedPoint {
-    path: SVGPathElement;
+    elt: SVGElement;
     stroke: string | null;
     fill: string | null;
 }
 
-function restoreSelectedPoint(point: SelectedPoint) {
-    point.path.setAttribute("stroke", point.stroke ?? "");
-    point.path.setAttribute("fill", point.fill ?? "");
+function unselectPoint(point: SelectedPoint) {
+    point.elt.setAttribute("stroke", point.stroke ?? "");
+    point.elt.setAttribute("fill", point.fill ?? "");
 }
 
 function getTooltipDiv() {
@@ -49,6 +49,36 @@ function getTooltipDiv() {
     return newDiv;
 }
 
+function getClosestPoint(target: SVGElement, mouseX: number) {
+    function matches(elt: SVGElement) {
+        return elt.getAttribute("aria-roledescription") === "point";
+    }
+
+    if (matches(target)) {
+        return target;
+    }
+
+    const svg = target.ownerSVGElement!;
+    const paths = svg.querySelectorAll("path");
+
+    let closestPath = null;
+    let closestDistance = Infinity;
+
+    for (const path of paths) {
+        if (matches(path)) {
+            const rect = path.getBoundingClientRect();
+            const centerX = rect.x + rect.width / 2;
+            const distance = Math.abs(centerX - mouseX);
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestPath = path;
+            }
+        }
+    }
+
+    return closestPath;
+}
+
 function ChartMiniViaWorker(props: FixedVegaChartProps) {
     const [svg, setSvg] = React.useState<string | null>(null);
     const divRef = React.useRef<HTMLDivElement>(null);
@@ -57,43 +87,25 @@ function ChartMiniViaWorker(props: FixedVegaChartProps) {
 
     // Render SVG via WebWorker
     React.useEffect(() => {
-        const requestId = nextRequestId;
-        nextRequestId += 1;
-        requests.set(requestId, setSvg);
+        const requestId = nextWorkerRequestId;
+        nextWorkerRequestId += 1;
+        workerRequests.set(requestId, setSvg);
         worker.postMessage({ requestId, vegaData: props.data });
     }, []);
 
     // Dynamic legend
     function onMouseMove(event: Event) {
-        // console.log("mousemove", event);
-        const mouseX = (event as MouseEvent).clientX;
-
         const target = event.target as SVGElement;
-        const svg = target.ownerSVGElement!;
-        const paths = svg.querySelectorAll("path");
+        const mouseX = (event as MouseEvent).clientX;
+        const closestPath = getClosestPoint(target, mouseX);
 
-        let closestPath = null;
-        let closestDistance = Infinity;
-
-        for (const path of paths) {
-            if (path.getAttribute("aria-roledescription") === "point") {
-                const rect = path.getBoundingClientRect();
-                const centerX = rect.x + rect.width / 2;
-                const distance = Math.abs(centerX - mouseX);
-                if (distance < closestDistance) {
-                    closestDistance = distance;
-                    closestPath = path;
-                }
-            }
-        }
-
-        const svgElt = divRef.current?.firstChild;
-        console.log({ event, closestPath, svgElt });
+        // const svgElt = divRef.current?.firstChild;
+        // console.log("mouseMove", { event, closestPath, svgElt });
 
         if (closestPath) {
-            if (selectedPoint.current?.path !== closestPath) {
+            if (selectedPoint.current?.elt !== closestPath) {
                 if (selectedPoint.current) {
-                    restoreSelectedPoint(selectedPoint.current);
+                    unselectPoint(selectedPoint.current);
                 }
 
                 const stroke = closestPath.getAttribute("stroke");
@@ -105,7 +117,7 @@ function ChartMiniViaWorker(props: FixedVegaChartProps) {
                 }
 
                 selectedPoint.current = {
-                    path: closestPath,
+                    elt: closestPath,
                     stroke,
                     fill,
                 };
@@ -114,6 +126,7 @@ function ChartMiniViaWorker(props: FixedVegaChartProps) {
                 tooltip.style.visibility = "visible";
                 tooltip.style.left = mouseX + "px";
 
+                const svg = target.ownerSVGElement!;
                 const chartBackground = svg.querySelector(".background");
                 tooltip.style.top =
                     (chartBackground ?? svg).getBoundingClientRect().bottom + 10 + "px";
@@ -133,15 +146,14 @@ function ChartMiniViaWorker(props: FixedVegaChartProps) {
                     <div>${date}</div>`;
                 if (range) {
                     tooltip.className = range;
-                    console.log({ range, tooltip });
-                    // tooltip.setAttribute("class", range);
+                    // console.log({ range, tooltip });
                 }
             }
         }
     }
     function onMouseOut(event: Event) {
         if (selectedPoint.current) {
-            restoreSelectedPoint(selectedPoint.current);
+            unselectPoint(selectedPoint.current);
             selectedPoint.current = null;
 
             // hide tooltip

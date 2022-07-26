@@ -17,7 +17,18 @@ export interface Bundle<TResource> {
   entry?: {
     fullUrl: string;
     resource: TResource;
-    search: {
+    request?: {
+      method: string;
+      url: string;
+    };
+    response?: {
+      status: string;
+      location?: string;
+      etag?: string;
+      lastModified?: string;
+      outcome?: Resource;
+    };
+    search?: {
       mode: "match" | "include";
     };
   }[];
@@ -25,6 +36,21 @@ export interface Bundle<TResource> {
 export function isBundle(r: Resource): r is Bundle<Resource> {
   return r.resourceType === "Bundle";
 }
+export const Bundle = {
+  newTransaction(entries: Bundle<Resource>["entry"]) {
+    const bundle: Bundle<Resource> = {
+      resourceType: "Bundle",
+      type: "transaction",
+      id: newUuidId(),
+      meta: {
+        lastUpdated: new Date().toISOString(),
+      },
+      link: [],
+      entry: entries,
+    };
+    return bundle;
+  },
+};
 
 export function parseRef(
   ref: string | null | undefined,
@@ -46,7 +72,7 @@ export function parseRef(
   }
 }
 
-export function newId() {
+function newUuidId() {
   return `urn:uuid:${uuidv4()}`;
 }
 
@@ -180,12 +206,16 @@ export interface Resource {
   };
 }
 export function referenceTo(resource: Resource) {
-  return { reference: resource.resourceType + "/" + resource.id };
+  if (resource.id.startsWith("urn:uuid:")) {
+    return { reference: resource.id, type: resource.resourceType };
+  } else {
+    return { reference: resource.resourceType + "/" + resource.id };
+  }
 }
 
 function newMeta() {
   return {
-    id: newId(),
+    id: newUuidId(),
     meta: { lastUpdated: new Date().toISOString() },
   };
 }

@@ -45,11 +45,14 @@ export function ConditionAdd(props: Props) {
     function onChange(newValue: Option | null) {
         if (newValue) {
             const { system, code, display } = newValue;
-            condition.code = {
-                text: newValue?.display,
-                coding: [{ system, code, display, userSelected: true }],
+            const newCondition = {
+                ...condition,
+                code: {
+                    text: newValue?.display,
+                    coding: [{ system, code, display, userSelected: true }],
+                },
             };
-            dispatch(actions.edit(condition));
+            dispatch(actions.edit(newCondition));
         }
     }
 

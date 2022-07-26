@@ -1,17 +1,6 @@
 import { DateTime } from "luxon";
 import { CodeableConcept, Observation, Quantity } from "../FhirTypes";
-
-import shorthandData from "./ObservationShorthand.csv";
-
-interface RawRow {
-  full: string;
-  short: string;
-}
-const shorthand = new Map<string, string>();
-for (const _row of shorthandData) {
-  const row = _row as RawRow;
-  shorthand.set(row.full.trim(), row.short.trim());
-}
+import { applyShorthand } from "./ObservationShorthand";
 
 export class ObservationFormatter {
   constructor(public ob: Observation) {}
@@ -39,7 +28,7 @@ export class ObservationFormatter {
   get code() {
     // remove everything after "["
     const code = this.codeFull.split("\n")[0].split("[", 2)[0];
-    return shorthand.get(code.trim()) ?? code;
+    return applyShorthand(code);
   }
 
   get value() {

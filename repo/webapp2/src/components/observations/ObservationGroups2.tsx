@@ -9,6 +9,7 @@ import { ChartMini } from "./ChartMini";
 import css from "./ObservationGroups2.module.scss";
 import * as VegaTooltip from "vega-tooltip";
 import { interpretObservation } from "../../utils/display/ObservationRanges";
+import React from "react";
 
 interface Props {
     patientId: string;
@@ -59,7 +60,7 @@ export function ObservationGroups2(props: Props) {
         });
 
         return (
-            <>
+            <React.Fragment key={"Observation/" + obToRender.id}>
                 <span className={css.title} title={of.codeFull}>
                     {of.code}
                 </span>
@@ -73,7 +74,7 @@ export function ObservationGroups2(props: Props) {
                         actions={false}
                     />
                 </span>
-            </>
+            </React.Fragment>
         );
     }
 
@@ -85,7 +86,9 @@ export function ObservationGroups2(props: Props) {
                         <div className={css.date}>{renderDateTime(item.dateTime)}</div>
                         {item.item.type === "single" && renderObservation(item.item.observation)}
                         {item.item.type === "group" && (
-                            <div className={css.title}>{item.item.title}</div>
+                            <div className={css.title} title={item.item.titleFull}>
+                                {item.item.title}
+                            </div>
                         )}
                     </div>
 

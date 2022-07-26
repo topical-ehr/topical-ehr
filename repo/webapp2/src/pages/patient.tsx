@@ -29,12 +29,8 @@ export default function PatientPage() {
           <TopicsList patientId={patientId} />
         </Column>
 
-        <Column width="33%">
-          <Stack
-            style={{ marginLeft: "1em" }}
-            horizontal
-            tokens={{ childrenGap: 10 }}
-          >
+        <Column width="33%" marginLeft="1em">
+          <Stack horizontal tokens={{ childrenGap: 10 }}>
             <DefaultButton text="💓 Add obs" onClick={() => {}} />
             <DefaultButton text="💊 Record medication" onClick={() => {}} />
           </Stack>

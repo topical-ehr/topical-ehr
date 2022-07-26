@@ -1,3 +1,9 @@
+.editor-container {
+    position: relative; /* to absolutely position the placeholder */
+   
+    margin-bottom: 1em;
+}
+
 .editor-placeholder {
     font-size: 15px;
     color: #999;
@@ -19,14 +25,15 @@
 
     min-height: 10em;
 
+    p {
+      margin-left: 0.5em;
+    }
     p:not(:first-child) {
         margin-bottom: 0.8em;
     }
 }
-.editor-container {
-    position: relative; /* to position the placeholder */
-}
 
+// nested headings
 @for $i from 1 through 6 {
   .editor-h#{$i} {
     font-size: larger;

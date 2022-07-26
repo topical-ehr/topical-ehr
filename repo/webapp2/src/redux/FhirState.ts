@@ -1,22 +1,25 @@
-import React from "react";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { WritableDraft } from "immer/dist/internal";
+import React from "react";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { put, takeEvery } from "redux-saga/effects";
-import { select, call } from "typed-redux-saga";
-
-import * as FHIR from "../utils/FhirTypes";
-import { fetchFHIR } from "../utils/fetcher";
-import type { RootState } from "./store";
-import { Topic } from "../utils/TopicGroup";
+import { call, select } from "typed-redux-saga";
 import { CodeFormatter } from "../utils/display/CodeFormatter";
-import { WritableDraft } from "immer/dist/internal";
+import { fetchFHIR, postFHIR } from "../utils/fetcher";
+import * as FHIR from "../utils/FhirTypes";
+import { Topic } from "../utils/TopicGroup";
+import type { RootState } from "./store";
 
-type FhirQueryState =
-  | {
-      state: "loading";
-    }
+type QueryState =
+  | { state: "loading" }
   | { state: "error"; error: unknown }
   | { state: "loaded" };
+
+type SaveState =
+  | { state: "save-requested" }
+  | { state: "saving" }
+  | { state: "error"; error: unknown }
+  | { state: "saved" };
 
 export interface FhirResourceById<R> {
   [id: string]: R;
@@ -86,7 +89,7 @@ function deleteResource(
 
 export interface State {
   queries: {
-    [query: string]: FhirQueryState;
+    [query: string]: QueryState;
   };
   resources: FhirResources;
   edits: FhirResources;
@@ -102,6 +105,7 @@ export interface State {
     };
   };
   autoAddedCompositions: { [id: string]: {} };
+  saveState: SaveState | null;
 }
 
 const initialState: State = {
@@ -111,6 +115,7 @@ const initialState: State = {
   deletions: {},
   editingTopics: {},
   autoAddedCompositions: {},
+  saveState: null,
 };
 
 export const fhirSlice = createSlice({
@@ -150,6 +155,7 @@ export const fhirSlice = createSlice({
 
     edit(state, action: PayloadAction<FHIR.Resource>) {
       setResource(state.edits, action.payload);
+      state.saveState = null;
     },
     undoEdits(state, action: PayloadAction<FHIR.Resource>) {
       deleteResource(state.edits, action.payload);
@@ -158,6 +164,7 @@ export const fhirSlice = createSlice({
     delete(state, action: PayloadAction<FHIR.Resource>) {
       const resource = action.payload;
       state.deletions[FHIR.referenceTo(resource).reference] = resource;
+      state.saveState = null;
     },
     undoDelete(state, action: PayloadAction<FHIR.Resource>) {
       const resource = action.payload;
@@ -203,6 +210,8 @@ export const fhirSlice = createSlice({
         };
         state.edits.compositions[newComposition.id] = newComposition;
       }
+
+      state.saveState = null;
     },
     undoEditTopic(state, action: PayloadAction<Topic>) {
       const topic = action.payload;
@@ -216,6 +225,20 @@ export const fhirSlice = createSlice({
         delete state.resources.compositions[compositionId];
         delete state.autoAddedCompositions[compositionId];
       }
+    },
+    setSaveState(state, action: PayloadAction<SaveState>) {
+      state.saveState = action.payload;
+    },
+    undoAll(state, action: PayloadAction<void>) {
+      for (const key of Object.keys(state.edits)) {
+        // @ts-ignore
+        state.edits[key] = {};
+      }
+      // state.edits.conditions = {};
+      // state.edits.compositions = {};
+
+      state.editingTopics = {};
+      state.autoAddedCompositions = {};
     },
   },
 });
@@ -243,13 +266,52 @@ function* onQuery(action: PayloadAction<string>) {
   }
 }
 
+function* onSave(action: PayloadAction<SaveState>) {
+  if (action.payload.state !== "save-requested") {
+    return;
+  }
+  yield put(actions.setSaveState({ state: "saving" }));
+
+  // form a transaction bundle
+  const state = yield* select((s: RootState) => s.fhir);
+  const edits: FHIR.Resource[] = Object.values(state.edits).flatMap(
+    Object.values
+  );
+  const entries = edits.map((resource) => ({
+    fullUrl: resource.id,
+    resource,
+    request: {
+      method: resource.id.startsWith("urn:uuid:") ? "POST" : "PUT",
+      url: resource.id.startsWith("urn:uuid:")
+        ? resource.resourceType
+        : resource.resourceType + "/" + resource.id,
+    },
+  }));
+  const bundle = FHIR.Bundle.newTransaction(entries);
+
+  try {
+    // send transaction to FHIR server
+    const response: FHIR.Resource = yield* call(postFHIR, bundle);
+    if (FHIR.isBundle(response)) {
+      debugger;
+      yield put(actions.setSaveState({ state: "saved" }));
+    } else {
+      console.error("transaction response is not a bundle", response);
+    }
+  } catch (error) {
+    console.error("FHIR save error", error);
+    yield put(actions.setSaveState({ state: "error", error }));
+  }
+}
+
 export function* fhirSagas() {
   yield takeEvery(actions.query, onQuery);
+  yield takeEvery(actions.setSaveState, onSave);
 }
 
 export const useFHIR: TypedUseSelectorHook<{ fhir: State }> = useSelector;
 
-export function useFHIRQuery(query: string): FhirQueryState {
+export function useFHIRQuery(query: string): QueryState {
   // request the query
   const dispatch = useDispatch();
   React.useEffect(() => {
@@ -260,7 +322,7 @@ export function useFHIRQuery(query: string): FhirQueryState {
   const state = useFHIR((s) => s.fhir.queries[query]) ?? { state: "loading" };
   return state;
 }
-export function useFHIRQueries(queries: string[]): FhirQueryState {
+export function useFHIRQueries(queries: string[]): QueryState {
   const states = queries.map(useFHIRQuery);
 
   const errors = states.filter((s) => s.state === "error" && s.error);

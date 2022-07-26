@@ -1,19 +1,19 @@
 import React from "react";
-import { DefaultButton, PrimaryButton, Stack, TextField } from "@fluentui/react";
+import { useDispatch } from "react-redux";
+import { PrimaryButton, Stack, TextField } from "@fluentui/react";
 import { $convertToMarkdownString } from "@lexical/markdown";
 import { LexicalEditor } from "lexical";
 
 import * as FHIR from "../../utils/FhirTypes";
 import { Topic } from "../../utils/TopicGroup";
-import { ConditionDisplay } from "./ConditionDisplay";
 import { actions, useFHIR } from "../../redux/FhirState";
 import { RichTextEditor } from "../editing/lexical/RichTextEditor";
 import { HoverButtonDelete, HoverButtons, HoverButtonUndo } from "../editing/HoverButtons";
 
-import css from "./TopicEdit.module.scss";
-import { useDispatch } from "react-redux";
 import { ConditionEdit } from "./ConditionEdit";
 import { ConditionAdd } from "./ConditionAdd";
+
+import css from "./TopicEdit.module.scss";
 
 interface Props {
     topic: Topic;
@@ -79,10 +79,10 @@ export function TopicEdit(props: Props) {
         </>
     );
 
-    const addedConditions = (composition.section ?? [])
+    const addedConditions = (composition?.section ?? [])
         .flatMap((s) => s.entry)
-        .flatMap((r) => (r?.reference ? [r?.reference] : []))
-        .filter((r) => r.startsWith("Condition/urn:"));
+        .flatMap((r) => (r?.reference && r?.type === "Condition" ? [r?.reference] : []))
+        .filter((r) => r.startsWith("urn:uuid:"));
 
     return (
         <div className={css.container} onClick={onContainerClick}>
@@ -95,8 +95,8 @@ export function TopicEdit(props: Props) {
                 <h5>Topic title</h5>
                 <TextField
                     label=""
-                    errorMessage=" "
-                    value={composition.title}
+                    errorMessage=""
+                    value={composition?.title}
                     onChange={onTitleChanged}
                     className={css.titleTextbox}
                 />
@@ -112,10 +112,10 @@ export function TopicEdit(props: Props) {
                 <ConditionEdit key={c.id} condition={c} />
             ))}
             {addedConditions.map((id) => (
-                <ConditionAdd conditionId={id} />
+                <ConditionAdd key={id} conditionId={id} />
             ))}
 
-            <Stack horizontal tokens={{ childrenGap: 10 }}>
+            <Stack horizontal tokens={{ childrenGap: 10 }} className={css.bottomButtons}>
                 <PrimaryButton text="Add condition" onClick={onAddCondition} />
                 <PrimaryButton text="Add medication" onClick={onAddMedication} />
             </Stack>

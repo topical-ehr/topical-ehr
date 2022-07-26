@@ -1,6 +1,7 @@
 import * as FHIR from "./FhirTypes";
 import { FhirResourceById } from "../redux/FhirState";
 import { addToMappedList } from "./collections";
+import { applyShorthand } from "./display/ObservationShorthand";
 
 interface DisplayItem {
   dateTime: string;
@@ -9,6 +10,7 @@ interface DisplayItem {
     | {
         type: "group";
         title: string;
+        titleFull: string;
         observations: FHIR.Observation[];
       }
     | {
@@ -47,7 +49,8 @@ export function groupObservations(
         dateTime: report.effectiveDateTime,
         item: {
           type: "group",
-          title,
+          title: applyShorthand(title),
+          titleFull: report.code.text ?? title,
           observations,
         },
       });

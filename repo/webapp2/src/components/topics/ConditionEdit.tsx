@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { actions, useFHIR } from "../../redux/FhirState";
 import * as FHIR from "../../utils/FhirTypes";
-import { HoverButtonDelete, HoverButtons, HoverButtonUndo } from "../editing/HoverButtons";
+import { HoverButtonDelete, HoverButtonUndo } from "../editing/HoverButtons";
 import { ConditionDisplay } from "./ConditionDisplay";
 import css from "./ConditionEdit.module.scss";
 
