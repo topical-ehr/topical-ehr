@@ -13,6 +13,7 @@
     "@babel/plugin-transform-react-jsx": "7.17.3",
     "@fluentui/react": "8.67.2",
     "@lexical/clipboard": "0.3.6",
+    "@lexical/html": "0.3.6",
     "@lexical/list": "0.3.6",
     "@lexical/mark": "0.3.6",
     "@lexical/markdown": "0.3.6",
@@ -24,6 +25,7 @@
     "@lexical/utils": "0.3.6",
     "@reduxjs/toolkit": "1.8.1",
     "babel-plugin-transform-hook-names": "1.0.2",
+    "dompurify": "^2.3.10",
     "lexical": "0.3.6",
     "libphonenumber-js": "1.9.52",
     "luxon": "2.3.2",
@@ -47,6 +49,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-dsv": "^2.0.3",
+    "@types/dompurify": "^2.3.3",
     "@types/luxon": "2.3.1",
     "@types/node": "17.0.31",
     "@types/react": "^18.0.0",

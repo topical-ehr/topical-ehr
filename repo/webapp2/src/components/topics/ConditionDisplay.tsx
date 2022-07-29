@@ -2,6 +2,8 @@ import * as FHIR from "../../utils/FhirTypes";
 import { CodeFormatter } from "../../utils/display/CodeFormatter";
 import css from "./ConditionDisplay.module.scss";
 
+import iconDx from "/icons/dx.svg";
+
 interface Props {
     condition: FHIR.Condition;
     deleted?: boolean;
@@ -39,8 +41,9 @@ export function ConditionDisplay(props: Props) {
     })();
 
     return (
-        <div title="Condition" className={css.container} onClick={onContainerClick}>
+        <div title="Diagnosis" className={css.container} onClick={onContainerClick}>
             <div className={props.deleted ? css.deleted : ""}>
+                <img src={iconDx} />
                 <span className={css.title}>
                     {/* {"⚕ "} */}
                     {c.code

@@ -9,7 +9,7 @@ interface Props {
     conditionId: string;
 }
 
-const minInputLengthForSearch = 4;
+const minInputLengthForSearch = 2;
 const showCodes = false;
 
 type Option = FHIR.ValueSet["expansion"]["contains"][0];
@@ -26,14 +26,17 @@ export function ConditionAdd(props: Props) {
         if (input.length < minInputLengthForSearch) {
             return [];
         }
-        const codeSystemUrl = "http://snomed.info/sct?fhir_vs=isa/138875005";
         const serverBaseUrl = "https://r4.ontoserver.csiro.au/fhir/";
-        const options = "_format=json&count=10&includeDesignations=false";
+        const snomedRootCode = "138875005";
+        const searchUnder = snomedRootCode;
+        const codeSystemUrl = `http://snomed.info/sct?fhir_vs=isa/${searchUnder}`;
+        const options = "_format=json&count=10&includeDesignations=true";
         const filter = encodeURIComponent(input);
         const url = `${serverBaseUrl}ValueSet/$expand?filter=${filter}&url=${codeSystemUrl}&${options}`;
 
         const resp = await fetch(url);
         const json: FHIR.ValueSet = await resp.json();
+        console.log("loadOptions", json);
 
         return json.expansion.contains.map((info) => ({
             ...info,
@@ -73,10 +76,11 @@ export function ConditionAdd(props: Props) {
                 loadOptions={loadOptions}
                 placeholder="Type a condition"
                 isClearable
+                isMulti
                 components={{
                     DropdownIndicator: null,
                 }}
-                onChange={onChange}
+                // onChange={onChange}
                 noOptionsMessage={(input) =>
                     input.inputValue.length < minInputLengthForSearch ? null : "Loading..."
                 }

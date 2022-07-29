@@ -347,7 +347,10 @@ export interface Composition extends Resource {
 interface CompositionSection {
   title?: string;
   code?: CodeableConcept;
-  text?: string;
+  text?: {
+    status: "generated" | "extensions" | "additional" | "empty";
+    div: string;
+  };
   entry?: Reference[];
   section?: CompositionSection[];
   author?: Reference[];
@@ -366,6 +369,20 @@ export const Composition = {
       ...props,
     };
   },
+  setHTML(html: string, c: Composition): Composition {
+    const sections = c.section ?? [];
+    const newSections: CompositionSection[] = [
+      {
+        ...sections[0],
+        text: {
+          status: "additional",
+          div: `<div>${html}</div>`,
+        },
+      },
+      ...sections.slice(1),
+    ];
+    return { ...c, section: newSections };
+  },
   setEntries(newEntries: Reference[], c: Composition): Composition {
     const sections = c.section ?? [];
     const newSections = [
@@ -377,6 +394,13 @@ export const Composition = {
   addEntry(newEntry: Reference, c: Composition): Composition {
     const entries = c.section?.[0]?.entry ?? [];
     const newEntries = [...entries, newEntry];
+    return Composition.setEntries(newEntries, c);
+  },
+  removeEntry(entryToRemove: Reference, c: Composition): Composition {
+    const entries = c.section?.[0]?.entry ?? [];
+    const newEntries = entries.filter(
+      (e) => e.reference !== entryToRemove.reference
+    );
     return Composition.setEntries(newEntries, c);
   },
 };

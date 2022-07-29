@@ -12,3 +12,22 @@
         display: inherit;
     }
 }
+
+.title {
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 2em;
+        margin-right: 1em;
+    }
+
+    h2 {
+        margin: 0;
+    }
+    margin-top: 0.5em;
+}
+
+.summary > div {
+    padding: 0.5em;
+}

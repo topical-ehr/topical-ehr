@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { LexicalEditor } from "lexical";
+import { $getRoot, $getSelection, EditorState, LexicalEditor } from "lexical";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 
@@ -16,14 +17,32 @@ import "./editor.scss";
 import "./editor-icons.css";
 import "./editor-popups.css";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
 interface Props {
-    initialMarkdown: string;
+    initialHTML: string | null;
     placeholder: JSX.Element;
     newNodeFloatingToolbar?: boolean;
-    setEditor: (editor: LexicalEditor) => void;
+    setEditor?: (editor: LexicalEditor) => void;
+
+    onChangedHTML: (html: string) => void;
 }
 
 export function RichTextEditor(props: Props) {
+    function getInitialState() {
+        if (!props.initialHTML) {
+            return undefined;
+        }
+        const dom = new DOMParser().parseFromString(props.initialHTML, "text/html");
+
+        return (editor: LexicalEditor) => {
+            const nodes = $generateNodesFromDOM(editor, dom);
+            // console.log({ nodes, dom, html: props.initialHTML });
+
+            const root = $getRoot();
+            root.append(...nodes);
+        };
+    }
+
     const initialConfig = {
         namespace: "TopicalEHR",
         theme: {
@@ -37,11 +56,19 @@ export function RichTextEditor(props: Props) {
             },
         },
         nodes: lexicalNodes,
+        editorState: getInitialState(),
         onError(err: Error) {
             console.error("lexical onError", err);
         },
     };
     const placeholder = <div className="editor-placeholder">{props.placeholder}</div>;
+
+    function onChange(editorState: EditorState, editor: LexicalEditor) {
+        editor.update(() => {
+            const html = $generateHtmlFromNodes(editor, null);
+            props.onChangedHTML(html);
+        });
+    }
 
     return (
         <LexicalComposer initialConfig={initialConfig}>
@@ -49,7 +76,6 @@ export function RichTextEditor(props: Props) {
                 <RichTextPlugin
                     contentEditable={<ContentEditable className="editor-root-div" />}
                     placeholder={placeholder}
-                    initialEditorState={undefined}
                 />
                 <MarkdownShortcutPlugin />
                 <HistoryPlugin />
@@ -58,6 +84,7 @@ export function RichTextEditor(props: Props) {
                 {props.newNodeFloatingToolbar ?? true ? <NewNodeFloatingToolbarPlugin /> : ""}
                 <TextFormatFloatingToolbarPlugin />
                 <GetEditorInstancePlugin {...props} />
+                <OnChangePlugin onChange={onChange} ignoreInitialChange ignoreSelectionChange />
             </div>
         </LexicalComposer>
     );
