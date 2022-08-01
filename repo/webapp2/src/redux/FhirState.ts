@@ -41,6 +41,8 @@ export interface FhirResources<T = never> {
   patients: FhirResourceById<FHIR.Patient | T>;
   observations: FhirResourceById<FHIR.Observation | T>;
   diagnosticReports: FhirResourceById<FHIR.DiagnosticReport | T>;
+  medicationRequests: FhirResourceById<FHIR.MedicationRequest | T>;
+  serviceRequests: FhirResourceById<FHIR.ServiceRequest | T>;
 }
 const emptyResources: FhirResources = {
   compositions: {},
@@ -48,6 +50,8 @@ const emptyResources: FhirResources = {
   patients: {},
   observations: {},
   diagnosticReports: {},
+  medicationRequests: {},
+  serviceRequests: {},
 };
 
 function getResourceContainer(
@@ -65,6 +69,10 @@ function getResourceContainer(
       return resources.observations;
     case "DiagnosticReport":
       return resources.diagnosticReports;
+    case "MedicationRequest":
+      return resources.medicationRequests;
+    case "ServiceRequest":
+      return resources.serviceRequests;
     default:
       throw new Error(`No state object for resource ${resourceType}`);
   }

@@ -118,9 +118,29 @@ interface Period {
 }
 
 interface Timing {
+  // R4
+  // https://www.hl7.org/fhir/datatypes-examples.html#Timing
   event?: FhirDateTime[];
-  // TODO: repeat
-  code: CodeableConcept;
+  code?: CodeableConcept; // BID | TID | QID | AM | PM | QD | QOD | + (https://www.hl7.org/fhir/valueset-timing-abbreviation.html preferred)
+  repeat?: {
+    boundsDuration?: Quantity;
+    boundsRange: {}; // TODO
+    boundsPeriod?: Period;
+    count?: number; // Number of times to repeat
+    countMax?: number; // Maximum number of times to repeat
+    duration?: number; // How long when it happens
+    durationMax?: number; // How long when it happens (Max)
+    durationUnit?: string; // s | min | h | d | wk | mo | a - unit of time (UCUM)
+    frequency?: number; // Event occurs frequency times per period
+    frequencyMax?: number; // Event occurs up to frequencyMax times per period
+    period?: number; // Event occurs frequency times per period
+    periodMax?: number; // Upper limit of period (3-4 hours)
+    periodUnit?: string; // s | min | h | d | wk | mo | a - unit of time (UCUM)
+    dayOfWeek?: [string]; // mon | tue | wed | thu | fri | sat | sun
+    timeOfDay?: [string]; // Time of day for action
+    when?: [string]; // Code for time period of occurrence
+    offset?: number; // Minutes from event (before or after)
+  };
 }
 
 export interface Quantity {
@@ -129,6 +149,11 @@ export interface Quantity {
   unit?: string;
   system?: string;
   code?: string;
+}
+
+export interface Range {
+  low: Quantity;
+  high: Quantity;
 }
 
 export interface Ratio {
@@ -478,13 +503,16 @@ export interface ValueSet extends Resource {
         system: string;
         code: string;
         display: string;
-        designation: [
+        designation?: [
           {
-            language: string;
             value: string;
-            use: {
-              system: string;
-              code: string;
+            language?: string;
+            use?: {
+              system?: string;
+              code?: string;
+              version?: string;
+              display?: string;
+              userSelected?: boolean;
             };
           }
         ];
@@ -492,3 +520,133 @@ export interface ValueSet extends Resource {
     ];
   };
 }
+
+export interface MedicationRequest extends Resource {
+  resourceType: "MedicationRequest";
+
+  status:
+    | "active"
+    | "on-hold"
+    | "cancelled"
+    | "completed"
+    | "entered-in-error"
+    | "stopped"
+    | "draft"
+    | "unknown";
+  intent:
+    | "proposal"
+    | "plan"
+    | "order"
+    | "original-order"
+    | "reflex-order"
+    | "filler-order"
+    | "instance-order"
+    | "option";
+
+  medicationCodeableConcept?: CodeableConcept;
+  medicationReference?: Reference;
+  reasonCode?: Reference[];
+  supportingInformation?: Reference[];
+
+  subject: Reference;
+  encounter?: Reference;
+  requester?: Reference;
+
+  note?: Annotation[];
+
+  dosageInstruction?: {
+    sequence?: number;
+    text?: string;
+    additionalInstruction?: CodeableConcept[];
+    patientInstruction?: string;
+    timing?: Timing;
+
+    site?: CodeableConcept;
+    route?: CodeableConcept;
+    method?: CodeableConcept;
+
+    doseAndRate: {
+      type?: CodeableConcept; // calculated, ordered, etc
+
+      doseRange?: Range;
+      doseQuantity?: Quantity;
+
+      // rate[x]: Amount of medication per unit of time. One of these 3:
+      rateRatio?: Ratio;
+      rateRange?: Range;
+      rateQuantity?: Quantity;
+    }[];
+  }[];
+}
+export const MedicationRequest = {
+  new({
+    subject,
+    status,
+    intent,
+  }: {
+    subject: Reference;
+    status: MedicationRequest["status"];
+    intent: MedicationRequest["intent"];
+  }): MedicationRequest {
+    return {
+      resourceType: "MedicationRequest",
+      ...newMeta(),
+      subject,
+      status,
+      intent,
+    };
+  },
+};
+
+export interface ServiceRequest extends Resource {
+  resourceType: "ServiceRequest";
+
+  status:
+    | "draft"
+    | "active"
+    | "on-hold"
+    | "revoked"
+    | "completed"
+    | "entered-in-error"
+    | "unknown";
+  intent:
+    | "proposal"
+    | "plan"
+    | "directive"
+    | "order"
+    | "original-order"
+    | "reflex-order"
+    | "filler-order"
+    | "instance-order"
+    | "option";
+
+  category?: CodeableConcept;
+  code?: CodeableConcept;
+
+  subject: Reference;
+  encounter?: Reference;
+  requester?: Reference;
+
+  supportingInfo?: Reference[];
+  reasonCode?: Reference[];
+  note?: Annotation[];
+}
+export const ServiceRequest = {
+  new({
+    subject,
+    status,
+    intent,
+  }: {
+    subject: Reference;
+    status: ServiceRequest["status"];
+    intent: ServiceRequest["intent"];
+  }): ServiceRequest {
+    return {
+      resourceType: "ServiceRequest",
+      ...newMeta(),
+      subject,
+      status,
+      intent,
+    };
+  },
+};
