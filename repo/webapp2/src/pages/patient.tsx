@@ -31,8 +31,8 @@ export default function PatientPage() {
 
         <Column width="33%" marginLeft="1em">
           <Stack horizontal tokens={{ childrenGap: 10 }}>
-            <DefaultButton text="💓 Add obs" onClick={() => {}} />
-            <DefaultButton text="💊 Record medication" onClick={() => {}} />
+            <DefaultButton text="💓 Obs" onClick={() => {}} />
+            <DefaultButton text="💊 Medications" onClick={() => {}} />
           </Stack>
 
           <ObservationGroups2 patientId={patientId} />

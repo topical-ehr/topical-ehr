@@ -117,14 +117,14 @@ interface Period {
   end?: FhirDateTime;
 }
 
-interface Timing {
+export interface Timing {
   // R4
   // https://www.hl7.org/fhir/datatypes-examples.html#Timing
   event?: FhirDateTime[];
   code?: CodeableConcept; // BID | TID | QID | AM | PM | QD | QOD | + (https://www.hl7.org/fhir/valueset-timing-abbreviation.html preferred)
   repeat?: {
     boundsDuration?: Quantity;
-    boundsRange: {}; // TODO
+    boundsRange?: {}; // TODO
     boundsPeriod?: Period;
     count?: number; // Number of times to repeat
     countMax?: number; // Maximum number of times to repeat
@@ -565,7 +565,7 @@ export interface MedicationRequest extends Resource {
     route?: CodeableConcept;
     method?: CodeableConcept;
 
-    doseAndRate: {
+    doseAndRate?: {
       type?: CodeableConcept; // calculated, ordered, etc
 
       doseRange?: Range;

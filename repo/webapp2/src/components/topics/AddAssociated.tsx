@@ -1,14 +1,14 @@
-import { labelProperties } from "@fluentui/react";
+import { AnyAction } from "@reduxjs/toolkit";
 import React from "react";
 import { useDispatch } from "react-redux";
 import AsyncSelect from "react-select/async";
 import { actions, useFHIR } from "../../redux/FhirState";
 import * as FHIR from "../../utils/FhirTypes";
 import { HoverButtonDelete } from "../editing/HoverButtons";
+import { timingCodesFromSNOMED } from "../prescriptions/TimingCodes";
 import css from "./AddAssociated.module.scss";
 
 const minInputLengthForSearch = 2;
-const showCodes = false;
 
 type Addition =
     | {
@@ -25,32 +25,237 @@ type Addition =
       };
 
 type Term = FHIR.ValueSet["expansion"]["contains"][0];
-interface Option {
-    label: string;
-    value:
-        | {
-              type: "condition";
-              term: Term;
-          }
-        | {
-              type: "request";
-              term: Term;
-          }
-        | {
-              type: "medication";
-              term: Term;
-          }
-        | {
-              type: "dosage";
-              dosage: FHIR.Quantity;
-          }
-        | {
-              type: "frequency";
-              term: Term;
-          };
-    valueJSON: string;
+
+abstract class Option {
+    public readonly key: string;
+    public readonly value: Option;
+    constructor(
+        public readonly label: string,
+        public readonly keyData: any,
+        public readonly composition: FHIR.Composition
+    ) {
+        this.key = JSON.stringify(keyData);
+        this.value = this;
+    }
+
+    abstract onAdded(state: Addition | null): UpdateResult;
+    abstract onRemoved(state: Addition | null): UpdateResult;
+
+    protected addToComposition(resource: FHIR.Resource) {
+        const updatedComposition = FHIR.Composition.addEntry(
+            FHIR.referenceTo(resource),
+            this.composition
+        );
+        return actions.edit(updatedComposition);
+    }
+    protected removeFromComposition(resource: FHIR.Resource) {
+        const updatedComposition = FHIR.Composition.removeEntry(
+            FHIR.referenceTo(resource),
+            this.composition
+        );
+        return actions.edit(updatedComposition);
+    }
 }
-type OptionType = Option["value"]["type"];
+type UpdateResult =
+    | {
+          newState: Addition | null;
+          newActions: AnyAction[];
+      }
+    | { error: string };
+
+class ConditionOption extends Option {
+    constructor(private term: Term, composition: FHIR.Composition) {
+        super(term.display, term, composition);
+    }
+
+    onAdded(state: Addition | null): UpdateResult {
+        const { system, code, display } = this.term;
+        const newCondition: FHIR.Condition = {
+            ...FHIR.Condition.new({ subject: this.composition.subject }),
+            code: {
+                text: display,
+                coding: [{ system, code, display, userSelected: true }],
+            },
+        };
+
+        const newActions = [actions.edit(newCondition), this.addToComposition(newCondition)];
+        if (state == null) {
+            return {
+                newState: { type: "conditions", conditions: [newCondition] },
+                newActions,
+            };
+        }
+        if (state.type === "conditions") {
+            return {
+                newState: { ...state, conditions: [...state.conditions, newCondition] },
+                newActions,
+            };
+        }
+        return { error: "unexpected addition type" };
+    }
+
+    onRemoved(state: Addition | null): UpdateResult {
+        const removedCode = this.term.code;
+        if (state?.type !== "conditions") {
+            return { error: "unexpected addition type" };
+        }
+        const toRemove = state.conditions.find(
+            (condition) => condition.code?.coding?.[0].code === removedCode
+        );
+        if (!toRemove) {
+            return { error: "unable to find existing condition" };
+        }
+
+        return {
+            newState: {
+                ...state,
+                conditions: state.conditions.filter((condition) => condition !== toRemove),
+            },
+            newActions: [actions.delete(toRemove), this.removeFromComposition(toRemove)],
+        };
+    }
+}
+
+class MedicationOption extends Option {
+    constructor(private term: Term, composition: FHIR.Composition) {
+        super(term.display, term, composition);
+    }
+
+    onAdded(state: Addition | null): UpdateResult {
+        const { system, code, display } = this.term;
+        const request: FHIR.MedicationRequest = {
+            ...FHIR.MedicationRequest.new({
+                subject: this.composition.subject,
+                status: "active",
+                intent: "plan",
+            }),
+            medicationCodeableConcept: {
+                text: display,
+                coding: [{ system, code, display, userSelected: true }],
+            },
+        };
+
+        if (state == null) {
+            return {
+                newState: { type: "prescription", request },
+                newActions: [actions.edit(request), this.addToComposition(request)],
+            };
+        }
+        return { error: "expected a blank state when adding a medication" };
+    }
+
+    onRemoved(state: Addition | null): UpdateResult {
+        if (state?.type !== "prescription") {
+            return { error: "unexpected addition type" };
+        }
+
+        return {
+            newState: null,
+            newActions: [actions.delete(state.request), this.removeFromComposition(state.request)],
+        };
+    }
+}
+
+class DosageOption extends Option {
+    constructor(
+        private dosage: FHIR.Quantity | FHIR.Range,
+        label: string,
+        composition: FHIR.Composition
+    ) {
+        super(label, dosage, composition);
+    }
+
+    onAdded(state: Addition | null): UpdateResult {
+        if (state?.type !== "prescription") {
+            return { error: "expected prescription state when adding a dosage" };
+        }
+
+        function isRange(dosage: any): dosage is FHIR.Range {
+            return !!dosage["low"];
+        }
+        const dosage = this.dosage;
+        const request: FHIR.MedicationRequest = {
+            ...state.request,
+            dosageInstruction: [
+                {
+                    ...state.request.dosageInstruction?.[0],
+                    doseAndRate: [
+                        {
+                            doseRange: isRange(dosage) ? dosage : undefined,
+                            doseQuantity: !isRange(dosage) ? dosage : undefined,
+                        },
+                    ],
+                },
+            ],
+        };
+        return { newState: { type: "prescription", request }, newActions: [actions.edit(request)] };
+    }
+
+    onRemoved(state: Addition | null): UpdateResult {
+        if (state?.type !== "prescription") {
+            return { error: "unexpected addition type" };
+        }
+
+        const request: FHIR.MedicationRequest = {
+            ...state.request,
+            dosageInstruction: [
+                {
+                    ...state.request.dosageInstruction?.[0],
+                    doseAndRate: undefined,
+                },
+            ],
+        };
+
+        return {
+            newState: { ...state, request },
+            newActions: [actions.edit(request)],
+        };
+    }
+}
+
+class FrequencyOption extends Option {
+    constructor(term: Term, private timing: FHIR.Timing, composition: FHIR.Composition) {
+        super(term.display, term, composition);
+    }
+
+    onAdded(state: Addition | null): UpdateResult {
+        if (state?.type !== "prescription") {
+            return { error: "expected prescription state when adding a dosage" };
+        }
+
+        const request: FHIR.MedicationRequest = {
+            ...state.request,
+            dosageInstruction: [
+                {
+                    ...state.request.dosageInstruction?.[0],
+                    timing: this.timing,
+                },
+            ],
+        };
+        return { newState: { type: "prescription", request }, newActions: [actions.edit(request)] };
+    }
+
+    onRemoved(state: Addition | null): UpdateResult {
+        if (state?.type !== "prescription") {
+            return { error: "unexpected addition type" };
+        }
+
+        const request: FHIR.MedicationRequest = {
+            ...state.request,
+            dosageInstruction: [
+                {
+                    ...state.request.dosageInstruction?.[0],
+                    timing: undefined,
+                },
+            ],
+        };
+
+        return {
+            newState: { ...state, request },
+            newActions: [actions.edit(request)],
+        };
+    }
+}
 
 interface Props {
     compositionId: string;
@@ -61,138 +266,24 @@ export function AddAssociated(props: Props) {
     const dispatch = useDispatch();
     const composition = useFHIR((s) => s.fhir.edits.compositions[props.compositionId]);
 
-    const [state, setState] = React.useState<Addition | null>(null);
+    const stateRef = React.useRef<Addition | null>(null);
     const [options, setOptions] = React.useState<Option[]>([]);
 
-    function addToComposition(resource: FHIR.Resource) {
-        const updatedComposition = FHIR.Composition.addEntry(
-            FHIR.referenceTo(resource),
-            composition
-        );
-        dispatch(actions.edit(updatedComposition));
-    }
-    function removeFromComposition(resource: FHIR.Resource) {
-        const updatedComposition = FHIR.Composition.removeEntry(
-            FHIR.referenceTo(resource),
-            composition
-        );
-        dispatch(actions.edit(updatedComposition));
-    }
-
-    function addCondition(term: Term): Addition | { error: string } {
-        const { system, code, display } = term;
-        const newCondition: FHIR.Condition = {
-            ...FHIR.Condition.new({ subject: composition.subject }),
-            code: {
-                text: display,
-                coding: [{ system, code, display, userSelected: true }],
-            },
-        };
-        dispatch(actions.edit(newCondition));
-        addToComposition(newCondition);
-        if (state == null) {
-            return { type: "conditions", conditions: [newCondition] };
-        }
-        if (state.type === "conditions") {
-            return { ...state, conditions: [...state.conditions, newCondition] };
-        }
-        return { error: "unexpected addition type" };
-    }
-
-    function addMedication(term: Term): Addition | { error: string } {
-        const { system, code, display } = term;
-        const request: FHIR.MedicationRequest = {
-            ...FHIR.MedicationRequest.new({
-                subject: composition.subject,
-                status: "active",
-                intent: "plan",
-            }),
-            medicationCodeableConcept: {
-                text: display,
-                coding: [{ system, code, display, userSelected: true }],
-            },
-        };
-        dispatch(actions.edit(request));
-        addToComposition(request);
-        if (state == null) {
-            return { type: "prescription", request };
-        }
-        return { error: "expected a blank state when adding a medication" };
-    }
-
-    function addDosage(dosage: FHIR.Quantity): Addition | { error: string } {
-        if (state?.type == "prescription") {
-            const request: FHIR.MedicationRequest = {
-                ...state.request,
-                dosageInstruction: [
-                    {
-                        ...state.request.dosageInstruction?.[0],
-                        doseAndRate: [
-                            {
-                                doseQuantity: dosage,
-                            },
-                        ],
-                    },
-                ],
-            };
-            dispatch(actions.edit(request));
-            return { type: "prescription", request };
-        }
-        return { error: "expected prescription state when adding a dosage" };
-    }
-
-    function onOptionAdded(newOption: Option): Addition | { error: string } {
-        switch (newOption.value.type) {
-            case "condition":
-                return addCondition(newOption.value.term);
-            case "medication":
-                return addMedication(newOption.value.term);
-            case "dosage":
-                return addDosage(newOption.value.dosage);
-        }
-
-        return { error: "unexpected option type" };
-    }
-
-    function onOptionRemoved(removedOption: Option): Addition | { error: string } {
-        switch (removedOption.value.type) {
-            case "condition":
-                const removedCode = removedOption.value.term.code;
-                if (state?.type === "conditions") {
-                    const toRemove = state.conditions.find(
-                        (condition) => condition.code?.coding?.[0].code === removedCode
-                    );
-                    if (!toRemove) {
-                        return { error: "unable to find existing condition" };
-                    }
-                    dispatch(actions.delete(toRemove));
-                    removeFromComposition(toRemove);
-
-                    return {
-                        ...state,
-                        conditions: state.conditions.filter((condition) => condition !== toRemove),
-                    };
-                }
-                return { error: "unexpected addition type" };
-        }
-
-        return { error: "unexpected option type" };
-    }
-
     function applyNewOptions(newOptions: readonly Option[]) {
+        const state = stateRef.current;
+
         if (newOptions.length > options.length) {
             // option added - assuming it is the last one
-            return onOptionAdded(newOptions.slice(-1)[0]);
+            return newOptions.slice(-1)[0].onAdded(state);
         } else if (newOptions.length < options.length) {
             // option removed
             const removed = options.find(
-                (option) =>
-                    !newOptions.some((newOption) => newOption.valueJSON === option.valueJSON)
+                (option) => !newOptions.some((newOption) => newOption.key === option.key)
             );
             if (!removed) {
                 return { error: "Could not find removed option" };
             } else {
-                return onOptionRemoved(removed);
+                return removed.onRemoved(state);
             }
         } else {
             return { error: "newOptions has unchanged size" };
@@ -200,13 +291,16 @@ export function AddAssociated(props: Props) {
     }
 
     function onOptionsChanged(newOptions: readonly Option[]) {
-        console.log("onOptionsChanged", newOptions);
+        const state = stateRef.current;
+        console.log("onOptionsChanged", { newOptions });
 
         const result = applyNewOptions(newOptions);
         if (isError(result)) {
-            console.error(result.error, { newOptions, options, state });
+            console.error("onOptionsChanged", result.error, { newOptions, options, state });
         } else {
-            setState(result);
+            console.log("onOptionsChanged", { result, stateRef });
+            stateRef.current = result.newState;
+            result.newActions.forEach(dispatch);
         }
 
         setOptions([...newOptions]);
@@ -214,7 +308,8 @@ export function AddAssociated(props: Props) {
     }
 
     async function loadOptions(input: string) {
-        console.log("loadOptions", { input });
+        const state = stateRef.current;
+        console.log("loadOptions", { input, stateRef });
         try {
             const ret = await _loadOptions(input);
             console.log("loadOptions", { ret });
@@ -225,12 +320,17 @@ export function AddAssociated(props: Props) {
         }
     }
     async function _loadOptions(input: string) {
+        const state = stateRef.current;
         if (!state) {
-            return await loadOptionsFromTerminology(input, SearchScope.root);
+            return await loadOptionsFromTerminology(input, SearchScope.root, composition);
         }
         switch (state.type) {
             case "conditions":
-                return await loadOptionsFromTerminology(input, SearchScope.clinicalFinding);
+                return await loadOptionsFromTerminology(
+                    input,
+                    SearchScope.clinicalFinding,
+                    composition
+                );
             case "prescription":
                 const medication = state.request.medicationCodeableConcept?.text;
                 if (!medication) {
@@ -239,11 +339,15 @@ export function AddAssociated(props: Props) {
 
                 if (!state.request.dosageInstruction?.[0].doseAndRate) {
                     // need a dose
+                    // examples
+                    //   [25 mg] [twice a day]
+                    //   [5-10 mg] [every 4-6 hours] [PRN]
+                    //   [10-20 mg] [over 24 hours] [subcut]
 
                     const productDoses = await getDosesFor(medication);
                     const userEnteredDoses = new Set<string>();
 
-                    if (isNumeric(input)) {
+                    if (isNumeric(input) || isNumericRange(input)) {
                         // add option to directly enter what has been typed in
                         const units = new Set([...productDoses].map((d) => parseDose(d)?.unit));
                         for (const unit of [...units]) {
@@ -254,20 +358,36 @@ export function AddAssociated(props: Props) {
                             }
                         }
                     }
-
-                    const options = [...userEnteredDoses, ...productDoses].map((dose) => ({
-                        value: { type: "dosage", dosage: parseDose(dose) } as Option["value"],
-                        label: dose,
-                        valueJSON: JSON.stringify(dose),
-                    }));
+                    function throwError(msg: string): never {
+                        throw new Error(msg);
+                    }
+                    const options = [...userEnteredDoses, ...productDoses].map(
+                        (dose) =>
+                            new DosageOption(
+                                parseDose(dose) ??
+                                    parseDoseRange(dose) ??
+                                    throwError("dose could not be parsed"),
+                                dose,
+                                composition
+                            )
+                    );
 
                     return options;
                 }
 
                 if (!state.request.dosageInstruction?.[0].timing) {
                     // need frequency
+                    return await loadOptionsFromTerminology(
+                        input,
+                        SearchScope.timePatterns,
+                        composition
+                    );
                 }
-                return await loadOptionsFromTerminology(input, SearchScope.frequencyPerUnitTime);
+                return await loadOptionsFromTerminology(
+                    input,
+                    SearchScope.timePatterns,
+                    composition
+                );
         }
 
         return [];
@@ -284,10 +404,17 @@ export function AddAssociated(props: Props) {
                 }}
                 onChange={onOptionsChanged}
                 loadOptions={loadOptions}
+                value={options}
+                openMenuOnFocus
+                menuIsOpen
+                autoFocus
+                // defaultOptions
+                // closeMenuOnSelect={false}
+                // blurInputOnSelect={false}
+                key={JSON.stringify(stateRef.current)}
                 noOptionsMessage={(input) =>
                     input.inputValue.length < minInputLengthForSearch ? null : "Loading..."
                 }
-                formatOptionLabel={showCodes ? formatOptionWithCode : undefined}
             />
         </div>
     );
@@ -299,7 +426,7 @@ const SearchScope = {
 
     medicinalProductUnitOfUse: "30450011000036109",
 
-    frequencyPerUnitTime: "307431003",
+    timePatterns: "272103003",
 };
 
 async function searchTerminology(input: string, searchScope: string): Promise<FHIR.ValueSet> {
@@ -331,33 +458,59 @@ function parseDose(dose: string): FHIR.Quantity | null {
         return null;
     }
 }
+function parseDoseRange(dose: string): FHIR.Range | null {
+    const match = dose.match(/\d+\s*-\d+\s*\w+/)?.[0];
+    if (match) {
+        const [values, unit] = match.split(" ");
+        const [valueLow, valueHigh] = values.split("-").map((s) => s.trim());
+        return {
+            low: {
+                value: parseInt(valueLow, 10),
+                unit,
+            },
+            high: {
+                value: parseInt(valueHigh, 10),
+                unit,
+            },
+        };
+    } else {
+        return null;
+    }
+}
 
 async function getDosesFor(medication: string): Promise<Set<string>> {
     const vs = await searchTerminology(medication, SearchScope.medicinalProductUnitOfUse);
 
     const doses = new Set<string>();
-    for (const term of vs.expansion.contains) {
+    for (const term of vs.expansion?.contains ?? []) {
         const qty = parseDose(term.display);
         if (qty) {
             doses.add(qty.value + " " + qty.unit);
         }
     }
 
-    // sort
-    function value(str: string) {
-        return parseInt(str.split(" ")[0]);
+    function sort(doses: Set<string>) {
+        function value(str: string) {
+            return parseInt(str.split(" ")[0]);
+        }
+        return new Set([...doses].sort((a, b) => value(a) - value(b)));
     }
-    return new Set([...doses].sort((a, b) => value(a) - value(b)));
+
+    return sort(doses);
 }
 
-async function loadOptionsFromTerminology(input: string, searchScope: string): Promise<Option[]> {
+async function loadOptionsFromTerminology(
+    input: string,
+    searchScope: string,
+    composition: FHIR.Composition
+): Promise<Option[]> {
     if (input.length < minInputLengthForSearch) {
         return [];
     }
 
     const vs = await searchTerminology(input, searchScope);
 
-    const values = vs.expansion.contains.flatMap((term) => {
+    function termToOptions(term: Term): Option[] {
         const fullySpecifiedName = term.designation?.find(
             (d) => d.use?.code === "900000000000003001"
         )?.value;
@@ -368,18 +521,19 @@ async function loadOptionsFromTerminology(input: string, searchScope: string): P
         switch (termType) {
             case "finding":
             case "disorder":
-                return [{ type: "condition", term }];
+                return [new ConditionOption(term, composition)];
             case "substance":
-                return [{ type: "medication", term }];
+                return [new MedicationOption(term, composition)];
+            case "qualifier value":
+                const timing = timingCodesFromSNOMED.get(term.code);
+                if (timing) {
+                    return [new FrequencyOption(term, timing, composition)];
+                }
         }
         return [];
-    });
+    }
 
-    const options = values.map((v) => ({
-        value: v as Option["value"],
-        label: v.term.display,
-        valueJSON: JSON.stringify(v),
-    }));
+    const options = vs.expansion?.contains?.flatMap(termToOptions) ?? [];
     return options;
 }
 
@@ -390,12 +544,15 @@ function isError(obj: any): obj is { error: string } {
 function isNumeric(str: string) {
     return parseInt(str, 10) + "" == str;
 }
+function isNumericRange(str: string) {
+    return !!str.trim().match(/^\d+\s*-\s*\d+$/);
+}
 
 function formatOptionWithCode(option: Option) {
     return (
         <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div>{option.label}</div>
-            <div>{option.value.type}</div>
+            <div>{option.keyData}</div>
         </div>
     );
 }

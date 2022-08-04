@@ -157,7 +157,7 @@ function AddAssociatedControls(props: { compositionId: string }) {
 
     return (
         <div>
-            {indices.map((i) => (
+            {hasData.map((_, i) => (
                 <AddAssociated key={i} {...props} index={i} setHasData={setHasDataFor} />
             ))}
         </div>
