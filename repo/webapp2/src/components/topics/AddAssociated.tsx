@@ -106,11 +106,17 @@ class ConditionOption extends Option {
             return { error: "unable to find existing condition" };
         }
 
+        const conditions = state.conditions.filter((condition) => condition !== toRemove);
+        debugger;
+
         return {
-            newState: {
-                ...state,
-                conditions: state.conditions.filter((condition) => condition !== toRemove),
-            },
+            newState:
+                conditions.length == 0
+                    ? null
+                    : {
+                          ...state,
+                          conditions,
+                      },
             newActions: [actions.delete(toRemove), this.removeFromComposition(toRemove)],
         };
     }
@@ -259,6 +265,9 @@ class FrequencyOption extends Option {
 
 interface Props {
     compositionId: string;
+
+    // notifies parent component if this has data or is empty
+    // if has data parent component can create another blank instance
     index: number;
     setHasData: (index: number, hasData: boolean) => void;
 }
@@ -405,9 +414,8 @@ export function AddAssociated(props: Props) {
                 onChange={onOptionsChanged}
                 loadOptions={loadOptions}
                 value={options}
-                openMenuOnFocus
-                menuIsOpen
-                autoFocus
+                // openMenuOnFocus
+                // menuIsOpen
                 // defaultOptions
                 // closeMenuOnSelect={false}
                 // blurInputOnSelect={false}
