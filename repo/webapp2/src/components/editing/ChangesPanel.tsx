@@ -63,6 +63,9 @@ export function TopicChanges() {
                 {changes(edits.compositions).map((r) => (
                     <li key={r.id}>Topic - {r.title}</li>
                 ))}
+                {changes(edits.medicationRequests).map((r) => (
+                    <li key={r.id}>Medication - {JSON.stringify(r)}</li>
+                ))}
             </ul>
         </div>
     );

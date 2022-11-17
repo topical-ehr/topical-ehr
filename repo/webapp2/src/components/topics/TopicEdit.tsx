@@ -9,7 +9,6 @@ import { RichTextEditor } from "../editing/lexical/RichTextEditor";
 import { HoverButtonDelete, HoverButtons, HoverButtonUndo } from "../editing/HoverButtons";
 
 import { ConditionEdit } from "./ConditionEdit";
-import { ConditionAdd } from "./ConditionAdd";
 
 import css from "./TopicEdit.module.scss";
 import { AddAssociated } from "./AddAssociated";
@@ -26,6 +25,10 @@ export function TopicEdit(props: Props) {
     const dispatch = useDispatch();
 
     const [initialHTML, _] = React.useState(composition.section?.[0].text?.div ?? null);
+
+    React.useEffect(() => {
+        console.log("TopicEdit mounted");
+    }, []);
 
     function onContainerClick(e: React.MouseEvent<HTMLDivElement>) {
         if (e.ctrlKey) {
@@ -53,24 +56,6 @@ export function TopicEdit(props: Props) {
         dispatch(actions.undoEditTopic(props.topic));
     }
     function onDelete() {}
-
-    function onAddCondition() {
-        const newCondition = FHIR.Condition.new({ subject: composition.subject });
-
-        const updatedComposition = FHIR.Composition.addEntry(
-            FHIR.referenceTo(newCondition),
-            composition
-        );
-
-        dispatch(actions.edit(newCondition));
-        dispatch(actions.edit(updatedComposition));
-    }
-    function onAddMedication() {}
-
-    const addedConditions = (composition?.section ?? [])
-        .flatMap((s) => s.entry)
-        .flatMap((r) => (r?.reference && r?.type === "Condition" ? [r?.reference] : []))
-        .filter((r) => r.startsWith("urn:uuid:"));
 
     return (
         <div className={css.container} onClick={onContainerClick}>
@@ -106,24 +91,19 @@ export function TopicEdit(props: Props) {
             {props.topic.conditions.map((c) => (
                 <ConditionEdit key={c.id} condition={c} />
             ))}
-            {/* {addedConditions.map((id) => (
-                <ConditionAdd key={id} conditionId={id} />
-            ))} */}
 
             <AddAssociatedControls compositionId={editState.compositionId} />
 
-            <Stack horizontal tokens={{ childrenGap: 10 }} className={css.bottomButtons}>
+            {/* <Stack horizontal tokens={{ childrenGap: 10 }} className={css.bottomButtons}>
                 <PrimaryButton text="Add condition" onClick={onAddCondition} />
                 <PrimaryButton text="Add medication" onClick={onAddMedication} />
-            </Stack>
+            </Stack> */}
         </div>
     );
 }
 
 function AddAssociatedControls(props: { compositionId: string }) {
     const [hasData, setHasData] = React.useState<boolean[]>([false]);
-
-    const indices = [...Array(hasData.length)].map((_, i) => i);
 
     const setHasDataFor = React.useCallback((index: number, newValue: boolean) => {
         // console.log("setHasDataFor", index, newValue);
@@ -152,8 +132,6 @@ function AddAssociatedControls(props: { compositionId: string }) {
             return newHasData;
         });
     }, []);
-
-    // console.log("AddAssociatedControls", hasData, indices);
 
     return (
         <div>

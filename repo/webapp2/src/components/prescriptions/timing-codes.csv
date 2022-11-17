@@ -1,17 +1,17 @@
-SNOMED_display,SNOMED_code,v3-GTSAbbreviation,display,definition,frequency,period,periodUnit,whenSystem,whenCode
-Twice a day,229799001,BID,BID,Two times a day at institution specified time,2,1,d,,
-Three times a day,229798009,TID,TID,Three times a day at institution specified time,3,1,d,,
-Four times a day,307439001,QID,QID,Four times a day at institution specified time,4,1,d,,
-Every morning,307472001,AM,AM,Every morning at institution specified times,1,1,d,http://hl7.org/fhir/event-timing,MORN
-During afternoon,255213009,PM,PM,Every afternoon at institution specified times,1,1,d,http://hl7.org/fhir/event-timing,AFT
-Daily,69620002,QD,QD,Every Day at institution specified times,1,1,d,,
-Every 2 days,225760004,QOD,QOD,Every Other Day at institution specified times,1,2,d,,
-Hourly,225768006,Q1H,every hour,Every hour at institution specified times,1,1,h,,
-Every 2 hours,225750008,Q2H,every 2 hours,Every 2 hours at institution specified times,1,2,h,,
-Every 3 hours,225753005,Q3H,every 3 hours,Every 3 hours at institution specified times,1,3,h,,
-Every 4 hours,225756002,Q4H,Q4H,Every 4 hours at institution specified times,1,4,h,,
-Every 6 hours,307468000,Q6H,Q6H,Every 6 Hours at institution specified times,1,6,h,,
-Every 8 hours,307469008,Q8H,every 8 hours,Every 8 hours at institution specified times,1,8,h,,
-Once a day at bedtime,396142006,BED,at bedtime,At bedtime (institution specified time),1,1,d,http://terminology.hl7.org/CodeSystem/v3-TimingEvent,HS
-Weekly,14497002,WK,weekly,Weekly at institution specified time,1,1,wk,,
-Monthly,89185003,MO,monthly,Monthly at institution specified time,1,1,mo,,
+display,SNOMED_display,SNOMED_code,synonyms,frequency,period,periodUnit,eventTiming
+Mornings,"Every morning",307472001,AM,1,1,d,MORN
+Afternoons,"During afternoon",255213009,PM,1,1,d,AFT
+Evenings,"In the evening",3157002,nocte,1,1,d,EVE
+"Twice a day","Twice a day",229799001,BID|BD,2,1,d,
+"Three times a day","Three times a day",229798009,TID|TDS,3,1,d,
+"Four times a day","Four times a day",307439001,QID|QDS,4,1,d,
+Hourly,Hourly,225768006,Q1H,1,1,h,
+"Every 2 hours","Every 2 hours",225750008,Q2H,1,2,h,
+"Every 3 hours","Every 3 hours",225753005,Q3H,1,3,h,
+"Every 4 hours","Every 4 hours",225756002,Q4H,1,4,h,
+"Every 6 hours","Every 6 hours",307468000,Q6H,1,6,h,
+"Every 8 hours","Every 8 hours",307469008,Q8H,1,8,h,
+Daily,Daily,69620002,QD,1,1,d,
+"Every 2 days","Every 2 days",225760004,QOD,1,2,d,
+Weekly,Weekly,14497002,WK,1,1,wk,
+Monthly,Monthly,89185003,MO,1,1,mo,

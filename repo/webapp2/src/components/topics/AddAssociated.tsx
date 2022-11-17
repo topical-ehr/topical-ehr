@@ -4,9 +4,11 @@ import { useDispatch } from "react-redux";
 import AsyncSelect from "react-select/async";
 import { actions, useFHIR } from "../../redux/FhirState";
 import * as FHIR from "../../utils/FhirTypes";
-import { HoverButtonDelete } from "../editing/HoverButtons";
-import { timingCodesFromSNOMED } from "../prescriptions/TimingCodes";
+import { logsForModule } from "../../utils/logger";
+import { timingCodesAllowed } from "../prescriptions/TimingCodes";
 import css from "./AddAssociated.module.scss";
+
+const _log = logsForModule("AddAssociated");
 
 const minInputLengthForSearch = 2;
 
@@ -220,13 +222,13 @@ class DosageOption extends Option {
 }
 
 class FrequencyOption extends Option {
-    constructor(term: Term, private timing: FHIR.Timing, composition: FHIR.Composition) {
-        super(term.display, term, composition);
+    constructor(display: string, private timing: FHIR.Timing, composition: FHIR.Composition) {
+        super(display, display, composition);
     }
 
     onAdded(state: Addition | null): UpdateResult {
         if (state?.type !== "prescription") {
-            return { error: "expected prescription state when adding a dosage" };
+            return { error: "expected prescription state when adding a dosage frequency" };
         }
 
         const request: FHIR.MedicationRequest = {
@@ -277,6 +279,7 @@ export function AddAssociated(props: Props) {
 
     const stateRef = React.useRef<Addition | null>(null);
     const [options, setOptions] = React.useState<Option[]>([]);
+    const [defaultOptions, setDefaultOptions] = React.useState<Option[]>([]);
 
     function applyNewOptions(newOptions: readonly Option[]) {
         const state = stateRef.current;
@@ -299,7 +302,7 @@ export function AddAssociated(props: Props) {
         }
     }
 
-    function onOptionsChanged(newOptions: readonly Option[]) {
+    async function onOptionsChanged(newOptions: readonly Option[]) {
         const state = stateRef.current;
         console.log("onOptionsChanged", { newOptions });
 
@@ -314,6 +317,9 @@ export function AddAssociated(props: Props) {
 
         setOptions([...newOptions]);
         props.setHasData(props.index, newOptions.length > 0);
+
+        const nextOptions = await loadOptions("");
+        setDefaultOptions(nextOptions);
     }
 
     async function loadOptions(input: string) {
@@ -347,6 +353,7 @@ export function AddAssociated(props: Props) {
                 }
 
                 if (!state.request.dosageInstruction?.[0].doseAndRate) {
+                    console.debug("need dose");
                     // need a dose
                     // examples
                     //   [25 mg] [twice a day]
@@ -354,6 +361,7 @@ export function AddAssociated(props: Props) {
                     //   [10-20 mg] [over 24 hours] [subcut]
 
                     const productDoses = await getDosesFor(medication);
+                    console.debug("need dose", { productDoses, medication });
                     const userEnteredDoses = new Set<string>();
 
                     if (isNumeric(input) || isNumericRange(input)) {
@@ -385,11 +393,17 @@ export function AddAssociated(props: Props) {
                 }
 
                 if (!state.request.dosageInstruction?.[0].timing) {
-                    // need frequency
-                    return await loadOptionsFromTerminology(
-                        input,
-                        SearchScope.timePatterns,
-                        composition
+                    console.debug("need frequency");
+
+                    const inputTrimmed = input.trim().toLocaleLowerCase();
+                    const timings = inputTrimmed
+                        ? timingCodesAllowed.filter((t) =>
+                              t.texts.some((s) => s.includes(inputTrimmed))
+                          )
+                        : timingCodesAllowed;
+
+                    return timings.map(
+                        (t) => new FrequencyOption(t.timing.code!.text!, t.timing, composition)
                     );
                 }
                 return await loadOptionsFromTerminology(
@@ -408,18 +422,18 @@ export function AddAssociated(props: Props) {
                 placeholder="Add orders, prescriptions or associated diagnoses"
                 isClearable
                 isMulti
+                closeMenuOnSelect={false}
                 components={{
                     DropdownIndicator: null,
                 }}
                 onChange={onOptionsChanged}
                 loadOptions={loadOptions}
+                defaultOptions={defaultOptions}
                 value={options}
-                // openMenuOnFocus
+                openMenuOnFocus
                 // menuIsOpen
-                // defaultOptions
-                // closeMenuOnSelect={false}
-                // blurInputOnSelect={false}
-                key={JSON.stringify(stateRef.current)}
+                blurInputOnSelect={false}
+                // key={JSON.stringify(stateRef.current)}
                 noOptionsMessage={(input) =>
                     input.inputValue.length < minInputLengthForSearch ? null : "Loading..."
                 }
@@ -429,17 +443,18 @@ export function AddAssociated(props: Props) {
 }
 
 const SearchScope = {
-    root: "138875005",
-    clinicalFinding: "404684003",
+    root: "isa/138875005",
+    clinicalFinding: "isa/404684003",
 
-    medicinalProductUnitOfUse: "30450011000036109",
+    // medicinalProductUnitOfUse: "isa/30450011000036109",
+    medicinalProductUnitOfUse: "refset/929360071000036103",
 
-    timePatterns: "272103003",
+    timePatterns: "isa/272103003",
 };
 
 async function searchTerminology(input: string, searchScope: string): Promise<FHIR.ValueSet> {
     const serverBaseUrl = "https://r4.ontoserver.csiro.au/fhir/";
-    const codeSystemUrl = `http://snomed.info/sct?fhir_vs=isa/${searchScope}`;
+    const codeSystemUrl = `http://snomed.info/sct?fhir_vs=${searchScope}`;
 
     const designation = encodeURIComponent("http://snomed.info/sct|900000000000003001");
 
@@ -512,6 +527,8 @@ async function loadOptionsFromTerminology(
     searchScope: string,
     composition: FHIR.Composition
 ): Promise<Option[]> {
+    const log = _log(loadOptionsFromTerminology, arguments);
+
     if (input.length < minInputLengthForSearch) {
         return [];
     }
@@ -533,6 +550,7 @@ async function loadOptionsFromTerminology(
             case "substance":
                 return [new MedicationOption(term, composition)];
             case "qualifier value":
+                // only allowing manually defined time codes for now
                 const timing = timingCodesFromSNOMED.get(term.code);
                 if (timing) {
                     return [new FrequencyOption(term, timing, composition)];
