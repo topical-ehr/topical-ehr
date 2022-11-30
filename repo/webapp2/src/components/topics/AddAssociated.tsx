@@ -109,7 +109,6 @@ class ConditionOption extends Option {
         }
 
         const conditions = state.conditions.filter((condition) => condition !== toRemove);
-        debugger;
 
         return {
             newState:
@@ -549,12 +548,6 @@ async function loadOptionsFromTerminology(
                 return [new ConditionOption(term, composition)];
             case "substance":
                 return [new MedicationOption(term, composition)];
-            case "qualifier value":
-                // only allowing manually defined time codes for now
-                const timing = timingCodesFromSNOMED.get(term.code);
-                if (timing) {
-                    return [new FrequencyOption(term, timing, composition)];
-                }
         }
         return [];
     }

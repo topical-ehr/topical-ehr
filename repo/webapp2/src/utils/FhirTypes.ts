@@ -520,6 +520,7 @@ export interface ValueSet extends Resource {
     ];
   };
 }
+export type ValueSetCode = ValueSet["expansion"]["contains"][0];
 
 export interface MedicationRequest extends Resource {
   resourceType: "MedicationRequest";

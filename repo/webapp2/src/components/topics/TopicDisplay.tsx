@@ -1,7 +1,7 @@
 import DOMPurify from "dompurify";
 import { HoverButtonEdit, HoverButtons } from "../editing/HoverButtons";
 import { Topic } from "../../utils/TopicGroup";
-import { ConditionDisplay } from "./ConditionDisplay";
+import { ConditionDisplay } from "./TopicItemDisplay";
 import { useAppDispatch } from "../../redux/store";
 import { actions } from "../../redux/FhirState";
 import css from "./TopicDisplay.module.scss";

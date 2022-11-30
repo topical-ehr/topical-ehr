@@ -1,6 +1,6 @@
 import * as FHIR from "../../utils/FhirTypes";
 import { CodeFormatter } from "../../utils/display/CodeFormatter";
-import css from "./ConditionDisplay.module.scss";
+import css from "./TopicItemDisplay.module.scss";
 
 import iconDx from "/icons/dx.svg";
 

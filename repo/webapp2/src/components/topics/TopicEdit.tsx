@@ -8,7 +8,7 @@ import { actions, useFHIR } from "../../redux/FhirState";
 import { RichTextEditor } from "../editing/lexical/RichTextEditor";
 import { HoverButtonDelete, HoverButtons, HoverButtonUndo } from "../editing/HoverButtons";
 
-import { ConditionEdit } from "./ConditionEdit";
+import { ConditionEdit } from "./TopicItemEdit";
 
 import css from "./TopicEdit.module.scss";
 import { AddAssociated } from "./AddAssociated";
