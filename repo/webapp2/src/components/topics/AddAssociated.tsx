@@ -10,8 +10,6 @@ import css from "./AddAssociated.module.scss";
 
 const _log = logsForModule("AddAssociated");
 
-const minInputLengthForSearch = 2;
-
 type Addition =
     | {
           type: "conditions";
@@ -25,8 +23,6 @@ type Addition =
           type: "prescription";
           request: FHIR.MedicationRequest;
       };
-
-type Term = FHIR.ValueSet["expansion"]["contains"][0];
 
 abstract class Option {
     public readonly key: string;
@@ -343,7 +339,13 @@ export function AddAssociated(props: Props) {
                 return await loadOptionsFromTerminology(
                     input,
                     SearchScope.clinicalFinding,
-                    composition
+                    (termType, term) => {
+                        switch (termType) {
+                            case "finding":
+                            case "disorder":
+                                return [new ConditionOption(term, composition)];
+                        }
+                    }
                 );
             case "prescription":
                 const medication = state.request.medicationCodeableConcept?.text;
@@ -441,33 +443,6 @@ export function AddAssociated(props: Props) {
     );
 }
 
-const SearchScope = {
-    root: "isa/138875005",
-    clinicalFinding: "isa/404684003",
-
-    // medicinalProductUnitOfUse: "isa/30450011000036109",
-    medicinalProductUnitOfUse: "refset/929360071000036103",
-
-    timePatterns: "isa/272103003",
-};
-
-async function searchTerminology(input: string, searchScope: string): Promise<FHIR.ValueSet> {
-    const serverBaseUrl = "https://r4.ontoserver.csiro.au/fhir/";
-    const codeSystemUrl = `http://snomed.info/sct?fhir_vs=${searchScope}`;
-
-    const designation = encodeURIComponent("http://snomed.info/sct|900000000000003001");
-
-    // TODO: designation filter doesn't seem to work
-    const options = `_format=json&count=10&includeDesignations=true&designation=${designation}`;
-    const filter = encodeURIComponent(input);
-    const url = `${serverBaseUrl}ValueSet/$expand?filter=${filter}&url=${codeSystemUrl}&${options}`;
-
-    const resp = await fetch(url);
-    const vs: FHIR.ValueSet = await resp.json();
-    console.log({ vs });
-    return vs;
-}
-
 function parseDose(dose: string): FHIR.Quantity | null {
     const match = dose.match(/\d+ \w+/)?.[0];
     if (match) {
@@ -519,41 +494,6 @@ async function getDosesFor(medication: string): Promise<Set<string>> {
     }
 
     return sort(doses);
-}
-
-async function loadOptionsFromTerminology(
-    input: string,
-    searchScope: string,
-    composition: FHIR.Composition
-): Promise<Option[]> {
-    const log = _log(loadOptionsFromTerminology, arguments);
-
-    if (input.length < minInputLengthForSearch) {
-        return [];
-    }
-
-    const vs = await searchTerminology(input, searchScope);
-
-    function termToOptions(term: Term): Option[] {
-        const fullySpecifiedName = term.designation?.find(
-            (d) => d.use?.code === "900000000000003001"
-        )?.value;
-        if (!fullySpecifiedName) {
-            return [];
-        }
-        const termType = fullySpecifiedName?.slice(fullySpecifiedName.indexOf("(") + 1, -1);
-        switch (termType) {
-            case "finding":
-            case "disorder":
-                return [new ConditionOption(term, composition)];
-            case "substance":
-                return [new MedicationOption(term, composition)];
-        }
-        return [];
-    }
-
-    const options = vs.expansion?.contains?.flatMap(termToOptions) ?? [];
-    return options;
 }
 
 function isError(obj: any): obj is { error: string } {
