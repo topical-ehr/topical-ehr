@@ -2,6 +2,7 @@ import { TopicItemOptionBase, TopicItemStateBase } from "./TopicItemBase";
 import * as FHIR from "../../../utils/FhirTypes";
 import { loadOptionsFromTerminology, SearchScope } from "../../../utils/FhirTerminology";
 import { MedicationOption } from "./PrescriptionTopicItems";
+import { ConditionOption } from "./ConditionTopicItems";
 
 export class BlankTopicItemState extends TopicItemStateBase {
     doesApply(resource: FHIR.Resource | null): boolean {
@@ -13,14 +14,18 @@ export class BlankTopicItemState extends TopicItemStateBase {
     }
 
     async getOptions(input: string): Promise<TopicItemOptionBase[]> {
-        return await loadOptionsFromTerminology(input, SearchScope.root, (termType, term) => {
-            switch (termType) {
-                case "finding":
-                case "disorder":
-                    return [new ConditionOption(term, composition)];
-                case "substance":
-                    return [new MedicationOption(term, this)];
+        return await loadOptionsFromTerminology<TopicItemOptionBase>(
+            input,
+            SearchScope.root,
+            (termType, term) => {
+                switch (termType) {
+                    case "finding":
+                    case "disorder":
+                        return [new ConditionOption(term, this)];
+                    case "substance":
+                        return [new MedicationOption(term, this)];
+                }
             }
-        });
+        );
     }
 }

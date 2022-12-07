@@ -1,5 +1,6 @@
 import * as FHIR from "./FhirTypes";
 import { logsForModule } from "./logger";
+import { minInputLengthForSearch } from "./settings";
 
 export const SearchScope = {
   root: "isa/138875005",
@@ -12,8 +13,6 @@ export const SearchScope = {
 };
 
 export type Term = FHIR.ValueSet["expansion"]["contains"][0];
-
-const minInputLengthForSearch = 2;
 
 const _log = logsForModule("FhirTerminology");
 

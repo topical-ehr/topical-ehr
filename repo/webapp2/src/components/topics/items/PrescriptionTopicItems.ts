@@ -1,10 +1,5 @@
-import { Exception } from "sass";
 import { actions } from "../../../redux/FhirState";
-import {
-    loadOptionsFromTerminology,
-    SearchScope,
-    searchTerminology,
-} from "../../../utils/FhirTerminology";
+import { SearchScope, searchTerminology } from "../../../utils/FhirTerminology";
 import * as FHIR from "../../../utils/FhirTypes";
 import { timingCodesAllowed } from "../../prescriptions/TimingCodes";
 import { BlankTopicItemState } from "./BlankTopicItem";
@@ -18,8 +13,12 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
     constructor(public readonly MR: FHIR.MedicationRequest, topic: FHIR.Composition) {
         super(topic);
     }
-    copy(MR: FHIR.MedicationRequest) {
-        return new PrescriptionTopicItemState(MR, this.topic);
+
+    updateTo(next: FHIR.MedicationRequest) {
+        return {
+            newState: new PrescriptionTopicItemState(next, this.topic),
+            newActions: [actions.edit(next)],
+        };
     }
 
     async getOptions(input: string): Promise<TopicItemOptionBase[]> {
@@ -61,7 +60,7 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
                             parseDoseRange(dose) ??
                             throwError("dose could not be parsed"),
                         dose,
-                        composition
+                        this
                     )
             );
 
@@ -76,11 +75,10 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
                 ? timingCodesAllowed.filter((t) => t.texts.some((s) => s.includes(inputTrimmed)))
                 : timingCodesAllowed;
 
-            return timings.map(
-                (t) => new FrequencyOption(t.timing.code!.text!, t.timing, composition)
-            );
+            return timings.map((t) => new FrequencyOption(t.timing.code!.text!, t.timing, this));
         }
-        return await loadOptionsFromTerminology(input, SearchScope.timePatterns, composition);
+
+        return [];
     }
 }
 
@@ -94,7 +92,7 @@ export class MedicationOption extends TopicItemOptionBase {
 
     onAdded(): UpdateResult {
         const { system, code, display } = this.term;
-        const request: FHIR.MedicationRequest = {
+        const next: FHIR.MedicationRequest = {
             ...FHIR.MedicationRequest.new({
                 subject: this.state.topic.subject,
                 status: "active",
@@ -107,15 +105,15 @@ export class MedicationOption extends TopicItemOptionBase {
         };
 
         return {
-            newState: new PrescriptionTopicItemState(request, this.state.topic),
-            newActions: [actions.edit(request), this.state.addToComposition(request)],
+            newState: new PrescriptionTopicItemState(next, this.state.topic),
+            newActions: [actions.edit(next), this.state.addToComposition(next)],
         };
     }
 
     onRemoved(): UpdateResult {
         if (this.state instanceof PrescriptionTopicItemState) {
             return {
-                newState: null,
+                newState: new BlankTopicItemState(this.state.topic),
                 newActions: [
                     actions.delete(this.state.MR),
                     this.state.removeFromComposition(this.state.MR),
@@ -156,10 +154,7 @@ class DosageOption extends TopicItemOptionBase {
                 },
             ],
         };
-        return {
-            newState: this.state.copy(next),
-            newActions: [actions.edit(next)],
-        };
+        return this.state.updateTo(next);
     }
 
     onRemoved(): UpdateResult {
@@ -173,55 +168,43 @@ class DosageOption extends TopicItemOptionBase {
                 },
             ],
         };
-
-        return {
-            newState: this.state.copy(next),
-            newActions: [actions.edit(next)],
-        };
+        return this.state.updateTo(next);
     }
 }
 
 class FrequencyOption extends TopicItemOptionBase {
-    constructor(display: string, private timing: FHIR.Timing, composition: FHIR.Composition) {
-        super(display, display, composition);
+    constructor(
+        display: string,
+        private timing: FHIR.Timing,
+        private state: PrescriptionTopicItemState
+    ) {
+        super(display, display);
     }
 
-    onAdded(state: Addition | null): UpdateResult {
-        if (state?.type !== "prescription") {
-            return { error: "expected prescription state when adding a dosage frequency" };
-        }
-
-        const request: FHIR.MedicationRequest = {
-            ...state.request,
+    onAdded(): UpdateResult {
+        const next: FHIR.MedicationRequest = {
+            ...this.state.MR,
             dosageInstruction: [
                 {
-                    ...state.request.dosageInstruction?.[0],
+                    ...this.state.MR.dosageInstruction?.[0],
                     timing: this.timing,
                 },
             ],
         };
-        return { newState: { type: "prescription", request }, newActions: [actions.edit(request)] };
+        return this.state.updateTo(next);
     }
 
-    onRemoved(state: Addition | null): UpdateResult {
-        if (state?.type !== "prescription") {
-            return { error: "unexpected addition type" };
-        }
-
-        const request: FHIR.MedicationRequest = {
-            ...state.request,
+    onRemoved(): UpdateResult {
+        const next: FHIR.MedicationRequest = {
+            ...this.state.MR,
             dosageInstruction: [
                 {
-                    ...state.request.dosageInstruction?.[0],
+                    ...this.state.MR.dosageInstruction?.[0],
                     timing: undefined,
                 },
             ],
         };
-
-        return {
-            newState: { ...state, request },
-            newActions: [actions.edit(request)],
-        };
+        return this.state.updateTo(next);
     }
 }
 

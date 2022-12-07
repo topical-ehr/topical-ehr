@@ -4,7 +4,7 @@ import * as FHIR from "../../../utils/FhirTypes";
 
 export type UpdateResult =
     | {
-          newState: TopicItemStateBase | null;
+          newState: TopicItemStateBase;
           newActions: AnyAction[];
       }
     | { error: string };
@@ -29,20 +29,6 @@ export abstract class TopicItemStateBase {
             this.topic
         );
         return actions.edit(updatedComposition);
-    }
-}
-
-export class BlankTopicItemStateBase extends TopicItemStateBase {
-    doesApply(resource: FHIR.Resource | null): boolean {
-        return false;
-    }
-
-    getOptions(input: string): Promise<TopicItemOptionBase[]> {
-        return Promise.resolve([]);
-    }
-
-    constructor(public readonly topic: FHIR.Composition) {
-        super(topic);
     }
 }
 
