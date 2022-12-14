@@ -5,7 +5,9 @@ import * as FHIR from "../../../utils/FhirTypes";
 export abstract class TopicItemStateBase {
     abstract doesApply(resource: FHIR.Resource | null): boolean;
 
-    abstract getOptions(input: string): Promise<TopicItemOptionBase[]>;
+    abstract getOptions(): TopicItemOptionBase[];
+    abstract getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]>;
+    abstract icon: string;
 
     constructor(public readonly topic: FHIR.Composition) {}
 

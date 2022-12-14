@@ -6,10 +6,14 @@ import { timingCodesAllowed } from "../../prescriptions/TimingCodes";
 import { BlankTopicItemState } from "./BlankTopicItem";
 import { TopicItemStateBase, TopicItemOptionBase, UpdateResult } from "./TopicItemBase";
 
+import iconDx from "/icons/dx.svg";
+
 export class PrescriptionTopicItemState extends TopicItemStateBase {
     doesApply(resource: FHIR.Resource | null): boolean {
         return resource?.resourceType === "MedicationRequest";
     }
+
+    icon = iconDx;
 
     constructor(public readonly MR: FHIR.MedicationRequest, topic: FHIR.Composition) {
         super(topic);
@@ -22,7 +26,7 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
         };
     }
 
-    async getOptions(input: string): Promise<TopicItemOptionBase[]> {
+    async getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]> {
         const medication = this.MR.medicationCodeableConcept?.text;
         if (!medication) {
             throw new Error("state is missing medication text");

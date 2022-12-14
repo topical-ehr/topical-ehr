@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { PrimaryButton, Stack, TextField } from "@fluentui/react";
+import { TextField } from "@fluentui/react";
 
 import * as FHIR from "../../utils/FhirTypes";
 import { Topic } from "../../utils/TopicGroup";
@@ -8,10 +8,10 @@ import { actions, useFHIR } from "../../redux/FhirState";
 import { RichTextEditor } from "../editing/lexical/RichTextEditor";
 import { HoverButtonDelete, HoverButtons, HoverButtonUndo } from "../editing/HoverButtons";
 
-import { ConditionEdit } from "./TopicItemEdit";
-
 import css from "./TopicEdit.module.scss";
-import { AddAssociated } from "./AddAssociated";
+import { TopicItemEdit } from "./TopicItemEdit";
+import { BlankTopicItemState } from "./items/BlankTopicItem";
+import { ConditionTopicItemState } from "./items/ConditionTopicItems";
 
 interface Props {
     topic: Topic;
@@ -92,7 +92,20 @@ export function TopicEdit(props: Props) {
                 <ConditionEdit key={c.id} condition={c} />
             ))}
 
-            <AddAssociatedControls compositionId={editState.compositionId} />
+            {props.topic.conditions.map((c) => (
+                <TopicItemEdit
+                    key={c.id}
+                    compositionId={editState.compositionId}
+                    initialState={new ConditionTopicItemState([c], composition)}
+                    index={0}
+                    setHasData={nop}
+                />
+            ))}
+
+            <NewItemEditControls
+                composition={composition}
+                compositionId={editState.compositionId}
+            />
 
             {/* <Stack horizontal tokens={{ childrenGap: 10 }} className={css.bottomButtons}>
                 <PrimaryButton text="Add condition" onClick={onAddCondition} />
@@ -102,7 +115,7 @@ export function TopicEdit(props: Props) {
     );
 }
 
-function AddAssociatedControls(props: { compositionId: string }) {
+function NewItemEditControls(props: { composition: FHIR.Composition; compositionId: string }) {
     const [hasData, setHasData] = React.useState<boolean[]>([false]);
 
     const setHasDataFor = React.useCallback((index: number, newValue: boolean) => {
@@ -133,11 +146,21 @@ function AddAssociatedControls(props: { compositionId: string }) {
         });
     }, []);
 
+    const blankState = new BlankTopicItemState(props.composition);
+
     return (
         <div>
             {hasData.map((_, i) => (
-                <AddAssociated key={i} {...props} index={i} setHasData={setHasDataFor} />
+                <TopicItemEdit
+                    key={i}
+                    {...props}
+                    index={i}
+                    setHasData={setHasDataFor}
+                    initialState={blankState}
+                />
             ))}
         </div>
     );
 }
+
+function nop() {}

@@ -13,7 +13,11 @@ export class BlankTopicItemState extends TopicItemStateBase {
         super(topic);
     }
 
-    async getOptions(input: string): Promise<TopicItemOptionBase[]> {
+    getOptions() {
+        return [];
+    }
+
+    async getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]> {
         return await loadOptionsFromTerminology<TopicItemOptionBase>(
             input,
             SearchScope.root,
@@ -21,9 +25,9 @@ export class BlankTopicItemState extends TopicItemStateBase {
                 switch (termType) {
                     case "finding":
                     case "disorder":
-                        return [new ConditionOption(term, this)];
+                        return [new ConditionOption(term)];
                     case "substance":
-                        return [new MedicationOption(term, this)];
+                        return [new MedicationOption(term)];
                 }
             }
         );

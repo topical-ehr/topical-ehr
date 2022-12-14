@@ -1,24 +1,28 @@
 import { actions } from "../../../redux/FhirState";
-import {
-    loadOptionsFromTerminology,
-    SearchScope,
-    searchTerminology,
-} from "../../../utils/FhirTerminology";
+import { loadOptionsFromTerminology, SearchScope } from "../../../utils/FhirTerminology";
 import * as FHIR from "../../../utils/FhirTypes";
-import { timingCodesAllowed } from "../../prescriptions/TimingCodes";
+import { logsFor } from "../../../utils/logger";
 import { BlankTopicItemState } from "./BlankTopicItem";
 import { TopicItemStateBase, TopicItemOptionBase, UpdateResult } from "./TopicItemBase";
+
+import iconDx from "/icons/dx.svg";
 
 export class ConditionTopicItemState extends TopicItemStateBase {
     doesApply(resource: FHIR.Resource | null): boolean {
         return resource?.resourceType === "Condition";
     }
 
+    icon = iconDx;
+
     constructor(public readonly conditions: FHIR.Condition[], topic: FHIR.Composition) {
         super(topic);
     }
 
-    async getOptions(input: string): Promise<TopicItemOptionBase[]> {
+    getOptions() {
+        return this.conditions.map((c) => new ConditionOption(c.code.coding[0]));
+    }
+
+    async getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]> {
         return await loadOptionsFromTerminology(
             input,
             SearchScope.clinicalFinding,
@@ -34,6 +38,8 @@ export class ConditionTopicItemState extends TopicItemStateBase {
 }
 
 export class ConditionOption extends TopicItemOptionBase {
+    log = logsFor("ConditionOption");
+
     constructor(private term: FHIR.ValueSetCode) {
         super(term.display, term);
     }
@@ -54,7 +60,7 @@ export class ConditionOption extends TopicItemOptionBase {
                 newState: new ConditionTopicItemState([newCondition], state.topic),
                 newActions,
             };
-        } else {
+        } else if (state instanceof ConditionTopicItemState) {
             return {
                 newState: new ConditionTopicItemState(
                     [...state.conditions, newCondition],
@@ -62,6 +68,8 @@ export class ConditionOption extends TopicItemOptionBase {
                 ),
                 newActions,
             };
+        } else {
+            throw this.log.exception("unexpected state type", { state });
         }
     }
 
