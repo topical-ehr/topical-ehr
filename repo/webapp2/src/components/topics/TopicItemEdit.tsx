@@ -3,7 +3,7 @@ import { actions, useFHIR } from "../../redux/FhirState";
 import * as FHIR from "../../utils/FhirTypes";
 import { HoverButtonDelete, HoverButtonUndo } from "../editing/HoverButtons";
 import { ConditionDisplay } from "./TopicItemDisplay";
-import css from "./ConditionEdit.module.scss";
+import css from "./TopicItemEdit.module.scss";
 
 interface Props {
     condition: FHIR.Condition;

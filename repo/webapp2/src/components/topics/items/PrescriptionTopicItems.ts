@@ -1,6 +1,7 @@
 import { actions } from "../../../redux/FhirState";
 import { SearchScope, searchTerminology } from "../../../utils/FhirTerminology";
 import * as FHIR from "../../../utils/FhirTypes";
+import { logsFor } from "../../../utils/logger";
 import { timingCodesAllowed } from "../../prescriptions/TimingCodes";
 import { BlankTopicItemState } from "./BlankTopicItem";
 import { TopicItemStateBase, TopicItemOptionBase, UpdateResult } from "./TopicItemBase";
@@ -59,8 +60,7 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
                         parseDose(dose) ??
                             parseDoseRange(dose) ??
                             throwError("dose could not be parsed"),
-                        dose,
-                        this
+                        dose
                     )
             );
 
@@ -75,7 +75,7 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
                 ? timingCodesAllowed.filter((t) => t.texts.some((s) => s.includes(inputTrimmed)))
                 : timingCodesAllowed;
 
-            return timings.map((t) => new FrequencyOption(t.timing.code!.text!, t.timing, this));
+            return timings.map((t) => new FrequencyOption(t.timing.code!.text!, t.timing));
         }
 
         return [];
@@ -83,18 +83,17 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
 }
 
 export class MedicationOption extends TopicItemOptionBase {
-    constructor(
-        private term: FHIR.ValueSetCode,
-        private state: PrescriptionTopicItemState | BlankTopicItemState
-    ) {
+    log = logsFor("MedicationOption");
+
+    constructor(private term: FHIR.ValueSetCode) {
         super(term.display, term);
     }
 
-    onAdded(): UpdateResult {
+    onAdded(state: TopicItemStateBase): UpdateResult {
         const { system, code, display } = this.term;
         const next: FHIR.MedicationRequest = {
             ...FHIR.MedicationRequest.new({
-                subject: this.state.topic.subject,
+                subject: state.topic.subject,
                 status: "active",
                 intent: "plan",
             }),
@@ -105,41 +104,43 @@ export class MedicationOption extends TopicItemOptionBase {
         };
 
         return {
-            newState: new PrescriptionTopicItemState(next, this.state.topic),
-            newActions: [actions.edit(next), this.state.addToComposition(next)],
+            newState: new PrescriptionTopicItemState(next, state.topic),
+            newActions: [actions.edit(next), state.addToComposition(next)],
         };
     }
 
-    onRemoved(): UpdateResult {
-        if (this.state instanceof PrescriptionTopicItemState) {
+    onRemoved(state: TopicItemStateBase): UpdateResult {
+        const { log } = this;
+        if (state instanceof PrescriptionTopicItemState) {
             return {
-                newState: new BlankTopicItemState(this.state.topic),
-                newActions: [
-                    actions.delete(this.state.MR),
-                    this.state.removeFromComposition(this.state.MR),
-                ],
+                newState: new BlankTopicItemState(state.topic),
+                newActions: [actions.delete(state.MR), state.removeFromComposition(state.MR)],
             };
         } else {
-            throw new Error("unexpected state type");
+            throw log.exception("unexpected state type", { state });
         }
     }
 }
 
+function assertState(state: TopicItemStateBase): asserts state is PrescriptionTopicItemState {
+    if (!(state instanceof PrescriptionTopicItemState)) {
+        throw new Error("unexpected state type");
+    }
+}
+
 class DosageOption extends TopicItemOptionBase {
-    constructor(
-        private dosage: FHIR.Quantity | FHIR.Range,
-        label: string,
-        private state: PrescriptionTopicItemState
-    ) {
+    constructor(private dosage: FHIR.Quantity | FHIR.Range, label: string) {
         super(label, dosage);
     }
 
-    onAdded(): UpdateResult {
+    onAdded(state: TopicItemStateBase): UpdateResult {
+        assertState(state);
+
         function isRange(dosage: any): dosage is FHIR.Range {
             return !!dosage["low"];
         }
         const dosage = this.dosage;
-        const prev = this.state.MR;
+        const prev = state.MR;
         const next: FHIR.MedicationRequest = {
             ...prev,
             dosageInstruction: [
@@ -154,11 +155,12 @@ class DosageOption extends TopicItemOptionBase {
                 },
             ],
         };
-        return this.state.updateTo(next);
+        return state.updateTo(next);
     }
 
-    onRemoved(): UpdateResult {
-        const prev = this.state.MR;
+    onRemoved(state: TopicItemStateBase): UpdateResult {
+        assertState(state);
+        const prev = state.MR;
         const next: FHIR.MedicationRequest = {
             ...prev,
             dosageInstruction: [
@@ -168,43 +170,41 @@ class DosageOption extends TopicItemOptionBase {
                 },
             ],
         };
-        return this.state.updateTo(next);
+        return state.updateTo(next);
     }
 }
 
 class FrequencyOption extends TopicItemOptionBase {
-    constructor(
-        display: string,
-        private timing: FHIR.Timing,
-        private state: PrescriptionTopicItemState
-    ) {
+    constructor(display: string, private timing: FHIR.Timing) {
         super(display, display);
     }
 
-    onAdded(): UpdateResult {
+    onAdded(state: TopicItemStateBase): UpdateResult {
+        assertState(state);
         const next: FHIR.MedicationRequest = {
-            ...this.state.MR,
+            ...state.MR,
             dosageInstruction: [
                 {
-                    ...this.state.MR.dosageInstruction?.[0],
+                    ...state.MR.dosageInstruction?.[0],
                     timing: this.timing,
                 },
             ],
         };
-        return this.state.updateTo(next);
+        return state.updateTo(next);
     }
 
-    onRemoved(): UpdateResult {
+    onRemoved(state: TopicItemStateBase): UpdateResult {
+        assertState(state);
         const next: FHIR.MedicationRequest = {
-            ...this.state.MR,
+            ...state.MR,
             dosageInstruction: [
                 {
-                    ...this.state.MR.dosageInstruction?.[0],
+                    ...state.MR.dosageInstruction?.[0],
                     timing: undefined,
                 },
             ],
         };
-        return this.state.updateTo(next);
+        return state.updateTo(next);
     }
 }
 

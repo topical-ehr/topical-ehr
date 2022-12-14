@@ -1,5 +1,5 @@
 import * as FHIR from "./FhirTypes";
-import { logsForModule } from "./logger";
+import { logsFor } from "./logger";
 import { minInputLengthForSearch } from "./settings";
 
 export const SearchScope = {
@@ -14,15 +14,13 @@ export const SearchScope = {
 
 export type Term = FHIR.ValueSet["expansion"]["contains"][0];
 
-const _log = logsForModule("FhirTerminology");
+const log = logsFor("FhirTerminology");
 
 export async function loadOptionsFromTerminology<T>(
   input: string,
   searchScope: string,
   makeOption: (termType: string, term: Term) => T[] | undefined
 ): Promise<T[]> {
-  const log = _log(loadOptionsFromTerminology, arguments);
-
   if (input.length < minInputLengthForSearch) {
     return [];
   }
@@ -66,6 +64,6 @@ export async function searchTerminology(
 
   const resp = await fetch(url);
   const vs: FHIR.ValueSet = await resp.json();
-  console.log({ vs });
+  log.debug("searchTerminology", { input, url, vs });
   return vs;
 }

@@ -26,7 +26,7 @@ export class ConditionTopicItemState extends TopicItemStateBase {
                 switch (termType) {
                     case "finding":
                     case "disorder":
-                        return [new ConditionOption(term, this)];
+                        return [new ConditionOption(term)];
                 }
             }
         );
@@ -34,58 +34,55 @@ export class ConditionTopicItemState extends TopicItemStateBase {
 }
 
 export class ConditionOption extends TopicItemOptionBase {
-    constructor(
-        private term: FHIR.ValueSetCode,
-        private state: ConditionTopicItemState | BlankTopicItemState
-    ) {
+    constructor(private term: FHIR.ValueSetCode) {
         super(term.display, term);
     }
 
-    onAdded(): UpdateResult {
+    onAdded(state: TopicItemStateBase): UpdateResult {
         const { system, code, display } = this.term;
         const newCondition: FHIR.Condition = {
-            ...FHIR.Condition.new({ subject: this.state.topic.subject }),
+            ...FHIR.Condition.new({ subject: state.topic.subject }),
             code: {
                 text: display,
                 coding: [{ system, code, display, userSelected: true }],
             },
         };
 
-        const newActions = [actions.edit(newCondition), this.state.addToComposition(newCondition)];
-        if (this.state instanceof BlankTopicItemState) {
+        const newActions = [actions.edit(newCondition), state.addToComposition(newCondition)];
+        if (state instanceof BlankTopicItemState) {
             return {
-                newState: new ConditionTopicItemState([newCondition], this.state.topic),
+                newState: new ConditionTopicItemState([newCondition], state.topic),
                 newActions,
             };
         } else {
             return {
                 newState: new ConditionTopicItemState(
-                    [...this.state.conditions, newCondition],
-                    this.state.topic
+                    [...state.conditions, newCondition],
+                    state.topic
                 ),
                 newActions,
             };
         }
     }
 
-    onRemoved(): UpdateResult {
-        if (this.state instanceof ConditionTopicItemState) {
+    onRemoved(state: TopicItemStateBase): UpdateResult {
+        if (state instanceof ConditionTopicItemState) {
             const removedCode = this.term.code;
-            const toRemove = this.state.conditions.find(
+            const toRemove = state.conditions.find(
                 (condition) => condition.code?.coding?.[0].code === removedCode
             );
             if (!toRemove) {
                 return { error: "unable to find existing condition" };
             }
 
-            const conditions = this.state.conditions.filter((condition) => condition !== toRemove);
+            const conditions = state.conditions.filter((condition) => condition !== toRemove);
 
             return {
                 newState:
                     conditions.length == 0
-                        ? new BlankTopicItemState(this.state.topic)
-                        : new ConditionTopicItemState(conditions, this.state.topic),
-                newActions: [actions.delete(toRemove), this.state.removeFromComposition(toRemove)],
+                        ? new BlankTopicItemState(state.topic)
+                        : new ConditionTopicItemState(conditions, state.topic),
+                newActions: [actions.delete(toRemove), state.removeFromComposition(toRemove)],
             };
         } else {
             throw new Error("unexpected state type");

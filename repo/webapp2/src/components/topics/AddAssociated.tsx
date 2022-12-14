@@ -2,13 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import AsyncSelect from "react-select/async";
 import { useFHIR } from "../../redux/FhirState";
-import { logsForModule } from "../../utils/logger";
+import { logsFor } from "../../utils/logger";
 import { minInputLengthForSearch } from "../../utils/settings";
 import css from "./AddAssociated.module.scss";
 import { BlankTopicItemState } from "./items/BlankTopicItem";
 import { TopicItemOptionBase, TopicItemStateBase } from "./items/TopicItemBase";
 
-const _log = logsForModule("AddAssociated");
+const log = logsFor("AddAssociated");
 
 interface Props {
     compositionId: string;
@@ -22,7 +22,8 @@ export function AddAssociated(props: Props) {
     const dispatch = useDispatch();
     const composition = useFHIR((s) => s.fhir.edits.compositions[props.compositionId]);
 
-    const stateRef = React.useRef<TopicItemStateBase>(new BlankTopicItemState(composition));
+    const initialState = new BlankTopicItemState(composition);
+    const stateRef = React.useRef<TopicItemStateBase>(initialState);
     const [options, setOptions] = React.useState<TopicItemOptionBase[]>([]);
     const [defaultOptions, setDefaultOptions] = React.useState<TopicItemOptionBase[]>([]);
 
@@ -31,7 +32,7 @@ export function AddAssociated(props: Props) {
 
         if (newOptions.length > options.length) {
             // option added - assuming it is the last one
-            return newOptions.slice(-1)[0].onAdded();
+            return newOptions.slice(-1)[0].onAdded(state);
         } else if (newOptions.length < options.length) {
             // option removed
             const removed = options.find(
@@ -40,7 +41,7 @@ export function AddAssociated(props: Props) {
             if (!removed) {
                 return { error: "Could not find removed option" };
             } else {
-                return removed.onRemoved();
+                return removed.onRemoved(state);
             }
         } else {
             return { error: "newOptions has unchanged size" };
@@ -49,13 +50,13 @@ export function AddAssociated(props: Props) {
 
     async function onOptionsChanged(newOptions: readonly TopicItemOptionBase[]) {
         const state = stateRef.current;
-        console.log("onOptionsChanged", { newOptions });
+        log.debug("onOptionsChanged", { newOptions, state });
 
         const result = applyNewOptions(newOptions);
         if (isError(result)) {
-            console.error("onOptionsChanged", result.error, { newOptions, options, state });
+            log.error("onOptionsChanged", { result });
         } else {
-            console.log("onOptionsChanged", { result, stateRef });
+            log.debug("onOptionsChanged", { result });
             stateRef.current = result.newState;
             result.newActions.forEach(dispatch);
         }
@@ -69,13 +70,13 @@ export function AddAssociated(props: Props) {
 
     async function loadOptions(input: string) {
         const state = stateRef.current;
-        console.log("loadOptions", { input, stateRef });
+        log.debug("loadOptions", { input, stateRef });
         try {
-            const ret = await state.getOptions(input);
-            console.log("loadOptions", { ret });
-            return ret;
+            const options = await state.getOptions(input);
+            log.debug("loadOptions", { options });
+            return options;
         } catch (err) {
-            console.error("loadOptions", err, { input, state });
+            log.error("loadOptions", { err, input, state });
             return [];
         }
     }

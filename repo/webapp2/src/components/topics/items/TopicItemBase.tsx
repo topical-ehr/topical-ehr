@@ -2,13 +2,6 @@ import { AnyAction } from "@reduxjs/toolkit";
 import { actions } from "../../../redux/FhirState";
 import * as FHIR from "../../../utils/FhirTypes";
 
-export type UpdateResult =
-    | {
-          newState: TopicItemStateBase;
-          newActions: AnyAction[];
-      }
-    | { error: string };
-
 export abstract class TopicItemStateBase {
     abstract doesApply(resource: FHIR.Resource | null): boolean;
 
@@ -33,8 +26,8 @@ export abstract class TopicItemStateBase {
 }
 
 export abstract class TopicItemOptionBase {
-    abstract onAdded(): UpdateResult;
-    abstract onRemoved(): UpdateResult;
+    abstract onAdded(state: TopicItemStateBase): UpdateResult;
+    abstract onRemoved(state: TopicItemStateBase): UpdateResult;
 
     public readonly key: string;
     public readonly value: TopicItemOptionBase;
@@ -44,3 +37,10 @@ export abstract class TopicItemOptionBase {
         this.value = this;
     }
 }
+
+export type UpdateResult =
+    | {
+          newState: TopicItemStateBase;
+          newActions: AnyAction[];
+      }
+    | { error: string };
