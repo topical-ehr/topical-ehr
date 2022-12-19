@@ -4,10 +4,14 @@ import { loadOptionsFromTerminology, SearchScope } from "../../../utils/FhirTerm
 import { MedicationOption } from "./PrescriptionTopicItems";
 import { ConditionOption } from "./ConditionTopicItems";
 
+import icon from "/icons/bootstrap/plus.svg";
+
 export class BlankTopicItemState extends TopicItemStateBase {
     doesApply(resource: FHIR.Resource | null): boolean {
         return resource === null;
     }
+
+    icon = icon;
 
     constructor(topic: FHIR.Composition) {
         super(topic);

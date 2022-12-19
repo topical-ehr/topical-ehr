@@ -30,7 +30,7 @@ export function EditsPanel(props: Props) {
             <div style={{ marginTop: "1em", marginBottom: "1em" }}>
                 <RichTextEditor
                     initialMarkdown="Summary"
-                    placeholder={<p>Progress note (optional)</p>}
+                    placeholder={<p>Progress note</p>}
                     setEditor={(editor) => (editorRef.current = editor)}
                 />
             </div>

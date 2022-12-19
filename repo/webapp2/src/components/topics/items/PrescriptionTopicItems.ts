@@ -6,14 +6,14 @@ import { timingCodesAllowed } from "../../prescriptions/TimingCodes";
 import { BlankTopicItemState } from "./BlankTopicItem";
 import { TopicItemStateBase, TopicItemOptionBase, UpdateResult } from "./TopicItemBase";
 
-import iconDx from "/icons/dx.svg";
+import icon from "/icons/pill.svg";
 
 export class PrescriptionTopicItemState extends TopicItemStateBase {
     doesApply(resource: FHIR.Resource | null): boolean {
         return resource?.resourceType === "MedicationRequest";
     }
 
-    icon = iconDx;
+    icon = icon;
 
     constructor(public readonly MR: FHIR.MedicationRequest, topic: FHIR.Composition) {
         super(topic);
@@ -24,6 +24,11 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
             newState: new PrescriptionTopicItemState(next, this.topic),
             newActions: [actions.edit(next)],
         };
+    }
+
+    getOptions() {
+        const { MR } = this;
+        return [new MedicationOption(MR.medicationCodeableConcept?.coding[0])];
     }
 
     async getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]> {

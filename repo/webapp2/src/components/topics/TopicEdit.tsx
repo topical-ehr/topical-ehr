@@ -89,10 +89,6 @@ export function TopicEdit(props: Props) {
             />
 
             {props.topic.conditions.map((c) => (
-                <ConditionEdit key={c.id} condition={c} />
-            ))}
-
-            {props.topic.conditions.map((c) => (
                 <TopicItemEdit
                     key={c.id}
                     compositionId={editState.compositionId}

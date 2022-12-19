@@ -86,6 +86,7 @@ export function TopicItemEdit(props: Props) {
 
     return (
         <div className={css.container}>
+            <img src={stateRef.current.icon} className={css.icon} />
             <AsyncSelect
                 placeholder="Add orders, prescriptions or associated diagnoses"
                 isClearable
