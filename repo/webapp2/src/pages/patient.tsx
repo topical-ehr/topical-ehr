@@ -32,7 +32,7 @@ export default function PatientPage() {
         <Column width="33%" marginLeft="1em">
           <Stack horizontal tokens={{ childrenGap: 10 }}>
             <DefaultButton text="💓 Obs" onClick={() => {}} />
-            <DefaultButton text="💊 Medications" onClick={() => {}} />
+            <DefaultButton text="💊 Meds" onClick={() => {}} />
           </Stack>
 
           <ObservationGroups2 patientId={patientId} />
@@ -53,7 +53,7 @@ export default function PatientPage() {
 
         {/* <Column>
           <Tile title="🔥 FHIR">
-            <FHIR.JSON path={`Patient/${patientId}/$everything?_count=1000`} />
+            <FHIR.JSON path={`Patient/${patientId}/$everything`} />
           </Tile>
         </Column> */}
 

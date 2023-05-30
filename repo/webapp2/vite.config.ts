@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/fhir": {
-        target: "http://localhost:8080",
+        target: "http://localhost:5454",
         secure: false,
       },
     },

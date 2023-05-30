@@ -1,4 +1,4 @@
-import * as FHIR from "../utils/FhirTypes";
+import * as FHIR from "./FhirTypes";
 
 const basePath = "/fhir";
 

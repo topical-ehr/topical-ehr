@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { fetchFHIR } from "../../utils/fetcher";
+import { fetchFHIR } from "../../utils/FhirConnection";
 import { ErrorMessage } from "../feedback/ErrorMessage";
 
 interface Props {

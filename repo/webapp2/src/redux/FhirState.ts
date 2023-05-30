@@ -5,7 +5,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { put, takeEvery } from "redux-saga/effects";
 import { call, select } from "typed-redux-saga";
 import { CodeFormatter } from "../utils/display/CodeFormatter";
-import { fetchFHIR, postFHIR } from "../utils/fetcher";
+import { fetchFHIR, postFHIR } from "../utils/FhirConnection";
 import * as FHIR from "../utils/FhirTypes";
 import { Topic } from "../utils/TopicGroup";
 import type { RootState } from "./store";
@@ -236,14 +236,26 @@ export const fhirSlice = createSlice({
     },
     setSaveState(state, action: PayloadAction<SaveState>) {
       state.saveState = action.payload;
+      
+      if (state.saveState.state === "saved") {
+        for (const key of Object.keys(state.edits)) {
+          // @ts-ignore
+          const edited = state.edits[key];
+          for (const resource of Object.values(edited)) {
+            // @ts-ignore
+            setResource(state.resources, resource);
+          }
+        }
+
+        state.editingTopics = {};
+        state.autoAddedCompositions = {};
+      }
     },
     undoAll(state, action: PayloadAction<void>) {
       for (const key of Object.keys(state.edits)) {
         // @ts-ignore
         state.edits[key] = {};
       }
-      // state.edits.conditions = {};
-      // state.edits.compositions = {};
 
       state.editingTopics = {};
       state.autoAddedCompositions = {};

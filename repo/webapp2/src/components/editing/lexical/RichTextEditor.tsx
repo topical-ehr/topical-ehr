@@ -24,7 +24,7 @@ interface Props {
     newNodeFloatingToolbar?: boolean;
     setEditor?: (editor: LexicalEditor) => void;
 
-    onChangedHTML: (html: string) => void;
+    onChangedHTML?: (html: string) => void;
 }
 
 export function RichTextEditor(props: Props) {
@@ -66,7 +66,7 @@ export function RichTextEditor(props: Props) {
     function onChange(editorState: EditorState, editor: LexicalEditor) {
         editor.update(() => {
             const html = $generateHtmlFromNodes(editor, null);
-            props.onChangedHTML(html);
+            props.onChangedHTML?.(html);
         });
     }
 

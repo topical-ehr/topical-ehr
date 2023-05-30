@@ -16,8 +16,8 @@ interface Props {
 }
 
 export function ObservationGroups2(props: Props) {
-    const query1 = useFHIRQuery(`Observation?subject=Patient/${props.patientId}&_count=1000`);
-    const query2 = useFHIRQuery(`DiagnosticReport?subject=Patient/${props.patientId}&_count=1000`);
+    const query1 = useFHIRQuery(`Observation?subject=Patient/${props.patientId}`);
+    const query2 = useFHIRQuery(`DiagnosticReport?subject=Patient/${props.patientId}`);
 
     const observations = useFHIR((s) => s.fhir.resources.observations);
     const reports = useFHIR((s) => s.fhir.resources.diagnosticReports);

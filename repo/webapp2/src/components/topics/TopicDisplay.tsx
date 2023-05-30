@@ -1,19 +1,19 @@
 import DOMPurify from "dompurify";
 import { HoverButtonEdit, HoverButtons } from "../editing/HoverButtons";
 import { Topic } from "../../utils/TopicGroup";
-import { ConditionDisplay } from "./TopicItemDisplay";
+import { ConditionDisplay } from "./ConditionDisplay";
 import { useAppDispatch } from "../../redux/store";
 import { actions } from "../../redux/FhirState";
 import css from "./TopicDisplay.module.scss";
 
 import cubesIcon from "/icons/cubes-Gnome-fs-blockdev.svg";
+import { PrescriptionDisplay } from "./PrescriptionDisplay";
 
 interface Props {
     topic: Topic;
 }
 
 export function TopicDisplay(props: Props) {
-    const { composition, conditions } = props.topic;
     const dispatch = useAppDispatch();
 
     function onContainerClick(e: React.MouseEvent<HTMLDivElement>) {
@@ -26,6 +26,7 @@ export function TopicDisplay(props: Props) {
         dispatch(actions.editTopic(props.topic));
     }
 
+    const { composition } = props.topic;
     const html = composition?.section?.[0].text?.div ?? "";
 
     return (
@@ -48,8 +49,11 @@ export function TopicDisplay(props: Props) {
                 }}
             />
 
-            {conditions.map((c) => (
+            {props.topic.conditions.map((c) => (
                 <ConditionDisplay key={c.id} condition={c} />
+            ))}
+            {props.topic.prescriptions.map((p) => (
+                <PrescriptionDisplay key={p.id} prescription={p} />
             ))}
         </div>
     );
