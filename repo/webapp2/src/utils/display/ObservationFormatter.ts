@@ -53,12 +53,13 @@ export class ObservationFormatter {
       }
     }
 
-    return (
+    return applyShorthand(
       ob.valueString ??
       ob.valueInteger?.toExponential.toString() ??
       ob.valueBoolean?.toString() ??
       formatQuantity(ob.valueQuantity) ??
-      formatCodeableConcept(ob.valueCodeableConcept)
+      formatCodeableConcept(ob.valueCodeableConcept) ??
+      ""
     );
   }
 

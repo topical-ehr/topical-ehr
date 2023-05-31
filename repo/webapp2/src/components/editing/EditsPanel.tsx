@@ -37,7 +37,7 @@ export function EditsPanel(props: Props) {
             <ChangesPanel />
             <Stack horizontal tokens={{ childrenGap: 10 }}>
                 <PrimaryButton disabled={saveState !== null} text="Save" onClick={onSave} />
-                <DefaultButton disabled={saveState !== null} text="Undo all" onClick={onUndoAll} />
+                {/* <DefaultButton disabled={saveState !== null} text="Undo all" onClick={onUndoAll} /> */}
             </Stack>
         </div>
     );

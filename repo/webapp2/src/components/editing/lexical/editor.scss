@@ -31,6 +31,11 @@
     p:not(:first-child) {
         margin-bottom: 0.8em;
     }
+    
+    /* nested lists - remove double markers */
+    ul li:has(ul), ol li:has(ol) {
+       list-style: none;
+    }
 }
 
 // nested headings

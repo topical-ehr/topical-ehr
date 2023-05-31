@@ -30,4 +30,9 @@
 
 .summary > div {
     padding: 0.5em;
+
+    /* nested lists - remove double markers */
+    ul li:has(ul), ol li:has(ol) {
+       list-style: none;
+    }
 }

@@ -1,0 +1,26 @@
+.grid {
+    margin: 1em;
+
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto auto auto 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+
+    // span:nth-child(6n +4),
+    // span:nth-child(6n + 5),
+    // span:nth-child(6n + 6),
+    // span:nth-child(6n + 7) {
+    //     background-color: #dbd3f8;
+    // }
+}
+.value {
+    min-width: 3em;
+    display: inline-block;
+    text-align: right;
+    margin-right: 0.5em;
+}
+
+.units {
+    color: grey;
+    margin-right: 1em;
+}

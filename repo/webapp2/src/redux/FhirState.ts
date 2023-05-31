@@ -179,6 +179,29 @@ export const fhirSlice = createSlice({
       delete state.deletions[FHIR.referenceTo(resource).reference];
     },
 
+    newTopic(state, action: PayloadAction<void>) {
+      const now = new Date().toISOString();
+      if (!state.activePatient) {
+        throw new Error("no active patient");
+      }
+      const newComposition = FHIR.Composition.new({
+        subject: FHIR.referenceTo(state.activePatient),
+        status: "preliminary",
+        type: { text: "topic" },
+        date: now,
+        title: "NEw topic",
+        section: [
+          {
+          },
+        ],
+      });
+      state.editingTopics[newComposition.id] = {
+        compositionId: newComposition.id,
+      };
+      state.resources.compositions[newComposition.id] = newComposition;
+      state.edits.compositions[newComposition.id] = newComposition;
+    },
+
     editTopic(state, action: PayloadAction<Topic>) {
       const topic = action.payload;
       const composition = topic.composition;
@@ -313,7 +336,6 @@ function* onSave(action: PayloadAction<SaveState>) {
     // send transaction to FHIR server
     const response: FHIR.Resource = yield* call(postFHIR, bundle);
     if (FHIR.isBundle(response)) {
-      debugger;
       yield put(actions.setSaveState({ state: "saved" }));
     } else {
       console.error("transaction response is not a bundle", response);

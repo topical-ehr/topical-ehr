@@ -16,8 +16,10 @@ High Density Lipoprotein Cholesterol,HDL
 Total Cholesterol,Cholesterol
 
 Pain severity - 0-10 verbal numeric rating,Pain score
-Tobacco smoking status NHIS,Smoking status
 
 Body Mass Index,BMI
 Body Weight,Weight
 Body Height,Height
+
+Tobacco smoking status NHIS,Smoking
+Never smoker,never

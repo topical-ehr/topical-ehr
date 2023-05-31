@@ -27,6 +27,7 @@ export function TopicsList(props: Props) {
     }
 
     const topicGroups = groupTopics(conditions, compositions, medicationRequests);
+    console.log("topicGroups", topicGroups);
 
     return (
         <div style={{ marginTop: "1em" }}>

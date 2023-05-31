@@ -1,13 +1,14 @@
 import DOMPurify from "dompurify";
 import { HoverButtonEdit, HoverButtons } from "../editing/HoverButtons";
 import { Topic } from "../../utils/TopicGroup";
-import { ConditionDisplay } from "./ConditionDisplay";
 import { useAppDispatch } from "../../redux/store";
 import { actions } from "../../redux/FhirState";
 import css from "./TopicDisplay.module.scss";
 
 import cubesIcon from "/icons/cubes-Gnome-fs-blockdev.svg";
+import heartIcon from "/icons/anatomical-heart-noto-emoji.svg";
 import { PrescriptionDisplay } from "./PrescriptionDisplay";
+import { ChartDisplay } from "./ChartDisplay";
 
 interface Props {
     topic: Topic;
@@ -26,6 +27,14 @@ export function TopicDisplay(props: Props) {
         dispatch(actions.editTopic(props.topic));
     }
 
+    function chooseIcon() {
+        if (composition?.title.match(/heart|cardio/i)) {
+            return heartIcon;
+        } else {
+            return cubesIcon;
+        }
+    }
+
     const { composition } = props.topic;
     const html = composition?.section?.[0].text?.div ?? "";
 
@@ -37,7 +46,7 @@ export function TopicDisplay(props: Props) {
 
             {composition?.title && (
                 <div className={css.title} title={`Topic: ${composition.title}`}>
-                    <img src={cubesIcon} />
+                    <img src={chooseIcon()} />
                     <h2>{composition.title}</h2>
                 </div>
             )}
@@ -49,12 +58,18 @@ export function TopicDisplay(props: Props) {
                 }}
             />
 
-            {props.topic.conditions.map((c) => (
+            Not on ACE inhibitor
+
+            {/* {props.topic.conditions.map((c) => (
                 <ConditionDisplay key={c.id} condition={c} />
-            ))}
+            ))} */}
             {props.topic.prescriptions.map((p) => (
                 <PrescriptionDisplay key={p.id} prescription={p} />
             ))}
+            
+            {composition?.title.match(/diabetes|T[12]DM/i) && 
+                <ChartDisplay loincCode="4548-4" />
+            }
         </div>
     );
 }

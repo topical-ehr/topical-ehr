@@ -3,7 +3,7 @@ import { FhirResourceById } from "../redux/FhirState";
 import { addToMappedList } from "./collections";
 import { applyShorthand } from "./display/ObservationShorthand";
 
-interface DisplayItem {
+export interface DisplayItem {
   dateTime: string;
   id: string;
   item:

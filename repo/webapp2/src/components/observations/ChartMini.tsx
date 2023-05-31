@@ -174,9 +174,15 @@ function ChartMiniViaWorker(props: FixedVegaChartProps) {
         }
     }, [svg]);
 
+    function onContainerClick(e: React.MouseEvent<HTMLDivElement>) {
+        if (e.ctrlKey) {
+            alert(JSON.stringify(props.data, null, 2));
+        }
+    }
+
     if (svg) {
         return (
-            <div>
+            <div onClick={onContainerClick}>
                 <div ref={divRef} dangerouslySetInnerHTML={{ __html: svg }} />
                 <div style={{ color: "black", width: "2px" }} />
             </div>

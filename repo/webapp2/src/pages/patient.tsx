@@ -1,19 +1,24 @@
 import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { TopicsList } from "../components/topics/TopicsList";
 import { Column, ColumnLayout } from "../components/layout/ColumnLayout";
 import { Logo } from "../components/layout/Logo";
-import { Tile } from "../components/layout/Tile";
-import { ObservationGroups } from "../components/observations/ObservationGroups";
-import { ObservationList } from "../components/observations/ObservationList";
 import { PatientHeader } from "../components/patient/PatientHeader";
 import { DefaultButton, Stack } from "@fluentui/react";
 import { EditsPanel } from "../components/editing/EditsPanel";
 import { ObservationGroups2 } from "../components/observations/ObservationGroups2";
+import { actions } from "../redux/FhirState";
 
 export default function PatientPage() {
   const { patientId } = useParams();
   if (!patientId) {
     throw new Error(`PatientPage is missing patientId`);
+  }
+
+  const dispatch = useDispatch();
+
+  function onNewTopic() {
+    dispatch(actions.newTopic());
   }
 
   return (
@@ -24,7 +29,7 @@ export default function PatientPage() {
 
       <ColumnLayout>
         <Column width="33%">
-          <DefaultButton text="➕ New topic" onClick={() => {}} />
+          <DefaultButton text="➕ New topic" onClick={onNewTopic} />
 
           <TopicsList patientId={patientId} />
         </Column>
