@@ -1,4 +1,3 @@
-import { DateTime } from "luxon";
 import { useFHIR, useFHIRQuery } from "../../redux/FhirState";
 import { groupObservations } from "../../utils/ObservationsGroup";
 import { ErrorMessage } from "../feedback/ErrorMessage";

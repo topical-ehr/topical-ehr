@@ -8,6 +8,7 @@ import { DefaultButton, Stack } from "@fluentui/react";
 import { EditsPanel } from "../components/editing/EditsPanel";
 import { ObservationGroups2 } from "../components/observations/ObservationGroups2";
 import { actions } from "../redux/FhirState";
+import { DocumentTile } from "../components/documents/DocumentTile";
 
 export default function PatientPage() {
   const { patientId } = useParams();
@@ -28,18 +29,22 @@ export default function PatientPage() {
       <PatientHeader />
 
       <ColumnLayout>
-        <Column width="33%">
+        <Column width="40%">
           <DefaultButton text="➕ New topic" onClick={onNewTopic} />
 
           <TopicsList patientId={patientId} />
         </Column>
 
-        <Column width="33%" marginLeft="1em">
+        <Column width="40%" marginLeft="1em">
           <Stack horizontal tokens={{ childrenGap: 10 }}>
             <DefaultButton text="💓 Obs" onClick={() => {}} />
             <DefaultButton text="💊 Meds" onClick={() => {}} />
           </Stack>
 
+          <DocumentTile
+            date="3 Sep 2019"
+            title="Letter from Cardiologist"
+          />
           <ObservationGroups2 patientId={patientId} />
           {/* <Tile title="">
           </Tile>
@@ -52,7 +57,7 @@ export default function PatientPage() {
             />
           </Tile> */}
         </Column>
-        <Column width="33%">
+        <Column width="20%">
           <EditsPanel />
         </Column>
 

@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet";
+import { MessageBarButton } from "@fluentui/react";
 
 import css from "./Logo.module.scss";
 
@@ -16,7 +17,10 @@ export function Logo() {
             </Helmet>
 
             {/* <b>TopicalEHR</b> */}
-            <b>Eugene Lubarsky</b>
+            <MessageBarButton
+                text="🧑‍⚕️ Test User"
+                style={{borderRadius: "9px" }}
+            ></MessageBarButton>
             {/* <span> 0.0.1</span> */}
         </a>
     );

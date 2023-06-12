@@ -1,5 +1,4 @@
 import rawData from "./ObservationRanges.csv";
-import { Observation } from "../FhirTypes";
 import { ObservationFormatter } from "./ObservationFormatter";
 
 interface RawRow {

@@ -9,6 +9,7 @@ import cubesIcon from "/icons/cubes-Gnome-fs-blockdev.svg";
 import heartIcon from "/icons/anatomical-heart-noto-emoji.svg";
 import { PrescriptionDisplay } from "./PrescriptionDisplay";
 import { ChartDisplay } from "./ChartDisplay";
+import { WarningTile } from "./tiles/WarningTile";
 
 interface Props {
     topic: Topic;
@@ -58,14 +59,16 @@ export function TopicDisplay(props: Props) {
                 }}
             />
 
-            Not on ACE inhibitor
-
             {/* {props.topic.conditions.map((c) => (
                 <ConditionDisplay key={c.id} condition={c} />
             ))} */}
             {props.topic.prescriptions.map((p) => (
                 <PrescriptionDisplay key={p.id} prescription={p} />
             ))}
+
+            {html.match(/heart failure/i) &&
+                <WarningTile text="Not on ACE inhibitor" />
+            }
             
             {composition?.title.match(/diabetes|T[12]DM/i) && 
                 <ChartDisplay loincCode="4548-4" />
