@@ -1,0 +1,9 @@
+{
+  "name": "@topical-ehr/topics",
+  "packageManager": "yarn@3.6.0",
+  "dependencies": {
+    "@topical-ehr/fhir-types": "workspace:*",
+    "remeda": "0.0.35"
+  },
+  "main": "FhirConnection.ts"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "@topical-ehr/rich-text-editor",
+  "packageManager": "yarn@3.6.0",
+  "dependencies": {
+    "@lexical/clipboard": "0.3.6",
+    "@lexical/html": "0.3.6",
+    "@lexical/list": "0.3.6",
+    "@lexical/mark": "0.3.6",
+    "@lexical/markdown": "0.3.6",
+    "@lexical/overflow": "0.3.6",
+    "@lexical/plain-text": "0.3.6",
+    "@lexical/react": "0.3.6",
+    "@lexical/rich-text": "0.3.6",
+    "@lexical/selection": "0.3.6",
+    "@lexical/utils": "0.3.6",
+    "lexical": "0.3.6"
+  },
+  "peerDependencies": {
+    "@types/react": "^18.0.0",
+    "react": "*"
+  }
+}

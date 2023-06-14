@@ -1,0 +1,4 @@
+{
+  "name": "@topical-ehr/plugin-manager",
+  "packageManager": "yarn@3.6.0"
+}
