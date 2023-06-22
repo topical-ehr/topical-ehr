@@ -1,0 +1,7 @@
+{
+  "name": "@topical-ehr/ui-elements",
+  "packageManager": "yarn@3.6.0",
+  "dependencies": {
+    "@fluentui/react": "8.67.2"
+  }
+}

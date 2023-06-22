@@ -1,8 +1,14 @@
 {
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
-    "files.exclude": {
-        "**/node_modules": true
-    },
-    "typescript.format.semicolons": "insert"
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  "files.exclude": {
+    "**/node_modules": true
+  },
+  "typescript.format.semicolons": "insert",
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true
+  },
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }
