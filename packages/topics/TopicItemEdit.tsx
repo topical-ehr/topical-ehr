@@ -1,10 +1,9 @@
-import React from "react";
-import { useDispatch } from "react-redux";
 import AsyncSelect from "react-select/async";
 import { logsFor } from "../../utils/logger";
 import { minInputLengthForSearch } from "../../utils/settings";
 import css from "./TopicItemEdit.module.scss";
 import { TopicItemOptionBase, TopicItemStateBase } from "./items/TopicItemBase";
+import { useDispatch } from "@topical-ehr/fhir-store";
 
 const log = logsFor("TopicItemEdit");
 

@@ -49,7 +49,9 @@ export function Timeline(props: Props) {
     const byCode = useFHIR((s) => s.fhir.byCode);
 
     const items = React.useMemo(() => {
-        return groupers.flatMap((g) => g(resources));
+        const items = groupers.flatMap((g) => g(resources));
+        items.sort((a, b) => a.dateTime.localeCompare(b.dateTime));
+        return items;
     }, [groupers, resources]);
 
     function renderDateTime(dateTime: string) {

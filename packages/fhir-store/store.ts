@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 import { fork } from "redux-saga/effects";
 
-import { fhirSagas, fhirSlice, initialState } from "./fhir-state";
+import { coreFhirSagas, fhirSlice, initialState } from "./fhir-state";
 import { EHRConfig } from "./config";
 
-const sagaMiddleware = createSagaMiddleware();
-
 export function createStore(config: EHRConfig) {
+    const sagaMiddleware = createSagaMiddleware();
+
     const store = configureStore({
         reducer: {
             fhir: fhirSlice.reducer,
@@ -23,6 +23,22 @@ export function createStore(config: EHRConfig) {
             sagaMiddleware,
         ],
     });
+
+    function* rootSaga() {
+        yield fork(coreFhirSagas);
+
+        for (const saga of config.additionalSagas) {
+            yield fork(saga);
+        }
+    }
+    const rootSagaTask = sagaMiddleware.run(rootSaga);
+    rootSagaTask.toPromise().catch((err) => {
+        console.error("saga failed", err);
+        const str = err.toString();
+        const msg = str.includes("Error") ? str : "Error: " + str;
+        alert(msg);
+    });
+
     return store;
 }
 
@@ -30,14 +46,3 @@ type StoreType = ReturnType<typeof createStore>;
 export type RootState = ReturnType<StoreType["getState"]>;
 export type AppDispatch = StoreType["dispatch"];
 export const useAppDispatch = () => useDispatch<AppDispatch>();
-
-function* rootSaga() {
-    yield fork(fhirSagas);
-}
-const rootSagaTask = sagaMiddleware.run(rootSaga);
-rootSagaTask.toPromise().catch((err) => {
-    console.error("rootSaga failed", err);
-    const str = err.toString();
-    const msg = str.includes("Error") ? str : "Error: " + str;
-    alert(msg);
-});

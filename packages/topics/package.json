@@ -1,9 +1,14 @@
 {
-  "name": "@topical-ehr/topics",
-  "packageManager": "yarn@3.6.0",
-  "dependencies": {
-    "@topical-ehr/fhir-types": "workspace:*",
-    "remeda": "0.0.35"
-  },
-  "main": "FhirConnection.ts"
+    "name": "@topical-ehr/topics",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "@topical-ehr/fhir-store": "workspace:*",
+        "@topical-ehr/fhir-types": "workspace:*",
+        "@topical-ehr/formatting": "workspace:*",
+        "react-select": "5.4.0",
+        "redux-saga": "1.1.3",
+        "remeda": "0.0.35",
+        "typed-redux-saga": "1.4.0"
+    },
+    "main": "FhirConnection.ts"
 }

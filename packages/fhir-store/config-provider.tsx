@@ -26,11 +26,26 @@ export function EHRConfig(props: Props) {
  * */
 function Loader(props: { children: React.ReactNode }) {
     const state = useFHIR((s) => s.fhir.queries);
+    const isError = Object.values(state).some((q) => q.state === "error");
     const isLoading = Object.values(state).some((q) => q.state === "loading" && q.showLoadingScreen);
+
+    if (isError) {
+        const errors = Object.values(state)
+            .map((q) => q.state === "error" && q.error)
+            .filter((x) => x);
+
+        // output errors as json
+        return (
+            <div>
+                <h1>FHIR load errors</h1>
+                <pre>{JSON.stringify(errors, null, 2)}</pre>
+            </div>
+        );
+    }
 
     if (isLoading) {
         return <div>Loading...</div>;
-    } else {
-        return props.children;
     }
+
+    return props.children;
 }

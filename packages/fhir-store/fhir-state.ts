@@ -7,7 +7,6 @@ import { call, select } from "typed-redux-saga";
 import { fetchFHIR, postFHIR } from "@topical-ehr/fhir-server-http";
 import * as FHIR from "@topical-ehr/fhir-types";
 import { FhirResourceById } from "@topical-ehr/fhir-types";
-import { Topic } from "@topical-ehr/topics/TopicGroup";
 
 import type { RootState } from "./store";
 import { EHRConfig } from "./config";
@@ -26,16 +25,6 @@ type SaveState =
     | { state: "saving" }
     | { state: "error"; error: unknown }
     | { state: "saved" };
-
-export type FhirModification =
-    | {
-          type: "added";
-          draft: FHIR.Resource;
-      }
-    | {
-          type: "edited";
-          draft: FHIR.Resource;
-      };
 
 export interface FhirResources<T = never> {
     compositions: FhirResourceById<FHIR.Composition | T>;
@@ -83,32 +72,39 @@ function setResource(resources: WritableDraft<FhirResources>, r: FHIR.Resource) 
     container[r.id] = r;
 }
 
+function getResource(resources: WritableDraft<FhirResources>, r: FHIR.Resource): FHIR.Resource {
+    const container = getResourceContainer(resources, r.resourceType);
+    return container[r.id];
+}
+
 function deleteResource(resources: WritableDraft<FhirResources>, r: FHIR.Resource) {
     const container = getResourceContainer(resources, r.resourceType);
     delete container[r.id];
 }
 
 export interface State {
+    // loaded state of FHIR queries
     queries: {
         [query: string]: QueryState;
     };
+
+    // loaded resources, including edits
     resources: FhirResources;
+
+    // resources persisted at server (for undo)
+    resourcesFromServer: FhirResources;
+
+    // edits
+    edits: FhirResources;
+    deletions: FhirResourceById<FHIR.Resource>;
+
+    // loaded resource by code (without edits)
     byCode: {
         observations: Map<string, FHIR.Observation[]>;
     };
 
-    edits: FhirResources;
-    deletions: FhirResourceById<FHIR.Resource>;
-
     patientId: string;
 
-    editingTopics: {
-        [topicId: string]: {
-            // composition id is null for topics that have been
-            // generated from standalone conditions
-            compositionId: string;
-        };
-    };
     saveState: SaveState | null;
 }
 
@@ -116,9 +112,9 @@ export function initialState(config?: EHRConfig): State {
     return {
         queries: {},
         resources: emptyResources,
+        resourcesFromServer: emptyResources,
         edits: emptyResources,
         deletions: {},
-        editingTopics: {},
         saveState: null,
         byCode: {
             observations: new Map(),
@@ -144,6 +140,7 @@ export const fhirSlice = createSlice({
             const [query, resources] = action.payload;
             for (const resource of resources) {
                 setResource(state.resources, resource);
+                setResource(state.resourcesFromServer, resource);
             }
             state.queries[query] = { state: "loaded" };
         },
@@ -155,60 +152,31 @@ export const fhirSlice = createSlice({
             };
         },
 
-        edit(state, action: PayloadAction<FHIR.Resource>) {
-            setResource(state.edits, action.payload);
+        edit(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
+            setResource(state.edits, resource);
+            setResource(state.resources, resource);
             state.saveState = null;
         },
-        undoEdits(state, action: PayloadAction<FHIR.Resource>) {
-            deleteResource(state.edits, action.payload);
+        undoEdits(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
+            deleteResource(state.edits, resource);
+
+            const original = getResource(state.resourcesFromServer, resource);
+            setResource(state.resources, original);
         },
 
-        delete(state, action: PayloadAction<FHIR.Resource>) {
-            const resource = action.payload;
+        delete(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             state.deletions[FHIR.referenceTo(resource).reference] = resource;
+            deleteResource(state.resources, resource);
+            deleteResource(state.edits, resource);
             state.saveState = null;
         },
-        undoDelete(state, action: PayloadAction<FHIR.Resource>) {
-            const resource = action.payload;
+        undoDelete(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             delete state.deletions[FHIR.referenceTo(resource).reference];
+
+            const original = getResource(state.resourcesFromServer, resource);
+            setResource(state.resources, original);
         },
 
-        newTopic(state, action: PayloadAction<void>) {
-            const now = new Date().toISOString();
-            const newComposition = FHIR.Composition.new({
-                subject: { reference: `Patient/${state.patientId}` },
-                status: "preliminary",
-                type: { text: "topic" },
-                date: now,
-                title: "New topic",
-                section: [{}],
-            });
-            state.editingTopics[newComposition.id] = {
-                compositionId: newComposition.id,
-            };
-            state.resources.compositions[newComposition.id] = newComposition;
-            state.edits.compositions[newComposition.id] = newComposition;
-        },
-
-        editTopic(state, action: PayloadAction<Topic>) {
-            const topic = action.payload;
-            const composition = topic.composition;
-
-            state.editingTopics[topic.id] = {
-                compositionId: composition.id,
-            };
-            setResource(state.edits, JSON.parse(JSON.stringify(composition)));
-
-            state.saveState = null;
-        },
-        undoEditTopic(state, action: PayloadAction<Topic>) {
-            const topic = action.payload;
-
-            const compositionId = state.editingTopics[topic.id].compositionId;
-
-            delete state.editingTopics[topic.id];
-            delete state.edits.compositions[compositionId];
-        },
         setSaveState(state, action: PayloadAction<SaveState>) {
             state.saveState = action.payload;
 
@@ -221,8 +189,6 @@ export const fhirSlice = createSlice({
                         setResource(state.resources, resource);
                     }
                 }
-
-                state.editingTopics = {};
             }
         },
         undoAll(state, action: PayloadAction<void>) {
@@ -230,8 +196,6 @@ export const fhirSlice = createSlice({
                 // @ts-ignore
                 state.edits[key] = {};
             }
-
-            state.editingTopics = {};
         },
 
         setObservationsByCode(state, action: PayloadAction<Map<string, FHIR.Observation[]>>) {
@@ -240,7 +204,7 @@ export const fhirSlice = createSlice({
     },
 });
 
-function* onQuery(action: PayloadAction<QueryRequest>) {
+function* onQuerySaga(action: PayloadAction<QueryRequest>) {
     const { query, showLoadingScreen } = action.payload;
     const state = yield* select((s: RootState) => s.fhir.queries[query]);
     if (!state) {
@@ -269,7 +233,7 @@ function addToMappedList<K, V>(map: Map<K, V[]>, key: K, value: V) {
         map.set(key, [value]);
     }
 }
-function* updateObservationsByCode(action: PayloadAction<[string, FHIR.Resource[]]>) {
+function* updateObservationsByCodeSaga(action: PayloadAction<[string, FHIR.Resource[]]>) {
     if (!action.payload[0].startsWith("Observation")) {
         return;
     }
@@ -285,7 +249,7 @@ function* updateObservationsByCode(action: PayloadAction<[string, FHIR.Resource[
     yield put(actions.setObservationsByCode(observationsByCode));
 }
 
-function* onSave(action: PayloadAction<SaveState>) {
+function* onSaveSaga(action: PayloadAction<SaveState>) {
     if (action.payload.state !== "save-requested") {
         return;
     }
@@ -318,16 +282,16 @@ function* onSave(action: PayloadAction<SaveState>) {
     }
 }
 
-export function* fhirSagas() {
-    yield takeEvery(actions.query, onQuery);
-    yield takeEvery(actions.queryLoaded, updateObservationsByCode);
+export function* coreFhirSagas() {
+    yield takeEvery(actions.query, onQuerySaga);
+    yield takeEvery(actions.queryLoaded, updateObservationsByCodeSaga);
 
-    yield takeEvery(actions.setSaveState, onSave);
+    yield takeEvery(actions.setSaveState, onSaveSaga);
 
-    yield fork(loadAllResources);
+    yield fork(loadAllResourcesSaga);
 }
 
-export function* loadAllResources() {
+export function* loadAllResourcesSaga() {
     const patientId = yield* select((s: RootState) => s.fhir.patientId);
 
     for (const key of Object.keys(emptyResources)) {
