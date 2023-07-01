@@ -44,6 +44,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/logging"\
       },\
       {\
+        "name": "@topical-ehr/observations",\
+        "reference": "workspace:packages/observations"\
+      },\
+      {\
         "name": "@topical-ehr/plugin-manager",\
         "reference": "workspace:packages/plugin-manager"\
       },\
@@ -76,11 +80,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
     "fallbackExclusionList": [\
       ["@topical-ehr/fhir-server-http", ["workspace:packages/fhir-server-http"]],\
-      ["@topical-ehr/fhir-store", ["virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/fhir-store", "workspace:packages/fhir-store"]],\
+      ["@topical-ehr/fhir-store", ["virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#workspace:packages/fhir-store", "workspace:packages/fhir-store"]],\
       ["@topical-ehr/fhir-types", ["workspace:packages/fhir-types"]],\
       ["@topical-ehr/formatting", ["workspace:packages/formatting"]],\
       ["@topical-ehr/layout", ["workspace:packages/layout"]],\
       ["@topical-ehr/logging", ["workspace:packages/logging"]],\
+      ["@topical-ehr/observations", ["workspace:packages/observations"]],\
       ["@topical-ehr/plugin-manager", ["workspace:packages/plugin-manager"]],\
       ["@topical-ehr/rich-text-editor", ["virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/rich-text-editor", "workspace:packages/rich-text-editor"]],\
       ["@topical-ehr/save-changes-panel", ["workspace:packages/save-changes-panel"]],\
@@ -1272,17 +1277,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:1.8.1", {\
-          "packageLocation": "./.yarn/__virtual__/@reduxjs-toolkit-virtual-6050639179/0/cache/@reduxjs-toolkit-npm-1.8.1-cf386ae48d-be5cdea975.zip/node_modules/@reduxjs/toolkit/",\
+        ["virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:1.8.1", {\
+          "packageLocation": "./.yarn/__virtual__/@reduxjs-toolkit-virtual-df16b852af/0/cache/@reduxjs-toolkit-npm-1.8.1-cf386ae48d-be5cdea975.zip/node_modules/@reduxjs/toolkit/",\
           "packageDependencies": [\
-            ["@reduxjs/toolkit", "virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:1.8.1"],\
+            ["@reduxjs/toolkit", "virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:1.8.1"],\
             ["@types/react", null],\
             ["@types/react-redux", null],\
             ["immer", "npm:9.0.21"],\
             ["react", null],\
-            ["react-redux", "virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:8.0.1"],\
+            ["react-redux", "virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:8.0.1"],\
             ["redux", "npm:4.2.1"],\
-            ["redux-thunk", "virtual:6050639179e10e64e3a8395f9a23fc44918dde1b31906b02f830450a80b41ff75492816dd008dc30e13061559b7cefe304c4c22935fe64fcd173b8912ee6e2c2#npm:2.4.2"],\
+            ["redux-thunk", "virtual:df16b852af71357bca34f229fdac27e56659c847fec31aef880796c4dd12f5b1895e1d10a6f49e479646d357707ab717ba89f57e89167dad3657a9745acbd1df#npm:2.4.2"],\
             ["reselect", "npm:4.1.8"]\
           ],\
           "packagePeers": [\
@@ -1352,18 +1357,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@topical-ehr/fhir-store", [\
-        ["virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/fhir-store", {\
-          "packageLocation": "./.yarn/__virtual__/@topical-ehr-fhir-store-virtual-0216854e90/1/packages/fhir-store/",\
+        ["virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#workspace:packages/fhir-store", {\
+          "packageLocation": "./.yarn/__virtual__/@topical-ehr-fhir-store-virtual-1af5e95302/1/packages/fhir-store/",\
           "packageDependencies": [\
-            ["@topical-ehr/fhir-store", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/fhir-store"],\
-            ["@reduxjs/toolkit", "virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:1.8.1"],\
+            ["@topical-ehr/fhir-store", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#workspace:packages/fhir-store"],\
+            ["@reduxjs/toolkit", "virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:1.8.1"],\
             ["@topical-ehr/fhir-server-http", "workspace:packages/fhir-server-http"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/topics", "workspace:packages/topics"],\
             ["@types/react", null],\
             ["immer", "npm:9.0.21"],\
             ["react", null],\
-            ["react-redux", "virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:8.0.1"],\
+            ["react-redux", "virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:8.0.1"],\
             ["redux-saga", "npm:1.1.3"],\
             ["typed-redux-saga", "virtual:8bb75ff895c5b2efc9bc0045131f31c4cd8c97d7774966c4d9ea595eaf1fb286a604c87488763a7dec4503e4fc0de9a850880598cca8330194cedba67631dab8#npm:1.4.0"]\
           ],\
@@ -1377,12 +1382,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/fhir-store/",\
           "packageDependencies": [\
             ["@topical-ehr/fhir-store", "workspace:packages/fhir-store"],\
-            ["@reduxjs/toolkit", "virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:1.8.1"],\
+            ["@reduxjs/toolkit", "virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:1.8.1"],\
             ["@topical-ehr/fhir-server-http", "workspace:packages/fhir-server-http"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/topics", "workspace:packages/topics"],\
             ["immer", "npm:9.0.21"],\
-            ["react-redux", "virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:8.0.1"],\
+            ["react-redux", "virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:8.0.1"],\
             ["redux-saga", "npm:1.1.3"],\
             ["typed-redux-saga", "virtual:8bb75ff895c5b2efc9bc0045131f31c4cd8c97d7774966c4d9ea595eaf1fb286a604c87488763a7dec4503e4fc0de9a850880598cca8330194cedba67631dab8#npm:1.4.0"]\
           ],\
@@ -1429,6 +1434,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@topical-ehr/logging", "workspace:packages/logging"],\
             ["@types/uuid", "npm:8.3.4"],\
             ["uuid", "npm:8.3.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@topical-ehr/observations", [\
+        ["workspace:packages/observations", {\
+          "packageLocation": "./packages/observations/",\
+          "packageDependencies": [\
+            ["@topical-ehr/observations", "workspace:packages/observations"],\
+            ["@topical-ehr/fhir-store", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#workspace:packages/fhir-store"],\
+            ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
+            ["@topical-ehr/formatting", "workspace:packages/formatting"],\
+            ["@types/luxon", "npm:2.3.1"],\
+            ["luxon", "npm:2.3.2"],\
+            ["react-vega", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:7.6.0"],\
+            ["vega", "npm:5.25.0"],\
+            ["vega-lite", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:5.11.0"],\
+            ["vega-tooltip", "npm:0.28.0"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -1494,7 +1517,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@topical-ehr/save-changes-panel", "workspace:packages/save-changes-panel"],\
             ["@fluentui/react", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:8.67.2"],\
-            ["@topical-ehr/fhir-store", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/fhir-store"],\
+            ["@topical-ehr/fhir-store", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#workspace:packages/fhir-store"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/rich-text-editor", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/rich-text-editor"]\
           ],\
@@ -1517,15 +1540,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/timeline/",\
           "packageDependencies": [\
             ["@topical-ehr/timeline", "workspace:packages/timeline"],\
-            ["@topical-ehr/fhir-store", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/fhir-store"],\
+            ["@topical-ehr/fhir-store", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#workspace:packages/fhir-store"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/formatting", "workspace:packages/formatting"],\
+            ["@topical-ehr/observations", "workspace:packages/observations"],\
             ["@types/luxon", "npm:2.3.1"],\
-            ["luxon", "npm:2.3.2"],\
-            ["react-vega", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:7.6.0"],\
-            ["vega", "npm:5.25.0"],\
-            ["vega-lite", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:5.11.0"],\
-            ["vega-tooltip", "npm:0.28.0"]\
+            ["luxon", "npm:2.3.2"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -1536,10 +1556,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@topical-ehr/topics", "workspace:packages/topics"],\
             ["@rollup/plugin-dsv", "npm:2.0.3"],\
-            ["@topical-ehr/fhir-store", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/fhir-store"],\
+            ["@topical-ehr/fhir-store", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#workspace:packages/fhir-store"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/formatting", "workspace:packages/formatting"],\
             ["@topical-ehr/logging", "workspace:packages/logging"],\
+            ["@topical-ehr/observations", "workspace:packages/observations"],\
             ["@topical-ehr/rich-text-editor", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/rich-text-editor"],\
             ["@topical-ehr/terminology", "workspace:packages/terminology"],\
             ["@topical-ehr/ui-elements", "workspace:packages/ui-elements"],\
@@ -3502,10 +3523,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:8.0.1", {\
-          "packageLocation": "./.yarn/__virtual__/react-redux-virtual-a4d7b9c596/0/cache/react-redux-npm-8.0.1-93fc120cd1-d7c004b4bf.zip/node_modules/react-redux/",\
+        ["virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:8.0.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-redux-virtual-8105844fd4/0/cache/react-redux-npm-8.0.1-93fc120cd1-d7c004b4bf.zip/node_modules/react-redux/",\
           "packageDependencies": [\
-            ["react-redux", "virtual:0216854e90f60b32438e98cd6a1962ddb027a24a231e94146501e7bd21eb2af6347b1341534fff158fac0f22887603799bad2c092fe62f47355265acced75af6#npm:8.0.1"],\
+            ["react-redux", "virtual:1af5e95302393d60cf8b7d7eb3985edd3c1b44ec0b3838b826e794b84e935dde3797a59f683981bddf8aa73b33a00ea8bd79428c73676c8e6aa889febffa2239#npm:8.0.1"],\
             ["@babel/runtime", "npm:7.22.5"],\
             ["@types/hoist-non-react-statics", "npm:3.3.1"],\
             ["@types/react", null],\
@@ -3519,7 +3540,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-is", "npm:18.2.0"],\
             ["react-native", null],\
             ["redux", null],\
-            ["use-sync-external-store", "virtual:a4d7b9c596f084aab754331045a81504974337bcf170f672742396c6d69777a3f8cac678651f75f4d95a5c68b58f2f5ee6d3889547c3936b212d4baa3b74ae5f#npm:1.2.0"]\
+            ["use-sync-external-store", "virtual:8105844fd42f9dabe711064627f3f97de761feadc4a387ac713478f5adbf2acd854e9393db186fe4032fcaa6e7859382dcf8fed67f27c804b1b376bccfe4b0f1#npm:1.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react-dom",\
@@ -3636,10 +3657,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:7.6.0", {\
-          "packageLocation": "./.yarn/__virtual__/react-vega-virtual-5a7b3c0cee/0/cache/react-vega-npm-7.6.0-5c3d9273a7-4222623bb1.zip/node_modules/react-vega/",\
+        ["virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:7.6.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-vega-virtual-8f576ffbc4/0/cache/react-vega-npm-7.6.0-5c3d9273a7-4222623bb1.zip/node_modules/react-vega/",\
           "packageDependencies": [\
-            ["react-vega", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:7.6.0"],\
+            ["react-vega", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:7.6.0"],\
             ["@types/react", "npm:18.2.11"],\
             ["@types/vega", null],\
             ["@types/vega-lite", null],\
@@ -3647,8 +3668,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prop-types", "npm:15.8.1"],\
             ["react", null],\
             ["vega", "npm:5.25.0"],\
-            ["vega-embed", "virtual:5a7b3c0ceea7aae20b270ac8b167def7475c86f88c013950a4e680f8e7c5cce42e581854d7d7f73e384d40e17fd2684cb45b01cbaf8bd4ef26283ed7ea25c712#npm:6.22.1"],\
-            ["vega-lite", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:5.11.0"]\
+            ["vega-embed", "virtual:8f576ffbc4bb0d770925eeee2d7217b79c10d32eb25302cf0ec376769909aa5730f7618c621070e932216ef4ca2994e5a9c6d14259d87d9facd7df19913d25fa#npm:6.22.1"],\
+            ["vega-lite", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:5.11.0"]\
           ],\
           "packagePeers": [\
             "@types/vega-lite",\
@@ -3700,10 +3721,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:6050639179e10e64e3a8395f9a23fc44918dde1b31906b02f830450a80b41ff75492816dd008dc30e13061559b7cefe304c4c22935fe64fcd173b8912ee6e2c2#npm:2.4.2", {\
-          "packageLocation": "./.yarn/__virtual__/redux-thunk-virtual-5beb96c6d2/0/cache/redux-thunk-npm-2.4.2-3acdaaf7b0-c7f757f6c3.zip/node_modules/redux-thunk/",\
+        ["virtual:df16b852af71357bca34f229fdac27e56659c847fec31aef880796c4dd12f5b1895e1d10a6f49e479646d357707ab717ba89f57e89167dad3657a9745acbd1df#npm:2.4.2", {\
+          "packageLocation": "./.yarn/__virtual__/redux-thunk-virtual-6af62b1a60/0/cache/redux-thunk-npm-2.4.2-3acdaaf7b0-c7f757f6c3.zip/node_modules/redux-thunk/",\
           "packageDependencies": [\
-            ["redux-thunk", "virtual:6050639179e10e64e3a8395f9a23fc44918dde1b31906b02f830450a80b41ff75492816dd008dc30e13061559b7cefe304c4c22935fe64fcd173b8912ee6e2c2#npm:2.4.2"],\
+            ["redux-thunk", "virtual:df16b852af71357bca34f229fdac27e56659c847fec31aef880796c4dd12f5b1895e1d10a6f49e479646d357707ab717ba89f57e89167dad3657a9745acbd1df#npm:2.4.2"],\
             ["@types/redux", null],\
             ["redux", "npm:4.2.1"]\
           ],\
@@ -4172,10 +4193,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:a4d7b9c596f084aab754331045a81504974337bcf170f672742396c6d69777a3f8cac678651f75f4d95a5c68b58f2f5ee6d3889547c3936b212d4baa3b74ae5f#npm:1.2.0", {\
-          "packageLocation": "./.yarn/__virtual__/use-sync-external-store-virtual-0f96a0a990/0/cache/use-sync-external-store-npm-1.2.0-44f75d2564-5c639e0f8d.zip/node_modules/use-sync-external-store/",\
+        ["virtual:8105844fd42f9dabe711064627f3f97de761feadc4a387ac713478f5adbf2acd854e9393db186fe4032fcaa6e7859382dcf8fed67f27c804b1b376bccfe4b0f1#npm:1.2.0", {\
+          "packageLocation": "./.yarn/__virtual__/use-sync-external-store-virtual-e4d91adc7e/0/cache/use-sync-external-store-npm-1.2.0-44f75d2564-5c639e0f8d.zip/node_modules/use-sync-external-store/",\
           "packageDependencies": [\
-            ["use-sync-external-store", "virtual:a4d7b9c596f084aab754331045a81504974337bcf170f672742396c6d69777a3f8cac678651f75f4d95a5c68b58f2f5ee6d3889547c3936b212d4baa3b74ae5f#npm:1.2.0"],\
+            ["use-sync-external-store", "virtual:8105844fd42f9dabe711064627f3f97de761feadc4a387ac713478f5adbf2acd854e9393db186fe4032fcaa6e7859382dcf8fed67f27c804b1b376bccfe4b0f1#npm:1.2.0"],\
             ["@types/react", null],\
             ["react", null]\
           ],\
@@ -4281,10 +4302,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:5a7b3c0ceea7aae20b270ac8b167def7475c86f88c013950a4e680f8e7c5cce42e581854d7d7f73e384d40e17fd2684cb45b01cbaf8bd4ef26283ed7ea25c712#npm:6.22.1", {\
-          "packageLocation": "./.yarn/__virtual__/vega-embed-virtual-57fd178c9f/0/cache/vega-embed-npm-6.22.1-5fb8da29f4-9f3f9abe5b.zip/node_modules/vega-embed/",\
+        ["virtual:8f576ffbc4bb0d770925eeee2d7217b79c10d32eb25302cf0ec376769909aa5730f7618c621070e932216ef4ca2994e5a9c6d14259d87d9facd7df19913d25fa#npm:6.22.1", {\
+          "packageLocation": "./.yarn/__virtual__/vega-embed-virtual-7daa69c782/0/cache/vega-embed-npm-6.22.1-5fb8da29f4-9f3f9abe5b.zip/node_modules/vega-embed/",\
           "packageDependencies": [\
-            ["vega-embed", "virtual:5a7b3c0ceea7aae20b270ac8b167def7475c86f88c013950a4e680f8e7c5cce42e581854d7d7f73e384d40e17fd2684cb45b01cbaf8bd4ef26283ed7ea25c712#npm:6.22.1"],\
+            ["vega-embed", "virtual:8f576ffbc4bb0d770925eeee2d7217b79c10d32eb25302cf0ec376769909aa5730f7618c621070e932216ef4ca2994e5a9c6d14259d87d9facd7df19913d25fa#npm:6.22.1"],\
             ["@types/vega", null],\
             ["@types/vega-lite", null],\
             ["fast-json-patch", "npm:3.1.1"],\
@@ -4293,9 +4314,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tslib", "npm:2.5.3"],\
             ["vega", "npm:5.25.0"],\
             ["vega-interpreter", "npm:1.0.5"],\
-            ["vega-lite", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:5.11.0"],\
+            ["vega-lite", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:5.11.0"],\
             ["vega-schema-url-parser", "npm:2.2.0"],\
-            ["vega-themes", "virtual:57fd178c9fac4b9e00433af906eca38c748f9a13397b0b92079200b732c7cc05abe3f2622a51483bbf166af6a3dccf317a5e09052c6aebaa8218b7e13f44a353#npm:2.13.0"],\
+            ["vega-themes", "virtual:7daa69c7828f7e2831ae8d6fff38b46c7276de5c2aaed54df57b3477bd630d847a86e0b063d67dcca3ddadd26f7343a3013019c338cb4ff5f9b4a362c706c506#npm:2.13.0"],\
             ["vega-tooltip", "npm:0.32.0"],\
             ["yallist", "npm:4.0.0"]\
           ],\
@@ -4447,10 +4468,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:5.11.0", {\
-          "packageLocation": "./.yarn/__virtual__/vega-lite-virtual-221fb42832/0/cache/vega-lite-npm-5.11.0-8b3431f855-f6a9d25ac2.zip/node_modules/vega-lite/",\
+        ["virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:5.11.0", {\
+          "packageLocation": "./.yarn/__virtual__/vega-lite-virtual-50f8ce149e/0/cache/vega-lite-npm-5.11.0-8b3431f855-f6a9d25ac2.zip/node_modules/vega-lite/",\
           "packageDependencies": [\
-            ["vega-lite", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:5.11.0"],\
+            ["vega-lite", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:5.11.0"],\
             ["@types/clone", "npm:2.1.1"],\
             ["@types/vega", null],\
             ["clone", "npm:2.1.2"],\
@@ -4603,14 +4624,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:57fd178c9fac4b9e00433af906eca38c748f9a13397b0b92079200b732c7cc05abe3f2622a51483bbf166af6a3dccf317a5e09052c6aebaa8218b7e13f44a353#npm:2.13.0", {\
-          "packageLocation": "./.yarn/__virtual__/vega-themes-virtual-b86912593e/0/cache/vega-themes-npm-2.13.0-ed8960ebad-c517c91015.zip/node_modules/vega-themes/",\
+        ["virtual:7daa69c7828f7e2831ae8d6fff38b46c7276de5c2aaed54df57b3477bd630d847a86e0b063d67dcca3ddadd26f7343a3013019c338cb4ff5f9b4a362c706c506#npm:2.13.0", {\
+          "packageLocation": "./.yarn/__virtual__/vega-themes-virtual-18c990bcfb/0/cache/vega-themes-npm-2.13.0-ed8960ebad-c517c91015.zip/node_modules/vega-themes/",\
           "packageDependencies": [\
-            ["vega-themes", "virtual:57fd178c9fac4b9e00433af906eca38c748f9a13397b0b92079200b732c7cc05abe3f2622a51483bbf166af6a3dccf317a5e09052c6aebaa8218b7e13f44a353#npm:2.13.0"],\
+            ["vega-themes", "virtual:7daa69c7828f7e2831ae8d6fff38b46c7276de5c2aaed54df57b3477bd630d847a86e0b063d67dcca3ddadd26f7343a3013019c338cb4ff5f9b4a362c706c506#npm:2.13.0"],\
             ["@types/vega", null],\
             ["@types/vega-lite", null],\
             ["vega", "npm:5.25.0"],\
-            ["vega-lite", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:5.11.0"]\
+            ["vega-lite", "virtual:6196cd1abc7ac9fcb169cd4600f32bb294ce11ecc8fd6b774322b041fa6bbeff5ecb3f53f9e5cea84cd5667ac3e75830e3834abce8f2660c6507af17fe3aecc0#npm:5.11.0"]\
           ],\
           "packagePeers": [\
             "@types/vega-lite",\

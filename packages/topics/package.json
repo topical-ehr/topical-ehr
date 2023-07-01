@@ -6,6 +6,7 @@
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/formatting": "workspace:*",
         "@topical-ehr/logging": "workspace:*",
+        "@topical-ehr/observations": "workspace:*",
         "@topical-ehr/rich-text-editor": "workspace:*",
         "@topical-ehr/terminology": "workspace:*",
         "@topical-ehr/ui-elements": "workspace:*",
