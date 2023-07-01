@@ -1,0 +1,8 @@
+{
+    "name": "@topical-ehr/terminology",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "@topical-ehr/fhir-types": "workspace:*",
+        "@topical-ehr/logging": "workspace:*"
+    }
+}

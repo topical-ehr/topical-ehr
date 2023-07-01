@@ -40,6 +40,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:packages/layout"\
       },\
       {\
+        "name": "@topical-ehr/logging",\
+        "reference": "workspace:packages/logging"\
+      },\
+      {\
         "name": "@topical-ehr/plugin-manager",\
         "reference": "workspace:packages/plugin-manager"\
       },\
@@ -50,6 +54,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       {\
         "name": "@topical-ehr/save-changes-panel",\
         "reference": "workspace:packages/save-changes-panel"\
+      },\
+      {\
+        "name": "@topical-ehr/terminology",\
+        "reference": "workspace:packages/terminology"\
       },\
       {\
         "name": "@topical-ehr/timeline",\
@@ -72,9 +80,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@topical-ehr/fhir-types", ["workspace:packages/fhir-types"]],\
       ["@topical-ehr/formatting", ["workspace:packages/formatting"]],\
       ["@topical-ehr/layout", ["workspace:packages/layout"]],\
+      ["@topical-ehr/logging", ["workspace:packages/logging"]],\
       ["@topical-ehr/plugin-manager", ["workspace:packages/plugin-manager"]],\
-      ["@topical-ehr/rich-text-editor", ["virtual:c15042dbf5399ec83a0cb9420082d4bbcc554e0964e9e21f1622b6363b97d884734a3d4a53a43f5bfad1deb25697958db2ab8712295519a8929152c51b27579c#workspace:packages/rich-text-editor", "workspace:packages/rich-text-editor"]],\
+      ["@topical-ehr/rich-text-editor", ["virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/rich-text-editor", "workspace:packages/rich-text-editor"]],\
       ["@topical-ehr/save-changes-panel", ["workspace:packages/save-changes-panel"]],\
+      ["@topical-ehr/terminology", ["workspace:packages/terminology"]],\
       ["@topical-ehr/timeline", ["workspace:packages/timeline"]],\
       ["@topical-ehr/topics", ["workspace:packages/topics"]],\
       ["@topical-ehr/ui-elements", ["workspace:packages/ui-elements"]],\
@@ -377,10 +387,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.2.42", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-foundation-legacy-virtual-dffa4d8927/0/cache/@fluentui-foundation-legacy-npm-8.2.42-b7c446f39f-341e4957c5.zip/node_modules/@fluentui/foundation-legacy/",\
+        ["virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.2.42", {\
+          "packageLocation": "./.yarn/__virtual__/@fluentui-foundation-legacy-virtual-223f4e9498/0/cache/@fluentui-foundation-legacy-npm-8.2.42-b7c446f39f-341e4957c5.zip/node_modules/@fluentui/foundation-legacy/",\
           "packageDependencies": [\
-            ["@fluentui/foundation-legacy", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.2.42"],\
+            ["@fluentui/foundation-legacy", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.2.42"],\
             ["@fluentui/merge-styles", "npm:8.5.12"],\
             ["@fluentui/set-version", "npm:8.2.11"],\
             ["@fluentui/style-utilities", "npm:8.9.15"],\
@@ -425,17 +435,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:c15042dbf5399ec83a0cb9420082d4bbcc554e0964e9e21f1622b6363b97d884734a3d4a53a43f5bfad1deb25697958db2ab8712295519a8929152c51b27579c#npm:8.67.2", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-virtual-fe7fa69e2b/0/cache/@fluentui-react-npm-8.67.2-d269e8286f-32104ea1ee.zip/node_modules/@fluentui/react/",\
+        ["virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:8.67.2", {\
+          "packageLocation": "./.yarn/__virtual__/@fluentui-react-virtual-3115843fdc/0/cache/@fluentui-react-npm-8.67.2-d269e8286f-32104ea1ee.zip/node_modules/@fluentui/react/",\
           "packageDependencies": [\
-            ["@fluentui/react", "virtual:c15042dbf5399ec83a0cb9420082d4bbcc554e0964e9e21f1622b6363b97d884734a3d4a53a43f5bfad1deb25697958db2ab8712295519a8929152c51b27579c#npm:8.67.2"],\
+            ["@fluentui/react", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:8.67.2"],\
             ["@fluentui/date-time-utilities", "npm:8.5.13"],\
             ["@fluentui/font-icons-mdl2", "npm:8.5.22"],\
-            ["@fluentui/foundation-legacy", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.2.42"],\
+            ["@fluentui/foundation-legacy", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.2.42"],\
             ["@fluentui/merge-styles", "npm:8.5.12"],\
-            ["@fluentui/react-focus", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.8.29"],\
-            ["@fluentui/react-hooks", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.6.28"],\
-            ["@fluentui/react-window-provider", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:2.2.15"],\
+            ["@fluentui/react-focus", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.8.29"],\
+            ["@fluentui/react-hooks", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.6.28"],\
+            ["@fluentui/react-window-provider", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:2.2.15"],\
             ["@fluentui/set-version", "npm:8.2.11"],\
             ["@fluentui/style-utilities", "npm:8.9.15"],\
             ["@fluentui/theme", "virtual:33674fbae5d9dd9b7097317aa87bdb0b2bbfe57fd78292a900538c7c1780be78618df159d3790fae5d92f2b8684be33e78c5e6b7ca8d9e1d0bc0521a0914de14#npm:2.6.33"],\
@@ -464,10 +474,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.8.29", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-focus-virtual-faa8f949a9/0/cache/@fluentui-react-focus-npm-8.8.29-c4d4ca26b6-0db55ee66f.zip/node_modules/@fluentui/react-focus/",\
+        ["virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.8.29", {\
+          "packageLocation": "./.yarn/__virtual__/@fluentui-react-focus-virtual-0ee1c7aa8a/0/cache/@fluentui-react-focus-npm-8.8.29-c4d4ca26b6-0db55ee66f.zip/node_modules/@fluentui/react-focus/",\
           "packageDependencies": [\
-            ["@fluentui/react-focus", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.8.29"],\
+            ["@fluentui/react-focus", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.8.29"],\
             ["@fluentui/keyboard-key", "npm:0.4.11"],\
             ["@fluentui/merge-styles", "npm:8.5.12"],\
             ["@fluentui/set-version", "npm:8.2.11"],\
@@ -492,11 +502,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.6.28", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-hooks-virtual-4c67ac2114/0/cache/@fluentui-react-hooks-npm-8.6.28-0951535c67-6fc06030c6.zip/node_modules/@fluentui/react-hooks/",\
+        ["virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.6.28", {\
+          "packageLocation": "./.yarn/__virtual__/@fluentui-react-hooks-virtual-1d25cb7cb8/0/cache/@fluentui-react-hooks-npm-8.6.28-0951535c67-6fc06030c6.zip/node_modules/@fluentui/react-hooks/",\
           "packageDependencies": [\
-            ["@fluentui/react-hooks", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:8.6.28"],\
-            ["@fluentui/react-window-provider", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:2.2.15"],\
+            ["@fluentui/react-hooks", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:8.6.28"],\
+            ["@fluentui/react-window-provider", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:2.2.15"],\
             ["@fluentui/set-version", "npm:8.2.11"],\
             ["@fluentui/utilities", "virtual:33674fbae5d9dd9b7097317aa87bdb0b2bbfe57fd78292a900538c7c1780be78618df159d3790fae5d92f2b8684be33e78c5e6b7ca8d9e1d0bc0521a0914de14#npm:8.13.17"],\
             ["@types/react", null],\
@@ -518,10 +528,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:2.2.15", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-window-provider-virtual-c1fc895f12/0/cache/@fluentui-react-window-provider-npm-2.2.15-4cff477305-7c9573bf58.zip/node_modules/@fluentui/react-window-provider/",\
+        ["virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:2.2.15", {\
+          "packageLocation": "./.yarn/__virtual__/@fluentui-react-window-provider-virtual-15482ef2bb/0/cache/@fluentui-react-window-provider-npm-2.2.15-4cff477305-7c9573bf58.zip/node_modules/@fluentui/react-window-provider/",\
           "packageDependencies": [\
-            ["@fluentui/react-window-provider", "virtual:fe7fa69e2b4ba14e376d509bb01396cde3932cc9f4036e917b9682df99bce71124c0a20a1caa5ef58a8e7c97ab77e5950998459a2b7de196e75efc50a3fbefb0#npm:2.2.15"],\
+            ["@fluentui/react-window-provider", "virtual:3115843fdca0de4c9bed7b1c1139a5244d583944602ab9b33d103e507981c240e21fe90643c0d7d47d2813322383fd66eabf1908fad18efd91a101b76a833f23#npm:2.2.15"],\
             ["@fluentui/set-version", "npm:8.2.11"],\
             ["@types/react", null],\
             ["react", null],\
@@ -628,13 +638,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-clipboard-virtual-bc6c9db0c8/0/cache/@lexical-clipboard-npm-0.3.6-3dd2954f89-c4c5e4699b.zip/node_modules/@lexical/clipboard/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-clipboard-virtual-28580d637c/0/cache/@lexical-clipboard-npm-0.3.6-3dd2954f89-c4c5e4699b.zip/node_modules/@lexical/clipboard/",\
           "packageDependencies": [\
-            ["@lexical/clipboard", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/html", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/selection", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/clipboard", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/html", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/selection", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -653,11 +663,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-code-virtual-7992beff6d/0/cache/@lexical-code-npm-0.3.6-9c806b264f-12e1ad7be0.zip/node_modules/@lexical/code/",\
+        ["virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-code-virtual-c13c6432f8/0/cache/@lexical-code-npm-0.3.6-9c806b264f-12e1ad7be0.zip/node_modules/@lexical/code/",\
           "packageDependencies": [\
-            ["@lexical/code", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/code", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"],\
             ["prismjs", "npm:1.29.0"]\
@@ -677,10 +687,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-dragon-virtual-3afc26dc15/0/cache/@lexical-dragon-npm-0.3.6-797cec3e6c-009cf11537.zip/node_modules/@lexical/dragon/",\
+        ["virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-dragon-virtual-a30f2667de/0/cache/@lexical-dragon-npm-0.3.6-797cec3e6c-009cf11537.zip/node_modules/@lexical/dragon/",\
           "packageDependencies": [\
-            ["@lexical/dragon", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
+            ["@lexical/dragon", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -699,11 +709,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-hashtag-virtual-8346888004/0/cache/@lexical-hashtag-npm-0.3.6-e85553cc03-f69b5f4875.zip/node_modules/@lexical/hashtag/",\
+        ["virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-hashtag-virtual-6ad6a6afc7/0/cache/@lexical-hashtag-npm-0.3.6-e85553cc03-f69b5f4875.zip/node_modules/@lexical/hashtag/",\
           "packageDependencies": [\
-            ["@lexical/hashtag", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/hashtag", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -722,11 +732,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-history-virtual-9f09991b80/0/cache/@lexical-history-npm-0.3.6-8bbda2999a-08cc5b1a3e.zip/node_modules/@lexical/history/",\
+        ["virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-history-virtual-6adbe8a0f6/0/cache/@lexical-history-npm-0.3.6-8bbda2999a-08cc5b1a3e.zip/node_modules/@lexical/history/",\
           "packageDependencies": [\
-            ["@lexical/history", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/history", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -745,10 +755,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-html-virtual-2987c97f9c/0/cache/@lexical-html-npm-0.3.6-019026dd9d-bf0f455a20.zip/node_modules/@lexical/html/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-html-virtual-12f0733206/0/cache/@lexical-html-npm-0.3.6-019026dd9d-bf0f455a20.zip/node_modules/@lexical/html/",\
           "packageDependencies": [\
-            ["@lexical/html", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/html", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -767,11 +777,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-link-virtual-b6e26af5bf/0/cache/@lexical-link-npm-0.3.6-1df3845587-b5ba69fc38.zip/node_modules/@lexical/link/",\
+        ["virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-link-virtual-5db97de379/0/cache/@lexical-link-npm-0.3.6-1df3845587-b5ba69fc38.zip/node_modules/@lexical/link/",\
           "packageDependencies": [\
-            ["@lexical/link", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/link", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -790,11 +800,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-list-virtual-73476fd033/0/cache/@lexical-list-npm-0.3.6-de95dd73ba-0ee9f69c5a.zip/node_modules/@lexical/list/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-list-virtual-fffa82e850/0/cache/@lexical-list-npm-0.3.6-de95dd73ba-0ee9f69c5a.zip/node_modules/@lexical/list/",\
           "packageDependencies": [\
-            ["@lexical/list", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/list", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -813,11 +823,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-mark-virtual-61631d0b53/0/cache/@lexical-mark-npm-0.3.6-a14ada4b46-5e20fdf66f.zip/node_modules/@lexical/mark/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-mark-virtual-90d4c01f97/0/cache/@lexical-mark-npm-0.3.6-a14ada4b46-5e20fdf66f.zip/node_modules/@lexical/mark/",\
           "packageDependencies": [\
-            ["@lexical/mark", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/mark", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -836,16 +846,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-markdown-virtual-70e81c02e1/0/cache/@lexical-markdown-npm-0.3.6-a2e29de9b2-05c7dcae60.zip/node_modules/@lexical/markdown/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-markdown-virtual-da8a48cf10/0/cache/@lexical-markdown-npm-0.3.6-a2e29de9b2-05c7dcae60.zip/node_modules/@lexical/markdown/",\
           "packageDependencies": [\
-            ["@lexical/markdown", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/code", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/link", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/list", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/rich-text", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/text", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/markdown", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/code", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/link", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/list", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/rich-text", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/text", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -864,10 +874,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:008bb8b93641098a0cf4f7494862f8b330bc4d34dd630939e421bcb5f6e74c7f44b6760d3cf6095d1ae7fc612b86ebf86259c936b3528e460769600e88b78a5d#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-offset-virtual-660c3afa5d/0/cache/@lexical-offset-npm-0.3.6-844febe449-bb0f6f3d34.zip/node_modules/@lexical/offset/",\
+        ["virtual:e9197c7139cd0ce959ab2048796785a48ab4cbe68ccfd13d4c025c0adb0249c72059602a6e1ebf5459072e995257364caeae82e10ea9f8cd0b620f3c0851385d#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-offset-virtual-ecde737fe4/0/cache/@lexical-offset-npm-0.3.6-844febe449-bb0f6f3d34.zip/node_modules/@lexical/offset/",\
           "packageDependencies": [\
-            ["@lexical/offset", "virtual:008bb8b93641098a0cf4f7494862f8b330bc4d34dd630939e421bcb5f6e74c7f44b6760d3cf6095d1ae7fc612b86ebf86259c936b3528e460769600e88b78a5d#npm:0.3.6"],\
+            ["@lexical/offset", "virtual:e9197c7139cd0ce959ab2048796785a48ab4cbe68ccfd13d4c025c0adb0249c72059602a6e1ebf5459072e995257364caeae82e10ea9f8cd0b620f3c0851385d#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -886,10 +896,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-overflow-virtual-df809a7b49/0/cache/@lexical-overflow-npm-0.3.6-de9a55cc78-e9af3e9ad5.zip/node_modules/@lexical/overflow/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-overflow-virtual-71ece52daa/0/cache/@lexical-overflow-npm-0.3.6-de9a55cc78-e9af3e9ad5.zip/node_modules/@lexical/overflow/",\
           "packageDependencies": [\
-            ["@lexical/overflow", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/overflow", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -908,13 +918,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-plain-text-virtual-a25537ef89/0/cache/@lexical-plain-text-npm-0.3.6-28a6eff6a5-6bde962fc9.zip/node_modules/@lexical/plain-text/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-plain-text-virtual-acb1aff48a/0/cache/@lexical-plain-text-npm-0.3.6-28a6eff6a5-6bde962fc9.zip/node_modules/@lexical/plain-text/",\
           "packageDependencies": [\
-            ["@lexical/plain-text", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/clipboard", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/selection", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/plain-text", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/clipboard", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/selection", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["@types/lexical__clipboard", null],\
             ["@types/lexical__selection", null],\
@@ -942,27 +952,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-react-virtual-d8c66df149/0/cache/@lexical-react-npm-0.3.6-bde13fffbb-9eb931833a.zip/node_modules/@lexical/react/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-react-virtual-6b9871a618/0/cache/@lexical-react-npm-0.3.6-bde13fffbb-9eb931833a.zip/node_modules/@lexical/react/",\
           "packageDependencies": [\
-            ["@lexical/react", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/clipboard", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/code", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/dragon", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
-            ["@lexical/hashtag", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
-            ["@lexical/history", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
-            ["@lexical/link", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/list", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/mark", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/markdown", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/overflow", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/plain-text", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/rich-text", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/selection", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/table", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
-            ["@lexical/text", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/yjs", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
+            ["@lexical/react", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/clipboard", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/code", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/dragon", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
+            ["@lexical/hashtag", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
+            ["@lexical/history", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
+            ["@lexical/link", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/list", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/mark", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/markdown", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/overflow", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/plain-text", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/rich-text", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/selection", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/table", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
+            ["@lexical/text", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/yjs", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["@types/react", null],\
             ["@types/react-dom", null],\
@@ -989,13 +999,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-rich-text-virtual-5e6cd1362b/0/cache/@lexical-rich-text-npm-0.3.6-3beb525241-4cfb0f4946.zip/node_modules/@lexical/rich-text/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-rich-text-virtual-360a95e3d8/0/cache/@lexical-rich-text-npm-0.3.6-3beb525241-4cfb0f4946.zip/node_modules/@lexical/rich-text/",\
           "packageDependencies": [\
-            ["@lexical/rich-text", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/clipboard", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/selection", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/rich-text", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/clipboard", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/selection", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["@types/lexical__clipboard", null],\
             ["@types/lexical__selection", null],\
@@ -1014,13 +1024,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-rich-text-virtual-1fbe567b13/0/cache/@lexical-rich-text-npm-0.3.6-3beb525241-4cfb0f4946.zip/node_modules/@lexical/rich-text/",\
+        ["virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-rich-text-virtual-341e54f97e/0/cache/@lexical-rich-text-npm-0.3.6-3beb525241-4cfb0f4946.zip/node_modules/@lexical/rich-text/",\
           "packageDependencies": [\
-            ["@lexical/rich-text", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
+            ["@lexical/rich-text", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
             ["@lexical/clipboard", null],\
             ["@lexical/selection", null],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["@types/lexical__clipboard", null],\
             ["@types/lexical__selection", null],\
@@ -1048,10 +1058,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-selection-virtual-c282684fec/0/cache/@lexical-selection-npm-0.3.6-597db32746-513ace5311.zip/node_modules/@lexical/selection/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-selection-virtual-234a20ea2c/0/cache/@lexical-selection-npm-0.3.6-597db32746-513ace5311.zip/node_modules/@lexical/selection/",\
           "packageDependencies": [\
-            ["@lexical/selection", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/selection", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -1070,11 +1080,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-table-virtual-06687602ca/0/cache/@lexical-table-npm-0.3.6-807515c833-ca5ce3abfa.zip/node_modules/@lexical/table/",\
+        ["virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-table-virtual-11aa2d4acd/0/cache/@lexical-table-npm-0.3.6-807515c833-ca5ce3abfa.zip/node_modules/@lexical/table/",\
           "packageDependencies": [\
-            ["@lexical/table", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/table", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -1093,10 +1103,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-text-virtual-d48d647703/0/cache/@lexical-text-npm-0.3.6-52f471bcbd-46a3e7f628.zip/node_modules/@lexical/text/",\
+        ["virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-text-virtual-20937ed183/0/cache/@lexical-text-npm-0.3.6-52f471bcbd-46a3e7f628.zip/node_modules/@lexical/text/",\
           "packageDependencies": [\
-            ["@lexical/text", "virtual:70e81c02e1b6f21646f994090fa8a49d998153bca28568c53792c94dcc0a54cd3c94b501c808eb10e61fc931291bc7bcbd367493a35286921ef882be148e829b#npm:0.3.6"],\
+            ["@lexical/text", "virtual:da8a48cf1069601c4c2982e7ff75fe871afb3f1471a0bbf11cfb9f8c278233e20fb71c087172b9a6da972b44ccce3f29230b5b8625c6bbd49553fe1c40983dcd#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -1115,12 +1125,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-utils-virtual-e5695caf78/0/cache/@lexical-utils-npm-0.3.6-8e720d02c2-aa660f75b1.zip/node_modules/@lexical/utils/",\
+        ["virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-utils-virtual-99a344dbba/0/cache/@lexical-utils-npm-0.3.6-8e720d02c2-aa660f75b1.zip/node_modules/@lexical/utils/",\
           "packageDependencies": [\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/list", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/table", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/list", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/table", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["lexical", "npm:0.3.6"]\
           ],\
@@ -1139,11 +1149,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6", {\
-          "packageLocation": "./.yarn/__virtual__/@lexical-yjs-virtual-008bb8b936/0/cache/@lexical-yjs-npm-0.3.6-1838e48098-355f499e7b.zip/node_modules/@lexical/yjs/",\
+        ["virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6", {\
+          "packageLocation": "./.yarn/__virtual__/@lexical-yjs-virtual-e9197c7139/0/cache/@lexical-yjs-npm-0.3.6-1838e48098-355f499e7b.zip/node_modules/@lexical/yjs/",\
           "packageDependencies": [\
-            ["@lexical/yjs", "virtual:d8c66df1490094ce66d1c90477daba90f0f828c7f057a3b364e42d68d2e2a1b91e92e452d4569dbba24bbd0b680ff3bbca126b705eb0d17f399dcd5c1dd4e8e7#npm:0.3.6"],\
-            ["@lexical/offset", "virtual:008bb8b93641098a0cf4f7494862f8b330bc4d34dd630939e421bcb5f6e74c7f44b6760d3cf6095d1ae7fc612b86ebf86259c936b3528e460769600e88b78a5d#npm:0.3.6"],\
+            ["@lexical/yjs", "virtual:6b9871a6180223b840a947a098e863aad395d46dabca7c44bdcbc0c32ae9407e61a55cdf2a7189436a89a27d0e3716dd828bd95f2d9f41f3076363ec31e57584#npm:0.3.6"],\
+            ["@lexical/offset", "virtual:e9197c7139cd0ce959ab2048796785a48ab4cbe68ccfd13d4c025c0adb0249c72059602a6e1ebf5459072e995257364caeae82e10ea9f8cd0b620f3c0851385d#npm:0.3.6"],\
             ["@types/lexical", null],\
             ["@types/yjs", null],\
             ["lexical", "npm:0.3.6"],\
@@ -1284,6 +1294,44 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@rollup/plugin-dsv", [\
+        ["npm:2.0.3", {\
+          "packageLocation": "./.yarn/cache/@rollup-plugin-dsv-npm-2.0.3-e56246c378-560c75227e.zip/node_modules/@rollup/plugin-dsv/",\
+          "packageDependencies": [\
+            ["@rollup/plugin-dsv", "npm:2.0.3"],\
+            ["@rollup/pluginutils", "virtual:e56246c378ed00bda20563847d9a39e83fb0ca3088ef92e3139c7aabfd47dd4bc785f4aebf5ddb3f5452dfd32afabf71cd7812eb75d483ca7b6abe1919c56649#npm:3.1.0"],\
+            ["@types/d3-dsv", "npm:1.2.2"],\
+            ["d3-dsv", "npm:1.2.0"],\
+            ["tosource", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@rollup/pluginutils", [\
+        ["npm:3.1.0", {\
+          "packageLocation": "./.yarn/cache/@rollup-pluginutils-npm-3.1.0-b44b222e7d-8be16e2786.zip/node_modules/@rollup/pluginutils/",\
+          "packageDependencies": [\
+            ["@rollup/pluginutils", "npm:3.1.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:e56246c378ed00bda20563847d9a39e83fb0ca3088ef92e3139c7aabfd47dd4bc785f4aebf5ddb3f5452dfd32afabf71cd7812eb75d483ca7b6abe1919c56649#npm:3.1.0", {\
+          "packageLocation": "./.yarn/__virtual__/@rollup-pluginutils-virtual-ee536aa810/0/cache/@rollup-pluginutils-npm-3.1.0-b44b222e7d-8be16e2786.zip/node_modules/@rollup/pluginutils/",\
+          "packageDependencies": [\
+            ["@rollup/pluginutils", "virtual:e56246c378ed00bda20563847d9a39e83fb0ca3088ef92e3139c7aabfd47dd4bc785f4aebf5ddb3f5452dfd32afabf71cd7812eb75d483ca7b6abe1919c56649#npm:3.1.0"],\
+            ["@types/estree", "npm:0.0.39"],\
+            ["@types/rollup", null],\
+            ["estree-walker", "npm:1.0.1"],\
+            ["picomatch", "npm:2.3.1"],\
+            ["rollup", null]\
+          ],\
+          "packagePeers": [\
+            "@types/rollup",\
+            "rollup"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@tootallnate/once", [\
         ["npm:2.0.0", {\
           "packageLocation": "./.yarn/cache/@tootallnate-once-npm-2.0.0-e36cf4f140-ad87447820.zip/node_modules/@tootallnate/once/",\
@@ -1374,6 +1422,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "SOFT"\
         }]\
       ]],\
+      ["@topical-ehr/logging", [\
+        ["workspace:packages/logging", {\
+          "packageLocation": "./packages/logging/",\
+          "packageDependencies": [\
+            ["@topical-ehr/logging", "workspace:packages/logging"],\
+            ["@types/uuid", "npm:8.3.4"],\
+            ["uuid", "npm:8.3.2"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
       ["@topical-ehr/plugin-manager", [\
         ["workspace:packages/plugin-manager", {\
           "packageLocation": "./packages/plugin-manager/",\
@@ -1384,21 +1443,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@topical-ehr/rich-text-editor", [\
-        ["virtual:c15042dbf5399ec83a0cb9420082d4bbcc554e0964e9e21f1622b6363b97d884734a3d4a53a43f5bfad1deb25697958db2ab8712295519a8929152c51b27579c#workspace:packages/rich-text-editor", {\
-          "packageLocation": "./.yarn/__virtual__/@topical-ehr-rich-text-editor-virtual-4039d8e9b1/1/packages/rich-text-editor/",\
+        ["virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/rich-text-editor", {\
+          "packageLocation": "./.yarn/__virtual__/@topical-ehr-rich-text-editor-virtual-a025cb030b/1/packages/rich-text-editor/",\
           "packageDependencies": [\
-            ["@topical-ehr/rich-text-editor", "virtual:c15042dbf5399ec83a0cb9420082d4bbcc554e0964e9e21f1622b6363b97d884734a3d4a53a43f5bfad1deb25697958db2ab8712295519a8929152c51b27579c#workspace:packages/rich-text-editor"],\
-            ["@lexical/clipboard", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/html", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/list", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/mark", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/markdown", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/overflow", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/plain-text", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/react", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/rich-text", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/selection", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@topical-ehr/rich-text-editor", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/rich-text-editor"],\
+            ["@lexical/clipboard", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/html", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/list", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/mark", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/markdown", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/overflow", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/plain-text", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/react", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/rich-text", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/selection", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["@types/react", null],\
             ["lexical", "npm:0.3.6"],\
             ["react", null]\
@@ -1413,17 +1472,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/rich-text-editor/",\
           "packageDependencies": [\
             ["@topical-ehr/rich-text-editor", "workspace:packages/rich-text-editor"],\
-            ["@lexical/clipboard", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/html", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/list", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/mark", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/markdown", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/overflow", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/plain-text", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/react", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/rich-text", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/selection", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
-            ["@lexical/utils", "virtual:586e81e6f2545c78ec949a98d1a98a1f25755f953c67dfa79309a3b7f58af4d5ad26720297eb17425784a603124171e964fba94919853438a37c0afc2b712bcb#npm:0.3.6"],\
+            ["@lexical/clipboard", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/html", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/list", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/mark", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/markdown", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/overflow", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/plain-text", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/react", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/rich-text", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/selection", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
+            ["@lexical/utils", "virtual:a025cb030b3693312840963e59584656e093875a15a963d99db684ada488d4373ccca28a529892928744f20018a066e55235524de290d7b90a7820a745f82116#npm:0.3.6"],\
             ["lexical", "npm:0.3.6"]\
           ],\
           "linkType": "SOFT"\
@@ -1434,10 +1493,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/save-changes-panel/",\
           "packageDependencies": [\
             ["@topical-ehr/save-changes-panel", "workspace:packages/save-changes-panel"],\
-            ["@fluentui/react", "virtual:c15042dbf5399ec83a0cb9420082d4bbcc554e0964e9e21f1622b6363b97d884734a3d4a53a43f5bfad1deb25697958db2ab8712295519a8929152c51b27579c#npm:8.67.2"],\
+            ["@fluentui/react", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:8.67.2"],\
             ["@topical-ehr/fhir-store", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/fhir-store"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
-            ["@topical-ehr/rich-text-editor", "virtual:c15042dbf5399ec83a0cb9420082d4bbcc554e0964e9e21f1622b6363b97d884734a3d4a53a43f5bfad1deb25697958db2ab8712295519a8929152c51b27579c#workspace:packages/rich-text-editor"]\
+            ["@topical-ehr/rich-text-editor", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/rich-text-editor"]\
+          ],\
+          "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@topical-ehr/terminology", [\
+        ["workspace:packages/terminology", {\
+          "packageLocation": "./packages/terminology/",\
+          "packageDependencies": [\
+            ["@topical-ehr/terminology", "workspace:packages/terminology"],\
+            ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
+            ["@topical-ehr/logging", "workspace:packages/logging"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -1465,9 +1535,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/topics/",\
           "packageDependencies": [\
             ["@topical-ehr/topics", "workspace:packages/topics"],\
+            ["@rollup/plugin-dsv", "npm:2.0.3"],\
             ["@topical-ehr/fhir-store", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/fhir-store"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/formatting", "workspace:packages/formatting"],\
+            ["@topical-ehr/logging", "workspace:packages/logging"],\
+            ["@topical-ehr/rich-text-editor", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#workspace:packages/rich-text-editor"],\
+            ["@topical-ehr/terminology", "workspace:packages/terminology"],\
+            ["@topical-ehr/ui-elements", "workspace:packages/ui-elements"],\
+            ["@types/dompurify", "npm:2.4.0"],\
+            ["dompurify", "npm:2.4.5"],\
             ["react-select", "virtual:ff4df47ea87d6fdf8fecab9d750ff51017a659cbb9af7bdf7f955a69d9e5f605691c5af67b16da8238742147a2be26745fa7d62b2d3de3b2faf158cf6b241b9f#npm:5.4.0"],\
             ["redux-saga", "npm:1.1.3"],\
             ["remeda", "npm:0.0.35"],\
@@ -1481,7 +1558,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/ui-elements/",\
           "packageDependencies": [\
             ["@topical-ehr/ui-elements", "workspace:packages/ui-elements"],\
-            ["@fluentui/react", "virtual:c15042dbf5399ec83a0cb9420082d4bbcc554e0964e9e21f1622b6363b97d884734a3d4a53a43f5bfad1deb25697958db2ab8712295519a8929152c51b27579c#npm:8.67.2"]\
+            ["@fluentui/react", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:8.67.2"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -1495,7 +1572,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/d3-dsv", [\
+        ["npm:1.2.2", {\
+          "packageLocation": "./.yarn/cache/@types-d3-dsv-npm-1.2.2-00aa6dec4b-af443b7c9b.zip/node_modules/@types/d3-dsv/",\
+          "packageDependencies": [\
+            ["@types/d3-dsv", "npm:1.2.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/dompurify", [\
+        ["npm:2.4.0", {\
+          "packageLocation": "./.yarn/cache/@types-dompurify-npm-2.4.0-b6ea286bda-b48cd81e99.zip/node_modules/@types/dompurify/",\
+          "packageDependencies": [\
+            ["@types/dompurify", "npm:2.4.0"],\
+            ["@types/trusted-types", "npm:2.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/estree", [\
+        ["npm:0.0.39", {\
+          "packageLocation": "./.yarn/cache/@types-estree-npm-0.0.39-f898500e96-412fb5b986.zip/node_modules/@types/estree/",\
+          "packageDependencies": [\
+            ["@types/estree", "npm:0.0.39"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:1.0.1", {\
           "packageLocation": "./.yarn/cache/@types-estree-npm-1.0.1-4c9469c165-e9aa175eac.zip/node_modules/@types/estree/",\
           "packageDependencies": [\
@@ -1578,6 +1681,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-scheduler-npm-0.16.3-887bfc0086-2b0aec39c2.zip/node_modules/@types/scheduler/",\
           "packageDependencies": [\
             ["@types/scheduler", "npm:0.16.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/trusted-types", [\
+        ["npm:2.0.3", {\
+          "packageLocation": "./.yarn/cache/@types-trusted-types-npm-2.0.3-225cf76fb4-4794804bc4.zip/node_modules/@types/trusted-types/",\
+          "packageDependencies": [\
+            ["@types/trusted-types", "npm:2.0.3"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -1972,6 +2084,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["d3-dsv", [\
+        ["npm:1.2.0", {\
+          "packageLocation": "./.yarn/cache/d3-dsv-npm-1.2.0-8721ea23bf-96c6e3d5ca.zip/node_modules/d3-dsv/",\
+          "packageDependencies": [\
+            ["d3-dsv", "npm:1.2.0"],\
+            ["commander", "npm:2.20.3"],\
+            ["iconv-lite", "npm:0.4.24"],\
+            ["rw", "npm:1.3.3"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:3.0.1", {\
           "packageLocation": "./.yarn/cache/d3-dsv-npm-3.0.1-5d88fb8a85-5fc0723647.zip/node_modules/d3-dsv/",\
           "packageDependencies": [\
@@ -2183,6 +2305,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["dom-helpers", "npm:5.2.1"],\
             ["@babel/runtime", "npm:7.22.5"],\
             ["csstype", "npm:3.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["dompurify", [\
+        ["npm:2.4.5", {\
+          "packageLocation": "./.yarn/cache/dompurify-npm-2.4.5-ce1b7c62a7-d6d3c3b320.zip/node_modules/dompurify/",\
+          "packageDependencies": [\
+            ["dompurify", "npm:2.4.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -2469,6 +2600,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["estree-walker", [\
+        ["npm:1.0.1", {\
+          "packageLocation": "./.yarn/cache/estree-walker-npm-1.0.1-e916593b23-7e70da5396.zip/node_modules/estree-walker/",\
+          "packageDependencies": [\
+            ["estree-walker", "npm:1.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["fast-deep-equal", [\
         ["npm:3.1.3", {\
           "packageLocation": "./.yarn/cache/fast-deep-equal-npm-3.1.3-790edcfcf5-e21a9d8d84.zip/node_modules/fast-deep-equal/",\
@@ -2686,6 +2826,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["iconv-lite", [\
+        ["npm:0.4.24", {\
+          "packageLocation": "./.yarn/cache/iconv-lite-npm-0.4.24-c5c4ac6695-bd9f120f5a.zip/node_modules/iconv-lite/",\
+          "packageDependencies": [\
+            ["iconv-lite", "npm:0.4.24"],\
+            ["safer-buffer", "npm:2.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:0.6.3", {\
           "packageLocation": "./.yarn/cache/iconv-lite-npm-0.6.3-24b8aae27e-3f60d47a5c.zip/node_modules/iconv-lite/",\
           "packageDependencies": [\
@@ -3241,6 +3389,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/picocolors-npm-1.0.0-d81e0b1927-a2e8092dd8.zip/node_modules/picocolors/",\
           "packageDependencies": [\
             ["picocolors", "npm:1.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["picomatch", [\
+        ["npm:2.3.1", {\
+          "packageLocation": "./.yarn/cache/picomatch-npm-2.3.1-c782cfd986-050c865ce8.zip/node_modules/picomatch/",\
+          "packageDependencies": [\
+            ["picomatch", "npm:2.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3881,6 +4038,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["topojson-client", "npm:3.1.0"],\
             ["commander", "npm:2.20.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["tosource", [\
+        ["npm:1.0.0", {\
+          "packageLocation": "./.yarn/cache/tosource-npm-1.0.0-718e0580f4-683fc64700.zip/node_modules/tosource/",\
+          "packageDependencies": [\
+            ["tosource", "npm:1.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\

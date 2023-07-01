@@ -1,0 +1,11 @@
+{
+    "name": "@topical-ehr/logging",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "uuid": "8.3.2"
+    },
+    "devDependencies": {
+        "@types/uuid": "8.3.4"
+    },
+    "main": "./logs.ts"
+}

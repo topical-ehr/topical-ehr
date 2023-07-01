@@ -45,4 +45,5 @@ export function createStore(config: EHRConfig) {
 type StoreType = ReturnType<typeof createStore>;
 export type RootState = ReturnType<StoreType["getState"]>;
 export type AppDispatch = StoreType["dispatch"];
+export { AnyAction } from "@reduxjs/toolkit";
 export const useAppDispatch = () => useDispatch<AppDispatch>();

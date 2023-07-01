@@ -1,7 +1,7 @@
 import css from "./HoverButtons.module.scss";
 
 interface ContainerProps {
-    children: JSX.Element[] | JSX.Element;
+    children: (JSX.Element | null | false)[] | JSX.Element | null | false;
 }
 interface ButtonProps {
     onClick: () => void;
@@ -9,7 +9,10 @@ interface ButtonProps {
 
 export function HoverButtons(props: ContainerProps) {
     return (
-        <div className="hover-buttons" style={{ float: "right" }}>
+        <div
+            className="hover-buttons"
+            style={{ float: "right" }}
+        >
             {props.children}
         </div>
     );
@@ -23,7 +26,12 @@ function IconButton(props: ButtonProps & { children: JSX.Element; title: string 
     }
 
     return (
-        <a href="#" onClick={onClick} title={props.title} className={css.iconButton}>
+        <a
+            href="#"
+            onClick={onClick}
+            title={props.title}
+            className={css.iconButton}
+        >
             {props.children}
         </a>
     );
@@ -33,7 +41,10 @@ export function HoverButtonEdit(props: ButtonProps) {
     // THANKS TO https://uxwing.com/edit-round-line-icon/
     // https://react-svgr.com/playground/?expandProps=none
     return (
-        <IconButton {...props} title="Edit (or double-click)">
+        <IconButton
+            {...props}
+            title="Edit (or double-click)"
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 122.88 122.88"
@@ -51,7 +62,10 @@ export function HoverButtonDelete(props: ButtonProps) {
     // https://react-svgr.com/playground/?expandProps=none
 
     return (
-        <IconButton {...props} title="Delete">
+        <IconButton
+            {...props}
+            title="Delete"
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 122.87 122.87"

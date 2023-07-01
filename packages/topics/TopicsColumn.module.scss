@@ -1,0 +1,38 @@
+.topic {
+    border: 1px solid grey;
+    border-radius: 0.25em;
+
+    padding: 0.5em;
+    margin-bottom: 1em;
+
+    :global(.hover-buttons) {
+        display: none;
+    }
+    &:hover :global(.hover-buttons) {
+        display: inherit;
+    }
+}
+
+.title {
+    display: flex;
+    align-items: center;
+
+    img {
+        height: 2em;
+        margin-right: 1em;
+    }
+
+    h2 {
+        margin: 0;
+    }
+    margin-top: 0.5em;
+}
+
+.summary > div {
+    padding: 0.5em;
+
+    /* nested lists - remove double markers */
+    ul li:has(ul), ol li:has(ol) {
+       list-style: none;
+    }
+}

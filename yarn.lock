@@ -731,6 +731,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/plugin-dsv@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@rollup/plugin-dsv@npm:2.0.3"
+  dependencies:
+    "@rollup/pluginutils": ^3.1.0
+    "@types/d3-dsv": ~1.2.0
+    d3-dsv: 1.2.0
+    tosource: ^1.0.0
+  checksum: 560c75227ec477f99e075c94e86d49b3fe0cff7b7fab4284be58d1f793a6f09f8d10c0f455737f2432e39f24ecdeddc47960f0e8e8b7fde9529dec540db7c3e7
+  languageName: node
+  linkType: hard
+
+"@rollup/pluginutils@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "@rollup/pluginutils@npm:3.1.0"
+  dependencies:
+    "@types/estree": 0.0.39
+    estree-walker: ^1.0.1
+    picomatch: ^2.2.2
+  peerDependencies:
+    rollup: ^1.20.0||^2.0.0
+  checksum: 8be16e27863c219edbb25a4e6ec2fe0e1e451d9e917b6a43cf2ae5bc025a6b8faaa40f82a6e53b66d0de37b58ff472c6c3d57a83037ae635041f8df959d6d9aa
+  languageName: node
+  linkType: hard
+
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -794,6 +819,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@topical-ehr/logging@workspace:*, @topical-ehr/logging@workspace:packages/logging":
+  version: 0.0.0-use.local
+  resolution: "@topical-ehr/logging@workspace:packages/logging"
+  dependencies:
+    "@types/uuid": 8.3.4
+    uuid: 8.3.2
+  languageName: unknown
+  linkType: soft
+
 "@topical-ehr/plugin-manager@workspace:packages/plugin-manager":
   version: 0.0.0-use.local
   resolution: "@topical-ehr/plugin-manager@workspace:packages/plugin-manager"
@@ -833,6 +867,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@topical-ehr/terminology@workspace:*, @topical-ehr/terminology@workspace:packages/terminology":
+  version: 0.0.0-use.local
+  resolution: "@topical-ehr/terminology@workspace:packages/terminology"
+  dependencies:
+    "@topical-ehr/fhir-types": "workspace:*"
+    "@topical-ehr/logging": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@topical-ehr/timeline@workspace:packages/timeline":
   version: 0.0.0-use.local
   resolution: "@topical-ehr/timeline@workspace:packages/timeline"
@@ -853,9 +896,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@topical-ehr/topics@workspace:packages/topics"
   dependencies:
+    "@rollup/plugin-dsv": ^2.0.3
     "@topical-ehr/fhir-store": "workspace:*"
     "@topical-ehr/fhir-types": "workspace:*"
     "@topical-ehr/formatting": "workspace:*"
+    "@topical-ehr/logging": "workspace:*"
+    "@topical-ehr/rich-text-editor": "workspace:*"
+    "@topical-ehr/terminology": "workspace:*"
+    "@topical-ehr/ui-elements": "workspace:*"
+    "@types/dompurify": ^2.3.3
+    dompurify: ^2.3.10
     react-select: 5.4.0
     redux-saga: 1.1.3
     remeda: 0.0.35
@@ -863,7 +913,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@topical-ehr/ui-elements@workspace:packages/ui-elements":
+"@topical-ehr/ui-elements@workspace:*, @topical-ehr/ui-elements@workspace:packages/ui-elements":
   version: 0.0.0-use.local
   resolution: "@topical-ehr/ui-elements@workspace:packages/ui-elements"
   dependencies:
@@ -875,6 +925,29 @@ __metadata:
   version: 2.1.1
   resolution: "@types/clone@npm:2.1.1"
   checksum: bda9668b9d6e0875d64bbe00763676f566e8647bc224333a03ac7fd66655dfed56a98a9f8304d0145c4411b964649c84c4d1a03adbdb6547eafb9ab8f303d254
+  languageName: node
+  linkType: hard
+
+"@types/d3-dsv@npm:~1.2.0":
+  version: 1.2.2
+  resolution: "@types/d3-dsv@npm:1.2.2"
+  checksum: af443b7c9b98ceed9247472d036404b982d25af4eaa09ffe54017e675e26c1b9ba29a3464b658b4552e5cc2635a03c0e8354138ab47ad6b06c29ccb65bac3c5b
+  languageName: node
+  linkType: hard
+
+"@types/dompurify@npm:^2.3.3":
+  version: 2.4.0
+  resolution: "@types/dompurify@npm:2.4.0"
+  dependencies:
+    "@types/trusted-types": "*"
+  checksum: b48cd81e997794ebc390c7c5bef1a67ec14a6f2f0521973e07e06af186c7583abe114d94d24868c0632b9573f5bd77131a4b76f3fffdf089ba99a4e53dd46c39
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:0.0.39":
+  version: 0.0.39
+  resolution: "@types/estree@npm:0.0.39"
+  checksum: 412fb5b9868f2c418126451821833414189b75cc6bf84361156feed733e3d92ec220b9d74a89e52722e03d5e241b2932732711b7497374a404fad49087adc248
   languageName: node
   linkType: hard
 
@@ -947,6 +1020,13 @@ __metadata:
   version: 0.16.3
   resolution: "@types/scheduler@npm:0.16.3"
   checksum: 2b0aec39c24268e3ce938c5db2f2e77f5c3dd280e05c262d9c2fe7d890929e4632a6b8e94334017b66b45e4f92a5aa42ba3356640c2a1175fa37bef2f5200767
+  languageName: node
+  linkType: hard
+
+"@types/trusted-types@npm:*":
+  version: 2.0.3
+  resolution: "@types/trusted-types@npm:2.0.3"
+  checksum: 4794804bc4a4a173d589841b6d26cf455ff5dc4f3e704e847de7d65d215f2e7043d8757e4741ce3a823af3f08260a8d04a1a6e9c5ec9b20b7b04586956a6b005
   languageName: node
   linkType: hard
 
@@ -1293,6 +1373,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"d3-dsv@npm:1.2.0":
+  version: 1.2.0
+  resolution: "d3-dsv@npm:1.2.0"
+  dependencies:
+    commander: 2
+    iconv-lite: 0.4
+    rw: 1
+  bin:
+    csv2json: bin/dsv2json
+    csv2tsv: bin/dsv2dsv
+    dsv2dsv: bin/dsv2dsv
+    dsv2json: bin/dsv2json
+    json2csv: bin/json2dsv
+    json2dsv: bin/json2dsv
+    json2tsv: bin/json2dsv
+    tsv2csv: bin/dsv2dsv
+    tsv2json: bin/dsv2json
+  checksum: 96c6e3d5ca1566624ca613b5941bc6fa916082cbe4b2b71cb6c5978c471db58c489b17206e3e31fbe30719dbd75e9c8ed8ab12a9d353cff90a35102690de7823
+  languageName: node
+  linkType: hard
+
 "d3-dsv@npm:^3.0.1":
   version: 3.0.1
   resolution: "d3-dsv@npm:3.0.1"
@@ -1483,6 +1584,13 @@ __metadata:
     "@babel/runtime": ^7.8.7
     csstype: ^3.0.2
   checksum: 863ba9e086f7093df3376b43e74ce4422571d404fc9828bf2c56140963d5edf0e56160f9b2f3bb61b282c07f8fc8134f023c98fd684bddcb12daf7b0f14d951c
+  languageName: node
+  linkType: hard
+
+"dompurify@npm:^2.3.10":
+  version: 2.4.5
+  resolution: "dompurify@npm:2.4.5"
+  checksum: d6d3c3b320f15cdb5b26aa1902c3275a3ab2c3705a9df4420bb94691d7c4df67959ec7b91e486c308320791b0ee000456f042734c45d76721e61c2768eac706e
   languageName: node
   linkType: hard
 
@@ -1760,6 +1868,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"estree-walker@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "estree-walker@npm:1.0.1"
+  checksum: 7e70da539691f6db03a08e7ce94f394ce2eef4180e136d251af299d41f92fb2d28ebcd9a6e393e3728d7970aeb5358705ddf7209d52fbcb2dd4693f95dcf925f
+  languageName: node
+  linkType: hard
+
 "fast-deep-equal@npm:^3.1.1, fast-deep-equal@npm:~3.1.3":
   version: 3.1.3
   resolution: "fast-deep-equal@npm:3.1.3"
@@ -1953,6 +2068,15 @@ __metadata:
   dependencies:
     ms: ^2.0.0
   checksum: 9c7a74a2827f9294c009266c82031030eae811ca87b0da3dceb8d6071b9bde22c9f3daef0469c3c533cc67a97d8a167cd9fc0389350e5f415f61a79b171ded16
+  languageName: node
+  linkType: hard
+
+"iconv-lite@npm:0.4":
+  version: 0.4.24
+  resolution: "iconv-lite@npm:0.4.24"
+  dependencies:
+    safer-buffer: ">= 2.1.2 < 3"
+  checksum: bd9f120f5a5b306f0bc0b9ae1edeb1577161503f5f8252a20f1a9e56ef8775c9959fd01c55f2d3a39d9a8abaf3e30c1abeb1895f367dcbbe0a8fd1c9ca01c4f6
   languageName: node
   linkType: hard
 
@@ -2443,6 +2567,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"picomatch@npm:^2.2.2":
+  version: 2.3.1
+  resolution: "picomatch@npm:2.3.1"
+  checksum: 050c865ce81119c4822c45d3c84f1ced46f93a0126febae20737bd05ca20589c564d6e9226977df859ed5e03dc73f02584a2b0faad36e896936238238b0446cf
+  languageName: node
+  linkType: hard
+
 "postcss@npm:^8.4.12":
   version: 8.4.24
   resolution: "postcss@npm:8.4.24"
@@ -2745,7 +2876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safer-buffer@npm:>= 2.1.2 < 3.0.0":
+"safer-buffer@npm:>= 2.1.2 < 3, safer-buffer@npm:>= 2.1.2 < 3.0.0":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: cab8f25ae6f1434abee8d80023d7e72b598cf1327164ddab31003c51215526801e40b66c5e65d658a0af1e9d6478cadcb4c745f4bd6751f97d8644786c0978b0
@@ -2936,6 +3067,13 @@ __metadata:
     topomerge: bin/topomerge
     topoquantize: bin/topoquantize
   checksum: 8c029a4f18324ace0b8b55dd90edbd40c9e3c6de18bafbb5da37ca20ebf20e26fbd4420891acb3c2c264e214185f7557871f5651a9eee517028663be98d836de
+  languageName: node
+  linkType: hard
+
+"tosource@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "tosource@npm:1.0.0"
+  checksum: 683fc64700484cd749b6eed461c2d105e251df7caf886484ff824bcf1249e365210d65c4f2ca3ced30baa34ea7912c656984e084aaada669920b44e2437c1c05
   languageName: node
   linkType: hard
 
