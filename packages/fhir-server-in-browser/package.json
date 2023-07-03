@@ -1,0 +1,7 @@
+{
+    "name": "@topical-ehr/fhir-server-in-browser",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "@topical-ehr/fhir-types": "workspace:*"
+    }
+}

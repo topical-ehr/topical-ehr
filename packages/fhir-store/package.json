@@ -7,13 +7,13 @@
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/topics": "workspace:*",
         "immer": "9.0.21",
+        "react": "18.2.0",
         "react-redux": "8.0.1",
         "redux-saga": "1.1.3",
         "typed-redux-saga": "1.4.0"
     },
-    "peerDependencies": {
-        "@types/react": "^18.0.0",
-        "react": "*"
+    "devDependencies": {
+        "@types/react": "^18.0.0"
     },
     "main": "fhir-state.ts"
 }

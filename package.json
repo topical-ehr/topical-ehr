@@ -2,6 +2,7 @@
     "name": "topical-ehr-workspace",
     "packageManager": "yarn@3.6.0",
     "workspaces": [
+        "demos/*",
         "packages/*"
     ],
     "dependencies": {

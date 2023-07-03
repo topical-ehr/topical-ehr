@@ -1,7 +1,12 @@
 {
-  "name": "@topical-ehr/ui-elements",
-  "packageManager": "yarn@3.6.0",
-  "dependencies": {
-    "@fluentui/react": "8.67.2"
-  }
+    "name": "@topical-ehr/ui-elements",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "@fluentui/react": "8.67.2",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "18.2.14"
+    }
 }

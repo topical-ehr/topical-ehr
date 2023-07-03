@@ -1,9 +1,0 @@
-{
-  "name": "@topical-ehr/layout",
-  "packageManager": "yarn@3.6.0",
-  "peerDependencies": {
-    "@types/react": "^18.0.0",
-    "react": "*",
-    "vite": "*"
-  }
-}

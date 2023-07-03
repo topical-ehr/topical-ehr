@@ -1,0 +1,26 @@
+{
+    "name": "@topical-ehr/patients",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "@fluentui/react": "8.67.2",
+        "@topical-ehr/fhir-store": "workspace:*",
+        "@topical-ehr/fhir-types": "workspace:*",
+        "@topical-ehr/formatting": "workspace:*",
+        "@topical-ehr/logging": "workspace:*",
+        "@topical-ehr/observations": "workspace:*",
+        "@topical-ehr/rich-text-editor": "workspace:*",
+        "@topical-ehr/terminology": "workspace:*",
+        "@topical-ehr/ui-elements": "workspace:*",
+        "dompurify": "^2.3.10",
+        "react": "18.2.0",
+        "react-select": "5.4.0",
+        "redux-saga": "1.1.3",
+        "remeda": "0.0.35",
+        "typed-redux-saga": "1.4.0"
+    },
+    "devDependencies": {
+        "@rollup/plugin-dsv": "^2.0.3",
+        "@types/dompurify": "^2.3.3"
+    },
+    "main": "FhirConnection.ts"
+}

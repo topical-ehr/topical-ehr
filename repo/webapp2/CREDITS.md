@@ -1,8 +1,34 @@
-# UXWing Icons
+# Credits
 
-https://uxwing.com
+Topical-EHR would not be possible without these open-source libraries and tools - thank you to all involved
 
-# Lexical Editor
+* DOMPurify
+* Google Noto Emojis
+* FluentUI
+* Lexical Editor
+* libphonenumber-js
+* Luxon
+* React
+* React-Select
+* Redux
+* Redux Toolkit
+* Redux Saga
+* Remeda
+* SASS
+* TypeScript
+* UXWing Icons
+* Vega Charts
+* Visual Studio Code
+* Vite
+
+and many many others, including those that the above rely on
+
+
+# Licenses
+
+(TODO)
+
+## Lexical
 
 MIT License
 

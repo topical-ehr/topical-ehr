@@ -2,7 +2,7 @@ import { ObservationDisplay } from "@topical-ehr/observations/ObservationDisplay
 import { useTopicContext } from "../TopicContext";
 import { useFHIR } from "@topical-ehr/fhir-store";
 
-export function ChartsView(props: Props) {
+export function ChartsView() {
     const context = useTopicContext();
     const { composition } = context.topic;
 

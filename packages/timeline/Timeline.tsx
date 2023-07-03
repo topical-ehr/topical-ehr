@@ -4,7 +4,7 @@ import { FhirResources, State, useFHIR } from "@topical-ehr/fhir-store";
 import { TimelineItem } from "./TimelineItem";
 
 import css from "./Timeline.module.scss";
-import { ObservationDisplay } from "./observations/ObservationDisplay";
+import { ObservationDisplay } from "@topical-ehr/observations/ObservationDisplay";
 
 export type Grouper = (resources: FhirResources) => TimelineItem[];
 export type Renderer = (item: TimelineItem, byCode: State["byCode"]) => React.ReactNode;

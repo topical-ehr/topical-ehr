@@ -1,10 +1,15 @@
 {
-  "name": "@topical-ehr/save-changes-panel",
-  "packageManager": "yarn@3.6.0",
-  "dependencies": {
-    "@fluentui/react": "8.67.2",
-    "@topical-ehr/fhir-store": "workspace:*",
-    "@topical-ehr/fhir-types": "workspace:*",
-    "@topical-ehr/rich-text-editor": "workspace:*"
-  }
+    "name": "@topical-ehr/save-changes-panel",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "@fluentui/react": "8.67.2",
+        "@topical-ehr/fhir-store": "workspace:*",
+        "@topical-ehr/fhir-types": "workspace:*",
+        "@topical-ehr/rich-text-editor": "workspace:*",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "18.2.14"
+    }
 }

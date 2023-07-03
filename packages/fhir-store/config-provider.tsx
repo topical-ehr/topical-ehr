@@ -9,7 +9,7 @@ interface Props {
     children: React.ReactNode;
 }
 
-export function EHRConfig(props: Props) {
+export function EHRPageConfig(props: Props) {
     const store = React.useMemo(() => {
         return createStore(props.config);
     }, [props.config]);
