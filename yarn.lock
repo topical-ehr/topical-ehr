@@ -2435,6 +2435,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@topical-ehr/fhir-editor@workspace:*, @topical-ehr/fhir-editor@workspace:packages/fhir-editor":
+  version: 0.0.0-use.local
+  resolution: "@topical-ehr/fhir-editor@workspace:packages/fhir-editor"
+  dependencies:
+    "@fluentui/react-components": 9.25.1
+    "@types/react": 18.2.11
+    monaco-editor: 0.39.0
+    react: 18.2.0
+    react-dom: 18.2.0
+  languageName: unknown
+  linkType: soft
+
 "@topical-ehr/fhir-server-http@workspace:*, @topical-ehr/fhir-server-http@workspace:packages/fhir-server-http":
   version: 0.0.0-use.local
   resolution: "@topical-ehr/fhir-server-http@workspace:packages/fhir-server-http"
@@ -3618,6 +3630,7 @@ __metadata:
     "@fluentui/react": 8.67.2
     "@fluentui/react-components": 9.25.1
     "@rollup/plugin-dsv": ^2.0.3
+    "@topical-ehr/fhir-editor": "workspace:*"
     "@topical-ehr/fhir-server-http": "workspace:*"
     "@topical-ehr/fhir-server-in-browser": "workspace:*"
     "@topical-ehr/fhir-store": "workspace:*"
@@ -5046,6 +5059,13 @@ __metadata:
   bin:
     mkdirp: bin/cmd.js
   checksum: a96865108c6c3b1b8e1d5e9f11843de1e077e57737602de1b82030815f311be11f96f09cce59bd5b903d0b29834733e5313f9301e3ed6d6f6fba2eae0df4298f
+  languageName: node
+  linkType: hard
+
+"monaco-editor@npm:0.39.0":
+  version: 0.39.0
+  resolution: "monaco-editor@npm:0.39.0"
+  checksum: 6d906c5f07fc6761b93bebee70bc1c461d6bbea493252751f4e2e60f26678faced9261ed9cca21613511695e6d7b75c2f2214b6d53aaa479a7e0b6f2d912f90b
   languageName: node
   linkType: hard
 

@@ -1,0 +1,14 @@
+{
+    "name": "@topical-ehr/fhir-editor",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "@fluentui/react-components": "9.25.1",
+        "monaco-editor": "0.39.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "18.2.11"
+    },
+    "main": "./FhirTypes.ts"
+}
