@@ -1,3 +1,4 @@
+import React from "react";
 import * as FHIR from "@topical-ehr/fhir-types";
 
 export interface Config {

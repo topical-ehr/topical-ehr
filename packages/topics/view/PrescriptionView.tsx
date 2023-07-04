@@ -1,7 +1,9 @@
+import React from "react";
+
 import * as FHIR from "@topical-ehr/fhir-types";
+import { useFormatting } from "@topical-ehr/formatting/formatting";
 import { useTopicContext } from "../TopicContext";
 import css from "./TopicItemDisplay.module.scss";
-import { useFormatting } from "@topical-ehr/formatting/formatting";
 
 export function PrescriptionsView() {
     const context = useTopicContext();

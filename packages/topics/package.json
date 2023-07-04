@@ -3,6 +3,7 @@
     "packageManager": "yarn@3.6.0",
     "dependencies": {
         "@fluentui/react": "8.67.2",
+        "@fluentui/react-components": "9.25.1",
         "@topical-ehr/fhir-store": "workspace:*",
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/formatting": "workspace:*",
@@ -21,7 +22,8 @@
     },
     "devDependencies": {
         "@rollup/plugin-dsv": "^2.0.3",
-        "@types/dompurify": "^2.3.3"
+        "@types/dompurify": "^2.3.3",
+        "@types/react": "18.2.11"
     },
     "main": "FhirConnection.ts"
 }

@@ -1,6 +1,7 @@
+import React from "react";
 import { SearchBox } from "@fluentui/react";
-import { useFormatting } from "@topical-ehr/formatting/formatting";
 import { useFHIR } from "@topical-ehr/fhir-store";
+import { useFormatting } from "@topical-ehr/formatting/formatting";
 import css from "./PatientHeader.module.scss";
 
 export function PatientHeader() {

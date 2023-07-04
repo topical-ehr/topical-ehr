@@ -1,20 +1,16 @@
 import { DetailsList, DetailsListLayoutMode, IColumn, Link, SelectionMode } from "@fluentui/react";
-import { PatientFormatter } from "../../utils/display/PatientFormatter";
 import { useFHIR } from "@topical-ehr/fhir-store";
+import * as FHIR from "@topical-ehr/fhir-types";
+import { useFormatting } from "@topical-ehr/formatting/formatting";
 
 interface Props {
     filter: (patient: FHIR.Patient) => boolean;
 }
 
 function Filtered(props: Props) {
-    const query = useFHIRQuery(`Patient`);
     const patients = useFHIR((s) => s.fhir.resources.patients);
-    if (query.state === "error") {
-        return <ErrorMessage error={query.error} />;
-    }
-    if (query.state === "loading") {
-        return <Loading />;
-    }
+
+    const formatting = useFormatting();
 
     const columns: IColumn[] = [
         {
@@ -50,7 +46,7 @@ function Filtered(props: Props) {
     const items = [...Object.values(patients)]
         .filter((p) => props.filter(p))
         .map((patient, i) => {
-            const pf = new PatientFormatter(patient);
+            const pf = formatting.patient(patient);
             return {
                 key: patient.id,
                 index: i,
@@ -80,7 +76,8 @@ export function All() {
 }
 
 export function Recent() {
-    return <Filtered filter={(patient) => new PatientFormatter(patient).name.includes("Ira")} />;
+    const formatting = useFormatting();
+    return <Filtered filter={(patient) => formatting.patient(patient).name.includes("Ira")} />;
 }
 
 export const PatientList = {

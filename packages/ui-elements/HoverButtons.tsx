@@ -1,3 +1,4 @@
+import React from "react";
 import css from "./HoverButtons.module.scss";
 
 interface ContainerProps {

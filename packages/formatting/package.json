@@ -4,7 +4,8 @@
     "dependencies": {
         "@topical-ehr/fhir-types": "workspace:*",
         "libphonenumber-js": "1.9.52",
-        "luxon": "2.3.2"
+        "luxon": "2.3.2",
+        "react": "18.2.0"
     },
     "devDependencies": {
         "@types/luxon": "2.3.1"

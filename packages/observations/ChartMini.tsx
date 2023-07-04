@@ -1,3 +1,4 @@
+import React from "react";
 import { createClassFromSpec } from "react-vega";
 import { FixedVegaChartProps } from "react-vega/lib/createClassFromSpec";
 import { compile } from "vega-lite";
@@ -181,7 +182,10 @@ function ChartMiniViaWorker(props: FixedVegaChartProps) {
     if (svg) {
         return (
             <div onClick={onContainerClick}>
-                <div ref={divRef} dangerouslySetInnerHTML={{ __html: svg }} />
+                <div
+                    ref={divRef}
+                    dangerouslySetInnerHTML={{ __html: svg }}
+                />
                 <div style={{ color: "black", width: "2px" }} />
             </div>
         );

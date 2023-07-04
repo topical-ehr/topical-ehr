@@ -1,4 +1,5 @@
 import css from "./ColumnLayout.module.scss";
+import React from "react";
 
 interface LayoutProps {
     children: React.ReactNode;

@@ -1,5 +1,5 @@
-import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { WritableDraft } from "immer/dist/internal";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Draft } from "immer";
 import * as Redux from "react-redux";
 import { fork, put, takeEvery } from "redux-saga/effects";
 import { call, select } from "typed-redux-saga";
@@ -45,7 +45,7 @@ const emptyResources: FhirResources = {
     serviceRequests: {},
 };
 
-function getResourceContainer(resources: WritableDraft<FhirResources>, resourceType: string) {
+function getResourceContainer(resources: Draft<FhirResources>, resourceType: string) {
     switch (resourceType) {
         case "Composition":
             return resources.compositions;
@@ -66,20 +66,24 @@ function getResourceContainer(resources: WritableDraft<FhirResources>, resourceT
     }
 }
 
-function setResource(resources: WritableDraft<FhirResources>, r: FHIR.Resource) {
+function setResource(resources: Draft<FhirResources>, r: FHIR.Resource) {
     const container = getResourceContainer(resources, r.resourceType);
     // @ts-expect-error
     container[r.id] = r;
 }
 
-function getResource(resources: WritableDraft<FhirResources>, r: FHIR.Resource): FHIR.Resource {
+function getResource(resources: Draft<FhirResources>, r: FHIR.Resource): FHIR.Resource {
     const container = getResourceContainer(resources, r.resourceType);
     return container[r.id];
 }
 
-function deleteResource(resources: WritableDraft<FhirResources>, r: FHIR.Resource) {
+function deleteResource(resources: Draft<FhirResources>, r: FHIR.Resource) {
     const container = getResourceContainer(resources, r.resourceType);
     delete container[r.id];
+}
+
+export interface ByCode<T> {
+    [code: string]: T[];
 }
 
 export interface State {
@@ -100,7 +104,7 @@ export interface State {
 
     // loaded resource by code (without edits)
     byCode: {
-        observations: Map<string, FHIR.Observation[]>;
+        observations: ByCode<FHIR.Observation>;
     };
 
     patientId: string;
@@ -117,7 +121,7 @@ export function initialState(config?: EHRConfig): State {
         deletions: {},
         saveState: null,
         byCode: {
-            observations: new Map(),
+            observations: {},
         },
 
         // set by preloadedState
@@ -198,7 +202,7 @@ export const fhirSlice = createSlice({
             }
         },
 
-        setObservationsByCode(state, action: PayloadAction<Map<string, FHIR.Observation[]>>) {
+        setObservationsByCode(state, action: PayloadAction<ByCode<FHIR.Observation>>) {
             state.byCode.observations = action.payload;
         },
     },
@@ -225,12 +229,12 @@ function* onQuerySaga(action: PayloadAction<QueryRequest>) {
     }
 }
 
-function addToMappedList<K, V>(map: Map<K, V[]>, key: K, value: V) {
-    const list = map.get(key);
+function addToMappedList<T>(map: ByCode<T>, key: string, value: T) {
+    const list = map[key];
     if (list) {
         list.push(value);
     } else {
-        map.set(key, [value]);
+        map[key] = [value];
     }
 }
 function* updateObservationsByCodeSaga(action: PayloadAction<[string, FHIR.Resource[]]>) {
@@ -239,7 +243,7 @@ function* updateObservationsByCodeSaga(action: PayloadAction<[string, FHIR.Resou
     }
 
     const observations = yield* select((s: RootState) => s.fhir.resources.observations);
-    const observationsByCode = new Map<string, FHIR.Observation[]>();
+    const observationsByCode: ByCode<FHIR.Observation> = {};
     for (const observation of Object.values(observations)) {
         for (const code of observation.code.coding ?? []) {
             const obKey = code.system + "|" + code.code;

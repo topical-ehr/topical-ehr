@@ -3,6 +3,7 @@ import { EHRConfig } from "@topical-ehr/fhir-store/config";
 import { EHRPageConfig } from "@topical-ehr/fhir-store/config-provider";
 import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
 import { EditsPanel } from "@topical-ehr/save-changes-panel/EditsPanel";
+import { groupObservations } from "@topical-ehr/timeline/groupObservations";
 import { Timeline, defaultRenderer } from "@topical-ehr/timeline/Timeline";
 import { TopicsColumn } from "@topical-ehr/topics/TopicsColumn";
 import { ConditionsEdit } from "@topical-ehr/topics/edit/ConditionEdit";
@@ -11,6 +12,7 @@ import { NewTopicButton } from "@topical-ehr/topics/edit/NewTopicButton";
 import { PrescriptionsEdit } from "@topical-ehr/topics/edit/PrescriptionsEdit";
 import { SummaryEdit } from "@topical-ehr/topics/edit/SummaryEdit";
 import { TitleEdit } from "@topical-ehr/topics/edit/TitleEdit";
+import { StatusEdit } from "@topical-ehr/topics/edit/StatusEdit";
 import { createTopicsForStandaloneConditionsSaga } from "@topical-ehr/topics/sagas/createTopicsForStandaloneConditions";
 import { ChartsView } from "@topical-ehr/topics/view/ChartsView";
 import { ConditionsView } from "@topical-ehr/topics/view/ConditionView";
@@ -20,6 +22,7 @@ import { SummaryView } from "@topical-ehr/topics/view/SummaryView";
 import { TitleView } from "@topical-ehr/topics/view/TitleView";
 import { TopicHoverButtons } from "@topical-ehr/topics/view/TopicHoverButtons";
 import { Column, ColumnLayout } from "@topical-ehr/ui-elements/layout/ColumnLayout";
+import { FieldGrid } from "@topical-ehr/ui-elements/layout/FieldGrid";
 import { Logo } from "@topical-ehr/ui-elements/layout/Logo";
 import { useParams } from "react-router-dom";
 
@@ -49,7 +52,11 @@ export default function PatientPage() {
                             <TopicHoverButtons />
 
                             <TitleView />
-                            <TitleEdit />
+
+                            <FieldGrid>
+                                <TitleEdit />
+                                <StatusEdit />
+                            </FieldGrid>
 
                             <SummaryView />
                             <SummaryEdit />
@@ -85,7 +92,7 @@ export default function PatientPage() {
                         </Stack>
 
                         <Timeline
-                            groupers={[]}
+                            groupers={[groupObservations]}
                             renderer={defaultRenderer}
                         ></Timeline>
                         {/* <Tile title="">

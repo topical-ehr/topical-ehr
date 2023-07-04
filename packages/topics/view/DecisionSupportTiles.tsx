@@ -1,5 +1,3 @@
-import DOMPurify from "dompurify";
-
 import { useTopicContext } from "../TopicContext";
 import { WarningTile } from "@topical-ehr/ui-elements/WarningTile";
 

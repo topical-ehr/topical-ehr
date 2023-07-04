@@ -1,3 +1,4 @@
+import React from "react";
 import AsyncSelect from "react-select/async";
 import css from "./TopicItemEdit.module.scss";
 import { TopicItemOptionBase, TopicItemStateBase } from "./items/TopicItemBase";

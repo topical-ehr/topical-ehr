@@ -1,6 +1,6 @@
 import { ErrorBoundary } from "@topical-ehr/ui-elements/ErrorBoundary";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import DashboardPage from "./pages/dashboard";
+import DashboardPage from "./pages/DashboardPage";
 import PatientPage from "./pages/PatientPage";
 
 export function App() {

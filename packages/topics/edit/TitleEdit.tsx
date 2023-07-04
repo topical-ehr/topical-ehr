@@ -1,3 +1,4 @@
+import React from "react";
 import * as FHIR from "@topical-ehr/fhir-types";
 import { TextField } from "@topical-ehr/ui-elements/TextField";
 
@@ -27,8 +28,8 @@ export function TitleEdit(props: Props) {
     }
 
     return (
-        <div className={css.horizontalLabel}>
-            <h5>Topic title</h5>
+        <>
+            <div>Topic title</div>
             <TextField
                 label=""
                 errorMessage=""
@@ -36,6 +37,6 @@ export function TitleEdit(props: Props) {
                 onChange={onTitleChanged}
                 className={css.titleTextbox}
             />
-        </div>
+        </>
     );
 }

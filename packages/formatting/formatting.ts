@@ -1,3 +1,4 @@
+import React from "react";
 import * as FHIR from "@topical-ehr/fhir-types";
 import { PatientFormatter } from "./PatientFormatter";
 import { ObservationFormatter } from "./observation/ObservationFormatter";

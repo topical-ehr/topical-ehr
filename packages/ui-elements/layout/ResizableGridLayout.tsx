@@ -1,4 +1,6 @@
+import React from "react";
 import ReactGridLayout, { Responsive, WidthProvider } from "react-grid-layout";
+
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
 interface Props {

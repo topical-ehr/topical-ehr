@@ -1,3 +1,4 @@
+import React from "react";
 import * as VegaTooltip from "vega-tooltip";
 
 import * as FHIR from "@topical-ehr/fhir-types";
@@ -5,10 +6,11 @@ import { useFormatting } from "@topical-ehr/formatting/formatting";
 
 import { ChartMini } from "./ChartMini";
 import css from "./ObservationDisplay.module.scss";
+import { ByCode } from "@topical-ehr/fhir-store";
 
 interface Props {
     observations: FHIR.Observation[];
-    observationsByCode: Map<string, FHIR.Observation[]>;
+    observationsByCode: ByCode<FHIR.Observation>;
 }
 
 export function ObservationDisplay(props: Props) {
@@ -21,7 +23,7 @@ export function ObservationDisplay(props: Props) {
 
         const allObservations = (obToRender.code.coding ?? []).flatMap((code) => {
             const obKey = code.system + "|" + code.code;
-            return observationsByCode.get(obKey) ?? [];
+            return observationsByCode[obKey] ?? [];
         });
         const chartData = allObservations.map((ob) => {
             const formatter = formatting.observation(ob);

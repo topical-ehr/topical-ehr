@@ -102,10 +102,22 @@ function NewNodeFloatingToolbar({ editor }: { editor: LexicalEditor }): JSX.Elem
     }, [editor, updateNewNodeFloatingToolbar]);
 
     return (
-        <div ref={popupRef} className="floating-text-format-popup">
-            <HeadingButton editor={editor} headingSize="h1" />
-            <HeadingButton editor={editor} headingSize="h2" />
-            <HeadingButton editor={editor} headingSize="h3" />
+        <div
+            ref={popupRef}
+            className="floating-text-format-popup"
+        >
+            <HeadingButton
+                editor={editor}
+                headingSize="h1"
+            />
+            <HeadingButton
+                editor={editor}
+                headingSize="h2"
+            />
+            <HeadingButton
+                editor={editor}
+                headingSize="h3"
+            />
             <CommandButton
                 editor={editor}
                 icon="bullet-list"
@@ -133,12 +145,7 @@ function HeadingButton(props: { editor: LexicalEditor; headingSize: HeadingTagTy
     );
 }
 
-function CreateNodeButton(props: {
-    editor: LexicalEditor;
-    label: string;
-    icon: string;
-    newNode: () => ElementNode;
-}) {
+function CreateNodeButton(props: { editor: LexicalEditor; label: string; icon: string; newNode: () => ElementNode }) {
     return (
         <button
             onClick={() => {
@@ -162,7 +169,7 @@ function CommandButton(props: {
     editor: LexicalEditor;
     label: string;
     icon: string;
-    command: LexicalCommand;
+    command: LexicalCommand<string | null>;
 }) {
     return (
         <button
@@ -193,9 +200,7 @@ function useNewNodeFloatingToolbar(editor: LexicalEditor): JSX.Element | null {
 
             if (
                 nativeSelection !== null &&
-                (!$isRangeSelection(selection) ||
-                    rootElement === null ||
-                    !rootElement.contains(nativeSelection.anchorNode))
+                (!$isRangeSelection(selection) || rootElement === null || !rootElement.contains(nativeSelection.anchorNode))
             ) {
                 setShow(false);
                 return;

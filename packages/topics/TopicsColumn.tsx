@@ -1,3 +1,4 @@
+import React from "react";
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import * as R from "remeda";
@@ -103,7 +104,12 @@ function TopicGroup(props: TopicGroupProps) {
             {!collapsed && (
                 <div>
                     {props.topics.map((t) => (
-                        <TopicViewOrEdit topic={t}>{props.children}</TopicViewOrEdit>
+                        <TopicViewOrEdit
+                            key={t.id}
+                            topic={t}
+                        >
+                            {props.children}
+                        </TopicViewOrEdit>
                     ))}
                 </div>
             )}
@@ -134,7 +140,7 @@ function TopicViewOrEdit(props: { topic: Topic; children: React.ReactNode[] }) {
     return (
         <TopicContext.Provider value={{ editing, topic }}>
             <div
-                className={css.topic}
+                className={`${css.topic} ${editing ? "" : css.enable_hover_buttons}`}
                 onClick={onClick}
                 onDoubleClick={onDoubleClick}
             >

@@ -1,3 +1,4 @@
+import React from "react";
 import { DefaultButton, PrimaryButton, Stack } from "@fluentui/react";
 import { actions, useFHIR, useDispatch } from "@topical-ehr/fhir-store";
 import { ChangesPanel } from "./ChangesPanel";

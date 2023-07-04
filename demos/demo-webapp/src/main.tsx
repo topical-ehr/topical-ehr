@@ -3,11 +3,14 @@ import ReactDOM from "react-dom/client";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import { App } from "./App.tsx";
 import "./index.css";
+import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 
 initializeIcons(/* optional base url */);
 
 ReactDOM.createRoot(document.getElementById("app") as HTMLElement).render(
     <React.StrictMode>
-        <App />
+        <FluentProvider theme={webLightTheme}>
+            <App />
+        </FluentProvider>
     </React.StrictMode>
 );

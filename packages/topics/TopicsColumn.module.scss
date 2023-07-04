@@ -4,6 +4,10 @@
 
     padding: 0.5em;
     margin-bottom: 1em;
+}
+
+.enable_hover_buttons {
+    /* do hover effect when not editing */
 
     :global(.hover-buttons) {
         display: none;

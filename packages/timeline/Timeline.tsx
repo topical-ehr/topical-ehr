@@ -1,3 +1,4 @@
+import React from "react";
 import { DateTime } from "luxon";
 
 import { FhirResources, State, useFHIR } from "@topical-ehr/fhir-store";
@@ -50,7 +51,8 @@ export function Timeline(props: Props) {
 
     const items = React.useMemo(() => {
         const items = groupers.flatMap((g) => g(resources));
-        items.sort((a, b) => a.dateTime.localeCompare(b.dateTime));
+        // newest first
+        items.sort((a, b) => b.dateTime.localeCompare(a.dateTime));
         return items;
     }, [groupers, resources]);
 
