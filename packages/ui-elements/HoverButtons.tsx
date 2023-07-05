@@ -11,7 +11,7 @@ interface ButtonProps {
 export function HoverButtons(props: ContainerProps) {
     return (
         <div
-            className="hover-buttons"
+            className={"hover-buttons " + css.grid}
             style={{ float: "right" }}
         >
             {props.children}

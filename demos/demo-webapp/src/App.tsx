@@ -18,7 +18,7 @@ export function App() {
                         element={<PatientPage />}
                     />
                     <Route
-                        path="/edit"
+                        path="/edit-fhir"
                         element={<FhirEditorPage />}
                     />
                 </Routes>

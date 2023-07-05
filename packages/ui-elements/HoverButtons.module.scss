@@ -1,8 +1,10 @@
+.grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-items: end;
+    row-gap: 0.38em;
+}
+
 .iconButton {
     margin-left: 1em;
-
-    // fill: lightgrey;
-    // &:hover {
-    //     fill: unset;
-    // }
 }

@@ -1,4 +1,18 @@
 import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
+import {
+    HEADING,
+    UNORDERED_LIST,
+    CHECK_LIST,
+    ORDERED_LIST,
+    HIGHLIGHT,
+    BOLD_ITALIC_STAR,
+    BOLD_ITALIC_UNDERSCORE,
+    BOLD_STAR,
+    BOLD_UNDERSCORE,
+    ITALIC_STAR,
+    ITALIC_UNDERSCORE,
+} from "@lexical/markdown";
+import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
@@ -90,10 +104,25 @@ export function RichTextEditor(props: Props) {
         <LexicalComposer initialConfig={initialConfig}>
             <div className="editor-container">
                 <RichTextPlugin
+                    ErrorBoundary={LexicalErrorBoundary}
                     contentEditable={<ContentEditable className="editor-root-div" />}
                     placeholder={placeholder}
                 />
-                <MarkdownShortcutPlugin />
+                <MarkdownShortcutPlugin
+                    transformers={[
+                        HEADING,
+                        UNORDERED_LIST,
+                        CHECK_LIST,
+                        ORDERED_LIST,
+                        HIGHLIGHT,
+                        BOLD_ITALIC_STAR,
+                        BOLD_ITALIC_UNDERSCORE,
+                        BOLD_STAR,
+                        BOLD_UNDERSCORE,
+                        ITALIC_STAR,
+                        ITALIC_UNDERSCORE,
+                    ]}
+                />
                 <HistoryPlugin />
                 <ListPlugin />
                 <CheckListPlugin />
@@ -102,7 +131,7 @@ export function RichTextEditor(props: Props) {
                 <GetEditorInstancePlugin {...props} />
                 <OnChangePlugin
                     onChange={onChange}
-                    ignoreInitialChange
+                    // ignoreInitialChange
                     ignoreSelectionChange
                 />
             </div>

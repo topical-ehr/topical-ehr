@@ -20,7 +20,7 @@ import {
     SELECTION_CHANGE_COMMAND,
 } from "lexical";
 import { HeadingTagType, $createHeadingNode } from "@lexical/rich-text";
-import { $wrapLeafNodesInElements } from "@lexical/selection";
+import { $wrapNodes } from "@lexical/selection";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -152,7 +152,7 @@ function CreateNodeButton(props: { editor: LexicalEditor; label: string; icon: s
                 props.editor.update(() => {
                     const selection = $getSelection();
                     if ($isRangeSelection(selection)) {
-                        $wrapLeafNodesInElements(selection, props.newNode);
+                        $wrapNodes(selection, props.newNode);
                     }
                 });
             }}
@@ -174,7 +174,7 @@ function CommandButton(props: {
     return (
         <button
             onClick={() => {
-                props.editor.dispatchCommand(props.command, undefined);
+                props.editor.dispatchCommand(props.command, null);
             }}
             className="popup-item spaced"
             title={props.label}

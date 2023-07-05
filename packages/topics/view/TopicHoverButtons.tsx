@@ -24,12 +24,22 @@ export function TopicHoverButtons(props: Props) {
         <div>
             <HoverButtons>
                 {!editing && <HoverButtonEdit onClick={onEdit} />}
-                {editing && <HoverButtonDelete onClick={onDelete} />}
                 {editing && (
-                    <HoverButtonUndo
-                        onClick={onUndo}
-                        title="Undo all edits"
-                    />
+                    <>
+                        <HoverButtonDelete onClick={onDelete} />
+                        <HoverButtonUndo
+                            onClick={onUndo}
+                            title="Undo all edits"
+                        />
+                        <div />
+                        <a
+                            target="_blank"
+                            style={{ fontSize: "large" }}
+                            href={`/edit-fhir?fhirUrl=${encodeURIComponent("Composition/" + context.topic.composition.id)}`}
+                        >
+                            🔥
+                        </a>
+                    </>
                 )}
             </HoverButtons>
         </div>

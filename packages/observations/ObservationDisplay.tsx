@@ -1,5 +1,4 @@
 import React from "react";
-import * as VegaTooltip from "vega-tooltip";
 
 import * as FHIR from "@topical-ehr/fhir-types";
 import { useFormatting } from "@topical-ehr/formatting/formatting";
@@ -51,7 +50,6 @@ export function ObservationDisplay(props: Props) {
                     <ChartMini
                         renderer="svg"
                         data={{ main: chartData }}
-                        tooltip={new VegaTooltip.Handler().call}
                     />
                 </span>
             </React.Fragment>
