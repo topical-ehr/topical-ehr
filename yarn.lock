@@ -1974,7 +1974,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@griffel/react@npm:^1.0.0, @griffel/react@npm:^1.5.7":
+"@griffel/react@npm:1.5.10, @griffel/react@npm:^1.0.0, @griffel/react@npm:^1.5.7":
   version: 1.5.10
   resolution: "@griffel/react@npm:1.5.10"
   dependencies:
@@ -2658,6 +2658,7 @@ __metadata:
   dependencies:
     "@fluentui/react-components": 9.25.1
     "@fluentui/react-icons": 2.0.204
+    "@griffel/react": 1.5.10
     "@topical-ehr/fhir-store": "workspace:*"
     "@topical-ehr/fhir-types": "workspace:*"
     "@topical-ehr/formatting": "workspace:*"
@@ -2665,9 +2666,11 @@ __metadata:
     "@topical-ehr/rich-text-editor": "workspace:*"
     "@topical-ehr/ui-elements": "workspace:*"
     "@types/luxon": 2.3.1
+    "@types/react": 18.2.14
     dompurify: ^2.3.10
     luxon: 2.3.2
     react: 18.2.0
+    react-hook-form: 7.45.1
   languageName: unknown
   linkType: soft
 
@@ -5874,6 +5877,15 @@ __metadata:
     react: ">= 16.3.0"
     react-dom: ">= 16.3.0"
   checksum: f56c8c452acd9588edf1dc6996a4ea14d9f669d77f6b2ebd50146eaeeb9325c83f5ca44b66bac2b8c24f9cb2ec7ed49396350435991255c3b31e21b8a2e3d243
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:7.45.1":
+  version: 7.45.1
+  resolution: "react-hook-form@npm:7.45.1"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: 3abe1dcf449a3d438b4e5403d93d1502f6dab05afd5c5215f0fc88a32f3d06e7f4b77bee75479359c22a418af6ea0f52711478c73773cb5fd0f43da50669aa17
   languageName: node
   linkType: hard
 

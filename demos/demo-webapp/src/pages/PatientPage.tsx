@@ -1,8 +1,10 @@
-import { DefaultButton, Stack } from "@fluentui/react";
+import { Stack } from "@fluentui/react";
 import { EHRConfig } from "@topical-ehr/fhir-store/config";
 import { EHRPageConfig } from "@topical-ehr/fhir-store/config-provider";
 import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
 import { EditsPanel } from "@topical-ehr/save-changes-panel/EditsPanel";
+import { TimelinePanelButton } from "@topical-ehr/timeline/buttons/TimelinePanelButton";
+import { AddObsPanel } from "@topical-ehr/timeline/panels/AddObsPanel";
 import { groupNotes } from "@topical-ehr/timeline/groupNotes";
 import { groupObservations } from "@topical-ehr/timeline/groupObservations";
 import { Timeline, defaultRenderer } from "@topical-ehr/timeline/Timeline";
@@ -82,15 +84,19 @@ export default function PatientPage() {
                             horizontal
                             tokens={{ childrenGap: 10 }}
                         >
-                            <DefaultButton
+                            <TimelinePanelButton
                                 text="💓 Obs"
-                                onClick={() => {}}
+                                tooltip="Add obs"
+                                panel="add-obs"
                             />
-                            <DefaultButton
+                            <TimelinePanelButton
                                 text="💊 Meds"
-                                onClick={() => {}}
+                                tooltip="Record meds"
+                                panel="record-meds"
                             />
                         </Stack>
+
+                        <AddObsPanel />
 
                         <Timeline
                             groupers={[groupNotes, groupObservations]}

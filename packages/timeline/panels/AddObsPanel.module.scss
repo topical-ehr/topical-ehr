@@ -1,0 +1,21 @@
+.panel {
+    margin-top: 1em;
+    border: 1px solid grey;
+
+    padding: 1em;
+
+    h3 {
+        margin-top: 0;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        column-gap: 1em;
+        row-gap: 0.4em;
+    }
+
+    button {
+        margin-top: 2em;
+    }
+}

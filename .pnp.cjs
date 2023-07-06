@@ -466,7 +466,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],\
       [\
         "@fluentui/react-components",\
-        "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:9.25.1"\
+        "virtual:663548ec47c2de1a85e3fa309013db0c39a5a7c656b349d1866de259fbfc440630477b4735a754a82d666874b84a577d6555ce452c97689125372cffab1a4d54#npm:9.25.1"\
       ],\
       [\
         "@fluentui/react-context-selector",\
@@ -498,7 +498,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],\
       [\
         "@fluentui/react-icons",\
-        "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"\
+        "virtual:e64b9be8b50271e168a54001d317a9a3a5a4313929e7f1fb970515b2d659919817343ee829bc817ee81ebb080a79a740fbe01db9a30db2d3720d2dd8472dd335#npm:2.0.204"\
       ],\
       [\
         "@fluentui/react-image",\
@@ -3936,15 +3936,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-accordion", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.22"],\
             ["@fluentui/react-aria", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.3.26"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -4054,14 +4054,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-alert", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.0-beta.57"],\
             ["@fluentui/react-avatar", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.5.11"],\
             ["@fluentui/react-button", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.22"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -4128,9 +4128,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-aria", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.3.26"],\
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -4277,17 +4277,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-avatar", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.5.11"],\
             ["@fluentui/react-badge", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-popover", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.5"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
             ["@fluentui/react-tooltip", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.22"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -4389,14 +4389,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-badge-virtual-0631279f45/0/cache/@fluentui-react-badge-npm-9.1.19-8651e850a4-6a3aff8bc0.zip/node_modules/@fluentui/react-badge/",\
           "packageDependencies": [\
             ["@fluentui/react-badge", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -4505,15 +4505,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-button", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.22"],\
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
             ["@fluentui/react-aria", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.3.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -4612,13 +4612,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-card", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.20"],\
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -4726,16 +4726,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-checkbox", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-label", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -4863,16 +4863,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-portal", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.1"],\
             ["@fluentui/react-positioning", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.3"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -4929,7 +4929,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-provider", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.8"],\
             ["@fluentui/react-radio", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
             ["@fluentui/react-select", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.20"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-skeleton", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.8"],\
             ["@fluentui/react-slider", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
             ["@fluentui/react-spinbutton", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.20"],\
@@ -4945,11 +4945,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-toolbar", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
             ["@fluentui/react-tooltip", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.22"],\
             ["@fluentui/react-tree", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.0-beta.24"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
             ["@fluentui/react-virtualizer", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.0-alpha.26"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -5229,9 +5229,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-context-selector-virtual-2d1759248e/0/cache/@fluentui-react-context-selector-npm-9.1.26-8e2fbb2dc3-06c3f3434a.zip/node_modules/@fluentui/react-context-selector/",\
           "packageDependencies": [\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -5374,16 +5374,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
             ["@fluentui/react-aria", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.3.26"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-portal", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.1"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -5478,13 +5478,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-divider-virtual-df78e2d169/0/cache/@fluentui-react-divider-npm-9.2.19-04cae4e20b-fd9e59260e.zip/node_modules/@fluentui/react-divider/",\
           "packageDependencies": [\
             ["@fluentui/react-divider", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.19"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -5583,13 +5583,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-drawer", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.0-beta.7"],\
             ["@fluentui/react-dialog", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.5.15"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -5691,14 +5691,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-label", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -5846,21 +5846,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-icons-virtual-913ca8c832/0/cache/@fluentui-react-icons-npm-2.0.204-ef35a09527-1964b0d988.zip/node_modules/@fluentui/react-icons/",\
-          "packageDependencies": [\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
-            ["@types/react", null],\
-            ["react", "npm:18.2.0"],\
-            ["tslib", "npm:2.5.3"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204", {\
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-icons-virtual-167a334479/0/cache/@fluentui-react-icons-npm-2.0.204-ef35a09527-1964b0d988.zip/node_modules/@fluentui/react-icons/",\
           "packageDependencies": [\
@@ -5973,13 +5958,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-image-virtual-688882e346/0/cache/@fluentui-react-image-npm-9.1.16-bb43a75002-97aa11421b.zip/node_modules/@fluentui/react-image/",\
           "packageDependencies": [\
             ["@fluentui/react-image", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.16"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -6083,16 +6068,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-infobutton-virtual-c45dcf2950/0/cache/@fluentui-react-infobutton-npm-9.0.0-beta.40-63ad75bc78-eba2c42724.zip/node_modules/@fluentui/react-infobutton/",\
           "packageDependencies": [\
             ["@fluentui/react-infobutton", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.0-beta.40"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-label", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
             ["@fluentui/react-popover", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.5"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -6191,13 +6176,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-input", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.4.20"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -6226,21 +6211,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
             ["@swc/helpers", "npm:0.4.14"],\
             ["@types/react", "npm:18.2.14"],\
-            ["react", "npm:18.2.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-jsx-runtime-virtual-d5a3bdae31/0/cache/@fluentui-react-jsx-runtime-npm-9.0.0-alpha.10-018438ee60-b01f74a8dc.zip/node_modules/@fluentui/react-jsx-runtime/",\
-          "packageDependencies": [\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
             ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
@@ -6346,13 +6316,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-label-virtual-0dfb5b88dd/0/cache/@fluentui-react-label-npm-9.1.19-05c00fa1bd-4713a25d4e.zip/node_modules/@fluentui/react-label/",\
           "packageDependencies": [\
             ["@fluentui/react-label", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -6454,14 +6424,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-link", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.1"],\
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -6592,17 +6562,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
             ["@fluentui/react-aria", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.3.26"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-portal", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.1"],\
             ["@fluentui/react-positioning", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.3"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -6716,10 +6686,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/priority-overflow", "npm:9.1.1"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -6826,13 +6796,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-persona", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.21"],\
             ["@fluentui/react-avatar", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.5.11"],\
             ["@fluentui/react-badge", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -6960,16 +6930,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
             ["@fluentui/react-aria", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.3.26"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-portal", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.1"],\
             ["@fluentui/react-positioning", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.3"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -7068,12 +7038,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-portal-virtual-98e7999915/0/cache/@fluentui-react-portal-npm-9.3.1-e5628cba31-b8d89678fe.zip/node_modules/@fluentui/react-portal/",\
           "packageDependencies": [\
             ["@fluentui/react-portal", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.1"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null],\
@@ -7170,12 +7140,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-positioning", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.3"],\
             ["@floating-ui/dom", "npm:1.4.3"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -7274,13 +7244,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-progress", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.20"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -7381,15 +7351,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-provider-virtual-75f360fd36/0/cache/@fluentui-react-provider-npm-9.7.8-eddf941fb0-d0a2f74763.zip/node_modules/@fluentui/react-provider/",\
           "packageDependencies": [\
             ["@fluentui/react-provider", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.8"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
             ["@griffel/core", "npm:1.12.2"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -7509,16 +7479,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-radio", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-label", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -7624,14 +7594,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-select", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.20"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -7675,21 +7645,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-theme", "npm:9.1.9"],\
             ["@swc/helpers", "npm:0.4.14"],\
             ["@types/react", "npm:18.2.11"],\
-            ["react", "npm:18.2.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-shared-contexts-virtual-6c872aa030/0/cache/@fluentui-react-shared-contexts-npm-9.6.0-76897a374c-e5d46c6171.zip/node_modules/@fluentui/react-shared-contexts/",\
-          "packageDependencies": [\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
-            ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
             ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
@@ -7784,13 +7739,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-skeleton", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.8"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -7892,14 +7847,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-slider", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -8005,14 +7960,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-spinbutton", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.20"],\
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -8110,14 +8065,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-spinner-virtual-8a109fde99/0/cache/@fluentui-react-spinner-npm-9.2.6-1e1529af42-855e2a30b9.zip/node_modules/@fluentui/react-spinner/",\
           "packageDependencies": [\
             ["@fluentui/react-spinner", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.6"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-label", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -8225,16 +8180,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-switch", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-label", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.19"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -8358,16 +8313,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-avatar", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.5.11"],\
             ["@fluentui/react-checkbox", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-radio", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -8481,14 +8436,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-tabs", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.23"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["@types/scheduler", null],\
             ["react", "npm:18.2.0"],\
@@ -8590,12 +8545,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-tabster-virtual-e01f23f833/0/cache/@fluentui-react-tabster-npm-9.10.0-3ee47eca7b-be58d7675a.zip/node_modules/@fluentui/react-tabster/",\
           "packageDependencies": [\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["keyborg", "npm:2.0.0"],\
             ["react", "npm:18.2.0"],\
@@ -8692,13 +8647,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-text-virtual-3a0dcaf716/0/cache/@fluentui-react-text-npm-9.3.16-b4b524d22c-155ae7dd07.zip/node_modules/@fluentui/react-text/",\
           "packageDependencies": [\
             ["@fluentui/react-text", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.16"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -8797,13 +8752,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-textarea", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.20"],\
             ["@fluentui/react-field", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.10"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -8925,20 +8880,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-toast", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.2"],\
             ["@fluentui/react-aria", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.3.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-portal", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.1"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null],\
-            ["react-transition-group", "virtual:c4ad818a5f3a6e1175b0b4e7fe966387d0a08c2d98e11b341758db345e4b2baf85d2f502b5483f875611edb0f0500873296b4bfa388eddd959a037562375ef71#npm:4.4.5"]\
+            ["react-transition-group", "virtual:62f536946fddff270978b6cf60ccc3b0bd5a098a26a321ad36917bc950f2c11fa9e45af7064644b08687ab1ab017d4fa0b2881f0af8b4f070d070ffb660eb269#npm:4.4.5"]\
           ],\
           "packagePeers": [\
             "@types/react-dom",\
@@ -9048,15 +9003,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-button", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.22"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
             ["@fluentui/react-divider", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.19"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-radio", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.1.23"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -9161,15 +9116,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fluentui/react-tooltip", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.2.22"],\
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-portal", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.1"],\
             ["@fluentui/react-positioning", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.7.3"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -9293,16 +9248,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/react-avatar", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.5.11"],\
             ["@fluentui/react-button", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.22"],\
             ["@fluentui/react-context-selector", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.1.26"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
             ["@fluentui/react-portal", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.3.1"],\
-            ["@fluentui/react-shared-contexts", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.6.0"],\
+            ["@fluentui/react-shared-contexts", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.6.0"],\
             ["@fluentui/react-tabster", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.0"],\
             ["@fluentui/react-theme", "npm:9.1.9"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -9346,21 +9301,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@fluentui/keyboard-keys", "npm:9.0.3"],\
             ["@swc/helpers", "npm:0.4.14"],\
             ["@types/react", "npm:18.2.11"],\
-            ["react", "npm:18.2.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-utilities-virtual-ee6ae6fd34/0/cache/@fluentui-react-utilities-npm-9.10.1-a8c4342c3d-d430823186.zip/node_modules/@fluentui/react-utilities/",\
-          "packageDependencies": [\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@fluentui/keyboard-keys", "npm:9.0.3"],\
-            ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
             ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
@@ -9445,11 +9385,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@fluentui-react-virtualizer-virtual-27eddd7730/0/cache/@fluentui-react-virtualizer-npm-9.0.0-alpha.26-3b3cd8fbf6-bd73d8c7f3.zip/node_modules/@fluentui/react-virtualizer/",\
           "packageDependencies": [\
             ["@fluentui/react-virtualizer", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.0.0-alpha.26"],\
-            ["@fluentui/react-jsx-runtime", "virtual:912b0efdc12d15b14ae23a3a6314d1ff60bb272f190fa8d4ad4c62cc25c111697e89a2589498a5749f41f03a3ff7cc43c5a19481442848eec2d93f080d8b6392#npm:9.0.0-alpha.10"],\
-            ["@fluentui/react-utilities", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:9.10.1"],\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
+            ["@fluentui/react-jsx-runtime", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:9.0.0-alpha.10"],\
+            ["@fluentui/react-utilities", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:9.10.1"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@swc/helpers", "npm:0.4.14"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\
@@ -9758,21 +9698,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@griffel/react", "virtual:7306df844d6aed51cfcbfc02e4fb71c4d77fd830aa4f3b208375b6c0f783a130648f7aaed93616dba19927c3e5885f2c331a83edbf185305b1d39d26b1f20e80#npm:1.5.10"],\
             ["@griffel/core", "npm:1.12.2"],\
             ["@types/react", "npm:18.2.11"],\
-            ["react", "npm:18.2.0"],\
-            ["tslib", "npm:2.5.3"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10", {\
-          "packageLocation": "./.yarn/__virtual__/@griffel-react-virtual-f3598e9b62/0/cache/@griffel-react-npm-1.5.10-b79d1abff2-8b3f92e107.zip/node_modules/@griffel/react/",\
-          "packageDependencies": [\
-            ["@griffel/react", "virtual:f14205dc20530f693cda05a77aa03a505d0e02057ed699ed3677e52ef401302a1ec2b36a5adb1a4f1e64b673ad08582aecdf3dcdb1f220714f5a9cd4fcc34eee#npm:1.5.10"],\
-            ["@griffel/core", "npm:1.12.2"],\
-            ["@types/react", null],\
             ["react", "npm:18.2.0"],\
             ["tslib", "npm:2.5.3"]\
           ],\
@@ -10839,7 +10764,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@topical-ehr/timeline", "workspace:packages/timeline"],\
             ["@fluentui/react-components", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:9.25.1"],\
-            ["@fluentui/react-icons", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:2.0.204"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
+            ["@griffel/react", "virtual:603959dc8ead5f5f5f8de623db615c3defbd65b2fc9f62a812f26de1400bc4664a7950e184e555c64d1d91b842b1611746d553ec1da087070fe83c4c978fbdcc#npm:1.5.10"],\
             ["@topical-ehr/fhir-store", "workspace:packages/fhir-store"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/formatting", "workspace:packages/formatting"],\
@@ -10847,9 +10773,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@topical-ehr/rich-text-editor", "workspace:packages/rich-text-editor"],\
             ["@topical-ehr/ui-elements", "workspace:packages/ui-elements"],\
             ["@types/luxon", "npm:2.3.1"],\
+            ["@types/react", "npm:18.2.14"],\
             ["dompurify", "npm:2.4.5"],\
             ["luxon", "npm:2.3.2"],\
-            ["react", "npm:18.2.0"]\
+            ["react", "npm:18.2.0"],\
+            ["react-hook-form", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:7.45.1"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -14634,6 +14562,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["react-hook-form", [\
+        ["npm:7.45.1", {\
+          "packageLocation": "./.yarn/cache/react-hook-form-npm-7.45.1-9eaaa3061a-3abe1dcf44.zip/node_modules/react-hook-form/",\
+          "packageDependencies": [\
+            ["react-hook-form", "npm:7.45.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:7.45.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-hook-form-virtual-de702d8287/0/cache/react-hook-form-npm-7.45.1-9eaaa3061a-3abe1dcf44.zip/node_modules/react-hook-form/",\
+          "packageDependencies": [\
+            ["react-hook-form", "virtual:1b18708269bb54518b2809af37ae75350f6a0acd1a823f62356722cf1022a838e1e81f2dcbfa52a6f7b42ae615d983aaa22a38c077c690f98e2e1ed1899673c8#npm:7.45.1"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react-is", [\
         ["npm:16.13.1", {\
           "packageLocation": "./.yarn/cache/react-is-npm-16.13.1-a9b9382b4f-f7a19ac349.zip/node_modules/react-is/",\
@@ -14884,6 +14834,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prop-types", "npm:15.8.1"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:663548ec47c2de1a85e3fa309013db0c39a5a7c656b349d1866de259fbfc440630477b4735a754a82d666874b84a577d6555ce452c97689125372cffab1a4d54#npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["virtual:62f536946fddff270978b6cf60ccc3b0bd5a098a26a321ad36917bc950f2c11fa9e45af7064644b08687ab1ab017d4fa0b2881f0af8b4f070d070ffb660eb269#npm:4.4.5", {\
+          "packageLocation": "./.yarn/__virtual__/react-transition-group-virtual-52e5526143/0/cache/react-transition-group-npm-4.4.5-98ea4ef96e-7560284010.zip/node_modules/react-transition-group/",\
+          "packageDependencies": [\
+            ["react-transition-group", "virtual:62f536946fddff270978b6cf60ccc3b0bd5a098a26a321ad36917bc950f2c11fa9e45af7064644b08687ab1ab017d4fa0b2881f0af8b4f070d070ffb660eb269#npm:4.4.5"],\
+            ["@babel/runtime", "npm:7.22.5"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["@types/react-dom", null],\
+            ["dom-helpers", "npm:5.2.1"],\
+            ["loose-envify", "npm:1.4.0"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", null]\
           ],\
           "packagePeers": [\
             "@types/react-dom",\
@@ -15919,7 +15890,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/use-disposable-virtual-91e357424d/0/cache/use-disposable-npm-1.0.1-b48c2b4f4b-6e7f688f56.zip/node_modules/use-disposable/",\
           "packageDependencies": [\
             ["use-disposable", "virtual:98e79999156d9e6c87a62dfa2d2a9fa5eb5feb4c8a53dda897ce07f9c7d2158e5198018cfe803ff7ce09576fbd225cf6d1fb23141d65ae6808556d0f967a032f#npm:1.0.1"],\
-            ["@types/react", null],\
+            ["@types/react", "npm:18.2.14"],\
             ["@types/react-dom", null],\
             ["react", "npm:18.2.0"],\
             ["react-dom", null]\

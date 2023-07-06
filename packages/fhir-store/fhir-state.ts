@@ -111,6 +111,9 @@ export interface State {
     patientId: string;
 
     saveState: SaveState | null;
+
+    // misc
+    showingPanels: Record<string, boolean>;
 }
 
 export function initialState(config?: EHRConfig): State {
@@ -127,6 +130,8 @@ export function initialState(config?: EHRConfig): State {
 
         // set by preloadedState
         patientId: config?.patientId ?? "",
+
+        showingPanels: {},
     };
 }
 
@@ -211,6 +216,13 @@ export const fhirSlice = createSlice({
 
         setObservationsByCode(state, action: PayloadAction<ByCode<FHIR.Observation>>) {
             state.byCode.observations = action.payload;
+        },
+
+        showPanel(state, { payload }: PayloadAction<string>) {
+            state.showingPanels[payload] = true;
+        },
+        hidePanel(state, { payload }: PayloadAction<string>) {
+            state.showingPanels[payload] = false;
         },
     },
 });
