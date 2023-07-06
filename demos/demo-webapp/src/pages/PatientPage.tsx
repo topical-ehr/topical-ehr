@@ -4,7 +4,7 @@ import { EHRPageConfig } from "@topical-ehr/fhir-store/config-provider";
 import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
 import { EditsPanel } from "@topical-ehr/save-changes-panel/EditsPanel";
 import { TimelinePanelButton } from "@topical-ehr/timeline/buttons/TimelinePanelButton";
-import { AddObsPanel } from "@topical-ehr/timeline/panels/AddObsPanel";
+import { RecordObsPanel, RecordObsPanelId } from "@topical-ehr/timeline/panels/RecordObsPanel";
 import { groupNotes } from "@topical-ehr/timeline/groupNotes";
 import { groupObservations } from "@topical-ehr/timeline/groupObservations";
 import { Timeline, defaultRenderer } from "@topical-ehr/timeline/Timeline";
@@ -86,8 +86,8 @@ export default function PatientPage() {
                         >
                             <TimelinePanelButton
                                 text="💓 Obs"
-                                tooltip="Add obs"
-                                panel="add-obs"
+                                tooltip="Record obs"
+                                panel={RecordObsPanelId}
                             />
                             <TimelinePanelButton
                                 text="💊 Meds"
@@ -96,7 +96,7 @@ export default function PatientPage() {
                             />
                         </Stack>
 
-                        <AddObsPanel />
+                        <RecordObsPanel />
 
                         <Timeline
                             groupers={[groupNotes, groupObservations]}

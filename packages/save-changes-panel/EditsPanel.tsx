@@ -1,6 +1,7 @@
 import React from "react";
 
 import * as FHIR from "@topical-ehr/fhir-types";
+import { Checkbox } from "@fluentui/react-components";
 import { DefaultButton, PrimaryButton, Stack } from "@fluentui/react";
 import { actions, useFHIR, useDispatch } from "@topical-ehr/fhir-store";
 import { RichTextEditor } from "@topical-ehr/rich-text-editor";
@@ -70,6 +71,10 @@ export function EditsPanel(props: Props) {
                     onChangedHTML={setNote}
                 />
             </div>
+            <Checkbox
+                label="Minor"
+                title="Minor notes are hidden in the timeline (by default)"
+            />
             <ChangesPanel />
             <Stack
                 horizontal

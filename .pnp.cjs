@@ -10737,6 +10737,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@topical-ehr/save-changes-panel", "workspace:packages/save-changes-panel"],\
             ["@fluentui/react", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:8.67.2"],\
+            ["@fluentui/react-components", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:9.25.1"],\
+            ["@fluentui/react-icons", "virtual:84242360cd459227a3724bd4feb446688baab86edc4cb840589f1b1c65358c5177d3988170fd89991519b52d8a5bc498d4a6cf0b3e21fd0924ac783de0958ff2#npm:2.0.204"],\
             ["@topical-ehr/fhir-store", "workspace:packages/fhir-store"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/rich-text-editor", "workspace:packages/rich-text-editor"],\

@@ -1,26 +1,14 @@
+import { Button, Field, Input, InputProps, makeStyles, mergeClasses, tokens } from "@fluentui/react-components";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import {
-    makeStyles,
-    tokens,
-    Input,
-    InputProps,
-    Button,
-    Menu,
-    MenuButton,
-    MenuItem,
-    MenuItemLink,
-    MenuList,
-    MenuPopover,
-    MenuTrigger,
-    Tooltip,
-    Field,
-} from "@fluentui/react-components";
 
-const styles = makeStyles({
+export const styles = makeStyles({
     horizontal: {
         display: "flex",
         columnGap: tokens.spacingHorizontalM,
+    },
+    vgap: {
+        marginTop: tokens.spacingVerticalM,
     },
 
     textboxNarrow: {
@@ -29,20 +17,26 @@ const styles = makeStyles({
     textboxWide: {
         width: "6em",
     },
+    textboxWideWide: {
+        width: "7em",
+    },
 });
 
-import css from "./AddObsPanel.module.scss";
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
+import css from "./RecordObsPanel.module.scss";
+import { DateTimePicker } from "./DateTimePicker";
 
 interface Props {}
 
-export function AddObsPanel(props: Props) {
-    const showing = useFHIR((s) => s.fhir.showingPanels["add-obs"]);
+export const RecordObsPanelId = "record-obs";
+
+export function RecordObsPanel(props: Props) {
+    const showing = useFHIR((s) => s.fhir.showingPanels[RecordObsPanelId]);
     const dispatch = useAppDispatch();
 
     function onHide() {
-        dispatch(actions.hidePanel("add-obs"));
+        dispatch(actions.hidePanel(RecordObsPanelId));
     }
 
     if (!showing) {
@@ -52,7 +46,7 @@ export function AddObsPanel(props: Props) {
     return (
         <div className={css.panel}>
             <h3>Record obs</h3>
-            <ObsForm onCancel={onHide}>
+            <ObsForm onHide={onHide}>
                 <BloodPressure />
                 <HeartRate />
                 <RespiratoryRate />
@@ -63,28 +57,36 @@ export function AddObsPanel(props: Props) {
     );
 }
 
-function ObsForm(props: React.PropsWithChildren & { onCancel?: () => void }) {
+function ObsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
     const methods = useForm();
-    const onSubmit = (data) => console.log("RHF submit", data);
+    const onHandleSubmit = (data) => console.log("RHF submit", data);
 
     const classes = styles();
 
+    function onSubmit() {
+        alert("TODO");
+    }
+
     return (
         <FormProvider {...methods}>
-            <form onSubmit={methods.handleSubmit(onSubmit)}>
-                <div className={css.grid}>{props.children}</div>
+            <form onSubmit={methods.handleSubmit(onHandleSubmit)}>
+                <div className={css.grid}>
+                    <DateTimePicker />
+                    {props.children}
+                </div>
 
-                <div className={classes.horizontal}>
+                <div className={mergeClasses(classes.horizontal, classes.vgap)}>
                     <Button
                         appearance="primary"
                         size="small"
+                        onClick={onSubmit}
                     >
                         Record
                     </Button>
                     <div />
                     <Button
                         appearance="secondary"
-                        onClick={props.onCancel}
+                        onClick={props.onHide}
                         size="small"
                     >
                         Cancel
@@ -98,14 +100,6 @@ function ObsForm(props: React.PropsWithChildren & { onCancel?: () => void }) {
 function BloodPressure() {
     const classes = styles();
 
-    const onChange: InputProps["onChange"] = (ev, data) => {
-        // The controlled input pattern can be used for other purposes besides validation,
-        // but validation is a useful example
-        if (data.value.length <= 20) {
-            setValue(data.value);
-        }
-    };
-
     return (
         <>
             <label>BP</label>
@@ -118,6 +112,10 @@ function BloodPressure() {
                 <Input
                     size="small"
                     className={classes.textboxNarrow}
+                />
+                <Input
+                    size="small"
+                    placeholder="comment"
                 />
             </div>
         </>
@@ -146,14 +144,22 @@ function SingleNumber(props: { units?: string; label: string; maxValue: number }
     };
 
     return (
-        <Field validationMessage={error}>
-            <Input
-                size="small"
-                className={props.units ? classes.textboxWide : classes.textboxNarrow}
-                contentAfter={props.units}
-                onChange={onChange}
-            />
-        </Field>
+        <div className={classes.horizontal}>
+            <Field validationMessage={error}>
+                <Input
+                    size="small"
+                    className={props.units ? classes.textboxWide : classes.textboxNarrow}
+                    contentAfter={props.units}
+                    onChange={onChange}
+                />
+            </Field>
+            <Field>
+                <Input
+                    size="small"
+                    placeholder="comment"
+                />
+            </Field>
+        </div>
     );
 }
 
@@ -201,4 +207,12 @@ function PainScore() {
             maxValue={20}
         />
     );
+}
+
+export function localTimeISO() {
+    let d = new Date();
+    // UTC --> local - thanks to https://stackoverflow.com/a/72581185
+    d.setTime(d.getTime() - d.getTimezoneOffset() * 60000);
+
+    return d.toISOString().replace(/:[\d\.]+Z$/, "");
 }

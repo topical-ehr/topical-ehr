@@ -3,6 +3,8 @@
     "packageManager": "yarn@3.6.0",
     "dependencies": {
         "@fluentui/react": "8.67.2",
+        "@fluentui/react-components": "9.25.1",
+        "@fluentui/react-icons": "2.0.204",
         "@topical-ehr/fhir-store": "workspace:*",
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/rich-text-editor": "workspace:*",
