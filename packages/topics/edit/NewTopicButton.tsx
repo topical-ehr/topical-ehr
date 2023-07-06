@@ -4,6 +4,7 @@ import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 
 import * as FHIR from "@topical-ehr/fhir-types";
+import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
 
 interface Props {}
 
@@ -16,7 +17,7 @@ export function NewTopicButton(props: Props) {
         const newComposition = FHIR.Composition.new({
             subject: { reference: `Patient/${patientId}` },
             status: "preliminary",
-            type: { text: "topic" },
+            type: Codes.Composition.Type.Topic,
             date: now,
             title: "New topic",
             section: [{}],

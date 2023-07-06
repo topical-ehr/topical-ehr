@@ -90,6 +90,10 @@ function TopicGroup(props: TopicGroupProps) {
         setCollapsed(!collapsed);
     }
 
+    if (props.topics.length === 0) {
+        return null;
+    }
+
     return (
         <div>
             {props.title && (

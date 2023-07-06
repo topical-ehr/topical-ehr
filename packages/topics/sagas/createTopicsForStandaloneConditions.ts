@@ -4,9 +4,9 @@ import * as FHIR from "@topical-ehr/fhir-types";
 import { RootState } from "@topical-ehr/fhir-store/store";
 import { actions } from "@topical-ehr/fhir-store";
 import { defaultFormattingContext } from "@topical-ehr/formatting/formatting";
+import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
 
 import { loadTopics } from "../Topic";
-import { Codes } from "../fhirCodes";
 
 export function* createTopicsForStandaloneConditionsSaga() {
     const resources = yield* select((s: RootState) => s.fhir.resources);

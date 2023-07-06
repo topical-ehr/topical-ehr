@@ -11,6 +11,8 @@ import icon from "/icons/pill.svg";
 import { Config } from "../../TopicsConfig";
 
 export class PrescriptionTopicItemState extends TopicItemStateBase {
+    log = logsFor("ConditionOption");
+
     doesApply(resource: FHIR.Resource | null): boolean {
         return resource?.resourceType === "MedicationRequest";
     }
@@ -29,13 +31,33 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
     }
 
     getOptions() {
+        const options: TopicItemOptionBase[] = [];
+
         const { MR } = this;
         const coding = MR.medicationCodeableConcept?.coding?.[0];
         if (coding) {
-            return [new MedicationOption(coding)];
-        } else {
-            return [];
+            options.push(new MedicationOption(coding));
         }
+
+        const dosage = MR.dosageInstruction?.[0];
+        const doseAndRate = dosage?.doseAndRate?.[0];
+        if (doseAndRate) {
+            const { doseQuantity, doseRange } = doseAndRate;
+
+            if (doseQuantity) {
+                options.push(new DosageOption(doseQuantity, formatDose(doseQuantity)));
+            }
+            if (doseRange) {
+                options.push(new DosageOption(doseRange, formatDoseRange(doseRange)));
+            }
+        }
+
+        const timing = dosage?.timing;
+        if (timing) {
+            options.push(new FrequencyOption(timing.code?.text ?? "(no text)", timing));
+        }
+
+        return options;
     }
 
     async getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]> {
@@ -45,7 +67,6 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
         }
 
         if (!this.MR.dosageInstruction?.[0].doseAndRate) {
-            console.debug("need dose");
             // need a dose
             // examples
             //   [25 mg] [twice a day]
@@ -53,7 +74,7 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
             //   [10-20 mg] [over 24 hours] [subcut]
 
             const productDoses = await this.getDosesFor(medication);
-            console.debug("need dose", { productDoses, medication });
+            this.log.debug("need dose", { productDoses, medication });
             const userEnteredDoses = new Set<string>();
 
             if (isNumeric(input) || isNumericRange(input)) {
@@ -67,9 +88,7 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
                     }
                 }
             }
-            function throwError(msg: string): never {
-                throw new Error(msg);
-            }
+
             const options = [...userEnteredDoses, ...productDoses].map(
                 (dose) =>
                     new DosageOption(
@@ -258,6 +277,9 @@ function parseDose(dose: string): FHIR.Quantity | null {
         return null;
     }
 }
+function formatDose(dose: FHIR.Quantity): string {
+    return `${dose.value} ${dose.unit}`;
+}
 function parseDoseRange(dose: string): FHIR.Range | null {
     const match = dose.match(/\d+\s*-\d+\s*\w+/)?.[0];
     if (match) {
@@ -277,10 +299,20 @@ function parseDoseRange(dose: string): FHIR.Range | null {
         return null;
     }
 }
+function formatDoseRange(dose: FHIR.Range) {
+    if (dose.high.unit === dose.low.unit) {
+        return `${dose.low.value}-${dose.high.value} ${dose.low.unit}`;
+    } else {
+        return `${dose.low.value} ${dose.low.unit} - ${dose.high.value} ${dose.high.unit}`;
+    }
+}
 
 function isNumeric(str: string) {
     return parseInt(str, 10) + "" == str;
 }
 function isNumericRange(str: string) {
     return !!str.trim().match(/^\d+\s*-\s*\d+$/);
+}
+function throwError(msg: string): never {
+    throw new Error(msg);
 }

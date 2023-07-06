@@ -84,7 +84,7 @@ interface Annotation {
     time: FhirDateTime;
 }
 
-interface Coding {
+export interface Coding {
     system?: string;
     version?: string;
     code?: string;

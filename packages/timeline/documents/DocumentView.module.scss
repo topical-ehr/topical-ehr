@@ -1,0 +1,32 @@
+.document > div {
+    padding: 0.1em;
+
+    /* nested lists - remove double markers */
+    ul li:has(ul), ol li:has(ol) {
+       list-style: none;
+    }
+}
+
+.document {
+    h4 {
+        margin: 0;
+    }
+
+    :global(.editor-container) {
+        padding-top: 1em;
+    }
+
+    & > button {
+        float: right;
+        display: none;
+    }
+    &:hover > button {
+        // show when hovering
+        display: inherit;
+    }
+}
+
+.buttons {
+    display: flex;
+    column-gap: 1em;
+}

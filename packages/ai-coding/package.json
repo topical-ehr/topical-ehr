@@ -1,0 +1,22 @@
+{
+    "name": "@topical-ehr/ai-coding",
+    "packageManager": "yarn@3.6.0",
+    "type": "module",
+    "dependencies": {
+        "fastify": "4.19.2",
+        "openai": "3.3.0"
+    },
+    "devDependencies": {
+        "@types/node": "20.4.0",
+        "typescript": "5.1.3"
+    },
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "server": "tsc && node ./out/server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": ""
+}

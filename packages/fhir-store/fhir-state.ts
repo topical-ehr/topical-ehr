@@ -10,6 +10,7 @@ import { FhirResourceById } from "@topical-ehr/fhir-types";
 
 import type { RootState } from "./store";
 import { EHRConfig } from "./config";
+import { StatusEdit } from "@topical-ehr/topics/edit/StatusEdit";
 
 interface QueryRequest {
     query: string;
@@ -185,14 +186,20 @@ export const fhirSlice = createSlice({
             state.saveState = action.payload;
 
             if (state.saveState.state === "saved") {
+                // commit edits
                 for (const key of Object.keys(state.edits)) {
                     // @ts-ignore
                     const edited = state.edits[key];
                     for (const resource of Object.values(edited)) {
                         // @ts-ignore
                         setResource(state.resources, resource);
+                        // @ts-ignore
+                        setResource(state.resourcesFromServer, resource);
                     }
                 }
+
+                // clear edits
+                state.edits = emptyResources;
             }
         },
         undoAll(state, action: PayloadAction<void>) {

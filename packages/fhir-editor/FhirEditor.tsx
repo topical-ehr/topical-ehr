@@ -224,11 +224,11 @@ export function FhirEditor(props: Props) {
             </Button>
             <div></div>
 
-            {lastHttpStatus && lastHttpStatus >= 300 && (
+            {lastHttpStatus && lastHttpStatus != 200 && (
                 <>
                     <label></label>
                     <Alert
-                        intent="error"
+                        intent={lastHttpStatus >= 300 ? "error" : "success"}
                         className={classes.twoColumns}
                     >
                         HTTP {lastHttpStatus}

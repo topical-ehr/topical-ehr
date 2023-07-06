@@ -12,7 +12,7 @@ const styles = makeStyles({
 
         rowGap: tokens.spacingVerticalS,
         columnGap: tokens.spacingHorizontalXS,
-        ...shorthands.margin(tokens.spacingVerticalM),
+        // ...shorthands.margin(tokens.spacingVerticalM),
     },
 });
 

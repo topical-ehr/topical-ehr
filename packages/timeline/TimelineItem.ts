@@ -13,5 +13,9 @@ export interface TimelineItem {
         | {
               type: "observation";
               observation: FHIR.Observation;
+          }
+        | {
+              type: "progress-note";
+              document: FHIR.Composition;
           };
 }

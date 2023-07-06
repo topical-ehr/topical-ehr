@@ -1,6 +1,7 @@
 import * as FHIR from "@topical-ehr/fhir-types";
 import { FhirResourceById } from "@topical-ehr/fhir-types";
-import { Codes } from "./fhirCodes";
+import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
+import { hasCode } from "@topical-ehr/fhir-types/FhirUtils";
 
 export interface Topic {
     id: string;
@@ -29,12 +30,14 @@ export function loadTopics(
     compositions: FhirResourceById<FHIR.Composition>,
     prescriptions: FhirResourceById<FHIR.MedicationRequest>
 ): Topic[] {
-    return Object.values(compositions).map((c) => ({
-        id: c.id,
-        composition: c,
-        conditions: conditionsFromComposition(c, conditions),
-        prescriptions: prescriptionsFromComposition(c, prescriptions),
-    }));
+    return Object.values(compositions)
+        .filter((composition) => hasCode(composition.type, Codes.Composition.Type.Topic.coding[0]))
+        .map((composition) => ({
+            id: composition.id,
+            composition: composition,
+            conditions: conditionsFromComposition(composition, conditions),
+            prescriptions: prescriptionsFromComposition(composition, prescriptions),
+        }));
 }
 
 export function activeStatus(topic: Topic) {

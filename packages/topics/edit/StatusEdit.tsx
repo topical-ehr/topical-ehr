@@ -1,12 +1,11 @@
-import React from "react";
+import { Dropdown, DropdownProps, Option } from "@fluentui/react-components";
 import * as FHIR from "@topical-ehr/fhir-types";
-import { Dropdown, makeStyles, Option, shorthands, useId, DropdownProps } from "@fluentui/react-components";
 
-import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import { actions } from "@topical-ehr/fhir-store";
-import { useTopicContext } from "../TopicContext";
+import { useAppDispatch } from "@topical-ehr/fhir-store/store";
+import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
 import { activeStatus } from "../Topic";
-import { Codes } from "../fhirCodes";
+import { useTopicContext } from "../TopicContext";
 
 interface Props {}
 

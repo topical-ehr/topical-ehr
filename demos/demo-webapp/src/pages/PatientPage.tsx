@@ -3,6 +3,7 @@ import { EHRConfig } from "@topical-ehr/fhir-store/config";
 import { EHRPageConfig } from "@topical-ehr/fhir-store/config-provider";
 import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
 import { EditsPanel } from "@topical-ehr/save-changes-panel/EditsPanel";
+import { groupNotes } from "@topical-ehr/timeline/groupNotes";
 import { groupObservations } from "@topical-ehr/timeline/groupObservations";
 import { Timeline, defaultRenderer } from "@topical-ehr/timeline/Timeline";
 import { TopicsColumn } from "@topical-ehr/topics/TopicsColumn";
@@ -92,31 +93,13 @@ export default function PatientPage() {
                         </Stack>
 
                         <Timeline
-                            groupers={[groupObservations]}
+                            groupers={[groupNotes, groupObservations]}
                             renderer={defaultRenderer}
-                        ></Timeline>
-                        {/* <Tile title="">
-          </Tile>
-          <Tile title="">
-            <ObservationGroups patientId={patientId} />
-          </Tile>
-          <Tile title="All results">
-            <ObservationList.All
-              fhirQuery={`Observation?subject=Patient/${patientId}`}
-            />
-          </Tile> */}
+                        />
                     </Column>
                     <Column width="20%">
                         <EditsPanel />
                     </Column>
-
-                    {/* <Column>
-          <Tile title="🔥 FHIR">
-            <FHIR.JSON path={`Patient/${patientId}/$everything`} />
-          </Tile>
-        </Column> */}
-
-                    <div key="item-4"></div>
                 </ColumnLayout>
             </EHRPageConfig>
         </div>

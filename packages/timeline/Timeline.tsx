@@ -6,6 +6,7 @@ import { TimelineItem } from "./TimelineItem";
 
 import css from "./Timeline.module.scss";
 import { ObservationDisplay } from "@topical-ehr/observations/ObservationDisplay";
+import { DocumentView } from "./documents/DocumentView";
 
 export type Grouper = (resources: FhirResources) => TimelineItem[];
 export type Renderer = (item: TimelineItem, byCode: State["byCode"]) => React.ReactNode;
@@ -21,7 +22,7 @@ export function defaultRenderer(item: TimelineItem, byCode: State["byCode"]) {
             return (
                 <div>
                     <div
-                        className={css.title}
+                        className={css.group_title}
                         title={item.item.titleFull}
                     >
                         {item.item.title}
@@ -40,6 +41,9 @@ export function defaultRenderer(item: TimelineItem, byCode: State["byCode"]) {
                     observationsByCode={byCode.observations}
                 />
             );
+
+        case "progress-note":
+            return <DocumentView document={item.item.document} />;
     }
 }
 

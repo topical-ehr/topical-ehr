@@ -58,7 +58,10 @@ function getClosestPoint(target: SVGElement, mouseX: number) {
         return target;
     }
 
-    const svg = target.ownerSVGElement!;
+    const svg = target.ownerSVGElement;
+    if (!svg) {
+        return;
+    }
     const paths = svg.querySelectorAll("path");
 
     let closestPath: SVGPathElement | null = null;

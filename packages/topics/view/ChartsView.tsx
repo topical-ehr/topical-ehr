@@ -1,3 +1,4 @@
+import * as FHIR from "@topical-ehr/fhir-types";
 import { ObservationDisplay } from "@topical-ehr/observations/ObservationDisplay";
 import { useTopicContext } from "../TopicContext";
 import { useFHIR } from "@topical-ehr/fhir-store";
@@ -26,13 +27,32 @@ function ChartView(props: Props) {
     const observations = Object.values(allObservations).filter((ob) =>
         ob.code.coding?.some((c) => c.system === loinc && c.code === loincCode)
     );
+    const newest = newestObservation(observations);
+
+    if (!newest) {
+        return null;
+    }
 
     return (
         <div>
             <ObservationDisplay
-                observations={observations}
+                observations={[newest]}
                 observationsByCode={observationsByCode}
             />
         </div>
     );
+}
+
+function newestObservation(observations: FHIR.Observation[]) {
+    let newestDate: string | null | undefined = null;
+    let newestOb: FHIR.Observation | null = null;
+
+    for (const ob of observations) {
+        if (!newestDate || (ob.effectiveDateTime && ob.effectiveDateTime.localeCompare(newestDate) > 0)) {
+            newestDate = ob.effectiveDateTime;
+            newestOb = ob;
+        }
+    }
+
+    return newestOb;
 }

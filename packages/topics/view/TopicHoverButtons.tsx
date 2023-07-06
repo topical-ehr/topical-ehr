@@ -1,6 +1,12 @@
 import { actions } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
-import { HoverButtonDelete, HoverButtonEdit, HoverButtonUndo, HoverButtons } from "@topical-ehr/ui-elements/HoverButtons";
+import {
+    HoverButtonDelete,
+    HoverButtonEdit,
+    HoverButtonFHIR,
+    HoverButtonUndo,
+    HoverButtons,
+} from "@topical-ehr/ui-elements/HoverButtons";
 import { useTopicContext } from "../TopicContext";
 
 interface Props {}
@@ -32,13 +38,7 @@ export function TopicHoverButtons(props: Props) {
                             title="Undo all edits"
                         />
                         <div />
-                        <a
-                            target="_blank"
-                            style={{ fontSize: "large" }}
-                            href={`/edit-fhir?fhirUrl=${encodeURIComponent("Composition/" + context.topic.composition.id)}`}
-                        >
-                            🔥
-                        </a>
+                        <HoverButtonFHIR fhirUrl={`Composition/${context.topic.composition.id}`} />
                     </>
                 )}
             </HoverButtons>
