@@ -15,10 +15,10 @@ export default defineConfig({
                 target: "http://localhost:5454",
                 secure: false,
             },
-            "/db_snapshots": {
-                target: "http://0.0.0.0:8000",
-                secure: false,
-            },
+            // "/db_snapshots": {
+            //     target: "http://0.0.0.0:8000",
+            //     secure: false,
+            // },
         },
 
         headers: {

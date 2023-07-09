@@ -1,14 +1,15 @@
 import React from "react";
-import { useSearchParams } from "react-router-dom";
+
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+
+import "./monacoWorkers";
+
 import { SelectProps, makeStyles, shorthands, tokens } from "@fluentui/react-components";
 import { Select } from "@fluentui/react-components";
 import { Alert } from "@fluentui/react-components/unstable";
 import { Input, InputProps } from "@fluentui/react-components";
 import { Button } from "@fluentui/react-components";
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
-import "./monacoWorkers";
-import { CandleLiteWrapper, RemoteCandleLiteWrapper } from "@topical-ehr/fhir-server-in-browser/CandleLite";
 import { FhirServerConfigData, FhirServerMethods, fhirUp } from "@topical-ehr/fhir-store/fhir-server";
 
 const styles = makeStyles({
@@ -142,7 +143,9 @@ export function FhirEditorWithServer({ server }: { server: FhirServerMethods }) 
         editorCell.current = editor;
     }, [editor]);
 
-    const [urlParams, setUrlParams] = useSearchParams();
+    const urlParams = new URLSearchParams(window.location.search);
+    // broken in prod builds...:
+    // const [urlParams, setUrlParams] = useSearchParams();
 
     const [method, setMethod] = React.useState("GET");
     const onMethodChanged: SelectProps["onChange"] = (event, data) => {
@@ -167,7 +170,9 @@ export function FhirEditorWithServer({ server }: { server: FhirServerMethods }) 
     }, []);
 
     async function sendRequest(fhirUrl: string) {
-        setUrlParams({ fhirUrl });
+        const url = new URL(window.location.href);
+        url.searchParams.set("fhirUrl", fhirUrl);
+        history.pushState({ fhirUrl }, "", url);
 
         function loadIntoEditor(json: string) {
             const model = monaco.editor.createModel(formatJson(json), "json");
