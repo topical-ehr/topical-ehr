@@ -93,9 +93,9 @@ export function EditsPanel(props: Props) {
                     onChangedHTML={setNote}
                 />
             </div>
-            <div title="Minor notes are hidden in the timeline (by default)">
+            {/* <div title="Minor notes are hidden in the timeline (by default)">
                 <Checkbox label="Minor" />
-            </div>
+            </div> */}
             <ChangesPanel />
             <Stack
                 horizontal
