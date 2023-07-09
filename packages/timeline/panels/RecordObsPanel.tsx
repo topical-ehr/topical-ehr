@@ -1,31 +1,13 @@
 import { Button, Field, Input, InputProps, makeStyles, mergeClasses, tokens } from "@fluentui/react-components";
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
-
-export const styles = makeStyles({
-    horizontal: {
-        display: "flex",
-        columnGap: tokens.spacingHorizontalM,
-    },
-    vgap: {
-        marginTop: tokens.spacingVerticalM,
-    },
-
-    textboxNarrow: {
-        width: "4em",
-    },
-    textboxWide: {
-        width: "6em",
-    },
-    textboxWideWide: {
-        width: "7em",
-    },
-});
-
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
-import css from "./RecordObsPanel.module.scss";
 import { DateTimePicker } from "./DateTimePicker";
+import { styles, controlSize } from "./styles";
+
+import cssPanel from "./Panel.module.scss";
+import cssObs from "./RecordObsPanel.module.scss";
 
 interface Props {}
 
@@ -44,7 +26,7 @@ export function RecordObsPanel(props: Props) {
     }
 
     return (
-        <div className={css.panel}>
+        <div className={cssPanel.panel}>
             <h3>Record obs</h3>
             <ObsForm onHide={onHide}>
                 <BloodPressure />
@@ -70,7 +52,7 @@ function ObsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
     return (
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onHandleSubmit)}>
-                <div className={css.grid}>
+                <div className={cssObs.grid}>
                     <DateTimePicker />
                     {props.children}
                 </div>
@@ -78,7 +60,7 @@ function ObsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
                 <div className={mergeClasses(classes.horizontal, classes.vgap)}>
                     <Button
                         appearance="primary"
-                        size="small"
+                        size={controlSize}
                         onClick={onSubmit}
                     >
                         Record
@@ -87,7 +69,7 @@ function ObsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
                     <Button
                         appearance="secondary"
                         onClick={props.onHide}
-                        size="small"
+                        size={controlSize}
                     >
                         Cancel
                     </Button>
@@ -105,16 +87,16 @@ function BloodPressure() {
             <label>BP</label>
             <div className={classes.horizontal}>
                 <Input
-                    size="small"
+                    size={controlSize}
                     className={classes.textboxNarrow}
                 />
                 /
                 <Input
-                    size="small"
+                    size={controlSize}
                     className={classes.textboxNarrow}
                 />
                 <Input
-                    size="small"
+                    size={controlSize}
                     placeholder="comment"
                 />
             </div>
@@ -147,7 +129,7 @@ function SingleNumber(props: { units?: string; label: string; maxValue: number }
         <div className={classes.horizontal}>
             <Field validationMessage={error}>
                 <Input
-                    size="small"
+                    size={controlSize}
                     className={props.units ? classes.textboxWide : classes.textboxNarrow}
                     contentAfter={props.units}
                     onChange={onChange}
@@ -155,7 +137,7 @@ function SingleNumber(props: { units?: string; label: string; maxValue: number }
             </Field>
             <Field>
                 <Input
-                    size="small"
+                    size={controlSize}
                     placeholder="comment"
                 />
             </Field>
@@ -207,12 +189,4 @@ function PainScore() {
             maxValue={20}
         />
     );
-}
-
-export function localTimeISO() {
-    let d = new Date();
-    // UTC --> local - thanks to https://stackoverflow.com/a/72581185
-    d.setTime(d.getTime() - d.getTimezoneOffset() * 60000);
-
-    return d.toISOString().replace(/:[\d\.]+Z$/, "");
 }

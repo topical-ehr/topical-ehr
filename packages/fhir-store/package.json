@@ -3,7 +3,7 @@
     "packageManager": "yarn@3.6.0",
     "dependencies": {
         "@reduxjs/toolkit": "1.8.1",
-        "@topical-ehr/fhir-server-http": "workspace:*",
+        "@topical-ehr/fhir-server-in-browser": "workspace:*",
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/topics": "workspace:*",
         "immer": "9.0.21",
@@ -13,7 +13,8 @@
         "typed-redux-saga": "1.4.0"
     },
     "devDependencies": {
-        "@types/react": "^18.0.0"
+        "@types/react": "^18.0.0",
+        "@types/wicg-file-system-access": "2020.9.6"
     },
     "main": "fhir-state.ts"
 }

@@ -1,8 +1,0 @@
-{
-  "name": "@topical-ehr/fhir-server-http",
-  "packageManager": "yarn@3.6.0",
-  "dependencies": {
-    "@topical-ehr/fhir-types": "workspace:*"
-  },
-  "main": "FhirConnection.ts"
-}

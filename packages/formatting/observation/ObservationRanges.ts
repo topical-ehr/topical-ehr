@@ -1,3 +1,4 @@
+// @ts-ignore
 import rawData from "./ObservationRanges.csv";
 
 interface RawRow {

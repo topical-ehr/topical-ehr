@@ -1,8 +1,6 @@
 .grid {
     display: grid;
-    grid-template-columns: auto 1fr ;
+    grid-template-columns: auto 1fr;
     column-gap: 1em;
     row-gap: 0.4em;
-
-    align-items: center;
 }

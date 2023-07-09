@@ -2458,6 +2458,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sqlite.org/sqlite-wasm@npm:3.42.0-build2":
+  version: 3.42.0-build2
+  resolution: "@sqlite.org/sqlite-wasm@npm:3.42.0-build2"
+  dependencies:
+    comlink: ^4.4.1
+  bin:
+    sqlite-wasm: bin/index.js
+  checksum: 6f73a4f001a49d2a557f3f9d3e6cd7d4722b4cfdf171030c8afa516b5c6edc9b6200122c21222755cccdd50ab7869ba819fe8ecb228b0b10b0dfb7b5a3b76150
+  languageName: node
+  linkType: hard
+
 "@swc/helpers@npm:^0.4.14":
   version: 0.4.14
   resolution: "@swc/helpers@npm:0.4.14"
@@ -2485,11 +2496,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@topical-ehr/candlelite@workspace:*, @topical-ehr/candlelite@workspace:packages/candlelite":
+  version: 0.0.0-use.local
+  resolution: "@topical-ehr/candlelite@workspace:packages/candlelite"
+  languageName: unknown
+  linkType: soft
+
 "@topical-ehr/fhir-editor@workspace:*, @topical-ehr/fhir-editor@workspace:packages/fhir-editor":
   version: 0.0.0-use.local
   resolution: "@topical-ehr/fhir-editor@workspace:packages/fhir-editor"
   dependencies:
     "@fluentui/react-components": 9.25.1
+    "@topical-ehr/fhir-server-in-browser": "workspace:*"
+    "@topical-ehr/fhir-store": "workspace:*"
     "@types/react": 18.2.11
     monaco-editor: 0.39.0
     react: 18.2.0
@@ -2498,19 +2517,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@topical-ehr/fhir-server-http@workspace:*, @topical-ehr/fhir-server-http@workspace:packages/fhir-server-http":
-  version: 0.0.0-use.local
-  resolution: "@topical-ehr/fhir-server-http@workspace:packages/fhir-server-http"
-  dependencies:
-    "@topical-ehr/fhir-types": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
 "@topical-ehr/fhir-server-in-browser@workspace:*, @topical-ehr/fhir-server-in-browser@workspace:packages/fhir-server-in-browser":
   version: 0.0.0-use.local
   resolution: "@topical-ehr/fhir-server-in-browser@workspace:packages/fhir-server-in-browser"
   dependencies:
+    "@sqlite.org/sqlite-wasm": 3.42.0-build2
+    "@topical-ehr/candlelite": "workspace:*"
     "@topical-ehr/fhir-types": "workspace:*"
+    comlink: 4.4.1
   languageName: unknown
   linkType: soft
 
@@ -2519,10 +2533,11 @@ __metadata:
   resolution: "@topical-ehr/fhir-store@workspace:packages/fhir-store"
   dependencies:
     "@reduxjs/toolkit": 1.8.1
-    "@topical-ehr/fhir-server-http": "workspace:*"
+    "@topical-ehr/fhir-server-in-browser": "workspace:*"
     "@topical-ehr/fhir-types": "workspace:*"
     "@topical-ehr/topics": "workspace:*"
     "@types/react": ^18.0.0
+    "@types/wicg-file-system-access": 2020.9.6
     immer: 9.0.21
     react: 18.2.0
     react-redux: 8.0.1
@@ -2623,6 +2638,7 @@ __metadata:
     "@lexical/selection": 0.11.1
     "@lexical/utils": 0.11.1
     "@types/react": ^18.0.0
+    "@types/react-dom": ^18.0.0
     lexical: 0.11.1
     react: 18.2.0
     react-dom: 18.2.0
@@ -2806,7 +2822,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^18.0.11":
+"@types/react-dom@npm:^18.0.0, @types/react-dom@npm:^18.0.11":
   version: 18.2.6
   resolution: "@types/react-dom@npm:18.2.6"
   dependencies:
@@ -2887,6 +2903,13 @@ __metadata:
   version: 8.3.4
   resolution: "@types/uuid@npm:8.3.4"
   checksum: 6f11f3ff70f30210edaa8071422d405e9c1d4e53abbe50fdce365150d3c698fe7bbff65c1e71ae080cbfb8fded860dbb5e174da96fdbbdfcaa3fb3daa474d20f
+  languageName: node
+  linkType: hard
+
+"@types/wicg-file-system-access@npm:2020.9.6":
+  version: 2020.9.6
+  resolution: "@types/wicg-file-system-access@npm:2020.9.6"
+  checksum: 2dbf33ee55684d4ed0607ae4b470e0147806b15ec047563c59d94e6ac13be7bed904cc7eece5e4be7c0d58a4de0b0635089f7cd5b7738372e436c760b0719241
   languageName: node
   linkType: hard
 
@@ -3494,6 +3517,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"comlink@npm:4.4.1, comlink@npm:^4.4.1":
+  version: 4.4.1
+  resolution: "comlink@npm:4.4.1"
+  checksum: 16d58a8f590087fc45432e31d6c138308dfd4b75b89aec0b7f7bb97ad33d810381bd2b1e608a1fb2cf05979af9cbfcdcaf1715996d5fcf77aeb013b6da3260af
+  languageName: node
+  linkType: hard
+
 "commander@npm:2":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
@@ -3821,7 +3851,6 @@ __metadata:
     "@fluentui/react-components": 9.25.1
     "@rollup/plugin-dsv": ^2.0.3
     "@topical-ehr/fhir-editor": "workspace:*"
-    "@topical-ehr/fhir-server-http": "workspace:*"
     "@topical-ehr/fhir-server-in-browser": "workspace:*"
     "@topical-ehr/fhir-store": "workspace:*"
     "@topical-ehr/formatting": "workspace:*"

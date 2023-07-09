@@ -15,7 +15,31 @@ export default defineConfig({
                 target: "http://localhost:5454",
                 secure: false,
             },
+            "/db_snapshots": {
+                target: "http://0.0.0.0:8000",
+                secure: false,
+            },
         },
+
+        headers: {
+            // For OPFS
+            // from https://github.com/tomayac/sqlite-wasm#usage-with-vite
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+        },
+    },
+    preview: {
+        headers: {
+            "Cross-Origin-Opener-Policy": "same-origin",
+            "Cross-Origin-Embedder-Policy": "require-corp",
+        },
+    },
+    build: {
+        minify: false,
+    },
+    optimizeDeps: {
+        // from https://github.com/tomayac/sqlite-wasm#usage-with-vite
+        exclude: ["@sqlite.org/sqlite-wasm"],
     },
     plugins: [react(), dsv()],
 });

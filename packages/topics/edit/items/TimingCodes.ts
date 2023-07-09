@@ -1,4 +1,6 @@
 import * as FHIR from "@topical-ehr/fhir-types";
+
+// @ts-ignore
 import rawData from "./timing-codes.csv";
 
 interface RawRow {

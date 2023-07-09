@@ -13,7 +13,6 @@
         "@fluentui/react": "8.67.2",
         "@fluentui/react-components": "9.25.1",
         "@topical-ehr/fhir-editor": "workspace:*",
-        "@topical-ehr/fhir-server-http": "workspace:*",
         "@topical-ehr/fhir-server-in-browser": "workspace:*",
         "@topical-ehr/fhir-store": "workspace:*",
         "@topical-ehr/formatting": "workspace:*",

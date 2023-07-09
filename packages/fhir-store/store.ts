@@ -5,8 +5,9 @@ import { fork } from "redux-saga/effects";
 
 import { coreFhirSagas, fhirSlice, initialState } from "./fhir-state";
 import { EHRConfig } from "./config";
+import { FhirServerConfigData } from "./fhir-server";
 
-export function createStore(config: EHRConfig) {
+export function createStore(config: EHRConfig, serverConfig: FhirServerConfigData) {
     const sagaMiddleware = createSagaMiddleware();
 
     const store = configureStore({
@@ -14,7 +15,7 @@ export function createStore(config: EHRConfig) {
             fhir: fhirSlice.reducer,
         },
         preloadedState: {
-            fhir: initialState(config),
+            fhir: initialState(config, serverConfig),
         },
         middleware: (getDefaultMiddleware) => [
             ...getDefaultMiddleware({

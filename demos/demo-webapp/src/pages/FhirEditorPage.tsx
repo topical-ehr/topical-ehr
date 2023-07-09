@@ -1,11 +1,11 @@
 import { FhirEditor } from "@topical-ehr/fhir-editor/FhirEditor";
+import { useFhirServerConfig } from "@topical-ehr/fhir-store/fhir-server";
 
-interface Props {}
-
-export function FhirEditorPage(props: Props) {
+export function FhirEditorPage() {
+    const config = useFhirServerConfig();
     return (
         <div>
-            <FhirEditor />
+            <FhirEditor config={config} />
         </div>
     );
 }

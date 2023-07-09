@@ -8,8 +8,8 @@ import { Button } from "@fluentui/react-components";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 import "./monacoWorkers";
-
-interface Props {}
+import { CandleLiteWrapper, RemoteCandleLiteWrapper } from "@topical-ehr/fhir-server-in-browser/CandleLite";
+import { FhirServerConfigData, FhirServerMethods, fhirUp } from "@topical-ehr/fhir-store/fhir-server";
 
 const styles = makeStyles({
     grid: {
@@ -17,6 +17,11 @@ const styles = makeStyles({
         gridTemplateColumns: "auto 8em 1fr",
         ...shorthands.gap(tokens.spacingHorizontalM),
         alignItems: "center",
+    },
+    hButtons: {
+        "& button": {
+            marginRight: tokens.spacingHorizontalM,
+        },
     },
     twoColumns: {
         gridColumnEnd: "span 2",
@@ -31,7 +36,28 @@ const styles = makeStyles({
     },
 });
 
+interface Props {
+    config: FhirServerConfigData;
+}
+
 export function FhirEditor(props: Props) {
+    const [loadedServer, setLoadedServer] = React.useState<FhirServerMethods | null>(null);
+    React.useEffect(() => {
+        async function init() {
+            const server = await fhirUp(props.config);
+            setLoadedServer(server);
+        }
+        init();
+    }, [props.config]);
+
+    if (loadedServer) {
+        return <FhirEditorWithServer server={loadedServer} />;
+    } else {
+        return <div>Loading...</div>;
+    }
+}
+
+export function FhirEditorWithServer({ server }: { server: FhirServerMethods }) {
     const [editor, setEditor] = React.useState<monaco.editor.IStandaloneCodeEditor | null>(null);
 
     // editorCell enables editor to be used in monaco callbacks (editor itself is captured as null)
@@ -72,9 +98,8 @@ export function FhirEditor(props: Props) {
                         console.log({ reference });
 
                         // fetch preview from FHIR server
-                        const url = serverUrl + "/" + reference;
-                        const response = await fetch(url);
-                        let json = await response.text();
+                        const response = await server.doRequest("GET", reference);
+                        let json = response.json;
 
                         const encodedArgs = encodeURIComponent(JSON.stringify(reference));
                         const commandLink = `command:gotoFhirReference?${encodedArgs}`;
@@ -119,16 +144,6 @@ export function FhirEditor(props: Props) {
 
     const [urlParams, setUrlParams] = useSearchParams();
 
-    const [serverType, setServerType] = React.useState("GET");
-    const onServerTypeChanged: SelectProps["onChange"] = (event, data) => {
-        setServerType(data.value);
-    };
-
-    const [serverUrl, setServerUrl] = React.useState(urlParams.get("serverUrl") ?? "/fhir");
-    const onServerUrlChanged: InputProps["onChange"] = (event, data) => {
-        setServerUrl(data.value);
-    };
-
     const [method, setMethod] = React.useState("GET");
     const onMethodChanged: SelectProps["onChange"] = (event, data) => {
         setMethod(data.value);
@@ -141,7 +156,7 @@ export function FhirEditor(props: Props) {
     };
 
     const [lastHttpStatus, setLastHttpStatus] = React.useState<number | null>(null);
-    const [lastHttpHeaders, setLastHttpHeaders] = React.useState<Headers | null>(null);
+    const [lastHttpHeaders, setLastHttpHeaders] = React.useState<[string, string][] | null>(null);
 
     React.useEffect(() => {
         // auto-send when loading (should be a safe GET request)
@@ -152,7 +167,7 @@ export function FhirEditor(props: Props) {
     }, []);
 
     async function sendRequest(fhirUrl: string) {
-        setUrlParams({ serverUrl, fhirUrl });
+        setUrlParams({ fhirUrl });
 
         function loadIntoEditor(json: string) {
             const model = monaco.editor.createModel(formatJson(json), "json");
@@ -160,15 +175,11 @@ export function FhirEditor(props: Props) {
         }
 
         try {
-            const url = serverUrl + "/" + fhirUrl;
-            const response = await fetch(url, {
-                method,
-                body: sendJSON ? editorCell?.current?.getValue() : undefined,
-            });
-            const json = await response.text();
+            const body = sendJSON ? editorCell?.current?.getValue() : undefined;
+            const { json, headers, status } = await server.doRequest(method, fhirUrl, body);
 
-            setLastHttpStatus(response.status);
-            setLastHttpHeaders(response.headers);
+            setLastHttpStatus(status);
+            setLastHttpHeaders(headers);
 
             loadIntoEditor(json);
         } catch (err) {
@@ -182,22 +193,56 @@ export function FhirEditor(props: Props) {
         await sendRequest(fhirUrl);
     };
 
+    async function onLoadSnapshot() {
+        if (!server.loadSnapshot || server.config.type !== "candlelite") {
+            alert("not supported");
+            return;
+        }
+        await server.loadSnapshot(server.config.initialSnapshotUrl);
+    }
+    async function onDownload() {
+        if (!server.export || server.config.type !== "candlelite") {
+            alert("not supported");
+            return;
+        }
+
+        const array = await server.export();
+        const blob = new Blob([array.buffer], { type: "application/x-sqlite3" });
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.href = window.URL.createObjectURL(blob);
+        a.download = server.config.filename;
+        a.addEventListener("click", function () {
+            setTimeout(function () {
+                window.URL.revokeObjectURL(a.href);
+                a.remove();
+            }, 500);
+        });
+        a.click();
+    }
+    async function onClear() {
+        if (!server.clearAll || server.config.type !== "candlelite") {
+            alert("not supported");
+            return;
+        }
+        await server.clearAll();
+    }
+
     const classes = styles();
 
     return (
         <div className={classes.grid}>
             <label>Server</label>
-            <Select
-                value={serverType}
-                onChange={onServerTypeChanged}
-            >
-                <option value="HTTP">HTTP</option>
-                <option value="Browser">Browser</option>
-            </Select>
-            <Input
-                value={serverUrl}
-                onChange={onServerUrlChanged}
-            ></Input>
+            <div>{server.config.type}</div>
+            <div>
+                {server.config.type === "candlelite" && (
+                    <div className={classes.hButtons}>
+                        <Button onClick={onLoadSnapshot}>Load DB ({server.config.initialSnapshotUrl})</Button>
+                        <Button onClick={onDownload}>Download DB ({server.config.filename})</Button>
+                        <Button onClick={onClear}>Clear files</Button>
+                    </div>
+                )}
+            </div>
 
             <label>Request</label>
             <Select
@@ -222,7 +267,7 @@ export function FhirEditor(props: Props) {
             >
                 {sendJSON ? "Send JSON" : "Send"}
             </Button>
-            <div></div>
+            <div />
 
             {lastHttpStatus && lastHttpStatus != 200 && (
                 <>

@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { createStore } from "./store";
 import { EHRConfig } from "./config";
 import { useFHIR } from "./fhir-state";
+import { useFhirServerConfig } from "./fhir-server";
 
 interface Props {
     config: EHRConfig;
@@ -11,9 +12,11 @@ interface Props {
 }
 
 export function EHRPageConfig(props: Props) {
+    const serverConfig = useFhirServerConfig();
+
     const store = React.useMemo(() => {
-        return createStore(props.config);
-    }, [props.config]);
+        return createStore(props.config, serverConfig);
+    }, [props.config, serverConfig]);
 
     return (
         <Provider store={store}>
@@ -27,8 +30,9 @@ export function EHRPageConfig(props: Props) {
  * */
 function Loader(props: { children: React.ReactNode }) {
     const state = useFHIR((s) => s.fhir.queries);
-    const isError = Object.values(state).some((q) => q.state === "error");
-    const isLoading = Object.values(state).some((q) => q.state === "loading" && q.showLoadingScreen);
+    const values = Object.values(state);
+    const isError = values.some((q) => q.state === "error");
+    const isLoading = values.length === 0 || values.some((q) => q.state === "loading" && q.showLoadingScreen);
 
     if (isError) {
         const errors = Object.entries(state)

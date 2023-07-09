@@ -4,13 +4,12 @@ import * as Redux from "react-redux";
 import { fork, put, takeEvery } from "redux-saga/effects";
 import { call, select } from "typed-redux-saga";
 
-import { fetchFHIR, postFHIR } from "@topical-ehr/fhir-server-http";
 import * as FHIR from "@topical-ehr/fhir-types";
 import { FhirResourceById } from "@topical-ehr/fhir-types";
 
 import type { RootState } from "./store";
 import { EHRConfig } from "./config";
-import { StatusEdit } from "@topical-ehr/topics/edit/StatusEdit";
+import { FhirServerConfigData, FhirServerMethods, fhirUp } from "./fhir-server";
 
 interface QueryRequest {
     query: string;
@@ -108,15 +107,17 @@ export interface State {
         observations: ByCode<FHIR.Observation>;
     };
 
-    patientId: string;
-
     saveState: SaveState | null;
+
+    // config
+    patientId: string;
+    serverConfig: FhirServerConfigData;
 
     // misc
     showingPanels: Record<string, boolean>;
 }
 
-export function initialState(config?: EHRConfig): State {
+export function initialState(config: EHRConfig | null, serverConfig: FhirServerConfigData): State {
     return {
         queries: {},
         resources: emptyResources,
@@ -130,6 +131,7 @@ export function initialState(config?: EHRConfig): State {
 
         // set by preloadedState
         patientId: config?.patientId ?? "",
+        serverConfig,
 
         showingPanels: {},
     };
@@ -137,7 +139,7 @@ export function initialState(config?: EHRConfig): State {
 
 export const fhirSlice = createSlice({
     name: "FHIR",
-    initialState: initialState(undefined),
+    initialState: initialState(null, { server: { type: "http", baseUrl: "/fhir" } }),
     reducers: {
         query(state, action: PayloadAction<QueryRequest>) {
             // handled by the saga
@@ -227,7 +229,7 @@ export const fhirSlice = createSlice({
     },
 });
 
-function* onQuerySaga(action: PayloadAction<QueryRequest>) {
+function* onQuerySaga(fhirServer: FhirServerMethods, action: PayloadAction<QueryRequest>) {
     const { query, showLoadingScreen } = action.payload;
     const state = yield* select((s: RootState) => s.fhir.queries[query]);
     if (!state) {
@@ -235,7 +237,7 @@ function* onQuerySaga(action: PayloadAction<QueryRequest>) {
 
         try {
             // Call FHIR server
-            const data: FHIR.Resource = yield* call(fetchFHIR, query);
+            const data: FHIR.Resource = yield* call(fhirServer.fetch, query);
             if (FHIR.isBundle(data)) {
                 yield put(actions.queryLoaded([query, data.entry?.map((e) => e.resource) || []]));
             } else {
@@ -272,7 +274,7 @@ function* updateObservationsByCodeSaga(action: PayloadAction<[string, FHIR.Resou
     yield put(actions.setObservationsByCode(observationsByCode));
 }
 
-function* onSaveSaga(action: PayloadAction<SaveState>) {
+function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveState>) {
     if (action.payload.state !== "save-requested") {
         return;
     }
@@ -293,7 +295,7 @@ function* onSaveSaga(action: PayloadAction<SaveState>) {
 
     try {
         // send transaction to FHIR server
-        const response: FHIR.Resource = yield* call(postFHIR, bundle);
+        const response: FHIR.Resource = yield* call(fhirServer.post, bundle);
         if (FHIR.isBundle(response)) {
             yield put(actions.setSaveState({ state: "saved" }));
         } else {
@@ -306,10 +308,13 @@ function* onSaveSaga(action: PayloadAction<SaveState>) {
 }
 
 export function* coreFhirSagas() {
-    yield takeEvery(actions.query, onQuerySaga);
+    const serverConfig = yield* select((s: RootState) => s.fhir.serverConfig);
+    const fhirServer = yield* call(fhirUp, serverConfig);
+
+    yield takeEvery(actions.query, onQuerySaga, fhirServer);
     yield takeEvery(actions.queryLoaded, updateObservationsByCodeSaga);
 
-    yield takeEvery(actions.setSaveState, onSaveSaga);
+    yield takeEvery(actions.setSaveState, onSaveSaga, fhirServer);
 
     yield fork(loadAllResourcesSaga);
 }

@@ -26,7 +26,7 @@ export class ErrorBoundary extends React.Component<Props, State> {
     render() {
         if (this.state.error) {
             return (
-                <div class={css.error_boundary}>
+                <div className={css.error_boundary}>
                     <h1>Error</h1>
                     <pre>{this.state.error.toString()}</pre>
                 </div>

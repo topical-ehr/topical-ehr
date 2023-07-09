@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button, Field, Input, InputProps } from "@fluentui/react-components";
 
-import { styles, localTimeISO } from "./RecordObsPanel";
+import { styles, controlSize } from "./styles";
 
 export function DateTimePicker(props: {}) {
     const classes = styles();
@@ -18,7 +18,7 @@ export function DateTimePicker(props: {}) {
                 <Field validationMessage={error}>
                     <div className={classes.horizontal}>
                         <Input
-                            size="small"
+                            size={controlSize}
                             // className={classes.textboxWideWide}
                             type="datetime-local"
                             defaultValue={localTimeISO()}
@@ -26,7 +26,7 @@ export function DateTimePicker(props: {}) {
                         />
                         <Button
                             appearance="subtle"
-                            size="small"
+                            size={controlSize}
                         >
                             now
                         </Button>
@@ -35,4 +35,12 @@ export function DateTimePicker(props: {}) {
             </div>
         </>
     );
+}
+
+export function localTimeISO() {
+    let d = new Date();
+    // UTC --> local - thanks to https://stackoverflow.com/a/72581185
+    d.setTime(d.getTime() - d.getTimezoneOffset() * 60000);
+
+    return d.toISOString().replace(/:[\d\.]+Z$/, "");
 }

@@ -5,6 +5,7 @@ import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
 import { EditsPanel } from "@topical-ehr/save-changes-panel/EditsPanel";
 import { TimelinePanelButton } from "@topical-ehr/timeline/buttons/TimelinePanelButton";
 import { RecordObsPanel, RecordObsPanelId } from "@topical-ehr/timeline/panels/RecordObsPanel";
+import { RecordMedsPanel, RecordMedsPanelId } from "@topical-ehr/timeline/panels/RecordMedsPanel";
 import { groupNotes } from "@topical-ehr/timeline/groupNotes";
 import { groupObservations } from "@topical-ehr/timeline/groupObservations";
 import { Timeline, defaultRenderer } from "@topical-ehr/timeline/Timeline";
@@ -97,6 +98,7 @@ export default function PatientPage() {
                         </Stack>
 
                         <RecordObsPanel />
+                        <RecordMedsPanel />
 
                         <Timeline
                             groupers={[groupNotes, groupObservations]}

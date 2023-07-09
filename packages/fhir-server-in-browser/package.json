@@ -2,6 +2,9 @@
     "name": "@topical-ehr/fhir-server-in-browser",
     "packageManager": "yarn@3.6.0",
     "dependencies": {
-        "@topical-ehr/fhir-types": "workspace:*"
+        "@sqlite.org/sqlite-wasm": "3.42.0-build2",
+        "@topical-ehr/candlelite": "workspace:*",
+        "@topical-ehr/fhir-types": "workspace:*",
+        "comlink": "4.4.1"
     }
 }
