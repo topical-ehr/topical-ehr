@@ -1,20 +1,36 @@
-import React from "react";
-import { Button, MenuList, MenuItemCheckbox, makeStyles, tokens, MenuGroup, MenuDivider } from "@fluentui/react-components";
+import { Button, Checkbox, makeStyles, shorthands, tokens } from "@fluentui/react-components";
 import { Alert } from "@fluentui/react-components/unstable";
+import React from "react";
 
 import { useTopicContext } from "../TopicContext";
 
 import { useTopicsConfig } from "../TopicsConfig";
-import { TopicItemEdit } from "./TopicItemEdit";
-import { ConditionTopicItemState } from "./items/ConditionTopicItems";
 
 interface Props {
     apiUrl: string;
 }
 
 const styles = makeStyles({
+    container: {
+        ...shorthands.border("1px", "solid", "orange"),
+        paddingTop: tokens.spacingVerticalM,
+        paddingLeft: tokens.spacingVerticalM,
+        marginBottom: tokens.spacingVerticalM,
+    },
     vspace: {
         marginBottom: tokens.spacingVerticalM,
+    },
+    resultsHeading: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginRight: tokens.spacingHorizontalM,
+        "& a": {
+            fontSize: "large",
+        },
+    },
+    addButton: {
+        ...shorthands.margin(tokens.spacingHorizontalM),
     },
 });
 
@@ -32,19 +48,34 @@ export function ConditionCodingAI(props: Props) {
         return null;
     }
 
+    const { composition } = context.topic;
+    const html = composition?.section?.[0].text?.div ?? "";
+
+    const model = "gpt-4-0613";
+    const systemPrompt =
+        "You are an expert medical coder. " +
+        "Your task is to accurately extract medical diagnoses " +
+        "from the provided text into a JSON array of objects " +
+        "with these properties: original_text, diagnosis_name, diagnosis_icd_code, diagnosis_snomed_code. " +
+        "The diagnosis name is just the SNOMED diagnosis, without acronyms or additional info.";
+
+    const userPrompt = html;
+
+    const editorLink = `/edit-prompt?model=${model}&systemPrompt=${encodeURIComponent(
+        systemPrompt
+    )}&userPrompt=${encodeURIComponent(userPrompt)}`;
+
     async function onSuggest() {
         setBusy(true);
         setSuggestions(null);
         setError("");
 
         try {
-            const { composition } = context.topic;
-            const html = composition?.section?.[0].text?.div ?? "";
-
             const payload = {
-                systemPrompt:
-                    "You are an expert medical coder. Your task is to accurately extract medical diagnoses from the provided text into a JSON array of objects with these properties: original_text, diagnosis_name. The diagnosis name is just the diagnosis, without acronyms or additional info.",
-                userPrompt: html,
+                model,
+                temperature: 0,
+                systemPrompt,
+                userPrompt,
             };
             const response = await fetch(props.apiUrl, {
                 method: "POST",
@@ -78,41 +109,51 @@ export function ConditionCodingAI(props: Props) {
         alert("TODO");
     }
 
+    const modelName = "OpenAI GPT-4";
+
     return (
-        <div className={classes.vspace}>
-            <Button
-                disabled={busy}
-                appearance="secondary"
-                onClick={onSuggest}
-                className={classes.vspace}
-            >
-                🤖 Suggest conditions
-            </Button>
+        <div className={classes.container}>
+            {suggestions === null && (
+                <Button
+                    disabled={busy}
+                    appearance="subtle"
+                    onClick={onSuggest}
+                    className={classes.vspace}
+                >
+                    {!busy ? "🤖 Suggest conditions" : `Waiting for ${modelName}...`}
+                </Button>
+            )}
             {error && <Alert intent="error">{error}</Alert>}
             {suggestions !== null && (
                 <div className={classes.vspace}>
-                    <MenuList>
-                        {suggestions.map((s) => (
-                            <MenuGroup>
-                                <MenuItemCheckbox
-                                    name="suggestion"
-                                    key={s}
-                                    value={s}
-                                >
-                                    {s}
-                                </MenuItemCheckbox>
-                                <MenuDivider />
-                            </MenuGroup>
-                        ))}
-                    </MenuList>
+                    <div className={classes.resultsHeading}>
+                        <p>Conditions from {modelName}:</p>
+                        <a
+                            href={editorLink}
+                            target="_blank"
+                        >
+                            🤖
+                        </a>
+                    </div>
+                    {suggestions.map((s) => (
+                        <div>
+                            <Checkbox
+                                name="suggestion"
+                                key={s}
+                                value={s}
+                                label={s}
+                            />
+                        </div>
+                    ))}
                 </div>
             )}
             {suggestions !== null && suggestions.length > 0 && (
                 <Button
                     appearance="primary"
                     onClick={onAddSuggestions}
+                    className={classes.addButton}
                 >
-                    Add suggestions
+                    Add selected
                 </Button>
             )}
             {suggestions !== null && suggestions.length === 0 && <div>No suggestions</div>}

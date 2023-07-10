@@ -6,6 +6,7 @@ import PatientPage from "./pages/PatientPage";
 import { FhirEditorPage } from "./pages/FhirEditorPage";
 import { TopicsConfig } from "@topical-ehr/topics/TopicsConfig";
 import { searchTerminology } from "@topical-ehr/terminology/FhirTerminology";
+import { PromptEditor } from "@topical-ehr/fhir-editor/PromptEditor";
 
 export function App() {
     return (
@@ -41,6 +42,10 @@ export function App() {
                             <Route
                                 path="/edit-fhir"
                                 element={<FhirEditorPage />}
+                            />
+                            <Route
+                                path="/edit-prompt"
+                                element={<PromptEditor apiUrl="https://ai-server-k6k6b76nja-ts.a.run.app/v1/coding" />}
                             />
                         </Routes>
                     </BrowserRouter>

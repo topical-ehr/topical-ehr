@@ -10721,6 +10721,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@topical-ehr/formatting", "workspace:packages/formatting"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@types/luxon", "npm:2.3.1"],\
+            ["@types/react", "npm:18.2.14"],\
             ["libphonenumber-js", "npm:1.9.52"],\
             ["luxon", "npm:2.3.2"],\
             ["react", "npm:18.2.0"]\

@@ -2591,6 +2591,7 @@ __metadata:
   dependencies:
     "@topical-ehr/fhir-types": "workspace:*"
     "@types/luxon": 2.3.1
+    "@types/react": 18.2.14
     libphonenumber-js: 1.9.52
     luxon: 2.3.2
     react: 18.2.0

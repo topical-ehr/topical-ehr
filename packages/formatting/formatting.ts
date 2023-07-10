@@ -15,8 +15,9 @@ export const defaultFormattingContext = {
         return new PatientFormatter(r);
     },
 };
+type FormattingMethods = typeof defaultFormattingContext;
 
-export const FormattingContext = React.createContext(defaultFormattingContext);
+export const FormattingContext = React.createContext<FormattingMethods>(defaultFormattingContext);
 
 export function useFormatting() {
     return React.useContext(FormattingContext);
