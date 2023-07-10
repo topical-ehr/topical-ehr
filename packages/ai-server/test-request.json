@@ -1,0 +1,5 @@
+{
+    "model": "gpt-3.5-turbo",
+    "systemPrompt": "you are a medical assistant",
+    "userPrompt": "how are you?"
+}

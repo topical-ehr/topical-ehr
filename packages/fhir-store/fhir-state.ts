@@ -108,6 +108,7 @@ export interface State {
     };
 
     saveState: SaveState | null;
+    saveGeneration: number;
 
     // config
     patientId: string;
@@ -125,6 +126,7 @@ export function initialState(config: EHRConfig | null, serverConfig: FhirServerC
         edits: emptyResources,
         deletions: {},
         saveState: null,
+        saveGeneration: 0,
         byCode: {
             observations: {},
         },
@@ -207,6 +209,8 @@ export const fhirSlice = createSlice({
 
                 // clear edits
                 state.edits = emptyResources;
+
+                state.saveGeneration += 1;
             }
         },
         undoAll(state, action: PayloadAction<void>) {

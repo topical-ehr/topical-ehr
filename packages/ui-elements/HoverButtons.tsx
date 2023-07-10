@@ -95,11 +95,11 @@ export function HoverButtonDelete(props: ButtonProps) {
                 >
                     <stop
                         offset="0"
-                        stop-color="#82AFC1"
+                        stopColor="#82AFC1"
                     />
                     <stop
                         offset="1"
-                        stop-color="#2F7889"
+                        stopColor="#2F7889"
                     />
                 </linearGradient>
                 <path
@@ -116,12 +116,12 @@ export function HoverButtonDelete(props: ButtonProps) {
                 >
                     <stop
                         offset=".722"
-                        stop-color="#94D1E0"
+                        stopColor="#94D1E0"
                     />
                     <stop
                         offset="1"
-                        stop-color="#94D1E0"
-                        stop-opacity="0"
+                        stopColor="#94D1E0"
+                        stopOpacity="0"
                     />
                 </radialGradient>
                 <path

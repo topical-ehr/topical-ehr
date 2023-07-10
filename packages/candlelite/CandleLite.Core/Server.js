@@ -13,7 +13,7 @@ import { toUniversalTime, toString as toString_1 } from "../fable_modules/fable-
 import { Statement, insertDeletion, indexQuery, insertResourceVersion, readIsDeletedViaIndex, readVersion, IndexConditions__id, readResourcesViaIndex, insertCounter, updateCounter } from "./SQL.js";
 import { singleton as singleton_1, ofArray, item, length, tail, head, isEmpty } from "../fable_modules/fable-library.4.0.0-theta-018/List.js";
 import { map as map_1, sortWith, findIndex, fill, mapIndexed, equalsWith } from "../fable_modules/fable-library.4.0.0-theta-018/Array.js";
-import { compare, fromInteger, equals as equals_1, fromBits } from "../fable_modules/fable-library.4.0.0-theta-018/Long.js";
+import { fromBits } from "../fable_modules/fable-library.4.0.0-theta-018/Long.js";
 import { resourceType, collectReferences, MetaInfo, resourceId } from "./JSON.js";
 import { containsKey } from "../fable_modules/fable-library.4.0.0-theta-018/Map.js";
 import { conditionsFromUrl } from "./Search.js";
@@ -193,7 +193,7 @@ export function CandleLiteServer__respondWithSingleResource(this$, expectedId, r
     }
     else if (matchValue === 1) {
         const json = toString(item(0, results)[0]);
-        if (equals_1(item(0, results)[1], fromInteger(1, false, 2))) {
+        if (item(0, results)[1] === 1) {
             return CandleLiteServer__raiseOO(this$, 410, new OperationOutcomeCodes(8, []), "deleted");
         }
         else {
@@ -306,7 +306,7 @@ export function CandleLiteServer__checkTypeIdReference_4145CFFB(this$, typeId) {
     const ref = TypeId__get_TypeId(typeId);
     if (!isEmpty(rows)) {
         if (isEmpty(tail(rows))) {
-            if (compare(head(rows)[0], fromInteger(0, false, 2)) > 0) {
+            if (head(rows)[0] > 0) {
                 CandleLiteServer__raiseOO(this$, 404, new OperationOutcomeCodes(8, []), `referenced resource is deleted (${ref})`);
             }
             else {

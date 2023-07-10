@@ -20,8 +20,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "reference": "workspace:demos/demo-webapp"\
       },\
       {\
-        "name": "@topical-ehr/ai-coding",\
-        "reference": "workspace:packages/ai-coding"\
+        "name": "@topical-ehr/ai-server",\
+        "reference": "workspace:packages/ai-server"\
       },\
       {\
         "name": "@topical-ehr/candlelite",\
@@ -91,7 +91,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
     "enableTopLevelFallback": true,\
     "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
     "fallbackExclusionList": [\
-      ["@topical-ehr/ai-coding", ["workspace:packages/ai-coding"]],\
+      ["@topical-ehr/ai-server", ["workspace:packages/ai-server"]],\
       ["@topical-ehr/candlelite", ["workspace:packages/candlelite"]],\
       ["@topical-ehr/fhir-editor", ["workspace:packages/fhir-editor"]],\
       ["@topical-ehr/fhir-server-in-browser", ["workspace:packages/fhir-server-in-browser"]],\
@@ -373,6 +373,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:3.5.0"\
       ],\
       [\
+        "@fastify/cors",\
+        "npm:8.3.0"\
+      ],\
+      [\
         "@fastify/deepmerge",\
         "npm:1.3.0"\
       ],\
@@ -383,6 +387,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "@fastify/fast-json-stringify-compiler",\
         "npm:4.3.0"\
+      ],\
+      [\
+        "@fastify/rate-limit",\
+        "npm:8.0.1"\
       ],\
       [\
         "@floating-ui/core",\
@@ -861,8 +869,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:2.0.0"\
       ],\
       [\
-        "@topical-ehr/ai-coding",\
-        "workspace:packages/ai-coding"\
+        "@topical-ehr/ai-server",\
+        "workspace:packages/ai-server"\
       ],\
       [\
         "@topical-ehr/candlelite",\
@@ -1589,6 +1597,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:4.19.2"\
       ],\
       [\
+        "fastify-plugin",\
+        "npm:4.5.0"\
+      ],\
+      [\
         "fastq",\
         "npm:1.15.0"\
       ],\
@@ -1961,12 +1973,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:1.0.4"\
       ],\
       [\
+        "mnemonist",\
+        "npm:0.39.5"\
+      ],\
+      [\
         "monaco-editor",\
         "npm:0.39.0"\
       ],\
       [\
         "ms",\
-        "npm:2.1.2"\
+        "npm:2.1.3"\
       ],\
       [\
         "nanoid",\
@@ -2011,6 +2027,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "object-assign",\
         "npm:4.1.1"\
+      ],\
+      [\
+        "obliterator",\
+        "npm:2.0.4"\
       ],\
       [\
         "on-exit-leak-free",\
@@ -3530,6 +3550,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@fastify/cors", [\
+        ["npm:8.3.0", {\
+          "packageLocation": "./.yarn/cache/@fastify-cors-npm-8.3.0-6f830323f3-f487b5a882.zip/node_modules/@fastify/cors/",\
+          "packageDependencies": [\
+            ["@fastify/cors", "npm:8.3.0"],\
+            ["fastify-plugin", "npm:4.5.0"],\
+            ["mnemonist", "npm:0.39.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@fastify/deepmerge", [\
         ["npm:1.3.0", {\
           "packageLocation": "./.yarn/cache/@fastify-deepmerge-npm-1.3.0-72eb1f634c-33ec927905.zip/node_modules/@fastify/deepmerge/",\
@@ -3554,6 +3585,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@fastify/fast-json-stringify-compiler", "npm:4.3.0"],\
             ["fast-json-stringify", "npm:5.7.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@fastify/rate-limit", [\
+        ["npm:8.0.1", {\
+          "packageLocation": "./.yarn/cache/@fastify-rate-limit-npm-8.0.1-b5415b7c9e-939a5801ed.zip/node_modules/@fastify/rate-limit/",\
+          "packageDependencies": [\
+            ["@fastify/rate-limit", "npm:8.0.1"],\
+            ["fastify-plugin", "npm:4.5.0"],\
+            ["ms", "npm:2.1.3"],\
+            ["tiny-lru", "npm:11.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -10586,11 +10629,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@topical-ehr/ai-coding", [\
-        ["workspace:packages/ai-coding", {\
-          "packageLocation": "./packages/ai-coding/",\
+      ["@topical-ehr/ai-server", [\
+        ["workspace:packages/ai-server", {\
+          "packageLocation": "./packages/ai-server/",\
           "packageDependencies": [\
-            ["@topical-ehr/ai-coding", "workspace:packages/ai-coding"],\
+            ["@topical-ehr/ai-server", "workspace:packages/ai-server"],\
+            ["@fastify/cors", "npm:8.3.0"],\
+            ["@fastify/rate-limit", "npm:8.0.1"],\
             ["@types/node", "npm:20.4.0"],\
             ["fastify", "npm:4.19.2"],\
             ["openai", "npm:3.3.0"],\
@@ -12964,6 +13009,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["fastify-plugin", [\
+        ["npm:4.5.0", {\
+          "packageLocation": "./.yarn/cache/fastify-plugin-npm-4.5.0-c81347eaa5-3cc36a43ec.zip/node_modules/fastify-plugin/",\
+          "packageDependencies": [\
+            ["fastify-plugin", "npm:4.5.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["fastq", [\
         ["npm:1.15.0", {\
           "packageLocation": "./.yarn/cache/fastq-npm-1.15.0-1013f6514e-0170e6bfcd.zip/node_modules/fastq/",\
@@ -13987,6 +14041,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["mnemonist", [\
+        ["npm:0.39.5", {\
+          "packageLocation": "./.yarn/cache/mnemonist-npm-0.39.5-cbd4ee161e-6669d687a4.zip/node_modules/mnemonist/",\
+          "packageDependencies": [\
+            ["mnemonist", "npm:0.39.5"],\
+            ["obliterator", "npm:2.0.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["monaco-editor", [\
         ["npm:0.39.0", {\
           "packageLocation": "./.yarn/cache/monaco-editor-npm-0.39.0-d239deb36c-6d906c5f07.zip/node_modules/monaco-editor/",\
@@ -14136,6 +14200,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/object-assign-npm-4.1.1-1004ad6dec-fcc6e4ea8c.zip/node_modules/object-assign/",\
           "packageDependencies": [\
             ["object-assign", "npm:4.1.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["obliterator", [\
+        ["npm:2.0.4", {\
+          "packageLocation": "./.yarn/cache/obliterator-npm-2.0.4-b21b355294-f28ad35b6d.zip/node_modules/obliterator/",\
+          "packageDependencies": [\
+            ["obliterator", "npm:2.0.4"]\
           ],\
           "linkType": "HARD"\
         }]\

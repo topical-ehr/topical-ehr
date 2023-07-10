@@ -1,8 +1,10 @@
 {
-    "name": "@topical-ehr/ai-coding",
+    "name": "@topical-ehr/ai-server",
     "packageManager": "yarn@3.6.0",
     "type": "module",
     "dependencies": {
+        "@fastify/cors": "^8.3.0",
+        "@fastify/rate-limit": "8.0.1",
         "fastify": "4.19.2",
         "openai": "3.3.0"
     },
@@ -13,7 +15,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "server": "tsc && node ./out/server.js"
+        "build": "tsc",
+        "start": "node ./out/server.js"
     },
     "keywords": [],
     "author": "",

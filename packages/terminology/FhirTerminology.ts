@@ -15,8 +15,7 @@ export type Term = FHIR.ValueSet["expansion"]["contains"][0];
 
 const log = logsFor("FhirTerminology");
 
-export async function searchTerminology(input: string, searchScope: string): Promise<FHIR.ValueSet> {
-    const serverBaseUrl = "https://r4.ontoserver.csiro.au/fhir/";
+export async function searchTerminology(serverBaseUrl: string, input: string, searchScope: string): Promise<FHIR.ValueSet> {
     const codeSystemUrl = `http://snomed.info/sct?fhir_vs=${searchScope}`;
 
     const designation = encodeURIComponent("http://snomed.info/sct|900000000000003001");

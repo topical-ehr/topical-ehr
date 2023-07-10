@@ -19,15 +19,15 @@ export function FhirSVG() {
             >
                 <stop
                     offset=".314"
-                    stop-color="#FF9800"
+                    stopColor="#FF9800"
                 />
                 <stop
                     offset=".662"
-                    stop-color="#FF6D00"
+                    stopColor="#FF6D00"
                 />
                 <stop
                     offset=".972"
-                    stop-color="#F44336"
+                    stopColor="#F44336"
                 />
             </radialGradient>
             <path
@@ -44,43 +44,43 @@ export function FhirSVG() {
             >
                 <stop
                     offset=".214"
-                    stop-color="#FFF176"
+                    stopColor="#FFF176"
                 />
                 <stop
                     offset=".328"
-                    stop-color="#FFF27D"
+                    stopColor="#FFF27D"
                 />
                 <stop
                     offset=".487"
-                    stop-color="#FFF48F"
+                    stopColor="#FFF48F"
                 />
                 <stop
                     offset=".672"
-                    stop-color="#FFF7AD"
+                    stopColor="#FFF7AD"
                 />
                 <stop
                     offset=".793"
-                    stop-color="#FFF9C4"
+                    stopColor="#FFF9C4"
                 />
                 <stop
                     offset=".822"
-                    stop-color="#FFF8BD"
-                    stop-opacity=".804"
+                    stopColor="#FFF8BD"
+                    stopOpacity=".804"
                 />
                 <stop
                     offset=".863"
-                    stop-color="#FFF6AB"
-                    stop-opacity=".529"
+                    stopColor="#FFF6AB"
+                    stopOpacity=".529"
                 />
                 <stop
                     offset=".91"
-                    stop-color="#FFF38D"
-                    stop-opacity=".209"
+                    stopColor="#FFF38D"
+                    stopOpacity=".209"
                 />
                 <stop
                     offset=".941"
-                    stop-color="#FFF176"
-                    stop-opacity="0"
+                    stopColor="#FFF176"
+                    stopOpacity="0"
                 />
             </radialGradient>
             <path

@@ -36,6 +36,11 @@ const DocumentBulletListIcon = bundleIcon(DocumentBulletListFilled, DocumentBull
 interface Props {}
 
 export function EditsPanel(props: Props) {
+    // temporary hack to clear editor on save
+    const saveGeneration = useFHIR((s) => s.fhir.saveGeneration);
+    return <EditsPanelInner key={saveGeneration} />;
+}
+function EditsPanelInner(props: Props) {
     const dispatch = useDispatch();
     const patientId = useFHIR((s) => s.fhir.patientId);
     const saveState = useFHIR((s) => s.fhir.saveState);
