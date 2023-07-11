@@ -30,10 +30,18 @@ export function TopicsColumn(props: Props) {
 
     const topics = loadTopics(conditions, compositions, medicationRequests);
 
-    const [active, inactive] = R.partition(topics, (t) => activeStatus(t) === "active");
+    const [added, existing] = R.partition(topics, (t) => t.composition.id.startsWith("urn:"));
+    const [active, inactive] = R.partition(existing, (t) => activeStatus(t) === "active");
 
     return (
         <div style={{ marginTop: "1em" }}>
+            <TopicGroup
+                title="New"
+                initiallyCollapsed={false}
+                topics={added}
+            >
+                {props.children}
+            </TopicGroup>
             <TopicGroup
                 title=""
                 initiallyCollapsed={false}
