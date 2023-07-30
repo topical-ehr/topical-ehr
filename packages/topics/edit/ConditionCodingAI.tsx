@@ -1,10 +1,8 @@
-import { Button, Checkbox, makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { Button, Checkbox, Tooltip, makeStyles, shorthands, tokens } from "@fluentui/react-components";
 import { Alert } from "@fluentui/react-components/unstable";
 import React from "react";
 
 import { useTopicContext } from "../TopicContext";
-
-import { useTopicsConfig } from "../TopicsConfig";
 
 interface Props {
     apiUrl: string;
@@ -12,7 +10,7 @@ interface Props {
 
 const styles = makeStyles({
     container: {
-        ...shorthands.border("1px", "solid", "orange"),
+        // ...shorthands.border("1px", "solid", "orange"),
         paddingTop: tokens.spacingVerticalM,
         paddingLeft: tokens.spacingVerticalM,
         marginBottom: tokens.spacingVerticalM,
@@ -35,10 +33,9 @@ const styles = makeStyles({
 });
 
 export function ConditionCodingAI(props: Props) {
-    const config = useTopicsConfig();
     const context = useTopicContext();
 
-    const [busy, setBusy] = React.useState(false);
+    const [waiting, setWaiting] = React.useState(false);
     const [error, setError] = React.useState("");
     const [suggestions, setSuggestions] = React.useState<string[] | null>(null);
 
@@ -66,7 +63,7 @@ export function ConditionCodingAI(props: Props) {
     )}&userPrompt=${encodeURIComponent(userPrompt)}`;
 
     async function onSuggest() {
-        setBusy(true);
+        setWaiting(true);
         setSuggestions(null);
         setError("");
 
@@ -101,7 +98,7 @@ export function ConditionCodingAI(props: Props) {
         } catch (err) {
             setError(err.toString());
         } finally {
-            setBusy(false);
+            setWaiting(false);
         }
     }
 
@@ -109,18 +106,20 @@ export function ConditionCodingAI(props: Props) {
         alert("TODO");
     }
 
-    const modelName = "OpenAI GPT-4";
+    const modelName = "GPT-4";
+    const modelNameFull = "OpenAI GPT-4";
 
     return (
         <div className={classes.container}>
             {suggestions === null && (
                 <Button
-                    disabled={busy}
+                    disabled={waiting}
                     appearance="subtle"
                     onClick={onSuggest}
                     className={classes.vspace}
+                    title={"Suggest conditions using " + modelNameFull}
                 >
-                    {!busy ? "🤖 Suggest conditions" : `Waiting for ${modelName}...`}
+                    {!waiting ? "🤖 Suggest conditions" : `Waiting for ${modelName}...`}
                 </Button>
             )}
             {error && <Alert intent="error">{error}</Alert>}
@@ -128,12 +127,17 @@ export function ConditionCodingAI(props: Props) {
                 <div className={classes.vspace}>
                     <div className={classes.resultsHeading}>
                         <p>Conditions from {modelName}:</p>
-                        <a
-                            href={editorLink}
-                            target="_blank"
+                        <Tooltip
+                            content="Edit prompt"
+                            relationship="label"
                         >
-                            🤖
-                        </a>
+                            <a
+                                href={editorLink}
+                                target="_blank"
+                            >
+                                🤖
+                            </a>
+                        </Tooltip>
                     </div>
                     {suggestions.map((s) => (
                         <div>

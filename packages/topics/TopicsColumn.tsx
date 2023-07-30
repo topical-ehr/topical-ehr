@@ -1,7 +1,8 @@
 import React from "react";
+import * as R from "remeda";
+
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
-import * as R from "remeda";
 import { Topic, activeStatus, loadTopics } from "./Topic";
 import { TopicContext } from "./TopicContext";
 

@@ -2,14 +2,14 @@ import * as FHIR from "@topical-ehr/fhir-types";
 import { actions } from "@topical-ehr/fhir-store";
 import { AnyAction } from "@topical-ehr/fhir-store/store";
 import { Term } from "@topical-ehr/terminology/FhirTerminology";
-import { Config } from "../../TopicsConfig";
+import { Config } from "./AutocompleteConfig";
 
-export abstract class TopicItemStateBase {
+export abstract class AutocompleteStateBase {
     constructor(public readonly topic: FHIR.Composition, public config: Config) {}
 
     abstract doesApply(resource: FHIR.Resource | null): boolean;
-    abstract getOptions(): TopicItemOptionBase[];
-    abstract getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]>;
+    abstract getOptions(): AutocompleteOptionBase[];
+    abstract getSuggestedOptions(input: string): Promise<AutocompleteOptionBase[]>;
     abstract icon: string;
 
     addToComposition(resource: FHIR.Resource) {
@@ -47,12 +47,12 @@ export abstract class TopicItemStateBase {
     }
 }
 
-export abstract class TopicItemOptionBase {
-    abstract onAdded(state: TopicItemStateBase): UpdateResult;
-    abstract onRemoved(state: TopicItemStateBase): UpdateResult;
+export abstract class AutocompleteOptionBase {
+    abstract onAdded(state: AutocompleteStateBase): UpdateResult;
+    abstract onRemoved(state: AutocompleteStateBase): UpdateResult;
 
     public readonly key: string;
-    public readonly value: TopicItemOptionBase;
+    public readonly value: AutocompleteOptionBase;
 
     constructor(public readonly label: string, readonly keyData: any) {
         this.key = JSON.stringify(keyData);
@@ -62,7 +62,7 @@ export abstract class TopicItemOptionBase {
 
 export type UpdateResult =
     | {
-          newState: TopicItemStateBase;
+          newState: AutocompleteStateBase;
           newActions: AnyAction[];
       }
     | { error: string };

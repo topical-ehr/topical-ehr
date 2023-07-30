@@ -1,13 +1,13 @@
 import * as FHIR from "@topical-ehr/fhir-types";
-import { TopicItemOptionBase, TopicItemStateBase } from "./TopicItemBase";
-import { MedicationOption } from "./PrescriptionTopicItems";
-import { ConditionOption } from "./ConditionTopicItems";
+import { AutocompleteOptionBase, AutocompleteStateBase } from "./AutocompleteBase";
+import { MedicationOption } from "./medications/PrescriptionAutocomplete";
+import { ConditionOption } from "./conditions/ConditionAutocomplete";
 
 import icon from "/icons/bootstrap/plus.svg";
 import { SearchScope } from "@topical-ehr/terminology/FhirTerminology";
-import { Config } from "../../TopicsConfig";
+import { Config } from "./AutocompleteConfig";
 
-export class BlankTopicItemState extends TopicItemStateBase {
+export class BlankOrderState extends AutocompleteStateBase {
     constructor(topic: FHIR.Composition, config: Config) {
         super(topic, config);
     }
@@ -22,8 +22,8 @@ export class BlankTopicItemState extends TopicItemStateBase {
 
     icon = icon;
 
-    async getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]> {
-        return await this.loadOptionsFromTerminology<TopicItemOptionBase>(input, SearchScope.root, (termType, term) => {
+    async getSuggestedOptions(input: string): Promise<AutocompleteOptionBase[]> {
+        return await this.loadOptionsFromTerminology<AutocompleteOptionBase>(input, SearchScope.root, (termType, term) => {
             switch (termType) {
                 case "finding":
                 case "disorder":

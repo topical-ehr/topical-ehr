@@ -4,14 +4,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DashboardPage from "./pages/DashboardPage";
 import PatientPage from "./pages/PatientPage";
 import { FhirEditorPage } from "./pages/FhirEditorPage";
-import { TopicsConfig } from "@topical-ehr/topics/TopicsConfig";
+import { AutocompleteConfig } from "@topical-ehr/ui-autocomplete/AutocompleteConfig";
 import { searchTerminology } from "@topical-ehr/terminology/FhirTerminology";
 import { PromptEditor } from "@topical-ehr/fhir-editor/PromptEditor";
 
 export function App() {
     return (
         <ErrorBoundary>
-            <TopicsConfig
+            <AutocompleteConfig
                 config={{
                     minInputLengthForSearch: 2,
                     searchTerminology(input, searchScope) {
@@ -50,7 +50,7 @@ export function App() {
                         </Routes>
                     </BrowserRouter>
                 </FhirServerConfigContext.Provider>
-            </TopicsConfig>
+            </AutocompleteConfig>
         </ErrorBoundary>
     );
 }

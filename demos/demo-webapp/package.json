@@ -22,6 +22,7 @@
         "@topical-ehr/terminology": "workspace:*",
         "@topical-ehr/timeline": "workspace:*",
         "@topical-ehr/topics": "workspace:*",
+        "@topical-ehr/ui-autocomplete": "workspace:*",
         "@topical-ehr/ui-elements": "workspace:*",
         "react": "18.2.0",
         "react-dom": "18.2.0",

@@ -1,34 +1,36 @@
 import React from "react";
 import AsyncSelect from "react-select/async";
-import css from "./TopicItemEdit.module.scss";
-import { TopicItemOptionBase, TopicItemStateBase } from "./items/TopicItemBase";
 import { useDispatch } from "@topical-ehr/fhir-store";
 import { logsFor } from "@topical-ehr/logging";
-import { useTopicsConfig } from "../TopicsConfig";
 
-const log = logsFor("TopicItemEdit");
+import { useAutocompleteConfig } from "./AutocompleteConfig";
+import { AutocompleteOptionBase, AutocompleteStateBase } from "./AutocompleteBase";
+import css from "./AutocompleteEditor.module.scss";
+
+const log = logsFor("AutocompleteEditor");
 
 interface Props {
-    initialState: TopicItemStateBase;
+    initialState: AutocompleteStateBase;
+    placeholder: string;
 
     // notifies parent component if this has data or is empty
     // if has data parent component can create another blank instance
     index: number;
     setHasData: (index: number, hasData: boolean) => void;
 }
-export function TopicItemEdit(props: Props) {
+export function AutocompleteEditor(props: Props) {
     const dispatch = useDispatch();
-    const config = useTopicsConfig();
+    const config = useAutocompleteConfig();
 
-    const { initialState } = props;
+    const { initialState, placeholder } = props;
     const initialOptions = initialState.getOptions();
-    const stateRef = React.useRef<TopicItemStateBase>(initialState);
-    const [options, setOptions] = React.useState<TopicItemOptionBase[]>(initialOptions);
-    const [defaultOptions, setDefaultOptions] = React.useState<TopicItemOptionBase[]>(
+    const stateRef = React.useRef<AutocompleteStateBase>(initialState);
+    const [options, setOptions] = React.useState<AutocompleteOptionBase[]>(initialOptions);
+    const [defaultOptions, setDefaultOptions] = React.useState<AutocompleteOptionBase[]>(
         [] //initialState.getOptions()
     );
 
-    function applyNewOptions(newOptions: readonly TopicItemOptionBase[]) {
+    function applyNewOptions(newOptions: readonly AutocompleteOptionBase[]) {
         const state = stateRef.current;
 
         if (newOptions.length > options.length) {
@@ -47,7 +49,7 @@ export function TopicItemEdit(props: Props) {
         }
     }
 
-    async function onOptionsChanged(newOptions: readonly TopicItemOptionBase[]) {
+    async function onOptionsChanged(newOptions: readonly AutocompleteOptionBase[]) {
         const state = stateRef.current;
         log.debug("onOptionsChanged", { newOptions, state });
 
@@ -87,7 +89,7 @@ export function TopicItemEdit(props: Props) {
                 className={css.icon}
             />
             <AsyncSelect
-                placeholder="Add orders, prescriptions or associated diagnoses"
+                placeholder={placeholder}
                 isClearable
                 isMulti
                 closeMenuOnSelect={false}
@@ -112,13 +114,4 @@ export function TopicItemEdit(props: Props) {
 
 function isError(obj: any): obj is { error: string } {
     return typeof obj["error"] === "string";
-}
-
-function formatOptionWithCode(option: TopicItemOptionBase) {
-    return (
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div>{option.label}</div>
-            <div>{option.keyData}</div>
-        </div>
-    );
 }

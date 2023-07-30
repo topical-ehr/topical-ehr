@@ -9,7 +9,6 @@ import {
     MenuItemCheckbox,
     MenuPopover,
     MenuTrigger,
-    Tooltip,
 } from "@fluentui/react-components";
 
 interface Props {}

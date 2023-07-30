@@ -1,17 +1,27 @@
 import * as FHIR from "@topical-ehr/fhir-types";
+
 import { timingCodesAllowed } from "./TimingCodes";
-import { BlankTopicItemState } from "./BlankTopicItem";
-import { TopicItemStateBase, TopicItemOptionBase, UpdateResult } from "./TopicItemBase";
+import { BlankOrderState } from "../BlankOrder";
+import { AutocompleteStateBase, AutocompleteOptionBase, UpdateResult } from "../AutocompleteBase";
 
 import { actions } from "@topical-ehr/fhir-store";
 import { logsFor } from "@topical-ehr/logging";
-import { SearchScope } from "@topical-ehr/terminology/FhirTerminology";
 
 import icon from "/icons/pill.svg";
-import { Config } from "../../TopicsConfig";
+import { Config } from "../AutocompleteConfig";
+import {
+    getDosesFor,
+    formatDose,
+    formatDoseRange,
+    isNumeric,
+    isNumericRange,
+    parseDose,
+    parseDoseRange,
+    throwError,
+} from "./prescriptionUtils";
 
-export class PrescriptionTopicItemState extends TopicItemStateBase {
-    log = logsFor("ConditionOption");
+export class PrescriptionAutocompleteState extends AutocompleteStateBase {
+    log = logsFor("PrescriptionAutocompleteState");
 
     doesApply(resource: FHIR.Resource | null): boolean {
         return resource?.resourceType === "MedicationRequest";
@@ -25,13 +35,13 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
 
     updateTo(next: FHIR.MedicationRequest) {
         return {
-            newState: new PrescriptionTopicItemState(next, this.topic, this.config),
+            newState: new PrescriptionAutocompleteState(next, this.topic, this.config),
             newActions: [actions.edit(next)],
         };
     }
 
     getOptions() {
-        const options: TopicItemOptionBase[] = [];
+        const options: AutocompleteOptionBase[] = [];
 
         const { MR } = this;
         const coding = MR.medicationCodeableConcept?.coding?.[0];
@@ -60,7 +70,7 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
         return options;
     }
 
-    async getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]> {
+    async getSuggestedOptions(input: string): Promise<AutocompleteOptionBase[]> {
         const medication = this.MR.medicationCodeableConcept?.text;
         if (!medication) {
             throw new Error("state is missing medication text");
@@ -73,7 +83,7 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
             //   [5-10 mg] [every 4-6 hours] [PRN]
             //   [10-20 mg] [over 24 hours] [subcut]
 
-            const productDoses = await this.getDosesFor(medication);
+            const productDoses = await getDosesFor(medication, this.config);
             this.log.debug("need dose", { productDoses, medication });
             const userEnteredDoses = new Set<string>();
 
@@ -113,30 +123,9 @@ export class PrescriptionTopicItemState extends TopicItemStateBase {
 
         return [];
     }
-
-    async getDosesFor(medication: string): Promise<Set<string>> {
-        const vs = await this.config.searchTerminology(medication, SearchScope.medicinalProductUnitOfUse);
-
-        const doses = new Set<string>();
-        for (const term of vs.expansion?.contains ?? []) {
-            const qty = parseDose(term.display);
-            if (qty) {
-                doses.add(qty.value + " " + qty.unit);
-            }
-        }
-
-        function sort(doses: Set<string>) {
-            function value(str: string) {
-                return parseInt(str.split(" ")[0]);
-            }
-            return new Set([...doses].sort((a, b) => value(a) - value(b)));
-        }
-
-        return sort(doses);
-    }
 }
 
-export class MedicationOption extends TopicItemOptionBase {
+export class MedicationOption extends AutocompleteOptionBase {
     log = logsFor("MedicationOption");
 
     constructor(private term: Partial<FHIR.ValueSetCode>) {
@@ -146,7 +135,7 @@ export class MedicationOption extends TopicItemOptionBase {
         }
     }
 
-    onAdded(state: TopicItemStateBase): UpdateResult {
+    onAdded(state: AutocompleteStateBase): UpdateResult {
         const { system, code, display } = this.term;
         const next: FHIR.MedicationRequest = {
             ...FHIR.MedicationRequest.new({
@@ -161,16 +150,16 @@ export class MedicationOption extends TopicItemOptionBase {
         };
 
         return {
-            newState: new PrescriptionTopicItemState(next, state.topic, state.config),
+            newState: new PrescriptionAutocompleteState(next, state.topic, state.config),
             newActions: [actions.edit(next), state.addToComposition(next)],
         };
     }
 
-    onRemoved(state: TopicItemStateBase): UpdateResult {
+    onRemoved(state: AutocompleteStateBase): UpdateResult {
         const { log } = this;
-        if (state instanceof PrescriptionTopicItemState) {
+        if (state instanceof PrescriptionAutocompleteState) {
             return {
-                newState: new BlankTopicItemState(state.topic, state.config),
+                newState: new BlankOrderState(state.topic, state.config),
                 newActions: [actions.delete(state.MR), state.removeFromComposition(state.MR)],
             };
         } else {
@@ -179,18 +168,18 @@ export class MedicationOption extends TopicItemOptionBase {
     }
 }
 
-function assertState(state: TopicItemStateBase): asserts state is PrescriptionTopicItemState {
-    if (!(state instanceof PrescriptionTopicItemState)) {
+function assertState(state: AutocompleteStateBase): asserts state is PrescriptionAutocompleteState {
+    if (!(state instanceof PrescriptionAutocompleteState)) {
         throw new Error("unexpected state type");
     }
 }
 
-class DosageOption extends TopicItemOptionBase {
+class DosageOption extends AutocompleteOptionBase {
     constructor(private dosage: FHIR.Quantity | FHIR.Range, label: string) {
         super(label, dosage);
     }
 
-    onAdded(state: TopicItemStateBase): UpdateResult {
+    onAdded(state: AutocompleteStateBase): UpdateResult {
         assertState(state);
 
         function isRange(dosage: any): dosage is FHIR.Range {
@@ -215,7 +204,7 @@ class DosageOption extends TopicItemOptionBase {
         return state.updateTo(next);
     }
 
-    onRemoved(state: TopicItemStateBase): UpdateResult {
+    onRemoved(state: AutocompleteStateBase): UpdateResult {
         assertState(state);
         const prev = state.MR;
         const next: FHIR.MedicationRequest = {
@@ -231,12 +220,12 @@ class DosageOption extends TopicItemOptionBase {
     }
 }
 
-class FrequencyOption extends TopicItemOptionBase {
+class FrequencyOption extends AutocompleteOptionBase {
     constructor(display: string, private timing: FHIR.Timing) {
         super(display, display);
     }
 
-    onAdded(state: TopicItemStateBase): UpdateResult {
+    onAdded(state: AutocompleteStateBase): UpdateResult {
         assertState(state);
         const next: FHIR.MedicationRequest = {
             ...state.MR,
@@ -250,7 +239,7 @@ class FrequencyOption extends TopicItemOptionBase {
         return state.updateTo(next);
     }
 
-    onRemoved(state: TopicItemStateBase): UpdateResult {
+    onRemoved(state: AutocompleteStateBase): UpdateResult {
         assertState(state);
         const next: FHIR.MedicationRequest = {
             ...state.MR,
@@ -263,56 +252,4 @@ class FrequencyOption extends TopicItemOptionBase {
         };
         return state.updateTo(next);
     }
-}
-
-function parseDose(dose: string): FHIR.Quantity | null {
-    const match = dose.match(/\d+ \w+/)?.[0];
-    if (match) {
-        const [value, unit] = match.split(" ");
-        return {
-            value: parseInt(value, 10),
-            unit,
-        };
-    } else {
-        return null;
-    }
-}
-function formatDose(dose: FHIR.Quantity): string {
-    return `${dose.value} ${dose.unit}`;
-}
-function parseDoseRange(dose: string): FHIR.Range | null {
-    const match = dose.match(/\d+\s*-\d+\s*\w+/)?.[0];
-    if (match) {
-        const [values, unit] = match.split(" ");
-        const [valueLow, valueHigh] = values.split("-").map((s) => s.trim());
-        return {
-            low: {
-                value: parseInt(valueLow, 10),
-                unit,
-            },
-            high: {
-                value: parseInt(valueHigh, 10),
-                unit,
-            },
-        };
-    } else {
-        return null;
-    }
-}
-function formatDoseRange(dose: FHIR.Range) {
-    if (dose.high.unit === dose.low.unit) {
-        return `${dose.low.value}-${dose.high.value} ${dose.low.unit}`;
-    } else {
-        return `${dose.low.value} ${dose.low.unit} - ${dose.high.value} ${dose.high.unit}`;
-    }
-}
-
-function isNumeric(str: string) {
-    return parseInt(str, 10) + "" == str;
-}
-function isNumericRange(str: string) {
-    return !!str.trim().match(/^\d+\s*-\s*\d+$/);
-}
-function throwError(msg: string): never {
-    throw new Error(msg);
 }

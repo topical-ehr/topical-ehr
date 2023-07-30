@@ -32,6 +32,7 @@ import { Column, ColumnLayout } from "@topical-ehr/ui-elements/layout/ColumnLayo
 import { FieldGrid } from "@topical-ehr/ui-elements/layout/FieldGrid";
 import { Logo } from "@topical-ehr/ui-elements/layout/Logo";
 import { useParams } from "react-router-dom";
+import { TopRightMenu } from "../components/TopRightMenu";
 
 export default function PatientPage() {
     const { patientId } = useParams();
@@ -47,7 +48,7 @@ export default function PatientPage() {
     return (
         <div>
             <EHRPageConfig config={config}>
-                <Logo />
+                <TopRightMenu />
 
                 <PatientHeader />
 

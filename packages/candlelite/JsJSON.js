@@ -243,8 +243,7 @@ export class JsJSON {
     }
     ParseBundle(resource) {
         const this$ = this;
-        const obj = JsonViaJSObj__get_Object(resource);
-        const matchValue = fromValue("$", this$.bundleDecoder, obj);
+        const matchValue = fromValue("$", this$.bundleDecoder, JsonViaJSObj__get_Object(resource));
         return (matchValue.tag === 1) ? raiseOO(400, new OperationOutcomeCodes(0, []), matchValue.fields[0]) : matchValue.fields[0];
     }
 }

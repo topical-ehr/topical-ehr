@@ -1,14 +1,15 @@
 import * as FHIR from "@topical-ehr/fhir-types";
 import { logsFor } from "@topical-ehr/logging";
-import { BlankTopicItemState } from "./BlankTopicItem";
-import { TopicItemStateBase, TopicItemOptionBase, UpdateResult } from "./TopicItemBase";
-
-import iconDx from "/icons/dx.svg";
 import { actions } from "@topical-ehr/fhir-store";
 import { SearchScope } from "@topical-ehr/terminology/FhirTerminology";
-import { Config } from "../../TopicsConfig";
 
-export class ConditionTopicItemState extends TopicItemStateBase {
+import { BlankOrderState } from "../BlankOrder";
+import { AutocompleteStateBase, AutocompleteOptionBase, UpdateResult } from "../AutocompleteBase";
+import { Config } from "../AutocompleteConfig";
+
+import iconDx from "/icons/dx.svg";
+
+export class ConditionAutocompleteState extends AutocompleteStateBase {
     doesApply(resource: FHIR.Resource | null): boolean {
         return resource?.resourceType === "Condition";
     }
@@ -28,7 +29,7 @@ export class ConditionTopicItemState extends TopicItemStateBase {
             .flatMap((c) => (c ? [c] : []));
     }
 
-    async getSuggestedOptions(input: string): Promise<TopicItemOptionBase[]> {
+    async getSuggestedOptions(input: string): Promise<AutocompleteOptionBase[]> {
         return await this.loadOptionsFromTerminology(input, SearchScope.clinicalFinding, (termType, term) => {
             switch (termType) {
                 case "finding":
@@ -39,7 +40,7 @@ export class ConditionTopicItemState extends TopicItemStateBase {
     }
 }
 
-export class ConditionOption extends TopicItemOptionBase {
+export class ConditionOption extends AutocompleteOptionBase {
     log = logsFor("ConditionOption");
 
     constructor(private term: Partial<FHIR.ValueSetCode>) {
@@ -49,7 +50,7 @@ export class ConditionOption extends TopicItemOptionBase {
         }
     }
 
-    onAdded(state: TopicItemStateBase): UpdateResult {
+    onAdded(state: AutocompleteStateBase): UpdateResult {
         const { system, code, display } = this.term;
         const newCondition: FHIR.Condition = {
             ...FHIR.Condition.new({ subject: state.topic.subject }),
@@ -60,14 +61,14 @@ export class ConditionOption extends TopicItemOptionBase {
         };
 
         const newActions = [actions.edit(newCondition), state.addToComposition(newCondition)];
-        if (state instanceof BlankTopicItemState) {
+        if (state instanceof BlankOrderState) {
             return {
-                newState: new ConditionTopicItemState([newCondition], state.topic, state.config),
+                newState: new ConditionAutocompleteState([newCondition], state.topic, state.config),
                 newActions,
             };
-        } else if (state instanceof ConditionTopicItemState) {
+        } else if (state instanceof ConditionAutocompleteState) {
             return {
-                newState: new ConditionTopicItemState([...state.conditions, newCondition], state.topic, state.config),
+                newState: new ConditionAutocompleteState([...state.conditions, newCondition], state.topic, state.config),
                 newActions,
             };
         } else {
@@ -75,8 +76,8 @@ export class ConditionOption extends TopicItemOptionBase {
         }
     }
 
-    onRemoved(state: TopicItemStateBase): UpdateResult {
-        if (state instanceof ConditionTopicItemState) {
+    onRemoved(state: AutocompleteStateBase): UpdateResult {
+        if (state instanceof ConditionAutocompleteState) {
             const removedCode = this.term.code;
             const toRemove = state.conditions.find((condition) => condition.code?.coding?.[0].code === removedCode);
             if (!toRemove) {
@@ -88,8 +89,8 @@ export class ConditionOption extends TopicItemOptionBase {
             return {
                 newState:
                     conditions.length == 0
-                        ? new BlankTopicItemState(state.topic, state.config)
-                        : new ConditionTopicItemState(conditions, state.topic, state.config),
+                        ? new BlankOrderState(state.topic, state.config)
+                        : new ConditionAutocompleteState(conditions, state.topic, state.config),
                 newActions: [actions.delete(toRemove), state.removeFromComposition(toRemove)],
             };
         } else {

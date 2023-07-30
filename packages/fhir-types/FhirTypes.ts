@@ -1,5 +1,8 @@
 import { v4 as uuidv4 } from "uuid";
 
+// FHIR R4
+// https://www.hl7.org/fhir/R4/
+
 export interface Bundle<TResource> {
     resourceType: "Bundle";
     id: string;
@@ -504,6 +507,49 @@ export interface ValueSet extends Resource {
 }
 export type ValueSetCode = ValueSet["expansion"]["contains"][0];
 
+export interface MedicationAdministration extends Resource {
+    resourceType: "MedicationAdministration";
+
+    status: "in-progress" | "not-done" | "on-hold" | "completed" | "entered-in-error" | "stopped" | "unknown";
+    statusReason?: CodeableConcept;
+    category?: CodeableConcept;
+
+    medicationCodeableConcept?: CodeableConcept;
+    medicationReference?: Reference;
+    reasonCode?: CodeableConcept[];
+    reasonReference?: Reference[];
+    supportingInformation?: Reference[];
+
+    subject: Reference;
+    context?: Reference;
+    effectiveDateTime?: string;
+
+    note?: Annotation[];
+
+    dosage?: {
+        text?: string;
+        site?: CodeableConcept;
+        route?: CodeableConcept;
+        method?: CodeableConcept;
+
+        dose?: Quantity;
+        rateRatio?: Ratio;
+        rateQuantity?: Quantity;
+    };
+}
+export const MedicationAdministration = {
+    new({ subject, status }: { subject: Reference; status: MedicationAdministration["status"] }): MedicationAdministration {
+        return {
+            resourceType: "MedicationAdministration",
+            ...newMeta(),
+            effectiveDateTime: new Date().toISOString(),
+            subject,
+            status,
+        };
+    },
+};
+
+// https://www.hl7.org/fhir/R4/medicationrequest.html
 export interface MedicationRequest extends Resource {
     resourceType: "MedicationRequest";
 
@@ -520,7 +566,8 @@ export interface MedicationRequest extends Resource {
 
     medicationCodeableConcept?: CodeableConcept;
     medicationReference?: Reference;
-    reasonCode?: Reference[];
+    reasonCode?: CodeableConcept[];
+    reasonReference?: Reference[];
     supportingInformation?: Reference[];
 
     subject: Reference;

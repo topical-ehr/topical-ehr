@@ -32,6 +32,7 @@ export interface FhirResources<T = never> {
     patients: FhirResourceById<FHIR.Patient | T>;
     observations: FhirResourceById<FHIR.Observation | T>;
     diagnosticReports: FhirResourceById<FHIR.DiagnosticReport | T>;
+    medicationAdministrations: FhirResourceById<FHIR.MedicationAdministration | T>;
     medicationRequests: FhirResourceById<FHIR.MedicationRequest | T>;
     serviceRequests: FhirResourceById<FHIR.ServiceRequest | T>;
 }
@@ -41,6 +42,7 @@ const emptyResources: FhirResources = {
     patients: {},
     observations: {},
     diagnosticReports: {},
+    medicationAdministrations: {},
     medicationRequests: {},
     serviceRequests: {},
 };
@@ -57,6 +59,8 @@ function getResourceContainer(resources: Draft<FhirResources>, resourceType: str
             return resources.observations;
         case "DiagnosticReport":
             return resources.diagnosticReports;
+        case "MedicationAdministration":
+            return resources.medicationAdministrations;
         case "MedicationRequest":
             return resources.medicationRequests;
         case "ServiceRequest":

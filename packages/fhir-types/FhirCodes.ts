@@ -5,6 +5,16 @@ type CodeDefinitions = FHIR.CodeableConcept | { [key: string]: CodeDefinitions }
 export const Codes = {
     Composition: {
         Type: {
+            AdministeredMedications: {
+                text: "Topical-EHR Administered Medications",
+                coding: [
+                    {
+                        system: "https://topicalehr.io/fhir-codes/Composition/Type",
+                        code: "administeredMedications",
+                        display: "AdministeredMedications",
+                    },
+                ],
+            },
             ProgressNote: {
                 text: "Progress Note",
                 coding: [

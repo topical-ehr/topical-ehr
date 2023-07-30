@@ -10,11 +10,13 @@
         "@topical-ehr/formatting": "workspace:*",
         "@topical-ehr/observations": "workspace:*",
         "@topical-ehr/rich-text-editor": "workspace:*",
+        "@topical-ehr/ui-autocomplete": "workspace:*",
         "@topical-ehr/ui-elements": "workspace:*",
         "dompurify": "^2.3.10",
         "luxon": "2.3.2",
         "react": "18.2.0",
-        "react-hook-form": "7.45.1"
+        "react-hook-form": "7.45.1",
+        "remeda": "0.0.35"
     },
     "devDependencies": {
         "@types/luxon": "2.3.1",
