@@ -6,6 +6,8 @@ import { EditsPanel } from "@topical-ehr/save-changes-panel/EditsPanel";
 import { TimelinePanelButton } from "@topical-ehr/timeline/buttons/TimelinePanelButton";
 import { RecordObsPanel, RecordObsPanelId } from "@topical-ehr/timeline/panels/RecordObsPanel";
 import { RecordMedsPanel, RecordMedsPanelId } from "@topical-ehr/timeline/panels/RecordMedsPanel";
+import { TimelineViewMenu } from "@topical-ehr/timeline/buttons/TimelineViewMenu";
+import { TimelineRecordMenu } from "@topical-ehr/timeline/buttons/TimelineRecordMenu";
 import { groupNotes } from "@topical-ehr/timeline/groupNotes";
 import { groupObservations } from "@topical-ehr/timeline/groupObservations";
 import { Timeline, defaultRenderer } from "@topical-ehr/timeline/Timeline";
@@ -86,17 +88,10 @@ export default function PatientPage() {
                         <Stack
                             horizontal
                             tokens={{ childrenGap: 10 }}
+                            // style={{ justifyContent: "space-between" }}
                         >
-                            <TimelinePanelButton
-                                text="💓 Obs"
-                                tooltip="Record obs"
-                                panel={RecordObsPanelId}
-                            />
-                            <TimelinePanelButton
-                                text="💊 Meds"
-                                tooltip="Record meds"
-                                panel="record-meds"
-                            />
+                            <TimelineRecordMenu />
+                            <TimelineViewMenu />
                         </Stack>
 
                         <RecordObsPanel />

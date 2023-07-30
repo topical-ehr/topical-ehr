@@ -5,8 +5,9 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 
 import cssPanel from "./Panel.module.scss";
-import cssMeds from "./RecordObsPanel.module.scss";
+import cssMeds from "./RecordMedsPanel.module.scss";
 import { controlSize, styles } from "./styles";
+import { DateTimePicker } from "./DateTimePicker";
 
 interface Props {}
 
@@ -47,6 +48,10 @@ function MedsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
     return (
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onHandleSubmit)}>
+                <div className={cssMeds.datetime_field}>
+                    <label>Time</label>
+                    <DateTimePicker />
+                </div>
                 <div className={cssMeds.grid}>
                     {/* <DateTimePicker />
                     <div />
@@ -93,11 +98,7 @@ function RecordMedRow(props: { text: string }) {
                 className={classes.alignRight}
             />
 
-            <Input
-                size={controlSize}
-                className={classes.textboxWideWide}
-                contentAfter={"tablet(s)"}
-            />
+            <div></div>
         </>
     );
 }

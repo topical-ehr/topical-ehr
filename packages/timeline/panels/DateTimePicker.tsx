@@ -13,7 +13,6 @@ export function DateTimePicker(props: {}) {
 
     return (
         <>
-            <label>Time</label>
             <div className={classes.horizontal}>
                 <Field validationMessage={error}>
                     <div className={classes.horizontal}>

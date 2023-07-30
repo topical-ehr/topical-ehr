@@ -4,3 +4,11 @@
     column-gap: 1em;
     row-gap: 0.4em;
 }
+
+.datetime_field {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 1em;
+    margin-bottom: 1em;
+}

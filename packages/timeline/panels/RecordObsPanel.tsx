@@ -53,6 +53,7 @@ function ObsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
         <FormProvider {...methods}>
             <form onSubmit={methods.handleSubmit(onHandleSubmit)}>
                 <div className={cssObs.grid}>
+                    <label>Time</label>
                     <DateTimePicker />
                     {props.children}
                 </div>
