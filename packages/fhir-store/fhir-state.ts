@@ -171,6 +171,11 @@ export const fhirSlice = createSlice({
             setResource(state.resources, resource);
             state.saveState = null;
         },
+        editImmediately(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
+            setResource(state.edits, resource);
+            setResource(state.resources, resource);
+            state.saveState = null;
+        },
         undoEdits(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             deleteResource(state.edits, resource);
 
@@ -180,6 +185,11 @@ export const fhirSlice = createSlice({
 
         delete(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             state.deletions[FHIR.referenceTo(resource).reference] = resource;
+            deleteResource(state.resources, resource);
+            deleteResource(state.edits, resource);
+            state.saveState = null;
+        },
+        deleteImmediately(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             deleteResource(state.resources, resource);
             deleteResource(state.edits, resource);
             state.saveState = null;
@@ -213,6 +223,20 @@ export const fhirSlice = createSlice({
                 state.saveGeneration += 1;
             }
         },
+
+        saved(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
+            // commit edits
+            deleteResource(state.edits, resource);
+            setResource(state.resourcesFromServer, resource);
+            state.saveGeneration += 1;
+        },
+
+        deleted(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
+            // commit deletion
+            deleteResource(state.resourcesFromServer, resource);
+            state.saveGeneration += 1;
+        },
+
         undoAll(state, action: PayloadAction<void>) {
             for (const key of Object.keys(state.edits)) {
                 // @ts-ignore
@@ -311,6 +335,30 @@ function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveSt
     }
 }
 
+function* onEditImmediately(fhirServer: FhirServerMethods, { payload: resource }: PayloadAction<FHIR.Resource>) {
+    try {
+        // send PUT to FHIR server
+        const response: FHIR.Resource = yield* call(fhirServer.put, resource);
+        if (response.resourceType === resource.resourceType) {
+            yield put(actions.saved(resource));
+        } else {
+            console.error("PUT response is an error", response);
+        }
+    } catch (error) {
+        console.error("FHIR PUT error", error);
+    }
+}
+
+function* onDeleteImmediately(fhirServer: FhirServerMethods, { payload: resource }: PayloadAction<FHIR.Resource>) {
+    try {
+        // send DELETE to FHIR server
+        yield* call(fhirServer.delete, resource);
+        yield put(actions.deleted(resource));
+    } catch (error) {
+        console.error("FHIR DELETE error", error);
+    }
+}
+
 export function* coreFhirSagas() {
     const serverConfig = yield* select((s: RootState) => s.fhir.serverConfig);
     const fhirServer = yield* call(fhirUp, serverConfig);
@@ -319,6 +367,8 @@ export function* coreFhirSagas() {
     yield takeEvery(actions.queryLoaded, updateObservationsByCodeSaga);
 
     yield takeEvery(actions.setSaveState, onSaveSaga, fhirServer);
+    yield takeEvery(actions.editImmediately, onEditImmediately, fhirServer);
+    yield takeEvery(actions.deleteImmediately, onDeleteImmediately, fhirServer);
 
     yield fork(loadAllResourcesSaga);
 }

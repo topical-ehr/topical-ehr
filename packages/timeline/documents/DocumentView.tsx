@@ -11,7 +11,7 @@ import {
     MenuTrigger,
     Tooltip,
 } from "@fluentui/react-components";
-import { bundleIcon, EditRegular, EditFilled } from "@fluentui/react-icons";
+import { bundleIcon, DeleteRegular, DeleteFilled, EditRegular, EditFilled } from "@fluentui/react-icons";
 
 import * as FHIR from "@topical-ehr/fhir-types";
 import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
@@ -19,8 +19,11 @@ import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
 import css from "./DocumentView.module.scss";
 import { fhirTypeId } from "@topical-ehr/fhir-types/FhirUtils";
 import { RichTextEditor } from "@topical-ehr/rich-text-editor";
+import { useAppDispatch } from "@topical-ehr/fhir-store/store";
+import { actions } from "@topical-ehr/fhir-store";
 
 const EditIcon = bundleIcon(EditFilled, EditRegular);
+const DeleteIcon = bundleIcon(DeleteFilled, DeleteRegular);
 
 interface Props {
     document: FHIR.Composition;
@@ -34,8 +37,16 @@ export function DocumentView(props: Props) {
     const [edit, setEdit] = React.useState(false);
     const [newHTML, setNewHTML] = React.useState("");
 
+    const dispatch = useAppDispatch();
+
     function onSave() {
+        const newComposition = FHIR.Composition.setHTML(newHTML, composition);
+        dispatch(actions.editImmediately(newComposition));
         onCancel();
+    }
+
+    function onDelete() {
+        dispatch(actions.deleteImmediately(composition));
     }
 
     function onCancel() {
@@ -48,6 +59,7 @@ export function DocumentView(props: Props) {
             <DocumentMenu
                 {...props}
                 setEdit={setEdit}
+                delete={onDelete}
             />
             {title && <h4>{title}</h4>}
             {!edit && (
@@ -81,7 +93,12 @@ export function DocumentView(props: Props) {
     );
 }
 
-function DocumentMenu(props: Props & { setEdit: (edit: boolean) => void }) {
+interface MenuProps {
+    setEdit: (edit: boolean) => void;
+    delete: () => void;
+}
+
+function DocumentMenu(props: Props & MenuProps) {
     return (
         <Menu>
             <MenuTrigger disableButtonEnhancement>
@@ -103,12 +120,18 @@ function DocumentMenu(props: Props & { setEdit: (edit: boolean) => void }) {
                     >
                         Edit
                     </MenuItem>
+                    <MenuItem
+                        icon={<DeleteIcon />}
+                        onClick={props.delete}
+                    >
+                        Delete
+                    </MenuItem>
                     <MenuItemLink
                         href={`/edit-fhir?fhirUrl=${encodeURIComponent(fhirTypeId(props.document))}`}
                         target="_blank"
                         icon={<FhirSVG />}
                     >
-                        FHIR editor
+                        FHIR
                     </MenuItemLink>
                 </MenuList>
             </MenuPopover>

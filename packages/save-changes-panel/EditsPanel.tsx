@@ -1,33 +1,31 @@
 import React from "react";
 
-import * as FHIR from "@topical-ehr/fhir-types";
-import { Checkbox, MenuDivider } from "@fluentui/react-components";
+import { PrimaryButton, Stack } from "@fluentui/react";
 import {
-    Button,
     Menu,
     MenuButton,
+    MenuDivider,
     MenuItem,
-    MenuItemLink,
     MenuList,
     MenuPopover,
     MenuTrigger,
     Tooltip,
 } from "@fluentui/react-components";
 import {
-    DocumentBulletListRegular,
     DocumentBulletListFilled,
-    bundleIcon,
-    EditRegular,
+    DocumentBulletListRegular,
     EditFilled,
+    EditRegular,
     NoteFilled,
     NoteRegular,
+    bundleIcon,
 } from "@fluentui/react-icons";
-import { DefaultButton, PrimaryButton, Stack } from "@fluentui/react";
-import { actions, useFHIR, useDispatch } from "@topical-ehr/fhir-store";
+import { actions, useDispatch, useFHIR } from "@topical-ehr/fhir-store";
+import * as FHIR from "@topical-ehr/fhir-types";
 import { RichTextEditor } from "@topical-ehr/rich-text-editor";
 
-import { ChangesPanel } from "./ChangesPanel";
 import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
+import { ChangesPanel } from "./ChangesPanel";
 
 const EditIcon = bundleIcon(EditFilled, EditRegular);
 const NoteIcon = bundleIcon(NoteFilled, NoteRegular);

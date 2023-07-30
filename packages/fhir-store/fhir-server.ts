@@ -90,6 +90,17 @@ export async function fhirUp({ server }: FhirServerConfigData) {
             const response = await methods.doRequest("POST", "", body);
             return JSON.parse(response.json);
         },
+
+        async put(resource: FHIR.Resource) {
+            const body = JSON.stringify(resource, null, 2);
+            const response = await methods.doRequest("PUT", `${resource.resourceType}/${resource.id}`, body);
+            return JSON.parse(response.json);
+        },
+
+        async delete(resource: FHIR.Resource) {
+            const body = JSON.stringify(resource, null, 2);
+            await methods.doRequest("DELETE", `${resource.resourceType}/${resource.id}`, body);
+        },
     };
 }
 
