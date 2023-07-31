@@ -40,7 +40,7 @@ export function RecordMedsPanel(props: Props) {
     );
 }
 
-function MedsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
+function MedsForm(props: React.PropsWithChildren & { onHide: () => void }) {
     const dispatch = useAppDispatch();
 
     const patientId = useFHIR((s) => s.fhir.patientId);
@@ -114,7 +114,12 @@ function MedsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
     }, [prescriptions]);
 
     function onSubmit() {
-        alert("TODO");
+        dispatch(
+            actions.save({
+                filter: (r) => r.resourceType === "MedicationAdministration",
+            })
+        );
+        props.onHide();
     }
 
     const classes = styles();

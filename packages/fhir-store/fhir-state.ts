@@ -20,11 +20,12 @@ type QueryState =
     | { state: "error"; error: unknown }
     | { state: "loaded" };
 
-type SaveState =
-    | { state: "save-requested" }
-    | { state: "saving" }
-    | { state: "error"; error: unknown }
-    | { state: "saved" };
+interface SaveRequest {
+    // enables saving a subset of edited resources (e.g. just-added obs)
+    filter?(editedResource: FHIR.Resource): boolean;
+}
+
+type SaveState = { state: "saving" } | { state: "error"; error: unknown } | { state: "saved" };
 
 export interface FhirResources<T = never> {
     compositions: FhirResourceById<FHIR.Composition | T>;
@@ -175,11 +176,7 @@ export const fhirSlice = createSlice({
             setResource(state.resources, resource);
             state.saveState = null;
         },
-        editImmediately(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
-            setResource(state.edits, resource);
-            setResource(state.resources, resource);
-            state.saveState = null;
-        },
+
         undoEdits(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             deleteResource(state.edits, resource);
 
@@ -205,33 +202,21 @@ export const fhirSlice = createSlice({
             setResource(state.resources, original);
         },
 
-        setSaveState(state, action: PayloadAction<SaveState>) {
-            state.saveState = action.payload;
-
-            if (state.saveState.state === "saved") {
-                // commit edits
-                for (const key of Object.keys(state.edits)) {
-                    // @ts-ignore
-                    const edited = state.edits[key];
-                    for (const resource of Object.values(edited)) {
-                        // @ts-ignore
-                        setResource(state.resources, resource);
-                        // @ts-ignore
-                        setResource(state.resourcesFromServer, resource);
-                    }
-                }
-
-                // clear edits
-                state.edits = emptyResources;
-
-                state.saveGeneration += 1;
-            }
+        save(state, action: PayloadAction<SaveRequest>) {
+            state.saveState = { state: "saving" };
+            // processed by a saga
         },
 
-        saved(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
+        setSaveState(state, action: PayloadAction<SaveState>) {
+            state.saveState = action.payload;
+        },
+
+        setSaved(state, { payload: resources }: PayloadAction<FHIR.Resource[]>) {
             // commit edits
-            deleteResource(state.edits, resource);
-            setResource(state.resourcesFromServer, resource);
+            for (const resource of resources) {
+                setResource(state.resourcesFromServer, resource);
+                deleteResource(state.edits, resource);
+            }
             state.saveGeneration += 1;
         },
 
@@ -262,7 +247,7 @@ export const fhirSlice = createSlice({
 });
 
 function* onQuerySaga(fhirServer: FhirServerMethods, action: PayloadAction<QueryRequest>) {
-    const { query, showLoadingScreen } = action.payload;
+    const { query } = action.payload;
     const state = yield* select((s: RootState) => s.fhir.queries[query]);
     if (!state) {
         yield put(actions.queryLoading(action.payload));
@@ -306,16 +291,22 @@ function* updateObservationsByCodeSaga(action: PayloadAction<[string, FHIR.Resou
     yield put(actions.setObservationsByCode(observationsByCode));
 }
 
-function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveState>) {
-    if (action.payload.state !== "save-requested") {
-        return;
-    }
+function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveRequest>) {
     yield put(actions.setSaveState({ state: "saving" }));
+
+    function doFilter(resources: FHIR.Resource[]) {
+        const { filter } = action.payload;
+        if (filter) {
+            return resources.filter(filter);
+        } else {
+            return resources;
+        }
+    }
 
     // form a transaction bundle
     const state = yield* select((s: RootState) => s.fhir);
-    const edits: FHIR.Resource[] = Object.values(state.edits).flatMap(Object.values);
-    const entries = edits.map((resource) => ({
+    const toSave: FHIR.Resource[] = doFilter(Object.values(state.edits).flatMap(Object.values));
+    const entries = toSave.map((resource) => ({
         fullUrl: resource.id,
         resource,
         request: {
@@ -329,27 +320,13 @@ function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveSt
         // send transaction to FHIR server
         const response: FHIR.Resource = yield* call(fhirServer.post, bundle);
         if (FHIR.isBundle(response)) {
-            yield put(actions.setSaveState({ state: "saved" }));
+            yield put(actions.setSaved(toSave));
         } else {
             console.error("transaction response is not a bundle", response);
         }
     } catch (error) {
         console.error("FHIR save error", error);
         yield put(actions.setSaveState({ state: "error", error }));
-    }
-}
-
-function* onEditImmediately(fhirServer: FhirServerMethods, { payload: resource }: PayloadAction<FHIR.Resource>) {
-    try {
-        // send PUT to FHIR server
-        const response: FHIR.Resource = yield* call(fhirServer.put, resource);
-        if (response.resourceType === resource.resourceType) {
-            yield put(actions.saved(resource));
-        } else {
-            console.error("PUT response is an error", response);
-        }
-    } catch (error) {
-        console.error("FHIR PUT error", error);
     }
 }
 
@@ -370,8 +347,7 @@ export function* coreFhirSagas() {
     yield takeEvery(actions.query, onQuerySaga, fhirServer);
     yield takeEvery(actions.queryLoaded, updateObservationsByCodeSaga);
 
-    yield takeEvery(actions.setSaveState, onSaveSaga, fhirServer);
-    yield takeEvery(actions.editImmediately, onEditImmediately, fhirServer);
+    yield takeEvery(actions.save, onSaveSaga, fhirServer);
     yield takeEvery(actions.deleteImmediately, onDeleteImmediately, fhirServer);
 
     yield fork(loadAllResourcesSaga);

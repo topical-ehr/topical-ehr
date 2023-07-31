@@ -50,7 +50,7 @@ export function defaultRenderer(item: TimelineItem, byCode: State["byCode"]) {
 export function Timeline(props: Props) {
     const { groupers, renderer } = props;
 
-    const resources = useFHIR((s) => s.fhir.resources);
+    const resources = useFHIR((s) => s.fhir.resourcesFromServer);
     const byCode = useFHIR((s) => s.fhir.byCode);
 
     const items = React.useMemo(() => {

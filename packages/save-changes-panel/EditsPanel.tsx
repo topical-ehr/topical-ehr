@@ -71,7 +71,7 @@ function EditsPanelInner(props: Props) {
         dispatch(actions.edit(newComposition));
 
         // save to FHIR server
-        dispatch(actions.setSaveState({ state: "save-requested" }));
+        dispatch(actions.save({}));
 
         setNote("");
     }

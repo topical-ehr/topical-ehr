@@ -38,7 +38,7 @@ export function TopRightMenu(props: Props) {
                             target="_blank"
                             icon={<FhirSVG />}
                         >
-                            FHIR
+                            FHIR editor
                         </MenuItemLink>
                     </MenuList>
                 </MenuPopover>

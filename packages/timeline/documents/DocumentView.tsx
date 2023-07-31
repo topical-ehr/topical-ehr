@@ -41,7 +41,13 @@ export function DocumentView(props: Props) {
 
     function onSave() {
         const newComposition = FHIR.Composition.setHTML(newHTML, composition);
-        dispatch(actions.editImmediately(newComposition));
+        dispatch(actions.edit(newComposition));
+        dispatch(
+            actions.save({
+                // only save this new composition
+                filter: (res) => FHIR.isSameId(res, newComposition),
+            })
+        );
         onCancel();
     }
 

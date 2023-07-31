@@ -4,7 +4,7 @@ import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 
 import "./monacoWorkers";
 
-import { SelectProps, makeStyles, shorthands, tokens } from "@fluentui/react-components";
+import { SelectProps, Tooltip, makeStyles, shorthands, tokens } from "@fluentui/react-components";
 import { Select } from "@fluentui/react-components";
 import { Alert } from "@fluentui/react-components/unstable";
 import { Input, InputProps } from "@fluentui/react-components";
@@ -242,9 +242,14 @@ export function FhirEditorWithServer({ server }: { server: FhirServerMethods }) 
             <div>
                 {server.config.type === "candlelite" && (
                     <div className={classes.hButtons}>
-                        <Button onClick={onLoadSnapshot}>Load DB ({server.config.initialSnapshotUrl})</Button>
-                        <Button onClick={onDownload}>Download DB ({server.config.filename})</Button>
-                        <Button onClick={onClear}>Clear files</Button>
+                        <Tooltip
+                            content={"Reset from " + server.config.initialSnapshotUrl}
+                            relationship="label"
+                        >
+                            <Button onClick={onLoadSnapshot}>Reset DB</Button>
+                        </Tooltip>
+                        <Button onClick={onDownload}>Download DB</Button>
+                        <Button onClick={onClear}>Clear</Button>
                     </div>
                 )}
             </div>

@@ -233,6 +233,10 @@ export function referenceTo(resource: Resource) {
     }
 }
 
+export function isSameId(r1: Resource, r2: Resource) {
+    return r1.id === r2.id && r1.resourceType === r2.resourceType;
+}
+
 function newMeta() {
     return {
         id: newUuidId(),
