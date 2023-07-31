@@ -6,7 +6,7 @@ import css from "./PatientHeader.module.scss";
 
 export function PatientHeader() {
     const formatting = useFormatting();
-    const patient = useFHIR((s) => s.fhir.resources.patients[s.fhir.patientId]);
+    const patient = useFHIR((s) => s.fhir.resourcesWithEdits.patients[s.fhir.patientId]);
 
     const pf = formatting.patient(patient);
     const { age, gender, born } = pf.ageGenderBorn;

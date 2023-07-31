@@ -9,7 +9,7 @@ import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
 import { loadTopics } from "../Topic";
 
 export function* createTopicsForStandaloneConditionsSaga() {
-    const resources = yield* select((s: RootState) => s.fhir.resources);
+    const resources = yield* select((s: RootState) => s.fhir.resourcesWithEdits);
     const patientId = yield* select((s: RootState) => s.fhir.patientId);
     const { conditions, compositions, patients, medicationRequests: prescriptions } = resources;
 

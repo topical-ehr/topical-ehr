@@ -22,7 +22,7 @@ function ChartView(props: Props) {
     const loinc = "http://loinc.org";
 
     const observationsByCode = useFHIR((s) => s.fhir.byCode.observations);
-    const allObservations = useFHIR((s) => s.fhir.resources.observations);
+    const allObservations = useFHIR((s) => s.fhir.resourcesWithEdits.observations);
 
     const observations = Object.values(allObservations).filter((ob) =>
         ob.code.coding?.some((c) => c.system === loinc && c.code === loincCode)

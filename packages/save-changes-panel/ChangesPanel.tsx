@@ -6,7 +6,7 @@ import * as FHIR from "@topical-ehr/fhir-types";
 import css from "./ChangesPanel.module.scss";
 
 export function ChangesPanel() {
-    const originals = useFHIR((s) => s.fhir.resources);
+    const originals = useFHIR((s) => s.fhir.resourcesWithEdits);
     const edits = useFHIR((s) => s.fhir.edits);
 
     function changes<T extends FHIR.Resource>(edited: FHIR.FhirResourceById<T>) {
@@ -40,7 +40,7 @@ export function ChangesPanel() {
 }
 
 export function TopicChanges() {
-    const originals = useFHIR((s) => s.fhir.resources);
+    const originals = useFHIR((s) => s.fhir.resourcesWithEdits);
     const edits = useFHIR((s) => s.fhir.edits);
 
     const anyChanges = Object.values(edits).some((o) => Object.keys(o).length > 0);

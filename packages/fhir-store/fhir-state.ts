@@ -98,7 +98,7 @@ export interface State {
     };
 
     // loaded resources, including edits
-    resources: FhirResources;
+    resourcesWithEdits: FhirResources;
 
     // resources persisted at server (for undo)
     resourcesFromServer: FhirResources;
@@ -126,7 +126,7 @@ export interface State {
 export function initialState(config: EHRConfig | null, serverConfig: FhirServerConfigData): State {
     return {
         queries: {},
-        resources: emptyResources,
+        resourcesWithEdits: emptyResources,
         resourcesFromServer: emptyResources,
         edits: emptyResources,
         deletions: {},
@@ -158,7 +158,7 @@ export const fhirSlice = createSlice({
         queryLoaded(state, action: PayloadAction<[string, FHIR.Resource[]]>) {
             const [query, resources] = action.payload;
             for (const resource of resources) {
-                setResource(state.resources, resource);
+                setResource(state.resourcesWithEdits, resource);
                 setResource(state.resourcesFromServer, resource);
             }
             state.queries[query] = { state: "loaded" };
@@ -173,7 +173,7 @@ export const fhirSlice = createSlice({
 
         edit(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             setResource(state.edits, resource);
-            setResource(state.resources, resource);
+            setResource(state.resourcesWithEdits, resource);
             state.saveState = null;
         },
 
@@ -181,17 +181,17 @@ export const fhirSlice = createSlice({
             deleteResource(state.edits, resource);
 
             const original = getResource(state.resourcesFromServer, resource);
-            setResource(state.resources, original);
+            setResource(state.resourcesWithEdits, original);
         },
 
         delete(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             state.deletions[FHIR.referenceTo(resource).reference] = resource;
-            deleteResource(state.resources, resource);
+            deleteResource(state.resourcesWithEdits, resource);
             deleteResource(state.edits, resource);
             state.saveState = null;
         },
         deleteImmediately(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
-            deleteResource(state.resources, resource);
+            deleteResource(state.resourcesWithEdits, resource);
             deleteResource(state.edits, resource);
             state.saveState = null;
         },
@@ -199,7 +199,7 @@ export const fhirSlice = createSlice({
             delete state.deletions[FHIR.referenceTo(resource).reference];
 
             const original = getResource(state.resourcesFromServer, resource);
-            setResource(state.resources, original);
+            setResource(state.resourcesWithEdits, original);
         },
 
         save(state, action: PayloadAction<SaveRequest>) {
@@ -280,7 +280,7 @@ function* updateObservationsByCodeSaga(action: PayloadAction<[string, FHIR.Resou
         return;
     }
 
-    const observations = yield* select((s: RootState) => s.fhir.resources.observations);
+    const observations = yield* select((s: RootState) => s.fhir.resourcesWithEdits.observations);
     const observationsByCode: ByCode<FHIR.Observation> = {};
     for (const observation of Object.values(observations)) {
         for (const code of observation.code.coding ?? []) {

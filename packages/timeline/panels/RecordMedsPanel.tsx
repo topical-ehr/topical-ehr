@@ -57,8 +57,8 @@ function MedsForm(props: React.PropsWithChildren & { onHide: () => void }) {
     }
     const [newComposition] = React.useState(makeNewComposition);
 
-    const composition = useFHIR((s) => s.fhir.resources.compositions[newComposition.id]) ?? newComposition;
-    const records = useFHIR((s) => s.fhir.resources.medicationAdministrations);
+    const composition = useFHIR((s) => s.fhir.resourcesWithEdits.compositions[newComposition.id]) ?? newComposition;
+    const records = useFHIR((s) => s.fhir.resourcesWithEdits.medicationAdministrations);
 
     function onNewDate(newDate: string) {
         const next: FHIR.Composition = {
@@ -81,7 +81,7 @@ function MedsForm(props: React.PropsWithChildren & { onHide: () => void }) {
         }
     }
 
-    const prescriptions = useFHIR((s) => s.fhir.resources.medicationRequests);
+    const prescriptions = useFHIR((s) => s.fhir.resourcesWithEdits.medicationRequests);
     const prescribed = React.useMemo(() => {
         return R.pipe(
             Object.values(prescriptions),

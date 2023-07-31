@@ -8,7 +8,7 @@ interface Props {
 }
 
 function Filtered(props: Props) {
-    const patients = useFHIR((s) => s.fhir.resources.patients);
+    const patients = useFHIR((s) => s.fhir.resourcesWithEdits.patients);
 
     const formatting = useFormatting();
 

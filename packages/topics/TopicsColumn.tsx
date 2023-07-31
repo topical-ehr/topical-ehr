@@ -25,9 +25,9 @@ interface Props {
 }
 
 export function TopicsColumn(props: Props) {
-    const compositions = useFHIR((s) => s.fhir.resources.compositions);
-    const conditions = useFHIR((s) => s.fhir.resources.conditions);
-    const medicationRequests = useFHIR((s) => s.fhir.resources.medicationRequests);
+    const compositions = useFHIR((s) => s.fhir.resourcesWithEdits.compositions);
+    const conditions = useFHIR((s) => s.fhir.resourcesWithEdits.conditions);
+    const medicationRequests = useFHIR((s) => s.fhir.resourcesWithEdits.medicationRequests);
 
     const topics = loadTopics(conditions, compositions, medicationRequests);
 
