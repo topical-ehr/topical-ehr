@@ -206,24 +206,12 @@ export function FhirEditorWithServer({ server }: { server: FhirServerMethods }) 
         await server.loadSnapshot(server.config.initialSnapshotUrl);
     }
     async function onDownload() {
-        if (!server.export || server.config.type !== "candlelite") {
+        if (!server.exportAsDownload || server.config.type !== "candlelite") {
             alert("not supported");
             return;
         }
 
-        const array = await server.export();
-        const blob = new Blob([array.buffer], { type: "application/x-sqlite3" });
-        const a = document.createElement("a");
-        document.body.appendChild(a);
-        a.href = window.URL.createObjectURL(blob);
-        a.download = server.config.filename;
-        a.addEventListener("click", function () {
-            setTimeout(function () {
-                window.URL.revokeObjectURL(a.href);
-                a.remove();
-            }, 500);
-        });
-        a.click();
+        server.exportAsDownload();
     }
     async function onClear() {
         if (!server.clearAll || server.config.type !== "candlelite") {

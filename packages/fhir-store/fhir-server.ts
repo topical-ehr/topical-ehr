@@ -70,6 +70,21 @@ export async function fhirUp({ server }: FhirServerConfigData) {
                 async export() {
                     return await candlelite.Export();
                 },
+                async exportAsDownload() {
+                    const array = await candlelite.Export();
+                    const blob = new Blob([array.buffer], { type: "application/x-sqlite3" });
+                    const a = document.createElement("a");
+                    document.body.appendChild(a);
+                    a.href = window.URL.createObjectURL(blob);
+                    a.download = server.filename;
+                    a.addEventListener("click", function () {
+                        setTimeout(function () {
+                            window.URL.revokeObjectURL(a.href);
+                            a.remove();
+                        }, 500);
+                    });
+                    a.click();
+                },
             };
         }
         throw new Error(`invalid server type: ${JSON.stringify(server)}`);
