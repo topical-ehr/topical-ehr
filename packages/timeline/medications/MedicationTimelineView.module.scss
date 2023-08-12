@@ -1,0 +1,13 @@
+.container {
+    h4 {
+        margin: 0;
+    }
+
+    ul {
+        margin-top: 0.25em;
+    }
+}
+
+.container > div {
+    padding: 0.1em;
+}

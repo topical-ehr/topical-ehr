@@ -7,6 +7,7 @@ import { TimelineItem } from "./TimelineItem";
 import css from "./Timeline.module.scss";
 import { ObservationDisplay } from "@topical-ehr/observations/ObservationDisplay";
 import { DocumentView } from "./documents/DocumentView";
+import { MedicationTimelineView } from "./medications/MedicationTimelineView";
 
 export type Grouper = (resources: FhirResources) => TimelineItem[];
 export type Renderer = (item: TimelineItem, byCode: State["byCode"]) => React.ReactNode;
@@ -44,6 +45,9 @@ export function defaultRenderer(item: TimelineItem, byCode: State["byCode"]) {
 
         case "progress-note":
             return <DocumentView document={item.item.document} />;
+
+        case "medication-administration":
+            return <MedicationTimelineView meds={item.item.meds} />;
     }
 }
 
@@ -63,7 +67,7 @@ export function Timeline(props: Props) {
     function renderDateTime(dateTime: string) {
         const luxonDate = DateTime.fromISO(dateTime);
         // luxonDate.toRelativeCalendar();
-        return luxonDate.toLocaleString(DateTime.DATE_MED);
+        return luxonDate.toLocaleString(DateTime.DATETIME_MED);
     }
 
     return (

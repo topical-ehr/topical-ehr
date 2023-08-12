@@ -15,6 +15,10 @@ export interface TimelineItem {
               observation: FHIR.Observation;
           }
         | {
+              type: "medication-administration";
+              meds: FHIR.MedicationAdministration[];
+          }
+        | {
               type: "progress-note";
               document: FHIR.Composition;
           };

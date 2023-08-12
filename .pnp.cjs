@@ -12299,6 +12299,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["demo-webapp", "workspace:demos/demo-webapp"],\
             ["@fluentui/react", "virtual:d9f609d41a1140f07bf82cab559fd0bd582d70dcde33b6c5d88c09e313c908e8106174ab66623fc21a8e846906cd0d6e209ce628c4a3fa1175e287355cd52b39#npm:8.67.2"],\
             ["@fluentui/react-components", "virtual:d9f609d41a1140f07bf82cab559fd0bd582d70dcde33b6c5d88c09e313c908e8106174ab66623fc21a8e846906cd0d6e209ce628c4a3fa1175e287355cd52b39#npm:9.25.1"],\
+            ["@fluentui/react-icons", "virtual:510e31fee636a6b6326afa0b7710ecd0b522d68db7e21dbd329d967e22000fa7fc2b6860b5bc3d4223b5767370afee93f1658b90be5cef43c6b672812c9c21e7#npm:2.0.204"],\
             ["@rollup/plugin-dsv", "npm:2.0.3"],\
             ["@topical-ehr/fhir-editor", "workspace:packages/fhir-editor"],\
             ["@topical-ehr/fhir-server-in-browser", "workspace:packages/fhir-server-in-browser"],\

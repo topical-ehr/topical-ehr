@@ -49,6 +49,7 @@ export async function fhirUp({ server }: FhirServerConfigData) {
 
             const exists = await candlelite.Exists();
             if (!exists) {
+                console.info("loading initial snapshot");
                 await candlelite.LoadDbSnapshot(server.initialSnapshotUrl);
             }
 

@@ -3898,6 +3898,7 @@ __metadata:
   dependencies:
     "@fluentui/react": 8.67.2
     "@fluentui/react-components": 9.25.1
+    "@fluentui/react-icons": 2.0.204
     "@rollup/plugin-dsv": ^2.0.3
     "@topical-ehr/fhir-editor": "workspace:*"
     "@topical-ehr/fhir-server-in-browser": "workspace:*"

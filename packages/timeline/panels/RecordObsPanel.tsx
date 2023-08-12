@@ -45,6 +45,8 @@ function ObsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
 
     const classes = styles();
 
+    function onNewDate(newDate: string) {}
+
     function onSubmit() {
         alert("TODO");
     }
@@ -54,7 +56,7 @@ function ObsForm(props: React.PropsWithChildren & { onHide?: () => void }) {
             <form onSubmit={methods.handleSubmit(onHandleSubmit)}>
                 <div className={cssObs.grid}>
                     <label>Time</label>
-                    <DateTimePicker />
+                    <DateTimePicker onChange={onNewDate} />
                     {props.children}
                 </div>
 

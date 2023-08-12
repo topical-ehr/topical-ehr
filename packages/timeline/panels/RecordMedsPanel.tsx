@@ -56,32 +56,13 @@ function MedsForm(props: React.PropsWithChildren & { onHide: () => void }) {
         });
     }
     const [newComposition] = React.useState(makeNewComposition);
+    const [date, setDate] = React.useState<string>(() => new Date().toISOString());
 
     const composition = useFHIR((s) => s.fhir.resourcesWithEdits.compositions[newComposition.id]) ?? newComposition;
     const records = useFHIR((s) => s.fhir.resourcesWithEdits.medicationAdministrations);
 
-    function onNewDate(newDate: string) {
-        const next: FHIR.Composition = {
-            ...composition,
-            date: newDate,
-        };
-        dispatch(actions.edit(next));
-
-        const entries = composition.section?.[0]?.entry ?? [];
-        for (const entry of entries) {
-            const ref = FHIR.parseRef(entry.reference);
-            if (ref?.resourceType === "MedicationAdministration/") {
-                const record = records[ref.id];
-                const next: FHIR.MedicationAdministration = {
-                    ...record,
-                    effectiveDateTime: newDate,
-                };
-                dispatch(actions.edit(next));
-            }
-        }
-    }
-
     const prescriptions = useFHIR((s) => s.fhir.resourcesWithEdits.medicationRequests);
+    const now = new Date();
     const prescribed = React.useMemo(() => {
         return R.pipe(
             Object.values(prescriptions),
@@ -93,6 +74,7 @@ function MedsForm(props: React.PropsWithChildren & { onHide: () => void }) {
                 const newRecord = FHIR.MedicationAdministration.new({
                     subject: prescription.subject,
                     status: "completed",
+                    dateTime: now,
                 });
 
                 const dose = prescription.dosageInstruction?.[0]?.doseAndRate?.[0]?.doseQuantity;
@@ -114,9 +96,31 @@ function MedsForm(props: React.PropsWithChildren & { onHide: () => void }) {
     }, [prescriptions]);
 
     function onSubmit() {
+        // update dates
+        const next: FHIR.Composition = {
+            ...composition,
+            date: date,
+        };
+        dispatch(actions.edit(next));
+        debugger;
+
+        const entries = composition.section?.[0]?.entry ?? [];
+        for (const entry of entries) {
+            // entry.reference is a uuid ref
+            if (entry.reference) {
+                const record = records[entry.reference];
+                const next: FHIR.MedicationAdministration = {
+                    ...record,
+                    effectiveDateTime: date,
+                };
+                dispatch(actions.edit(next));
+            }
+        }
+
+        // save
         dispatch(
             actions.save({
-                filter: (r) => r.resourceType === "MedicationAdministration",
+                filter: (r) => r.resourceType === "MedicationAdministration" || FHIR.isSameId(composition, r),
             })
         );
         props.onHide();
@@ -131,7 +135,7 @@ function MedsForm(props: React.PropsWithChildren & { onHide: () => void }) {
         <form>
             <div className={cssMeds.datetime_field}>
                 <label>Time</label>
-                <DateTimePicker onChange={onNewDate} />
+                <DateTimePicker onChange={setDate} />
             </div>
             <div className={cssMeds.grid}>
                 {prescribed.map((ma) =>
@@ -182,6 +186,7 @@ function PrescribedMedRow(props: { ma: FHIR.MedicationAdministration; compositio
     const dispatch = useAppDispatch();
     function onChange(checked: boolean | "mixed") {
         dispatch((checked ? actions.edit : actions.delete)(ma));
+        debugger;
 
         const updatedComposition = (checked ? FHIR.Composition.addEntry : FHIR.Composition.removeEntry)(
             FHIR.referenceTo(ma),

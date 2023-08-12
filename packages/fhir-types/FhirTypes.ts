@@ -237,6 +237,10 @@ export function isSameId(r1: Resource, r2: Resource) {
     return r1.id === r2.id && r1.resourceType === r2.resourceType;
 }
 
+export function typeId(r: Resource) {
+    return r.resourceType + "/" + r.id;
+}
+
 function newMeta() {
     return {
         id: newUuidId(),
@@ -542,11 +546,19 @@ export interface MedicationAdministration extends Resource {
     };
 }
 export const MedicationAdministration = {
-    new({ subject, status }: { subject: Reference; status: MedicationAdministration["status"] }): MedicationAdministration {
+    new({
+        subject,
+        status,
+        dateTime,
+    }: {
+        subject: Reference;
+        status: MedicationAdministration["status"];
+        dateTime: Date;
+    }): MedicationAdministration {
         return {
             resourceType: "MedicationAdministration",
             ...newMeta(),
-            effectiveDateTime: new Date().toISOString(),
+            effectiveDateTime: dateTime.toISOString(),
             subject,
             status,
         };

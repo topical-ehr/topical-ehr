@@ -107,6 +107,7 @@ export class MedicationOption extends AutocompleteOptionBase {
             ...FHIR.MedicationAdministration.new({
                 subject: state.topic.subject,
                 status: "completed",
+                dateTime: new Date(), // will be overriden on save
             }),
             medicationCodeableConcept: {
                 text: display,

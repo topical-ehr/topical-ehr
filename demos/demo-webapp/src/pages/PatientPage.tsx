@@ -8,6 +8,7 @@ import { RecordMedsPanel } from "@topical-ehr/timeline/panels/RecordMedsPanel";
 import { TimelineViewMenu } from "@topical-ehr/timeline/buttons/TimelineViewMenu";
 import { TimelineRecordMenu } from "@topical-ehr/timeline/buttons/TimelineRecordMenu";
 import { groupNotes } from "@topical-ehr/timeline/groupNotes";
+import { groupMedications } from "@topical-ehr/timeline/groupMedications";
 import { groupObservations } from "@topical-ehr/timeline/groupObservations";
 import { Timeline, defaultRenderer } from "@topical-ehr/timeline/Timeline";
 import { TopicsColumn } from "@topical-ehr/topics/TopicsColumn";
@@ -97,7 +98,7 @@ export default function PatientPage() {
                         <RecordMedsPanel />
 
                         <Timeline
-                            groupers={[groupNotes, groupObservations]}
+                            groupers={[groupNotes, groupObservations, groupMedications]}
                             renderer={defaultRenderer}
                         />
                     </Column>
