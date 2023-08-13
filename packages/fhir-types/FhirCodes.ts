@@ -59,4 +59,111 @@ export const Codes = {
             },
         },
     },
+    Observation: {
+        BloodPressure: {
+            Panel: {
+                coding: [
+                    {
+                        system: "http://loinc.org",
+                        code: "85354-9",
+                        display: "Blood pressure panel with all children optional",
+                    },
+                ],
+                text: "Blood pressure systolic & diastolic",
+            },
+            Systolic: {
+                coding: [
+                    {
+                        system: "http://loinc.org",
+                        code: "8480-6",
+                        display: "Systolic blood pressure",
+                    },
+                ],
+            },
+            Diastolic: {
+                coding: [
+                    {
+                        system: "http://loinc.org",
+                        code: "8462-4",
+                        display: "Diastolic blood pressure",
+                    },
+                ],
+            },
+            Unit: {
+                unit: "mmHg",
+                system: "http://unitsofmeasure.org",
+                code: "mm[Hg]",
+            },
+        },
+        HeartRate: {
+            Code: {
+                coding: [
+                    {
+                        system: "http://loinc.org",
+                        code: "8867-4",
+                        display: "Heart rate",
+                    },
+                ],
+                text: "Heart rate",
+            },
+            Unit: {
+                unit: "beats/minute",
+                system: "http://unitsofmeasure.org",
+                code: "/min",
+            },
+        },
+        RespiratoryRate: {
+            Code: {
+                coding: [
+                    {
+                        system: "http://loinc.org",
+                        code: "9279-1",
+                        display: "Respiratory rate",
+                    },
+                ],
+                text: "Respiratory rate",
+            },
+            Unit: {
+                unit: "breaths/minute",
+                system: "http://unitsofmeasure.org",
+                code: "/min",
+            },
+        },
+        SPO2: {
+            Code: {
+                coding: [
+                    {
+                        system: "http://loinc.org",
+                        code: "2708-6",
+                        display: "Oxygen saturation in Arterial blood",
+                    },
+                    {
+                        system: "http://loinc.org",
+                        code: "59408-5",
+                        display: "Oxygen saturation in Arterial blood by Pulse oximetry",
+                    },
+                ],
+            },
+            Unit: {
+                unit: "%",
+                system: "http://unitsofmeasure.org",
+                code: "%",
+            },
+        },
+
+        Pain: {
+            Code: {
+                coding: [
+                    {
+                        system: "http://loinc.org",
+                        code: "38208-5",
+                        display: "Pain severity - Reported",
+                    },
+                ],
+            },
+            Unit: {
+                unit: "/10",
+            },
+        },
+    },
 };

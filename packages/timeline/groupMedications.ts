@@ -1,8 +1,6 @@
 import { FhirResources } from "@topical-ehr/fhir-store";
 import * as R from "remeda";
 import * as FHIR from "@topical-ehr/fhir-types";
-import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
-import { hasCode } from "@topical-ehr/fhir-types/FhirUtils";
 
 import { TimelineItem } from "./TimelineItem";
 

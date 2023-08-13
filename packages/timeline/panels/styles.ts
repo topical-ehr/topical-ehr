@@ -4,6 +4,7 @@ export const styles = makeStyles({
     horizontal: {
         display: "flex",
         columnGap: tokens.spacingHorizontalM,
+        alignItems: "baseline",
     },
     vgap: {
         marginTop: tokens.spacingVerticalM,

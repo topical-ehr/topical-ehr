@@ -308,7 +308,7 @@ export interface Observation extends Resource, ObservationValue {
     bodySite?: CodeableConcept[];
     method?: CodeableConcept[];
 
-    subject?: Reference;
+    subject: Reference;
     encounter?: Reference;
     focus?: Reference[];
     performer?: Reference[];
@@ -358,6 +358,16 @@ interface ObservationValue {
     valueDateTime?: FhirDateTime;
     valuePeriod?: Period;
 }
+
+export const Observation = {
+    new(props: Pick<Observation, "code" | "subject" | "status">): Observation {
+        return {
+            resourceType: "Observation",
+            ...newMeta(),
+            ...props,
+        };
+    },
+};
 
 export interface Composition extends Resource {
     resourceType: "Composition";
