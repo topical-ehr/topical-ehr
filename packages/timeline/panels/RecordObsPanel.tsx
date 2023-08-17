@@ -80,6 +80,7 @@ function ObsForm(props: React.PropsWithChildren) {
         console.log("onSubmit", data);
 
         const now = new Date().toISOString();
+        const subject = { reference: `Patient/${patientId}` };
 
         const observations = R.pipe(
             data,
@@ -93,7 +94,7 @@ function ObsForm(props: React.PropsWithChildren) {
                 let ob = FHIR.Observation.new({
                     code: infos[0].observationCode,
                     status: "final",
-                    subject: { reference: `Patient/${patientId}` },
+                    subject,
                 });
                 ob.effectiveDateTime = now;
 
@@ -126,14 +127,20 @@ function ObsForm(props: React.PropsWithChildren) {
             })
         );
 
-        console.log({ observations });
-        const ids = new Set(observations.map((o) => o.id));
+        const report = FHIR.DiagnosticReport.new({
+            subject,
+            status: "final",
+            code: { text: "Vital Signs" },
+        });
+        report.result = observations.map(FHIR.referenceTo);
+        dispatch(actions.edit(report));
 
         // save
         observations.forEach((ob) => dispatch(actions.edit(ob)));
+        const ids = new Set(observations.map((ob) => ob.id));
         dispatch(
             actions.save({
-                filter: (r) => r.resourceType === "Observation" && ids.has(r.id),
+                filter: (r) => (r.resourceType === "Observation" && ids.has(r.id)) || FHIR.isSameId(r, report),
             })
         );
         onHide();
