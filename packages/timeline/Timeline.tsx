@@ -8,6 +8,7 @@ import css from "./Timeline.module.scss";
 import { ObservationDisplay } from "@topical-ehr/observations/ObservationDisplay";
 import { DocumentView } from "./documents/DocumentView";
 import { MedicationTimelineView } from "./medications/MedicationTimelineView";
+import { createSearcher } from "@topical-ehr/fhir-store/search";
 
 export type Grouper = (resources: FhirResources) => TimelineItem[];
 export type Renderer = (item: TimelineItem, byCode: State["byCode"]) => React.ReactNode;
@@ -56,8 +57,11 @@ export function Timeline(props: Props) {
 
     const resources = useFHIR((s) => s.fhir.resourcesFromServer);
     const byCode = useFHIR((s) => s.fhir.byCode);
+    const searchingFor = useFHIR((s) => s.fhir.searchingFor);
 
     const items = React.useMemo(() => {
+        // const filteredResources = searchingFor ? searchResources(resources, searchingFor) : resources;
+
         const items = groupers.flatMap((g) => g(resources));
         // newest first
         items.sort((a, b) => b.dateTime.localeCompare(a.dateTime));
@@ -70,9 +74,11 @@ export function Timeline(props: Props) {
         return luxonDate.toLocaleString(DateTime.DATETIME_MED);
     }
 
+    const filteredItems = searchingFor ? items.filter(createSearcher(searchingFor)) : items;
+
     return (
         <div>
-            {items.map((item) => (
+            {filteredItems.map((item) => (
                 <div
                     key={item.id}
                     className={css.item}

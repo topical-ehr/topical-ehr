@@ -121,6 +121,7 @@ export interface State {
 
     // misc
     showingPanels: Record<string, boolean>;
+    searchingFor: string | null;
 }
 
 export function initialState(config: EHRConfig | null, serverConfig: FhirServerConfigData): State {
@@ -141,6 +142,7 @@ export function initialState(config: EHRConfig | null, serverConfig: FhirServerC
         serverConfig,
 
         showingPanels: {},
+        searchingFor: null,
     };
 }
 
@@ -242,6 +244,9 @@ export const fhirSlice = createSlice({
         },
         hidePanel(state, { payload }: PayloadAction<string>) {
             state.showingPanels[payload] = false;
+        },
+        setSearchingFor(state, { payload }: PayloadAction<string>) {
+            state.searchingFor = payload || null;
         },
     },
 });
