@@ -38,7 +38,7 @@ export const Codes = {
         },
         Category: {
             Active: {
-                text: "Active Topical-EHR Topic",
+                text: "Active Topic",
                 coding: [
                     {
                         system: "https://topicalehr.io/fhir-codes/Composition/Category",
@@ -48,7 +48,7 @@ export const Codes = {
                 ],
             },
             Inactive: {
-                text: "Inactive Topical-EHR Topic",
+                text: "Inactive Topic",
                 coding: [
                     {
                         system: "https://topicalehr.io/fhir-codes/Composition/Category",
@@ -58,6 +58,10 @@ export const Codes = {
                 ],
             },
         },
+    },
+    Extension: {
+        RenderingMarkdown: "http://hl7.org/fhir/StructureDefinition/rendering-markdown",
+        ResolveAsVersionSpecific: "http://hl7.org/fhir/StructureDefinition/resolve-as-version-specific",
     },
     Observation: {
         BloodPressure: {

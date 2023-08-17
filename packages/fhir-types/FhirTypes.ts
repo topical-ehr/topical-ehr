@@ -1,14 +1,12 @@
 import { v4 as uuidv4 } from "uuid";
 
+import { Codes } from "./FhirCodes";
+
 // FHIR R4
 // https://www.hl7.org/fhir/R4/
 
-export interface Bundle<TResource> {
+export interface Bundle<TResource> extends Resource {
     resourceType: "Bundle";
-    id: string;
-    meta: {
-        lastUpdated: string;
-    };
     type: string;
     total?: number;
 
@@ -165,6 +163,7 @@ export interface SampledData {
 
 export interface Reference {
     reference?: string;
+    extension?: Extension[];
     type?: string;
     identifier?: Identifier;
     display?: string;
@@ -220,11 +219,40 @@ export interface Resource {
         lastUpdated: string;
         versionId?: string;
     };
+    extension?: Extension[];
+    modifierExtension?: Extension[];
     text?: {
         status: string;
         div: string;
     };
 }
+interface Extension {
+    url: string;
+
+    extension?: Extension[];
+
+    valueUri?: string;
+    valueUrl?: string;
+    valueQuantity?: Quantity;
+    valueCode?: string;
+    valueCodeableConcept?: CodeableConcept;
+    valueDate?: string;
+    valueMarkdown?: string;
+    valueString?: string;
+    valueBoolean?: boolean;
+    valueInteger?: number;
+    valueRange?: Range;
+    valueRatio?: Ratio;
+    valueSampledData?: SampledData;
+    valueTime?: FhirTime;
+    valueDateTime?: FhirDateTime;
+    valuePeriod?: Period;
+}
+interface Element {
+    id?: string;
+    extension?: Extension[];
+}
+
 export function referenceTo(resource: Resource) {
     if (resource.id.startsWith("urn:uuid:")) {
         return { reference: resource.id, type: resource.resourceType };
@@ -299,6 +327,15 @@ export interface DiagnosticReport extends Resource {
     conclusionCode?: CodeableConcept[];
     presentedForm?: Attachment[];
 }
+export const DiagnosticReport = {
+    new(props: Pick<DiagnosticReport, "code" | "subject" | "status">): DiagnosticReport {
+        return {
+            resourceType: "DiagnosticReport",
+            ...newMeta(),
+            ...props,
+        };
+    },
+};
 
 export interface Observation extends Resource, ObservationValue {
     resourceType: "Observation";
@@ -388,6 +425,7 @@ interface CompositionSection {
     text?: {
         status: "generated" | "extensions" | "additional" | "empty";
         div: string;
+        _div?: Element;
     };
     entry?: Reference[];
     section?: CompositionSection[];
@@ -402,14 +440,17 @@ export const Composition = {
             ...props,
         };
     },
-    setHTML(html: string, c: Composition): Composition {
+    setText(content: { html: string; markdown: string }, c: Composition): Composition {
         const sections = c.section ?? [];
         const newSections: CompositionSection[] = [
             {
                 ...sections[0],
                 text: {
                     status: "additional",
-                    div: `<div>${html}</div>`,
+                    div: `<div>${content.html}</div>`,
+                    _div: {
+                        extension: [{ url: Codes.Extension.RenderingMarkdown, valueMarkdown: content.markdown }],
+                    },
                 },
             },
             ...sections.slice(1),

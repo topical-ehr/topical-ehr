@@ -18,7 +18,7 @@ import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
 
 import css from "./DocumentView.module.scss";
 import { fhirTypeId } from "@topical-ehr/fhir-types/FhirUtils";
-import { RichTextEditor } from "@topical-ehr/rich-text-editor";
+import { GetRichTextContents, RichTextEditor } from "@topical-ehr/rich-text-editor";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import { actions } from "@topical-ehr/fhir-store";
 
@@ -35,12 +35,15 @@ export function DocumentView(props: Props) {
     const html = composition?.section?.[0].text?.div ?? "";
 
     const [edit, setEdit] = React.useState(false);
-    const [newHTML, setNewHTML] = React.useState("");
+    const [getRichTextContents, setGetRichTextContents] = React.useState<GetRichTextContents | null>(null);
 
     const dispatch = useAppDispatch();
 
     function onSave() {
-        const newComposition = FHIR.Composition.setHTML(newHTML, composition);
+        const newComposition = getRichTextContents
+            ? FHIR.Composition.setText(getRichTextContents(), composition)
+            : composition;
+
         dispatch(actions.edit(newComposition));
         dispatch(
             actions.save({
@@ -56,7 +59,6 @@ export function DocumentView(props: Props) {
     }
 
     function onCancel() {
-        setNewHTML("");
         setEdit(false);
     }
 
@@ -81,12 +83,12 @@ export function DocumentView(props: Props) {
                     <RichTextEditor
                         initialHTML={html}
                         placeholder={<></>}
-                        onChangedHTML={setNewHTML}
+                        onChange={setGetRichTextContents}
                     />
                     <div className={css.buttons}>
                         <Button
                             onClick={onSave}
-                            disabled={!newHTML}
+                            disabled={!getRichTextContents}
                             appearance="primary"
                         >
                             Save

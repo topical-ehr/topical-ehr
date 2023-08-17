@@ -4,7 +4,7 @@ import React from "react";
 import { actions } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import * as FHIR from "@topical-ehr/fhir-types";
-import { RichTextEditor } from "@topical-ehr/rich-text-editor";
+import { GetRichTextContents, RichTextEditor } from "@topical-ehr/rich-text-editor";
 import { useTopicContext } from "../TopicContext";
 
 interface Props {}
@@ -22,8 +22,8 @@ export function SummaryEdit(props: Props) {
 
     const [initialHTML, _] = React.useState(composition.section?.[0].text?.div ?? null);
 
-    function onChanged(html: string) {
-        const updatedComposition = FHIR.Composition.setHTML(html, composition);
+    function onChanged(getContents: GetRichTextContents) {
+        const updatedComposition = FHIR.Composition.setText(getContents(), composition);
         dispatch(actions.edit(updatedComposition));
     }
 
@@ -45,7 +45,7 @@ export function SummaryEdit(props: Props) {
                         <p>Details</p>
                     </>
                 }
-                onChangedHTML={onChanged}
+                onChange={onChanged}
             />
         </div>
     );
