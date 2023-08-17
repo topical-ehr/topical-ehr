@@ -11,6 +11,8 @@ import {
     BOLD_UNDERSCORE,
     ITALIC_STAR,
     ITALIC_UNDERSCORE,
+    $convertToMarkdownString,
+    TRANSFORMERS,
 } from "@lexical/markdown";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
 import { CheckListPlugin } from "@lexical/react/LexicalCheckListPlugin";
@@ -39,8 +41,9 @@ interface Props {
     newNodeFloatingToolbar?: boolean;
     setEditor?: (editor: LexicalEditor) => void;
 
-    onChangedHTML?: (html: string) => void;
+    onChange?: (getContents: GetRichTextContents) => void;
 }
+export type GetRichTextContents = () => { html: string; markdown: string };
 
 export function RichTextEditor(props: Props) {
     function getInitialState() {
@@ -94,9 +97,12 @@ export function RichTextEditor(props: Props) {
     const placeholder = <div className="editor-placeholder">{props.placeholder}</div>;
 
     function onChange(editorState: EditorState, editor: LexicalEditor) {
-        editor.update(() => {
-            const html = $generateHtmlFromNodes(editor, null);
-            props.onChangedHTML?.(html);
+        props.onChange?.(() => {
+            return editorState.read(() => {
+                const html = $generateHtmlFromNodes(editor, null);
+                const markdown = $convertToMarkdownString(TRANSFORMERS);
+                return { html, markdown };
+            });
         });
     }
 
