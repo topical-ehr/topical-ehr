@@ -2,6 +2,7 @@ import React from "react";
 import * as R from "remeda";
 
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
+import { createSearcher } from "@topical-ehr/fhir-store/search";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import { Topic, activeStatus, loadTopics } from "./Topic";
 import { TopicContext } from "./TopicContext";
@@ -28,8 +29,11 @@ export function TopicsColumn(props: Props) {
     const compositions = useFHIR((s) => s.fhir.resourcesWithEdits.compositions);
     const conditions = useFHIR((s) => s.fhir.resourcesWithEdits.conditions);
     const medicationRequests = useFHIR((s) => s.fhir.resourcesWithEdits.medicationRequests);
+    const searchingFor = useFHIR((s) => s.fhir.searchingFor);
 
-    const topics = loadTopics(conditions, compositions, medicationRequests);
+    // TODO: don't filter out topics as they're being edited
+    const searcher = createSearcher(searchingFor);
+    const topics = loadTopics(conditions, compositions, medicationRequests).filter(searcher);
 
     const [added, existing] = R.partition(topics, (t) => t.composition.id.startsWith("urn:"));
     const [active, inactive] = R.partition(existing, (t) => activeStatus(t) === "active");
