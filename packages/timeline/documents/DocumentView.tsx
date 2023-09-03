@@ -21,11 +21,12 @@ import { fhirTypeId } from "@topical-ehr/fhir-types/FhirUtils";
 import { GetRichTextContents, RichTextEditor } from "@topical-ehr/rich-text-editor";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import { actions } from "@topical-ehr/fhir-store";
+import { ChangesView } from "./ChangesView";
 
 const EditIcon = bundleIcon(EditFilled, EditRegular);
 const DeleteIcon = bundleIcon(DeleteFilled, DeleteRegular);
 
-interface Props {
+export interface Props {
     document: FHIR.Composition;
 }
 
@@ -35,13 +36,18 @@ export function DocumentView(props: Props) {
     const html = composition?.section?.[0].text?.div ?? "";
 
     const [edit, setEdit] = React.useState(false);
-    const [getRichTextContents, setGetRichTextContents] = React.useState<GetRichTextContents | null>(null);
+
+    const getRichTextContents = React.useRef<GetRichTextContents>();
+
+    function onChanged(getContents: GetRichTextContents) {
+        getRichTextContents.current = getContents;
+    }
 
     const dispatch = useAppDispatch();
 
     function onSave() {
-        const newComposition = getRichTextContents
-            ? FHIR.Composition.setText(getRichTextContents(), composition)
+        const newComposition = getRichTextContents.current
+            ? FHIR.Composition.setText(getRichTextContents.current(), composition)
             : composition;
 
         dispatch(actions.edit(newComposition));
@@ -83,7 +89,7 @@ export function DocumentView(props: Props) {
                     <RichTextEditor
                         initialHTML={html}
                         placeholder={<></>}
-                        onChange={setGetRichTextContents}
+                        onChange={onChanged}
                     />
                     <div className={css.buttons}>
                         <Button
@@ -97,6 +103,8 @@ export function DocumentView(props: Props) {
                     </div>
                 </>
             )}
+
+            <ChangesView {...props} />
         </div>
     );
 }

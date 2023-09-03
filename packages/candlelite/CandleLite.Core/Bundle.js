@@ -76,3 +76,21 @@ export function Bundle$reflection() {
 
 export const BundleType_SearchSet = "searchset";
 
+export const BundleType_Document = "document";
+
+export const BundleType_Message = "message";
+
+export const BundleType_Transaction = "transaction";
+
+export const BundleType_TransactionResponse = "transaction-response";
+
+export const BundleType_Batch = "batch";
+
+export const BundleType_BatchResponse = "batch-response";
+
+export const BundleType_History = "history";
+
+export const BundleType_Collection = "collection";
+
+export const BundleType_SubscriptionNotification = "subscription-notification";
+

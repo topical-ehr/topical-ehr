@@ -1374,6 +1374,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:2.0.0"\
       ],\
       [\
+        "diff-match-patch",\
+        "npm:1.0.5"\
+      ],\
+      [\
         "dir-glob",\
         "npm:3.0.1"\
       ],\
@@ -10873,6 +10877,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@topical-ehr/ui-elements", "workspace:packages/ui-elements"],\
             ["@types/luxon", "npm:2.3.1"],\
             ["@types/react", "npm:18.2.14"],\
+            ["diff-match-patch", "npm:1.0.5"],\
             ["dompurify", "npm:2.4.5"],\
             ["luxon", "npm:2.3.2"],\
             ["react", "npm:18.2.0"],\
@@ -12336,6 +12341,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/depd-npm-2.0.0-b6c51a4b43-abbe19c768.zip/node_modules/depd/",\
           "packageDependencies": [\
             ["depd", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["diff-match-patch", [\
+        ["npm:1.0.5", {\
+          "packageLocation": "./.yarn/cache/diff-match-patch-npm-1.0.5-f715ad1381-841522d01b.zip/node_modules/diff-match-patch/",\
+          "packageDependencies": [\
+            ["diff-match-patch", "npm:1.0.5"]\
           ],\
           "linkType": "HARD"\
         }]\

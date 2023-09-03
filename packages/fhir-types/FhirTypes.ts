@@ -161,9 +161,9 @@ export interface SampledData {
     // TODO
 }
 
-export interface Reference {
+export interface Reference extends Element {
     reference?: string;
-    extension?: Extension[];
+    _reference?: Element;
     type?: string;
     identifier?: Identifier;
     display?: string;
@@ -243,6 +243,7 @@ interface Extension {
     valueInteger?: number;
     valueRange?: Range;
     valueRatio?: Ratio;
+    valueReference?: Reference;
     valueSampledData?: SampledData;
     valueTime?: FhirTime;
     valueDateTime?: FhirDateTime;
@@ -431,7 +432,9 @@ interface CompositionSection {
     section?: CompositionSection[];
     author?: Reference[];
 }
-
+export function isComposition(r: Resource): r is Composition {
+    return r.resourceType === "Composition";
+}
 export const Composition = {
     new(props: Pick<Composition, "subject" | "status" | "type" | "category" | "date" | "title" | "section">): Composition {
         return {
@@ -456,6 +459,10 @@ export const Composition = {
             ...sections.slice(1),
         ];
         return { ...c, section: newSections };
+    },
+    getMarkdown(c: Composition): string | undefined {
+        return c.section?.[0]?.text?._div?.extension?.filter((e) => e.url === Codes.Extension.RenderingMarkdown)[0]
+            .valueMarkdown;
     },
     setEntries(newEntries: Reference[], c: Composition): Composition {
         const sections = c.section ?? [];

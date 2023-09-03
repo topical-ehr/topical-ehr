@@ -62,6 +62,7 @@ export const Codes = {
     Extension: {
         RenderingMarkdown: "http://hl7.org/fhir/StructureDefinition/rendering-markdown",
         ResolveAsVersionSpecific: "http://hl7.org/fhir/StructureDefinition/resolve-as-version-specific",
+        VersionModified: "https://topicalehr.io/fhir-codes/Extension/VersionModified",
     },
     Observation: {
         BloodPressure: {

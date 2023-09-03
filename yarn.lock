@@ -2717,6 +2717,7 @@ __metadata:
     "@topical-ehr/ui-elements": "workspace:*"
     "@types/luxon": 2.3.1
     "@types/react": 18.2.14
+    diff-match-patch: 1.0.5
     dompurify: ^2.3.10
     luxon: 2.3.2
     react: 18.2.0
@@ -3933,6 +3934,13 @@ __metadata:
   version: 2.0.0
   resolution: "depd@npm:2.0.0"
   checksum: abbe19c768c97ee2eed6282d8ce3031126662252c58d711f646921c9623f9052e3e1906443066beec1095832f534e57c523b7333f8e7e0d93051ab6baef5ab3a
+  languageName: node
+  linkType: hard
+
+"diff-match-patch@npm:1.0.5":
+  version: 1.0.5
+  resolution: "diff-match-patch@npm:1.0.5"
+  checksum: 841522d01b09cccbc4e4402cf61514a81b906349a7d97b67222390f2d35cf5df277cb23959eeed212d5e46afb5629cebab41b87918672c5a05c11c73688630e3
   languageName: node
   linkType: hard
 

@@ -5,6 +5,7 @@ import { fork, put, takeEvery } from "redux-saga/effects";
 import { call, select } from "typed-redux-saga";
 
 import * as FHIR from "@topical-ehr/fhir-types";
+import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
 import { FhirResourceById } from "@topical-ehr/fhir-types";
 
 import type { RootState } from "./store";
@@ -23,6 +24,17 @@ type QueryState =
 interface SaveRequest {
     // enables saving a subset of edited resources (e.g. just-added obs)
     filter?(editedResource: FHIR.Resource): boolean;
+    progressNote?: { html: string; markdown: string };
+}
+
+function getResourcesToSave(state: State, saveRequest: SaveRequest) {
+    const resources: FHIR.Resource[] = Object.values(state.edits).flatMap(Object.values);
+    const { filter } = saveRequest;
+    if (filter) {
+        return resources.filter(filter);
+    } else {
+        return resources;
+    }
 }
 
 type SaveState = { state: "saving" } | { state: "error"; error: unknown } | { state: "saved" };
@@ -77,7 +89,7 @@ function setResource(resources: Draft<FhirResources>, r: FHIR.Resource) {
     container[r.id] = r;
 }
 
-function getResource(resources: Draft<FhirResources>, r: FHIR.Resource): FHIR.Resource {
+export function getResource(resources: Draft<FhirResources>, r: FHIR.Resource): FHIR.Resource {
     const container = getResourceContainer(resources, r.resourceType);
     return container[r.id];
 }
@@ -205,6 +217,56 @@ export const fhirSlice = createSlice({
         },
 
         save(state, action: PayloadAction<SaveRequest>) {
+            const { progressNote } = action.payload;
+            if (progressNote) {
+                const toSave = getResourcesToSave(state, action.payload);
+                const references: FHIR.Reference[] = toSave.map((r) => ({
+                    reference: FHIR.typeId(r),
+                    _reference: {
+                        // sav new/current versionIds for diffs
+                        extension: [
+                            {
+                                url: Codes.Extension.ResolveAsVersionSpecific,
+                                valueBoolean: true,
+                            },
+                            ...(r.meta.versionId
+                                ? [
+                                      {
+                                          url: Codes.Extension.VersionModified,
+                                          valueReference: {
+                                              reference: `${r.resourceType}/${r.id}/_history/${r.meta.versionId}`,
+                                          },
+                                      },
+                                  ]
+                                : []),
+                        ],
+                    },
+                }));
+
+                const now = new Date().toISOString();
+                const newComposition = FHIR.Composition.new({
+                    subject: { reference: `Patient/${state.patientId}` },
+                    status: "final",
+                    type: Codes.Composition.Type.ProgressNote,
+                    date: now,
+                    title: "Progress Note",
+                    section: [
+                        {
+                            title: "Progress note",
+                            text: {
+                                div: `<div>${progressNote.html}</div>`,
+                                status: "additional",
+                            },
+                        },
+                        {
+                            title: "Associated changes",
+                            entry: references,
+                        },
+                    ],
+                });
+                setResource(state.edits, newComposition);
+            }
+
             state.saveState = { state: "saving" };
             // processed by a saga
         },
@@ -299,27 +361,22 @@ function* updateObservationsByCodeSaga(action: PayloadAction<[string, FHIR.Resou
 function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveRequest>) {
     yield put(actions.setSaveState({ state: "saving" }));
 
-    function doFilter(resources: FHIR.Resource[]) {
-        const { filter } = action.payload;
-        if (filter) {
-            return resources.filter(filter);
-        } else {
-            return resources;
-        }
-    }
-
     // form a transaction bundle
     const state = yield* select((s: RootState) => s.fhir);
-    const toSave: FHIR.Resource[] = doFilter(Object.values(state.edits).flatMap(Object.values));
-    const entries = toSave.map((resource) => ({
-        fullUrl: resource.id,
-        resource,
-        request: {
-            method: resource.id.startsWith("urn:uuid:") ? "POST" : "PUT",
-            url: resource.id.startsWith("urn:uuid:") ? resource.resourceType : resource.resourceType + "/" + resource.id,
-        },
-    }));
+    const toSave = getResourcesToSave(state, action.payload);
+    const entries = toSave.map((resource) => {
+        const isUUID = resource.id.startsWith("urn:uuid:");
+        return {
+            fullUrl: (isUUID ? "" : resource.resourceType + "/") + resource.id,
+            resource,
+            request: {
+                method: isUUID ? "POST" : "PUT",
+                url: isUUID ? resource.resourceType : resource.resourceType + "/" + resource.id,
+            },
+        };
+    });
     const bundle = FHIR.Bundle.newTransaction(entries);
+    debugger;
 
     try {
         // send transaction to FHIR server

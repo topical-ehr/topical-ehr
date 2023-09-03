@@ -21,8 +21,7 @@ import {
     bundleIcon,
 } from "@fluentui/react-icons";
 import { actions, useDispatch, useFHIR } from "@topical-ehr/fhir-store";
-import * as FHIR from "@topical-ehr/fhir-types";
-import { RichTextEditor } from "@topical-ehr/rich-text-editor";
+import { GetRichTextContents, RichTextEditor } from "@topical-ehr/rich-text-editor";
 
 import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
 import { ChangesPanel } from "./ChangesPanel";
@@ -43,37 +42,24 @@ function EditsPanelInner(props: Props) {
     const patientId = useFHIR((s) => s.fhir.patientId);
     const saveState = useFHIR((s) => s.fhir.saveState);
 
-    const [noteHTML, setNote] = React.useState<string>("");
+    const getRichTextContents = React.useRef<GetRichTextContents>();
+
+    function onNotesChanged(getContents: GetRichTextContents) {
+        getRichTextContents.current = getContents;
+    }
 
     function onSave() {
-        if (!noteHTML) {
+        if (!getRichTextContents.current) {
+            console.warn("getRichTextContents is null");
+            return;
+        }
+        const progressNote = getRichTextContents.current();
+        if (!progressNote.markdown) {
             alert("Please enter a note");
+            return;
         }
 
-        // create composition for the progress note
-        const now = new Date().toISOString();
-        const newComposition = FHIR.Composition.new({
-            subject: { reference: `Patient/${patientId}` },
-            status: "final",
-            type: Codes.Composition.Type.ProgressNote,
-            date: now,
-            title: "New topic",
-            section: [
-                {
-                    title: "Progress note",
-                    text: {
-                        div: `<div>${noteHTML}</div>`,
-                        status: "additional",
-                    },
-                },
-            ],
-        });
-        dispatch(actions.edit(newComposition));
-
-        // save to FHIR server
-        dispatch(actions.save({}));
-
-        setNote("");
+        dispatch(actions.save({ progressNote }));
     }
     function onUndoAll() {
         dispatch(actions.undoAll());
@@ -93,7 +79,7 @@ function EditsPanelInner(props: Props) {
                 <RichTextEditor
                     initialHTML=""
                     placeholder={<p>Progress note</p>}
-                    onChangedHTML={setNote}
+                    onChange={onNotesChanged}
                 />
             </div>
             {/* <div title="Minor notes are hidden in the timeline (by default)">

@@ -1,5 +1,5 @@
 import { Record, Union } from "../fable_modules/fable-library.4.0.0-theta-018/Types.js";
-import { tuple_type, obj_type, list_type, record_type, int32_type, union_type, string_type } from "../fable_modules/fable-library.4.0.0-theta-018/Reflection.js";
+import { tuple_type, obj_type, list_type, bool_type, record_type, int32_type, union_type, string_type } from "../fable_modules/fable-library.4.0.0-theta-018/Reflection.js";
 import { empty, singleton, ofArray } from "../fable_modules/fable-library.4.0.0-theta-018/List.js";
 import { map, delay, toList } from "../fable_modules/fable-library.4.0.0-theta-018/Seq.js";
 import { defaultOf } from "../fable_modules/fable-library.4.0.0-theta-018/Util.js";
@@ -119,17 +119,30 @@ export function WhereCondition$reflection() {
     return record_type("CandleLite.Core.SQL.WhereCondition", [], WhereCondition, () => [["Column", string_type], ["Condition", Condition$reflection()]]);
 }
 
+export class Order extends Record {
+    constructor(Column, Ascending) {
+        super();
+        this.Column = Column;
+        this.Ascending = Ascending;
+    }
+}
+
+export function Order$reflection() {
+    return record_type("CandleLite.Core.SQL.Order", [], Order, () => [["Column", string_type], ["Ascending", bool_type]]);
+}
+
 export class Select extends Record {
-    constructor(Columns, From, Where) {
+    constructor(Columns, From, Where, Order) {
         super();
         this.Columns = Columns;
         this.From = From;
         this.Where = Where;
+        this.Order = Order;
     }
 }
 
 export function Select$reflection() {
-    return record_type("CandleLite.Core.SQL.Select", [], Select, () => [["Columns", list_type(string_type)], ["From", Table_T$reflection()], ["Where", list_type(WhereCondition$reflection())]]);
+    return record_type("CandleLite.Core.SQL.Select", [], Select, () => [["Columns", list_type(string_type)], ["From", Table_T$reflection()], ["Where", list_type(WhereCondition$reflection())], ["Order", list_type(Order$reflection())]]);
 }
 
 export class Insert extends Record {
@@ -220,15 +233,15 @@ export function IndexConditions__type(_type) {
 }
 
 export function indexSubquery(condition) {
-    return new Condition(1, [new Select(singleton("versionId"), Table_indexes, condition)]);
+    return new Condition(1, [new Select(singleton("versionId"), Table_indexes, condition, empty())]);
 }
 
 export function indexQuery(conditions) {
-    return new Statement(0, [new Select(singleton("versionId"), Table_indexes, conditions)]);
+    return new Statement(0, [new Select(singleton("versionId"), Table_indexes, conditions, empty())]);
 }
 
 export function readVersionsViaIndex(columns, conditions) {
-    return new Statement(0, [new Select(columns, Table_Versions, toList(delay(() => map((condition) => (new WhereCondition("versionId", indexSubquery(condition))), conditions))))]);
+    return new Statement(0, [new Select(columns, Table_Versions, toList(delay(() => map((condition) => (new WhereCondition("versionId", indexSubquery(condition))), conditions))), empty())]);
 }
 
 export function readResourcesViaIndex(conditions) {
@@ -240,7 +253,11 @@ export function readIsDeletedViaIndex(conditions) {
 }
 
 export function readVersion(versionId) {
-    return new Statement(0, [new Select(ofArray(["json", "deleted"]), Table_Versions, singleton(new WhereCondition("versionId", new Condition(0, [new Value(0, [versionId])]))))]);
+    return new Statement(0, [new Select(ofArray(["json", "deleted"]), Table_Versions, singleton(new WhereCondition("versionId", new Condition(0, [new Value(0, [versionId])]))), empty())]);
+}
+
+export function readResourceHistory(id) {
+    return new Statement(0, [new Select(ofArray(["versionId", "lastUpdated", "deleted", "json"]), Table_Versions, ofArray([new WhereCondition("type", new Condition(0, [new Value(0, [id.Type])])), new WhereCondition("id", new Condition(0, [new Value(0, [id.Id])]))]), singleton(new Order("versionId", true)))]);
 }
 
 export function updateCounter(name) {

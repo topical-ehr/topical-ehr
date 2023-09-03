@@ -5,19 +5,19 @@ import { FSharpRef, toString } from "../fable_modules/fable-library.4.0.0-theta-
 import { parse } from "./URL.js";
 import { Request_forURL_Z309E9F90, addLocation, addETagAndLastUpdated, respondWith, StorageMode, Request, PreferReturn } from "./ServerUtils.js";
 import { Logger__Warning_DED112C, Logger__Trace_DED112C, Logger_$ctor_Z721C83C5, Logger_set_Sink_543D23EA, Logger__Debug_DED112C } from "../LMLogger.Client/LMLogger.js";
-import { singleton, collect, delay, toArray as toArray_1, iterate } from "../fable_modules/fable-library.4.0.0-theta-018/Seq.js";
-import { defaultArgWith, map, value as value_5, defaultArg, toArray } from "../fable_modules/fable-library.4.0.0-theta-018/Option.js";
+import { indexed, singleton, collect, delay, toArray as toArray_1, iterate } from "../fable_modules/fable-library.4.0.0-theta-018/Seq.js";
+import { defaultArgWith, map, defaultArg, value as value_7, toArray } from "../fable_modules/fable-library.4.0.0-theta-018/Option.js";
 import { HttpSink_$ctor_Z721C83C5 } from "../LMLogger.Client/HttpSink.fable.js";
 import { class_type } from "../fable_modules/fable-library.4.0.0-theta-018/Reflection.js";
 import { toUniversalTime, toString as toString_1 } from "../fable_modules/fable-library.4.0.0-theta-018/Date.js";
-import { Statement, insertDeletion, indexQuery, insertResourceVersion, readIsDeletedViaIndex, readVersion, IndexConditions__id, readResourcesViaIndex, insertCounter, updateCounter } from "./SQL.js";
+import { Statement, insertDeletion, indexQuery, insertResourceVersion, readIsDeletedViaIndex, readResourceHistory, readVersion, IndexConditions__id, readResourcesViaIndex, insertCounter, updateCounter } from "./SQL.js";
 import { singleton as singleton_1, ofArray, item, length, tail, head, isEmpty } from "../fable_modules/fable-library.4.0.0-theta-018/List.js";
 import { map as map_1, sortWith, findIndex, fill, mapIndexed, equalsWith } from "../fable_modules/fable-library.4.0.0-theta-018/Array.js";
 import { fromBits } from "../fable_modules/fable-library.4.0.0-theta-018/Long.js";
 import { resourceType, collectReferences, MetaInfo, resourceId } from "./JSON.js";
 import { containsKey } from "../fable_modules/fable-library.4.0.0-theta-018/Map.js";
+import { BundleType_SearchSet, Bundle, BundleEntry, BundleResponse, BundleRequest, BundleType_History } from "./Bundle.js";
 import { conditionsFromUrl } from "./Search.js";
-import { BundleResponse, Bundle, BundleEntry, BundleType_SearchSet } from "./Bundle.js";
 import { unionWith } from "../fable_modules/fable-library.4.0.0-theta-018/Set.js";
 import { deleteIndexForVersion, indexResource } from "./Indexes.js";
 import { tryGetValue, addToDict } from "../fable_modules/fable-library.4.0.0-theta-018/MapUtil.js";
@@ -237,8 +237,23 @@ export function CandleLiteServer__vread(this$, _type, _id, versionId, req) {
 }
 
 export function CandleLiteServer__historyForId(this$, _type, _id, req) {
-    const id = TypeId_From(_type, _id);
-    return toFail(printf("not implemented"));
+    Logger__Trace_DED112C(this$.log, "historyForId", [["type", _type], ["id", _id], ["req", req]]);
+    const typeId = TypeId_From(_type, _id);
+    CandleLiteServer__ensureTypeSupported_Z721C83C5(this$, _type);
+    const results = this$.runQuery(readResourceHistory(typeId));
+    const fullUrl = TypeId__get_TypeId(typeId);
+    const bundle = new Bundle("Bundle", BundleType_History, length(results), CandleLiteServer__currentTimestamp(this$), void 0, toArray_1(delay(() => collect((matchValue) => {
+        const row = matchValue[1];
+        const versionId = toString(row[0]);
+        const lastUpdated = toString(row[1]);
+        const deleted = (typeof row[2]) === "boolean";
+        const json = toString(row[3]);
+        const resource = this$.jsonImpl.ParseJSON(json);
+        const method = deleted ? "DELETE" : ((matchValue[0] === 0) ? "POST" : "PUT");
+        return singleton(new BundleEntry(fullUrl, resource, new BundleRequest(method, (method === "POST") ? _type : value_7(fullUrl), void 0, void 0, void 0, void 0), new BundleResponse("200", void 0, void 0, lastUpdated, void 0)));
+    }, indexed(results)))));
+    Logger__Trace_DED112C(this$.log, "search results", [["bundle", bundle]]);
+    return [bundle, CandleLiteServer__respondWithBundle(this$, 200, bundle)];
 }
 
 export function CandleLiteServer__historyForType(this$, _type, req) {
@@ -391,16 +406,11 @@ export function CandleLiteServer__storeResource(this$, mode, id, meta, resource)
         }
     }
     switch (mode.tag) {
-        case 0:
-        case 3:
-        case 2: {
+        default: {
             const json = toString(resource);
             Logger__Trace_DED112C(this$.log, "storeResource inserting version", [["json", json]]);
             this$.runCommand(insertResourceVersion(id, meta, json));
             return json;
-        }
-        default: {
-            return "";
         }
     }
 }
@@ -542,7 +552,7 @@ export function CandleLiteServer__GET_Z78D02DA(this$, req) {
     }
     switch (matchResult) {
         case 0: {
-            return CandleLiteServer__historyForId(this$, matchValue[0], matchValue[1], req);
+            return CandleLiteServer__historyForId(this$, matchValue[0], matchValue[1], req)[1];
         }
         case 1: {
             return CandleLiteServer__historyForType(this$, matchValue[0], req);
@@ -595,7 +605,7 @@ export function CandleLiteServer__createFromBundle(this$, req, storeResource) {
 }
 
 export function CandleLiteServer__transaction_Z78D02DA(this$, req) {
-    let arg_2, testExpr, _type, oid, hashtag, testExpr_1, _type_1, _id;
+    let arg_2, arg_4, testExpr, _type, oid, hashtag, testExpr_1, _type_1, _id, testExpr_2, versionId, _type_2, _id_1;
     const matchValue = req.Body;
     if (matchValue != null) {
         const body = matchValue;
@@ -706,13 +716,13 @@ export function CandleLiteServer__transaction_Z78D02DA(this$, req) {
                                 matchResult_1 = 0;
                             }
                             else if ((oid = matchValue_10[0], (matchValue_9 === 0) && (oid.indexOf("urn:uuid:") === 0))) {
-                                matchResult_1 = 2;
-                            }
-                            else if ((hashtag = matchValue_10[0], (matchValue_9 === 0) && (hashtag.indexOf("#") === 0))) {
                                 matchResult_1 = 3;
                             }
-                            else {
+                            else if ((hashtag = matchValue_10[0], (matchValue_9 === 0) && (hashtag.indexOf("#") === 0))) {
                                 matchResult_1 = 4;
+                            }
+                            else {
+                                matchResult_1 = 5;
                             }
                         }
                         else if ((testExpr_1 = matchValue_10, (!equalsWith((x_2, y_2) => (x_2 === y_2), testExpr_1, defaultOf())) && (testExpr_1.length === 2))) {
@@ -720,11 +730,24 @@ export function CandleLiteServer__transaction_Z78D02DA(this$, req) {
                                 matchResult_1 = 1;
                             }
                             else {
-                                matchResult_1 = 4;
+                                matchResult_1 = 5;
+                            }
+                        }
+                        else if ((testExpr_2 = matchValue_10, (!equalsWith((x_3, y_3) => (x_3 === y_3), testExpr_2, defaultOf())) && (testExpr_2.length === 4))) {
+                            if (matchValue_10[2] === "_history") {
+                                if ((versionId = matchValue_10[3], (_type_2 = matchValue_10[0], (_id_1 = matchValue_10[1], matchValue_9 === 0)))) {
+                                    matchResult_1 = 2;
+                                }
+                                else {
+                                    matchResult_1 = 5;
+                                }
+                            }
+                            else {
+                                matchResult_1 = 5;
                             }
                         }
                         else {
-                            matchResult_1 = 4;
+                            matchResult_1 = 5;
                         }
                         switch (matchResult_1) {
                             case 0: {
@@ -734,7 +757,7 @@ export function CandleLiteServer__transaction_Z78D02DA(this$, req) {
                                     CandleLiteServer__raiseOO(this$, 400, new OperationOutcomeCodes(7, []), `no matches for conditional reference (${reference})`);
                                 }
                                 else if (matchValue_12 === 1) {
-                                    addToDict(referencesToUpdate, reference, resourceId(value_5(resultEntries[0].Resource)));
+                                    addToDict(referencesToUpdate, reference, resourceId(value_7(resultEntries[0].Resource)));
                                 }
                                 else {
                                     CandleLiteServer__raiseOO(this$, 400, new OperationOutcomeCodes(6, []), `multiple matches for conditional reference (${reference})`);
@@ -746,6 +769,11 @@ export function CandleLiteServer__transaction_Z78D02DA(this$, req) {
                                 break;
                             }
                             case 2: {
+                                const versionId_1 = matchValue_10[3];
+                                CandleLiteServer__checkTypeIdReference_4145CFFB(this$, (arg_4 = matchValue_10[1], TypeId_From(matchValue_10[0], arg_4)));
+                                break;
+                            }
+                            case 3: {
                                 const oid_1 = matchValue_10[0];
                                 let matchValue_13;
                                 let outArg = defaultOf();
@@ -760,11 +788,11 @@ export function CandleLiteServer__transaction_Z78D02DA(this$, req) {
                                 }
                                 break;
                             }
-                            case 3: {
+                            case 4: {
                                 const hashtag_1 = matchValue_10[0];
                                 break;
                             }
-                            case 4: {
+                            case 5: {
                                 CandleLiteServer__raiseOO(this$, 400, new OperationOutcomeCodes(2, []), `invalid reference (${reference})`);
                                 break;
                             }
@@ -792,11 +820,11 @@ export function CandleLiteServer__transaction_Z78D02DA(this$, req) {
                             });
                         }, toArray(entries[idx].Resource));
                     }
-                    preliminaryIndex((arg_3) => (new Statement(6, [arg_3])));
+                    preliminaryIndex((arg_5) => (new Statement(6, [arg_5])));
                     storageFunction = ((id_1) => ((meta_1) => ((resource_2) => CandleLiteServer__storeResource(this$, new StorageMode(3, []), id_1, meta_1, resource_2))));
                 }
                 else {
-                    preliminaryIndex((arg_4) => (new Statement(6, [arg_4])));
+                    preliminaryIndex((arg_6) => (new Statement(6, [arg_6])));
                     storageFunction = ((id_2) => ((meta_2) => ((resource_3) => CandleLiteServer__storeResource(this$, new StorageMode(3, []), id_2, meta_2, resource_3))));
                 }
             }

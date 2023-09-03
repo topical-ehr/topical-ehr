@@ -17,6 +17,14 @@ export function GenerateSQL(statement) {
             let matchValue;
             return cond.Column + ((matchValue = cond.Condition, (matchValue.tag === 1) ? (` IN (${toSQL(new Statement(0, [matchValue.fields[0]]))})`) : (` = ${newParam(valueToObj(matchValue.fields[0]))}`)));
         }, where));
+        const convertOrderBy = (order) => {
+            if (isEmpty(order)) {
+                return "";
+            }
+            else {
+                return "ORDER BY " + join(", ", map((col) => (col.Column + (col.Ascending ? "" : " DESC")), order));
+            }
+        };
         const generateReturning = (returning) => {
             if (isEmpty(returning)) {
                 return "";
@@ -29,8 +37,8 @@ export function GenerateSQL(statement) {
             case 1: {
                 const insert = st.fields[0];
                 const vals = join(",", map((r) => (`(${r})`), toList(delay(() => map_1((row) => join(",", map(newParam, row)), insert.Values)))));
-                const cols_1 = join(", ", insert.Columns);
-                return `INSERT INTO ${Table_toString(insert.Table)} (${cols_1}) VALUES ${vals} ${generateReturning(insert.Returning)}`;
+                const cols_2 = join(", ", insert.Columns);
+                return `INSERT INTO ${Table_toString(insert.Table)} (${cols_2}) VALUES ${vals} ${generateReturning(insert.Returning)}`;
             }
             case 3: {
                 const delete$ = st.fields[0];
@@ -69,7 +77,7 @@ export function GenerateSQL(statement) {
             }
             default: {
                 const select = st.fields[0];
-                return `SELECT ${join(", ", select.Columns)} FROM ${Table_toString(select.From)} WHERE ${convertWhere(select.Where)}`;
+                return `SELECT ${join(", ", select.Columns)} FROM ${Table_toString(select.From)} WHERE ${convertWhere(select.Where)} ${convertOrderBy(select.Order)}`;
             }
         }
     };

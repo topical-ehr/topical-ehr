@@ -25,7 +25,7 @@ export class JsSQLiteImpl {
                 bind: _params,
                 resultRows: resultRows,
             });
-            Logger__Debug_DED112C(this$.log, "query results", [["sql", sql], ["rows", resultRows]]);
+            Logger__Debug_DED112C(this$.log, "query results", [["sql", sql.SQL], ["params", toArray(sql.Parameters)], ["rows", resultRows]]);
         }
         catch (exn) {
             Logger__Debug_DED112C(this$.log, "query error", [["sql", sql], ["error", exn]]);
