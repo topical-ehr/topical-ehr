@@ -1,11 +1,14 @@
+import React from "react";
 import * as R from "remeda";
+
+import { Button, Field, Input, InputProps, mergeClasses } from "@fluentui/react-components";
+import { FormProvider, Controller, useForm, ControllerRenderProps, ControllerFieldState } from "react-hook-form";
+
 import * as FHIR from "@topical-ehr/fhir-types";
 import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
-import { Button, Field, Input, InputProps, makeStyles, mergeClasses, tokens } from "@fluentui/react-components";
-import React from "react";
-import { FormProvider, Controller, useForm, ControllerRenderProps, ControllerFieldState } from "react-hook-form";
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
+
 import { DateTimePicker } from "./DateTimePicker";
 import { styles, controlSize } from "./styles";
 

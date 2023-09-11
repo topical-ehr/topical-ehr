@@ -19,6 +19,7 @@
         "@topical-ehr/formatting": "workspace:*",
         "@topical-ehr/logging": "workspace:*",
         "@topical-ehr/patients": "workspace:*",
+        "@topical-ehr/practitioners": "workspace:*",
         "@topical-ehr/save-changes-panel": "workspace:*",
         "@topical-ehr/terminology": "workspace:*",
         "@topical-ehr/timeline": "workspace:*",

@@ -85,7 +85,7 @@ function Changes(props: { r: FHIR.Resource; versionId: string }) {
     async function getHistory() {
         const fhir = await fhirUp(config);
         const url = `${props.r.resourceType}/${props.r.id}/_history`;
-        const historyBundle = await fhir.fetch(url);
+        const historyBundle = await fhir.get(url);
         if (!FHIR.isBundle(historyBundle)) {
             console.error(`Error getting history (not a bundle)`, { url, bundle: historyBundle });
             throw new Error(`Error getting history (${url}) (not a bundle)`);
@@ -133,10 +133,7 @@ function Changes(props: { r: FHIR.Resource; versionId: string }) {
 
         return (
             <div>
-                <b>{props.r.title} (topic)</b>
-                <div>
-                    <em>by Dr AAAAAAA (yesterday 10:34am)</em>
-                </div>
+                <b>{props.r.title} (topic)</b> <em>by Dr AAAAAAA (yesterday 10:34am)</em>
                 <div className={css.diff}>
                     {diff.map(([op, text]) => {
                         const kls = op === 1 ? "add" : op === 2 ? "del" : "same";

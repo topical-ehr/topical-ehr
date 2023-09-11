@@ -13,10 +13,12 @@ import {
 } from "@fluentui/react-components";
 import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
 import { fhirUp, useFhirServerConfig } from "@topical-ehr/fhir-store/fhir-server";
+import { SelectPractitionerDialog } from "@topical-ehr/practitioners/SelectPractitionerDialog";
 
 import { ArrowDownloadFilled, ArrowDownloadRegular, bundleIcon } from "@fluentui/react-icons";
 import { ArrowResetFilled, ArrowResetRegular } from "@fluentui/react-icons";
 import { SettingsFilled, SettingsRegular } from "@fluentui/react-icons";
+import * as FHIR from "/home/eug/topical-ehr/packages/fhir-types";
 const DownloadIcon = bundleIcon(ArrowDownloadFilled, ArrowDownloadRegular);
 const ResetIcon = bundleIcon(ArrowResetFilled, ArrowResetRegular);
 const SettingsIcon = bundleIcon(SettingsFilled, SettingsRegular);
@@ -53,8 +55,14 @@ export function TopRightMenu(props: Props) {
         }
     }
 
+    const [selectPractitioner, setSelectPractitioner] = React.useState(true);
+    function onSelectedPractitioner(selected: FHIR.Practitioner | null) {
+        setSelectPractitioner(false);
+    }
+
     return (
         <div className={classes.topRight}>
+            {selectPractitioner && <SelectPractitionerDialog onClose={onSelectedPractitioner} />}
             <Menu
                 openOnHover
                 hoverDelay={1}
@@ -69,6 +77,12 @@ export function TopRightMenu(props: Props) {
                             onClick={onSettings}
                         >
                             Settings
+                        </MenuItem>
+                        <MenuItem
+                            icon={<SettingsIcon />}
+                            onClick={() => setSelectPractitioner(true)}
+                        >
+                            Change user...
                         </MenuItem>
                         <MenuDivider />
                         <MenuItemLink

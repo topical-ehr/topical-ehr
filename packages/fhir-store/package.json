@@ -2,7 +2,7 @@
     "name": "@topical-ehr/fhir-store",
     "packageManager": "yarn@3.6.0",
     "dependencies": {
-        "@reduxjs/toolkit": "1.8.1",
+        "@reduxjs/toolkit": "1.9.5",
         "@topical-ehr/fhir-server-in-browser": "workspace:*",
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/topics": "workspace:*",

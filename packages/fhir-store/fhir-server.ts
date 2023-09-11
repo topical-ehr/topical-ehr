@@ -96,7 +96,7 @@ export async function fhirUp({ server }: FhirServerConfigData) {
     return {
         config: server,
         ...methods,
-        async fetch(path: string) {
+        async get(path: string) {
             const response = await methods.doRequest("GET", path);
             return JSON.parse(response.json);
         },

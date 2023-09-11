@@ -1,0 +1,22 @@
+{
+    "name": "@topical-ehr/practitioners",
+    "packageManager": "yarn@3.6.0",
+    "dependencies": {
+        "@fluentui/react-components": "9.25.1",
+        "@fluentui/react-icons": "2.0.204",
+        "@griffel/react": "1.5.10",
+        "@topical-ehr/fhir-store": "workspace:*",
+        "@topical-ehr/fhir-types": "workspace:*",
+        "@topical-ehr/formatting": "workspace:*",
+        "@topical-ehr/logging": "workspace:*",
+        "@topical-ehr/rich-text-editor": "workspace:*",
+        "@topical-ehr/terminology": "workspace:*",
+        "@topical-ehr/ui-elements": "workspace:*",
+        "react": "18.2.0",
+        "react-hook-form": "7.45.1",
+        "remeda": "0.0.35"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.0"
+    }
+}

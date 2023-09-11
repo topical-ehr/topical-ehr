@@ -321,7 +321,7 @@ function* onQuerySaga(fhirServer: FhirServerMethods, action: PayloadAction<Query
 
         try {
             // Call FHIR server
-            const data: FHIR.Resource = yield* call(fhirServer.fetch, query);
+            const data: FHIR.Resource = yield* call(fhirServer.get, query);
             if (FHIR.isBundle(data)) {
                 yield put(actions.queryLoaded([query, data.entry?.map((e) => e.resource) || []]));
             } else {
@@ -376,7 +376,7 @@ function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveRe
         };
     });
     const bundle = FHIR.Bundle.newTransaction(entries);
-    debugger;
+    console.debug("onSaveSaga", { transaction: bundle });
 
     try {
         // send transaction to FHIR server

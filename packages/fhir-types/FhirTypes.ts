@@ -51,6 +51,13 @@ export const Bundle = {
         };
         return bundle;
     },
+    putEntry(resource: Resource) {
+        return {
+            fullUrl: typeId(resource),
+            resource,
+            request: { method: "PUT", url: typeId(resource) },
+        };
+    },
 };
 
 export function parseRef(ref: string | null | undefined, resourceType?: string) {
@@ -70,7 +77,7 @@ export function parseRef(ref: string | null | undefined, resourceType?: string) 
     }
 }
 
-function newUuidId() {
+export function newUuidId() {
     return `urn:uuid:${uuidv4()}`;
 }
 
@@ -270,7 +277,7 @@ export function typeId(r: Resource) {
     return r.resourceType + "/" + r.id;
 }
 
-function newMeta() {
+export function newMeta() {
     return {
         id: newUuidId(),
         meta: { lastUpdated: new Date().toISOString() },
@@ -301,6 +308,31 @@ export interface Patient extends Resource {
     birthDate?: string;
     deceasedBoolean?: boolean;
     deceasedDateTime?: string;
+}
+
+export interface Practitioner extends Resource {
+    resourceType: "Practitioner";
+    identifier?: Identifier[];
+    active?: boolean;
+    name?: HumanName[];
+    telecom?: ContactPoint[];
+    address?: Address[];
+    gender?: "male" | "female" | "other" | "unknown";
+    birthDate?: string;
+    deceasedBoolean?: boolean;
+    deceasedDateTime?: string;
+}
+
+export interface PractitionerRole extends Resource {
+    resourceType: "PractitionerRole";
+    identifier?: Identifier[];
+    active?: boolean;
+    practitioner?: Reference;
+    organization?: Reference;
+    location?: Reference[];
+    characteristic?: CodeableConcept[];
+    code?: CodeableConcept[];
+    specialty?: CodeableConcept[];
 }
 
 export interface DiagnosticReport extends Resource {
