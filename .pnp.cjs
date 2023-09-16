@@ -12196,6 +12196,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@topical-ehr/ui-elements", "workspace:packages/ui-elements"],\
             ["@fluentui/react", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:8.67.2"],\
             ["@fluentui/react-components", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:9.25.1"],\
+            ["@fluentui/react-icons", "virtual:510e31fee636a6b6326afa0b7710ecd0b522d68db7e21dbd329d967e22000fa7fc2b6860b5bc3d4223b5767370afee93f1658b90be5cef43c6b672812c9c21e7#npm:2.0.204"],\
             ["@types/react", "npm:18.2.14"],\
             ["@types/react-grid-layout", "npm:1.3.2"],\
             ["react", "npm:18.2.0"],\

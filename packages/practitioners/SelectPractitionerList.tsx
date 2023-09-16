@@ -1,12 +1,29 @@
 import * as React from "react";
 import * as R from "remeda";
 
-import { makeStyles, Body1, Caption1, Button, shorthands, Spinner } from "@fluentui/react-components";
-import { ArrowReplyRegular, ShareRegular } from "@fluentui/react-icons";
+import {
+    makeStyles,
+    Body1,
+    Caption1,
+    Button,
+    shorthands,
+    Spinner,
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuList,
+    MenuPopover,
+    MenuTrigger,
+    MenuItemLink,
+} from "@fluentui/react-components";
+import { ArrowReplyRegular, MoreHorizontal20Regular, ShareRegular } from "@fluentui/react-icons";
 import { Card, CardFooter, CardHeader, CardPreview } from "@fluentui/react-components";
 
 import * as FHIR from "@topical-ehr/fhir-types";
 import { useGetPractitionersQuery } from "@topical-ehr/fhir-store/practitioner-store";
+import { fhirTypeId } from "@topical-ehr/fhir-types/FhirUtils";
+import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
+import { EditIcon, DeleteIcon } from "@topical-ehr/ui-elements/Icons";
 
 const useStyles = makeStyles({
     card: {
@@ -48,6 +65,7 @@ export function SelectPractitionerList(props: Props) {
             {list.map((practitioner) => (
                 <Card
                     className={styles.card}
+                    key={practitioner.practitioner.id}
                     selected={selectedId === practitioner.practitioner.id}
                     onSelectionChange={(_, { selected }) => onSelected(selected ? practitioner.practitioner : null)}
                 >
@@ -62,6 +80,33 @@ export function SelectPractitionerList(props: Props) {
                             </Body1>
                         }
                         description={<Caption1>{practitioner?.role?.code?.[0].text}</Caption1>}
+                        action={
+                            <Menu>
+                                <MenuTrigger disableButtonEnhancement>
+                                    <MenuButton
+                                        appearance="transparent"
+                                        icon={<MoreHorizontal20Regular />}
+                                        aria-label="Actions"
+                                    ></MenuButton>
+                                </MenuTrigger>
+
+                                <MenuPopover>
+                                    <MenuList>
+                                        <MenuItem icon={<EditIcon />}>Edit</MenuItem>
+                                        <MenuItem icon={<DeleteIcon />}>Delete</MenuItem>
+                                        <MenuItemLink
+                                            href={`/edit-fhir?fhirUrl=${encodeURIComponent(
+                                                fhirTypeId(practitioner.practitioner)
+                                            )}`}
+                                            target="_blank"
+                                            icon={<FhirSVG />}
+                                        >
+                                            FHIR
+                                        </MenuItemLink>
+                                    </MenuList>
+                                </MenuPopover>
+                            </Menu>
+                        }
                     />
                 </Card>
             ))}

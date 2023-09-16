@@ -11,7 +11,6 @@ import {
     MenuTrigger,
     Tooltip,
 } from "@fluentui/react-components";
-import { bundleIcon, DeleteRegular, DeleteFilled, EditRegular, EditFilled } from "@fluentui/react-icons";
 
 import * as FHIR from "@topical-ehr/fhir-types";
 import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
@@ -22,9 +21,7 @@ import { GetRichTextContents, RichTextEditor } from "@topical-ehr/rich-text-edit
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import { actions } from "@topical-ehr/fhir-store";
 import { ChangesView } from "./ChangesView";
-
-const EditIcon = bundleIcon(EditFilled, EditRegular);
-const DeleteIcon = bundleIcon(DeleteFilled, DeleteRegular);
+import { EditIcon, DeleteIcon } from "@topical-ehr/ui-elements/Icons";
 
 export interface Props {
     document: FHIR.Composition;

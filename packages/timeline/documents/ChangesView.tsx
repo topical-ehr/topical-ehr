@@ -130,19 +130,25 @@ function Changes(props: { r: FHIR.Resource; versionId: string }) {
         const dmp = new DiffMatchPatch();
         const diff = dmp.diff_main(md1, md2);
         dmp.diff_cleanupSemantic(diff);
+        console.log({ diff });
 
         return (
             <div>
                 <b>{props.r.title} (topic)</b> <em>by Dr AAAAAAA (yesterday 10:34am)</em>
                 <div className={css.diff}>
                     {diff.map(([op, text]) => {
-                        const kls = op === 1 ? "add" : op === 2 ? "del" : "same";
+                        const kls = op === 1 ? "add" : op === -1 ? "del" : "same";
                         return <span className={css[kls]}>{text}</span>;
                     })}
                 </div>
             </div>
         );
     }
+
+    // big dats in dividers
+    // move obs to left
+    // save button for topic with note about progrsss noyrs
+    // progrss noyrs --> chatlike interface
 
     return (
         <div>

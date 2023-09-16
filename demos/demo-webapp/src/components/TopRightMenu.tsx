@@ -17,8 +17,14 @@ import { SelectPractitionerDialog } from "@topical-ehr/practitioners/SelectPract
 
 import { ArrowDownloadFilled, ArrowDownloadRegular, bundleIcon } from "@fluentui/react-icons";
 import { ArrowResetFilled, ArrowResetRegular } from "@fluentui/react-icons";
+import { ArrowSwapFilled, ArrowSwapRegular } from "@fluentui/react-icons";
 import { SettingsFilled, SettingsRegular } from "@fluentui/react-icons";
+
 import * as FHIR from "/home/eug/topical-ehr/packages/fhir-types";
+import { useAppDispatch } from "@topical-ehr/fhir-store/store";
+import { actions } from "@topical-ehr/fhir-store";
+
+const SwapIcon = bundleIcon(ArrowSwapFilled, ArrowSwapRegular);
 const DownloadIcon = bundleIcon(ArrowDownloadFilled, ArrowDownloadRegular);
 const ResetIcon = bundleIcon(ArrowResetFilled, ArrowResetRegular);
 const SettingsIcon = bundleIcon(SettingsFilled, SettingsRegular);
@@ -56,7 +62,11 @@ export function TopRightMenu(props: Props) {
     }
 
     const [selectPractitioner, setSelectPractitioner] = React.useState(true);
+    const dispatch = useAppDispatch();
     function onSelectedPractitioner(selected: FHIR.Practitioner | null) {
+        if (selected) {
+            dispatch(actions.setPractitioner(selected));
+        }
         setSelectPractitioner(false);
     }
 
@@ -79,10 +89,10 @@ export function TopRightMenu(props: Props) {
                             Settings
                         </MenuItem>
                         <MenuItem
-                            icon={<SettingsIcon />}
+                            icon={<SwapIcon />}
                             onClick={() => setSelectPractitioner(true)}
                         >
-                            Change user...
+                            Change user
                         </MenuItem>
                         <MenuDivider />
                         <MenuItemLink

@@ -7,14 +7,15 @@ import { BlankOrderState } from "../BlankOrder";
 import { AutocompleteStateBase, AutocompleteOptionBase, UpdateResult } from "../AutocompleteBase";
 import { Config } from "../AutocompleteConfig";
 
-import iconDx from "/icons/dx.svg";
+// import iconDx from "/icons/dx.svg";
+import iconStethescope from "/icons/stethoscope_google_noto_emoji_u1fa7a.svg";
 
 export class ConditionAutocompleteState extends AutocompleteStateBase {
     doesApply(resource: FHIR.Resource | null): boolean {
         return resource?.resourceType === "Condition";
     }
 
-    icon = iconDx;
+    icon = iconStethescope;
 
     constructor(public readonly conditions: FHIR.Condition[], topic: FHIR.Composition, config: Config) {
         super(topic, config);

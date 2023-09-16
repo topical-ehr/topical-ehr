@@ -3,8 +3,12 @@
 
     // background: rgb(217, 217, 255);
 
+    > div {
+        display: flex;
+    }
+
     img {
-        height: 1.3em;
+        height: 1.5em;
         margin-right: 0.5em;
     }
 }

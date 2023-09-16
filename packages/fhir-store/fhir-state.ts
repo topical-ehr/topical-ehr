@@ -129,6 +129,7 @@ export interface State {
 
     // config
     patientId: string;
+    practitionerId: string;
     serverConfig: FhirServerConfigData;
 
     // misc
@@ -151,6 +152,7 @@ export function initialState(config: EHRConfig | null, serverConfig: FhirServerC
 
         // set by preloadedState
         patientId: config?.patientId ?? "",
+        practitionerId: config?.practitionerId ?? "",
         serverConfig,
 
         showingPanels: {},
@@ -221,7 +223,7 @@ export const fhirSlice = createSlice({
             if (progressNote) {
                 const toSave = getResourcesToSave(state, action.payload);
                 const references: FHIR.Reference[] = toSave.map((r) => ({
-                    reference: FHIR.typeId(r),
+                    ...FHIR.referenceTo(r),
                     _reference: {
                         // sav new/current versionIds for diffs
                         extension: [
@@ -309,6 +311,14 @@ export const fhirSlice = createSlice({
         },
         setSearchingFor(state, { payload }: PayloadAction<string>) {
             state.searchingFor = payload || null;
+        },
+
+        setPractitioner(state, { payload }: PayloadAction<FHIR.Practitioner>) {
+            state.practitionerId = payload.id;
+
+            const url = new URL(window.location.href);
+            url.searchParams.set("practitioner", payload.id);
+            history.pushState("", "", url);
         },
     },
 });

@@ -4,6 +4,7 @@ import css from "./TopicItemDisplay.module.scss";
 
 import { useFormatting } from "@topical-ehr/formatting/formatting";
 import iconDx from "/icons/dx.svg";
+import iconStethescope from "/icons/stethoscope_google_noto_emoji_u1fa7a.svg";
 
 export function ConditionsView() {
     const context = useTopicContext();
@@ -68,7 +69,8 @@ function ConditionView(props: Props) {
             onClick={onContainerClick}
         >
             <div className={props.deleted ? css.deleted : ""}>
-                <img src={iconDx} />
+                <img src={iconStethescope} />
+                {/* {"🩺"} */}
                 <span className={css.title}>
                     {/* {"⚕ "} */}
                     {c.code ? formatting.code(c.code).shortText : "NO CODE - control click for more info (FIXME)"}

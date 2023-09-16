@@ -68,9 +68,9 @@ export default function PatientPage() {
                             <SummaryView />
                             <SummaryEdit />
 
+                            <ConditionCodingAI apiUrl="https://ai-server-k6k6b76nja-ts.a.run.app/v1/coding" />
                             <ConditionsView />
                             <ConditionsEdit />
-                            <ConditionCodingAI apiUrl="https://ai-server-k6k6b76nja-ts.a.run.app/v1/coding" />
                             <PrescriptionsView />
                             <PrescriptionsEdit />
 
