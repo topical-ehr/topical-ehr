@@ -6,7 +6,7 @@ import { fork } from "redux-saga/effects";
 import { coreFhirSagas, fhirSlice, initialState } from "./fhir-state";
 import { EHRConfig } from "./config";
 import { FhirServerConfigData } from "./fhir-server";
-import { practitionersApi } from "./practitioner-store";
+import { practitionersApi } from "./practitioner-slice";
 
 export function createStore(config: EHRConfig, serverConfig: FhirServerConfigData) {
     const sagaMiddleware = createSagaMiddleware();

@@ -1,17 +1,9 @@
 import * as React from "react";
 import { makeStyles, shorthands, useId, Input, Label, Button, Field } from "@fluentui/react-components";
-import {
-    FormProvider,
-    Controller,
-    useForm,
-    ControllerRenderProps,
-    ControllerFieldState,
-    useFormContext,
-} from "react-hook-form";
-import type { InputProps } from "@fluentui/react-components";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 
 import * as FHIR from "@topical-ehr/fhir-types";
-import { useAddPractitionerMutation } from "@topical-ehr/fhir-store/practitioner-store";
+import { useAddPractitionerMutation } from "@topical-ehr/fhir-store/practitioner-slice";
 import { ErrorMessage } from "@topical-ehr/ui-elements/ErrorMessage";
 
 const useStyles = makeStyles({

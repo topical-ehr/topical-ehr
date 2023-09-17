@@ -5,7 +5,6 @@ import {
     makeStyles,
     Body1,
     Caption1,
-    Button,
     shorthands,
     Spinner,
     Menu,
@@ -16,11 +15,11 @@ import {
     MenuTrigger,
     MenuItemLink,
 } from "@fluentui/react-components";
-import { ArrowReplyRegular, MoreHorizontal20Regular, ShareRegular } from "@fluentui/react-icons";
-import { Card, CardFooter, CardHeader, CardPreview } from "@fluentui/react-components";
+import { MoreHorizontal20Regular } from "@fluentui/react-icons";
+import { Card, CardHeader } from "@fluentui/react-components";
 
 import * as FHIR from "@topical-ehr/fhir-types";
-import { useGetPractitionersQuery } from "@topical-ehr/fhir-store/practitioner-store";
+import { useGetPractitionersQuery } from "@topical-ehr/fhir-store/practitioner-slice";
 import { fhirTypeId } from "@topical-ehr/fhir-types/FhirUtils";
 import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
 import { EditIcon, DeleteIcon } from "@topical-ehr/ui-elements/Icons";
