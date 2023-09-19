@@ -57,9 +57,10 @@ export function ChangesView(props: Props) {
             onClick={onShow}
         >
             {chevron} Changed:{" "}
-            {refs.map((r) => (
+            {refs.map((r, i) => (
                 <span key={r.ref}>
                     <Title r={r.resource} />
+                    {refs[i + 1] ? ", " : ""}
                 </span>
             ))}
         </div>
@@ -126,6 +127,10 @@ function Changes(props: { r: FHIR.Resource; versionId: string }) {
     if (FHIR.isComposition(props.r)) {
         const md1 = FHIR.Composition.getMarkdown(history.base as FHIR.Composition);
         const md2 = FHIR.Composition.getMarkdown(history.modified as FHIR.Composition);
+
+        if (!md1 || !md2) {
+            return null;
+        }
 
         const dmp = new DiffMatchPatch();
         const diff = dmp.diff_main(md1, md2);

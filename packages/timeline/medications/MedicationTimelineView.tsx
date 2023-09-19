@@ -1,19 +1,23 @@
 import React from "react";
-import css from "./MedicationTimelineView.module.scss";
 
 import * as FHIR from "@topical-ehr/fhir-types";
-import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
 import { formatDose } from "@topical-ehr/ui-autocomplete/medications/prescriptionUtils";
+
+import css from "./MedicationTimelineView.module.scss";
 
 interface Props {
     meds: FHIR.MedicationAdministration[];
+    time: string;
 }
 
 export function MedicationTimelineView(props: Props) {
     const { meds } = props;
     return (
         <div className={css.container}>
-            <h4>Meds given:</h4>
+            <div>
+                {props.time}
+                <h4>Meds given</h4>
+            </div>
             <ul>
                 {meds.map((med) => (
                     <li key={FHIR.typeId(med)}>

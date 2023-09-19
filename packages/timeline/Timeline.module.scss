@@ -1,5 +1,4 @@
 .item {
-    border-bottom: 1px solid grey;
     padding-bottom: 1em;
     padding-top: 1em;
 }
@@ -9,16 +8,14 @@
 }
 
 .dateRow {
-    display: flex;
-    align-items: center;
-
-    .title {
-        font-weight: bold;
-        margin-left: 1em;
-        margin-right: 1em;
-    }
+    position: sticky;
+    top: 0;
+    background: lightgoldenrodyellow;
+    padding: 0.25em;
+    border-top: 1px solid grey;
 }
 
 .group_title {
     font-weight: bold;
+    margin-left: 1em;
 }

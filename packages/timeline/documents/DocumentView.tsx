@@ -25,6 +25,7 @@ import { EditIcon, DeleteIcon } from "@topical-ehr/ui-elements/Icons";
 
 export interface Props {
     document: FHIR.Composition;
+    time: string;
 }
 
 export function DocumentView(props: Props) {
@@ -72,7 +73,10 @@ export function DocumentView(props: Props) {
                 setEdit={setEdit}
                 delete={onDelete}
             />
-            {title && <h4>{title}</h4>}
+            <div>
+                {props.time}
+                <h4>{title}</h4>
+            </div>
             {!edit && (
                 <div
                     dangerouslySetInnerHTML={{

@@ -1,6 +1,8 @@
-import { FhirResources } from "@topical-ehr/fhir-store";
+import { DateTime } from "luxon";
 import * as R from "remeda";
+
 import * as FHIR from "@topical-ehr/fhir-types";
+import { FhirResources } from "@topical-ehr/fhir-store";
 
 import { TimelineItem } from "./TimelineItem";
 
@@ -14,7 +16,10 @@ export function groupMedications(resources: FhirResources) {
         R.values,
         R.map((group) => ({
             id: FHIR.typeId(group[0]),
-            dateTime: group[0].effectiveDateTime!,
+
+            dateTime: DateTime.fromISO(group[0].effectiveDateTime!),
+            dateTimeString: group[0].effectiveDateTime!,
+
             item: {
                 type: "medication-administration",
                 meds: group,

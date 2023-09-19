@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 import { FhirResources } from "@topical-ehr/fhir-store";
 import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
 import { hasCode } from "@topical-ehr/fhir-types/FhirUtils";
@@ -11,7 +13,8 @@ export function groupNotes(resources: FhirResources) {
         .filter((composition) => hasCode(composition.type, Codes.Composition.Type.ProgressNote.coding[0]))
         .map((composition) => ({
             id: "Composition/" + composition.id,
-            dateTime: composition.date,
+            dateTime: DateTime.fromISO(composition.date),
+            dateTimeString: composition.date,
             item: {
                 type: "progress-note",
                 document: composition,

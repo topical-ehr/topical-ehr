@@ -1,3 +1,5 @@
+import { DateTime } from "luxon";
+
 import * as FHIR from "@topical-ehr/fhir-types";
 import { FhirResources } from "@topical-ehr/fhir-store";
 
@@ -28,7 +30,8 @@ export function groupObservations(resources: FhirResources) {
 
             items.push({
                 id: "DiagnosticReport/" + report.id,
-                dateTime: report.effectiveDateTime,
+                dateTime: DateTime.fromISO(report.effectiveDateTime),
+                dateTimeString: report.effectiveDateTime,
                 item: {
                     type: "observation-group",
                     title,
@@ -52,7 +55,8 @@ export function groupObservations(resources: FhirResources) {
                 }
                 items.push({
                     id: "Observation/" + ob.id,
-                    dateTime: ob.effectiveDateTime,
+                    dateTime: DateTime.fromISO(ob.effectiveDateTime),
+                    dateTimeString: ob.effectiveDateTime,
                     item: {
                         type: "observation",
                         observation: ob,
