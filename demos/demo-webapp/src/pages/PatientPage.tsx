@@ -2,7 +2,7 @@ import { Stack } from "@fluentui/react";
 import { EHRConfig } from "@topical-ehr/fhir-store/config";
 import { EHRPageConfig } from "@topical-ehr/fhir-store/config-provider";
 import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
-import { EditsPanel } from "@topical-ehr/save-changes-panel/EditsPanel";
+import { NotesPanel } from "@topical-ehr/save-changes-panel/NotesPanel";
 import { RecordObsPanel } from "@topical-ehr/timeline/panels/RecordObsPanel";
 import { RecordMedsPanel } from "@topical-ehr/timeline/panels/RecordMedsPanel";
 import { TimelineViewMenu } from "@topical-ehr/timeline/buttons/TimelineViewMenu";
@@ -30,29 +30,57 @@ import { TitleView } from "@topical-ehr/topics/view/TitleView";
 import { TopicHoverButtons } from "@topical-ehr/topics/view/TopicHoverButtons";
 import { Column, ColumnLayout } from "@topical-ehr/ui-elements/layout/ColumnLayout";
 import { FieldGrid } from "@topical-ehr/ui-elements/layout/FieldGrid";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { TopRightMenu } from "../components/TopRightMenu";
+
+import css from "./PatientPage.module.scss";
 
 export default function PatientPage() {
     const { patientId } = useParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     if (!patientId) {
         throw new Error(`PatientPage is missing patientId`);
     }
 
     const config: EHRConfig = {
         patientId,
+        practitionerId: "123",
         additionalSagas: [createTopicsForStandaloneConditionsSaga],
     };
 
     return (
-        <div>
+        <div className={css.patientPage}>
             <EHRPageConfig config={config}>
-                <TopRightMenu />
-
-                <PatientHeader />
+                <div className={css.patientPageHeader}>
+                    <PatientHeader />
+                    <TopRightMenu />
+                </div>
 
                 <ColumnLayout>
-                    <Column width="40%">
+                    <Column
+                        width="40%"
+                        marginLeft="1em"
+                    >
+                        <Stack
+                            horizontal
+                            tokens={{ childrenGap: 10 }}
+                            style={{ marginBottom: "0.5em" }}
+                            // style={{ justifyContent: "space-between" }}
+                        >
+                            <TimelineRecordMenu />
+                            <TimelineViewMenu />
+                        </Stack>
+
+                        <RecordObsPanel />
+                        <RecordMedsPanel />
+
+                        <Timeline
+                            groupers={[groupNotes, groupObservations, groupMedications]}
+                            renderer={defaultRenderer}
+                        />
+                    </Column>
+
+                    <Column width="30%">
                         <NewTopicButton />
 
                         <TopicsColumn>
@@ -81,29 +109,8 @@ export default function PatientPage() {
                         </TopicsColumn>
                     </Column>
 
-                    <Column
-                        width="40%"
-                        marginLeft="1em"
-                    >
-                        <Stack
-                            horizontal
-                            tokens={{ childrenGap: 10 }}
-                            // style={{ justifyContent: "space-between" }}
-                        >
-                            <TimelineRecordMenu />
-                            <TimelineViewMenu />
-                        </Stack>
-
-                        <RecordObsPanel />
-                        <RecordMedsPanel />
-
-                        <Timeline
-                            groupers={[groupNotes, groupObservations, groupMedications]}
-                            renderer={defaultRenderer}
-                        />
-                    </Column>
-                    <Column width="20%">
-                        <EditsPanel />
+                    <Column width="30%">
+                        <NotesPanel />
                     </Column>
                 </ColumnLayout>
             </EHRPageConfig>

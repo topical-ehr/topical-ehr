@@ -61,7 +61,7 @@ export function TopRightMenu(props: Props) {
         }
     }
 
-    const [selectPractitioner, setSelectPractitioner] = React.useState(true);
+    const [selectPractitioner, setSelectPractitioner] = React.useState(false);
     const dispatch = useAppDispatch();
     function onSelectedPractitioner(selected: FHIR.Practitioner | null) {
         if (selected) {

@@ -1,0 +1,16 @@
+.patientPage {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.patientPageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+  margin-left: 1em;
+  margin-right: 1em;
+}

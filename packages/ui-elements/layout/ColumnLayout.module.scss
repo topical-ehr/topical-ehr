@@ -1,3 +1,10 @@
-.container {
+.columnContainer {
     display: flex;
+    overflow: auto;
+}
+
+.column {
+    overflow: auto;
+    padding-left: 0.25em;
+    padding-right: 0.5em;
 }
