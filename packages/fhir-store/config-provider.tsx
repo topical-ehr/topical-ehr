@@ -49,7 +49,7 @@ function Loader(props: { children: React.ReactNode }) {
     }
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <div style={{ margin: "2em" }}>Loading...</div>;
     }
 
     return props.children;

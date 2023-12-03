@@ -8,6 +8,7 @@ export interface Topic {
     composition: FHIR.Composition;
     conditions: FHIR.Condition[];
     prescriptions: FHIR.MedicationRequest[];
+    tasks: FHIR.Task[];
 }
 
 function conditionsFromComposition(c: FHIR.Composition, conditions: FhirResourceById<FHIR.Condition>) {
@@ -24,11 +25,20 @@ function prescriptionsFromComposition(c: FHIR.Composition, prescriptions: FhirRe
         .filter((c) => c);
     return _resources;
 }
+function tasksFromComposition(c: FHIR.Composition, tasks: FhirResourceById<FHIR.Task>) {
+    const _resources = (c.section ?? [])
+        .flatMap((section) => section.entry)
+        .map((ref) => tasks[FHIR.parseRef(ref?.reference, "Task")?.id ?? ""])
+        .filter((c) => c);
+    debugger;
+    return _resources;
+}
 
 export function loadTopics(
     conditions: FhirResourceById<FHIR.Condition>,
     compositions: FhirResourceById<FHIR.Composition>,
-    prescriptions: FhirResourceById<FHIR.MedicationRequest>
+    prescriptions: FhirResourceById<FHIR.MedicationRequest>,
+    tasks: FhirResourceById<FHIR.Task>
 ): Topic[] {
     return Object.values(compositions)
         .filter((composition) => hasCode(composition.type, Codes.Composition.Type.Topic.coding[0]))
@@ -37,6 +47,7 @@ export function loadTopics(
             composition: composition,
             conditions: conditionsFromComposition(composition, conditions),
             prescriptions: prescriptionsFromComposition(composition, prescriptions),
+            tasks: tasksFromComposition(composition, tasks),
         }));
 }
 

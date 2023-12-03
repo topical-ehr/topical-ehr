@@ -2,8 +2,9 @@ import React from "react";
 import { SearchBox } from "@fluentui/react";
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { useFormatting } from "@topical-ehr/formatting/formatting";
-import css from "./PatientHeader.module.scss";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
+
+import css from "./PatientHeader.module.scss";
 
 export function PatientHeader() {
     const formatting = useFormatting();
@@ -18,7 +19,7 @@ export function PatientHeader() {
         // born,
     ];
     return (
-        <div className={css.container}>
+        <div className={css.patientHeader}>
             <div className={css.name}>{pf.name}</div>
             <div className={css.details}>
                 {lines.map((line) => (

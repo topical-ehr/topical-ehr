@@ -12,6 +12,8 @@ export abstract class AutocompleteStateBase {
     abstract getSuggestedOptions(input: string): Promise<AutocompleteOptionBase[]>;
     abstract icon: string;
 
+    type = "select";
+
     addToComposition(resource: FHIR.Resource) {
         const updatedComposition = FHIR.Composition.addEntry(FHIR.referenceTo(resource), this.topic);
         return actions.edit(updatedComposition);
@@ -34,11 +36,13 @@ export abstract class AutocompleteStateBase {
 
         function termToOptions(term: Term): T[] {
             const fullySpecifiedName = term.designation?.find((d) => d.use?.code === "900000000000003001")?.value;
+            console.debug("termToOptions", { term, fullySpecifiedName });
             if (!fullySpecifiedName) {
                 return [];
             }
             const termType = fullySpecifiedName?.slice(fullySpecifiedName.indexOf("(") + 1, -1);
             const options = makeOption(termType, term) ?? [];
+            console.debug("termToOptions", { termType, options });
             return options;
         }
 
@@ -50,6 +54,7 @@ export abstract class AutocompleteStateBase {
 export abstract class AutocompleteOptionBase {
     abstract onAdded(state: AutocompleteStateBase): UpdateResult;
     abstract onRemoved(state: AutocompleteStateBase): UpdateResult;
+    abstract inplaceEdit(): InplaceEdit;
 
     public readonly key: string;
     public readonly value: AutocompleteOptionBase;
@@ -66,3 +71,12 @@ export type UpdateResult =
           newActions: AnyAction[];
       }
     | { error: string };
+
+export type InplaceEdit =
+    | {
+          type: "textarea";
+          initialValue: string;
+          onSave(value: string, state: AutocompleteStateBase): UpdateResult;
+      }
+    | "remove-me"
+    | "disallow";

@@ -56,7 +56,7 @@ export function ChangesView(props: Props) {
             className={css.clickable}
             onClick={onShow}
         >
-            {chevron} Changed:{" "}
+            {chevron}{" "}
             {refs.map((r, i) => (
                 <span key={r.ref}>
                     <Title r={r.resource} />

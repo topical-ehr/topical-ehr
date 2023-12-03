@@ -1,10 +1,10 @@
 import * as FHIR from "@topical-ehr/fhir-types";
-import { useTopicContext } from "../TopicContext";
-import css from "./TopicItemDisplay.module.scss";
-
 import { useFormatting } from "@topical-ehr/formatting/formatting";
-import iconDx from "/icons/dx.svg";
+
+import { useTopicContext } from "../TopicContext";
+
 import iconStethescope from "/icons/stethoscope_google_noto_emoji_u1fa7a.svg";
+import css from "./TopicItemDisplay.module.scss";
 
 export function ConditionsView() {
     const context = useTopicContext();

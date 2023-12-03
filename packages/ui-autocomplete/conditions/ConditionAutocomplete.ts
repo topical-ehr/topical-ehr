@@ -4,7 +4,7 @@ import { actions } from "@topical-ehr/fhir-store";
 import { SearchScope } from "@topical-ehr/terminology/FhirTerminology";
 
 import { BlankOrderState } from "../BlankOrder";
-import { AutocompleteStateBase, AutocompleteOptionBase, UpdateResult } from "../AutocompleteBase";
+import { AutocompleteStateBase, AutocompleteOptionBase, UpdateResult, InplaceEdit } from "../AutocompleteBase";
 import { Config } from "../AutocompleteConfig";
 
 // import iconDx from "/icons/dx.svg";
@@ -97,5 +97,9 @@ export class ConditionOption extends AutocompleteOptionBase {
         } else {
             throw new Error("unexpected state type");
         }
+    }
+
+    inplaceEdit(): InplaceEdit {
+        return "disallow";
     }
 }

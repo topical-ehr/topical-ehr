@@ -2,12 +2,12 @@ import * as FHIR from "@topical-ehr/fhir-types";
 
 import { timingCodesAllowed } from "./TimingCodes";
 import { BlankOrderState } from "../BlankOrder";
-import { AutocompleteStateBase, AutocompleteOptionBase, UpdateResult } from "../AutocompleteBase";
+import { AutocompleteStateBase, AutocompleteOptionBase, UpdateResult, InplaceEdit } from "../AutocompleteBase";
 
 import { actions } from "@topical-ehr/fhir-store";
 import { logsFor } from "@topical-ehr/logging";
 
-import icon from "/icons/pill.svg";
+import iconPill from "/icons/pill.svg";
 import { Config } from "../AutocompleteConfig";
 import {
     getDosesFor,
@@ -22,15 +22,14 @@ import {
 
 export class PrescriptionAutocompleteState extends AutocompleteStateBase {
     log = logsFor("PrescriptionAutocompleteState");
-
-    doesApply(resource: FHIR.Resource | null): boolean {
-        return resource?.resourceType === "MedicationRequest";
-    }
-
-    icon = icon;
+    icon = iconPill;
 
     constructor(public readonly MR: FHIR.MedicationRequest, topic: FHIR.Composition, config: Config) {
         super(topic, config);
+    }
+
+    doesApply(resource: FHIR.Resource | null): boolean {
+        return resource?.resourceType === "MedicationRequest";
     }
 
     updateTo(next: FHIR.MedicationRequest) {
@@ -111,7 +110,7 @@ export class PrescriptionAutocompleteState extends AutocompleteStateBase {
         }
 
         if (!this.MR.dosageInstruction?.[0].timing) {
-            console.debug("need frequency");
+            this.log.debug("need frequency");
 
             const inputTrimmed = input.trim().toLocaleLowerCase();
             const timings = inputTrimmed
@@ -128,8 +127,8 @@ export class PrescriptionAutocompleteState extends AutocompleteStateBase {
 export class MedicationOption extends AutocompleteOptionBase {
     log = logsFor("MedicationOption");
 
-    constructor(private term: Partial<FHIR.ValueSetCode>) {
-        super(term.display ?? "(no display)", term);
+    constructor(private term: Partial<FHIR.ValueSetCode>, prefix?: string) {
+        super((prefix ?? "") + term.display ?? "(no display)", term);
         if (!term.display) {
             this.log.warn("no display for term", { term });
         }
@@ -156,16 +155,17 @@ export class MedicationOption extends AutocompleteOptionBase {
     }
 
     onRemoved(state: AutocompleteStateBase): UpdateResult {
-        const { log } = this;
         if (state instanceof PrescriptionAutocompleteState) {
             return {
                 newState: new BlankOrderState(state.topic, state.config),
                 newActions: [actions.delete(state.MR), state.removeFromComposition(state.MR)],
             };
         } else {
-            throw log.exception("unexpected state type", { state });
+            throw this.log.exception("unexpected state type", { state });
         }
     }
+
+    inplaceEdit = () => "disallow" as InplaceEdit;
 }
 
 function assertState(state: AutocompleteStateBase): asserts state is PrescriptionAutocompleteState {
@@ -218,6 +218,8 @@ class DosageOption extends AutocompleteOptionBase {
         };
         return state.updateTo(next);
     }
+
+    inplaceEdit = () => "remove-me" as InplaceEdit;
 }
 
 class FrequencyOption extends AutocompleteOptionBase {
@@ -252,4 +254,6 @@ class FrequencyOption extends AutocompleteOptionBase {
         };
         return state.updateTo(next);
     }
+
+    inplaceEdit = () => "remove-me" as InplaceEdit;
 }

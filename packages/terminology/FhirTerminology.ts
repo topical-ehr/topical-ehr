@@ -18,10 +18,7 @@ const log = logsFor("FhirTerminology");
 export async function searchTerminology(serverBaseUrl: string, input: string, searchScope: string): Promise<FHIR.ValueSet> {
     const codeSystemUrl = `http://snomed.info/sct?fhir_vs=${searchScope}`;
 
-    const designation = encodeURIComponent("http://snomed.info/sct|900000000000003001");
-
-    // TODO: designation filter doesn't seem to work
-    const options = `_format=json&count=10&includeDesignations=true&designation=${designation}`;
+    const options = `_format=json&count=10&includeDesignations=true`;
     const filter = encodeURIComponent(input);
     const url = `${serverBaseUrl}ValueSet/$expand?filter=${filter}&url=${codeSystemUrl}&${options}`;
 

@@ -2,7 +2,7 @@
     "name": "@topical-ehr/fhir-editor",
     "packageManager": "yarn@3.6.0",
     "dependencies": {
-        "@fluentui/react-components": "9.25.1",
+        "@fluentui/react-components": "9.42.0",
         "@topical-ehr/fhir-server-in-browser": "workspace:*",
         "@topical-ehr/fhir-store": "workspace:*",
         "monaco-editor": "0.39.0",

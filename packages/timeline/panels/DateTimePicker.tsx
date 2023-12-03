@@ -28,12 +28,12 @@ export function DateTimePicker(props: Props) {
                             defaultValue={localTimeISO()}
                             onChange={onChange}
                         />
-                        <Button
+                        {/* <Button
                             appearance="subtle"
                             size={controlSize}
                         >
                             now
-                        </Button>
+                        </Button> */}
                     </div>
                 </Field>
             </div>

@@ -6,7 +6,7 @@ import { BlankOrderState } from "@topical-ehr/ui-autocomplete/BlankOrder";
 
 import { useTopicContext } from "../TopicContext";
 
-export const placeholder = "Add orders, prescriptions or associated diagnoses";
+export const placeholder = "Add tasks, prescriptions, diagnoses";
 
 export function NewItem() {
     const context = useTopicContext();

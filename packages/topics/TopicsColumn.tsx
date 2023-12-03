@@ -29,11 +29,12 @@ export function TopicsColumn(props: Props) {
     const compositions = useFHIR((s) => s.fhir.resourcesWithEdits.compositions);
     const conditions = useFHIR((s) => s.fhir.resourcesWithEdits.conditions);
     const medicationRequests = useFHIR((s) => s.fhir.resourcesWithEdits.medicationRequests);
+    const tasks = useFHIR((s) => s.fhir.resourcesWithEdits.tasks);
     const searchingFor = useFHIR((s) => s.fhir.searchingFor);
 
     // TODO: don't filter out topics as they're being edited
     const searcher = createSearcher(searchingFor);
-    const topics = loadTopics(conditions, compositions, medicationRequests).filter(searcher);
+    const topics = loadTopics(conditions, compositions, medicationRequests, tasks).filter(searcher);
 
     const [added, existing] = R.partition(topics, (t) => t.composition.id.startsWith("urn:"));
     const [active, inactive] = R.partition(existing, (t) => activeStatus(t) === "active");

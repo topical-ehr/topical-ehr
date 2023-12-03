@@ -1,12 +1,3 @@
-.document > div {
-    padding: 0.1em;
-
-    /* nested lists - remove double markers */
-    ul li:has(ul), ol li:has(ol) {
-       list-style: none;
-    }
-}
-
 .document {
     h4 {
         display: inline-block;
@@ -25,6 +16,20 @@
         // show when hovering
         display: inherit;
     }
+}
+
+.document > div {
+    padding: 0.1em;
+
+    /* nested lists - remove double markers */
+    ul li:has(ul), ol li:has(ol) {
+       list-style: none;
+    }
+}
+
+.body {
+    margin-left: 2em;
+    margin-bottom: 1em;
 }
 
 .buttons {

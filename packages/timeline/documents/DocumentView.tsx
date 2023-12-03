@@ -14,14 +14,15 @@ import {
 
 import * as FHIR from "@topical-ehr/fhir-types";
 import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
-
-import css from "./DocumentView.module.scss";
 import { fhirTypeId } from "@topical-ehr/fhir-types/FhirUtils";
 import { GetRichTextContents, RichTextEditor } from "@topical-ehr/rich-text-editor";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import { actions } from "@topical-ehr/fhir-store";
-import { ChangesView } from "./ChangesView";
 import { EditIcon, DeleteIcon } from "@topical-ehr/ui-elements/Icons";
+
+import { ChangesView } from "./ChangesView";
+
+import css from "./DocumentView.module.scss";
 
 export interface Props {
     document: FHIR.Composition;
@@ -77,35 +78,37 @@ export function DocumentView(props: Props) {
                 {props.time}
                 <h4>{title}</h4>
             </div>
-            {!edit && (
-                <div
-                    dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(html, { USE_PROFILES: { html: true } }),
-                    }}
-                ></div>
-            )}
+            <div className={css.body}>
+                {!edit && (
+                    <div
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(html, { USE_PROFILES: { html: true } }),
+                        }}
+                    ></div>
+                )}
 
-            {edit && (
-                <>
-                    <RichTextEditor
-                        initialHTML={html}
-                        placeholder={<></>}
-                        onChange={onChanged}
-                    />
-                    <div className={css.buttons}>
-                        <Button
-                            onClick={onSave}
-                            disabled={!getRichTextContents}
-                            appearance="primary"
-                        >
-                            Save
-                        </Button>
-                        <Button onClick={onCancel}>Cancel</Button>
-                    </div>
-                </>
-            )}
+                {edit && (
+                    <>
+                        <RichTextEditor
+                            initialHTML={html}
+                            placeholder={<></>}
+                            onChange={onChanged}
+                        />
+                        <div className={css.buttons}>
+                            <Button
+                                onClick={onSave}
+                                disabled={!getRichTextContents}
+                                appearance="primary"
+                            >
+                                Save
+                            </Button>
+                            <Button onClick={onCancel}>Cancel</Button>
+                        </div>
+                    </>
+                )}
 
-            <ChangesView {...props} />
+                <ChangesView {...props} />
+            </div>
         </div>
     );
 }

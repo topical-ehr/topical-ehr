@@ -116,7 +116,7 @@ export function Timeline(props: Props) {
     return (
         <div>
             {[...dateGroups.entries()].map(([date, items]) => (
-                <div>
+                <div key={date}>
                     <div
                         className={css.dateRow}
                         id={date}

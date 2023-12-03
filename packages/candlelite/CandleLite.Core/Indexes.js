@@ -125,50 +125,55 @@ export function getSystemCode(elt) {
 
 export const identifier = ["identifier", indexer(new Type(6, []), (arg) => map(getSystemValue, getElements(singleton("identifier"), arg)))];
 
-export function reference(name) {
-    const getReference = (elt) => {
-        const parseReference = (str) => {
-            let placeholder, hashtag;
-            const matchValue = split(str, ["/"], null, 0);
-            let matchResult;
-            if ((!equalsWith((x, y) => (x === y), matchValue, defaultOf())) && (matchValue.length === 2)) {
-                matchResult = 0;
+export function getReference(name, elt) {
+    const parseReference = (str) => {
+        let placeholder, hashtag;
+        const matchValue = split(str, ["/"], null, 0);
+        let matchResult;
+        if ((!equalsWith((x, y) => (x === y), matchValue, defaultOf())) && (matchValue.length === 2)) {
+            matchResult = 0;
+        }
+        else if ((!equalsWith((x_1, y_1) => (x_1 === y_1), matchValue, defaultOf())) && (matchValue.length === 1)) {
+            if ((placeholder = matchValue[0], placeholder.indexOf("urn:uuid:") === 0)) {
+                matchResult = 1;
             }
-            else if ((!equalsWith((x_1, y_1) => (x_1 === y_1), matchValue, defaultOf())) && (matchValue.length === 1)) {
-                if ((placeholder = matchValue[0], placeholder.indexOf("urn:uuid:") === 0)) {
-                    matchResult = 1;
-                }
-                else if ((hashtag = matchValue[0], hashtag.indexOf("#") === 0)) {
-                    matchResult = 2;
-                }
-                else {
-                    matchResult = 3;
-                }
+            else if ((hashtag = matchValue[0], hashtag.indexOf("#") === 0)) {
+                matchResult = 2;
             }
             else {
                 matchResult = 3;
             }
-            switch (matchResult) {
-                case 0: {
-                    const id = matchValue[1];
-                    return singleton(new IndexedValues(2, [new TypeId(matchValue[0], id)]));
-                }
-                case 1: {
-                    const placeholder_1 = matchValue[0];
-                    return empty();
-                }
-                case 2: {
-                    const hashtag_1 = matchValue[0];
-                    return empty();
-                }
-                case 3: {
-                    return toFail(printf("unable to parse reference in %s: %s"))(name)(str);
-                }
+        }
+        else {
+            matchResult = 3;
+        }
+        switch (matchResult) {
+            case 0: {
+                const id = matchValue[1];
+                return singleton(new IndexedValues(2, [new TypeId(matchValue[0], id)]));
             }
-        };
-        return parseReference(elt.GetString(singleton("reference")));
+            case 1: {
+                const placeholder_1 = matchValue[0];
+                return empty();
+            }
+            case 2: {
+                const hashtag_1 = matchValue[0];
+                return empty();
+            }
+            case 3: {
+                return toFail(printf("unable to parse reference in %s: %s"))(name)(str);
+            }
+        }
     };
-    return [name, indexer(new Type(2, []), (arg_2) => collect(getReference, getElements(singleton(name), arg_2)))];
+    return parseReference(elt.GetString(singleton("reference")));
+}
+
+export function reference(name) {
+    return [name, indexer(new Type(2, []), (arg) => collect((elt_1) => getReference(name, elt_1), getElements(singleton(name), arg)))];
+}
+
+export function referenceWithNameAndProperty(name, property) {
+    return [name, indexer(new Type(2, []), (arg) => collect((elt_1) => getReference(name, elt_1), getElements(singleton(property), arg)))];
 }
 
 export function codeableConcept(name) {

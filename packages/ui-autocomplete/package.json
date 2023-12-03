@@ -2,12 +2,13 @@
     "name": "@topical-ehr/ui-autocomplete",
     "packageManager": "yarn@3.6.0",
     "dependencies": {
-        "@fluentui/react-components": "9.25.1",
+        "@fluentui/react-components": "9.42.0",
         "@topical-ehr/fhir-store": "workspace:*",
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/formatting": "workspace:*",
         "@topical-ehr/logging": "workspace:*",
         "@topical-ehr/terminology": "workspace:*",
+        "@topical-ehr/ui-elements": "workspace:*",
         "react": "18.2.0",
         "react-select": "5.4.0"
     },

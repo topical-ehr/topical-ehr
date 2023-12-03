@@ -13,6 +13,7 @@ import { groupObservations } from "@topical-ehr/timeline/groupObservations";
 import { Timeline, defaultRenderer } from "@topical-ehr/timeline/Timeline";
 import { TopicsColumn } from "@topical-ehr/topics/TopicsColumn";
 import { ConditionCodingAI } from "@topical-ehr/topics/edit/ConditionCodingAI";
+import { TasksEdit } from "@topical-ehr/topics/edit/TasksEdit";
 import { ConditionsEdit } from "@topical-ehr/topics/edit/ConditionEdit";
 import { NewItem } from "@topical-ehr/topics/edit/NewItem";
 import { NewTopicButton } from "@topical-ehr/topics/edit/NewTopicButton";
@@ -97,6 +98,9 @@ export default function PatientPage() {
                             <SummaryEdit />
 
                             <ConditionCodingAI apiUrl="https://ai-server-k6k6b76nja-ts.a.run.app/v1/coding" />
+
+                            <TasksEdit />
+
                             <ConditionsView />
                             <ConditionsEdit />
                             <PrescriptionsView />

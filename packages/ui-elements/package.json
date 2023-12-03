@@ -3,7 +3,7 @@
     "packageManager": "yarn@3.6.0",
     "dependencies": {
         "@fluentui/react": "8.67.2",
-        "@fluentui/react-components": "9.25.1",
+        "@fluentui/react-components": "9.42.0",
         "@fluentui/react-icons": "2.0.204",
         "react": "18.2.0",
         "react-dom": "18.2.0",

@@ -449,6 +449,12 @@ export interface Composition extends Resource {
     author?: Reference[];
     date: FhirDateTime;
 
+    event?: {
+        code?: CodeableConcept[];
+        period?: Period;
+        detail?: Reference[];
+    }[];
+
     title: string;
     section?: CompositionSection[];
 }
@@ -749,7 +755,8 @@ export interface ServiceRequest extends Resource {
     requester?: Reference;
 
     supportingInfo?: Reference[];
-    reasonCode?: Reference[];
+    reasonCode?: CodeableConcept[];
+    reasonReference?: Reference[];
     note?: Annotation[];
 }
 export const ServiceRequest = {
@@ -771,3 +778,23 @@ export const ServiceRequest = {
         };
     },
 };
+
+export interface Task extends Resource {
+    resourceType: "Task";
+
+    status: "draft" | "requested" | "received" | "accepted";
+    intent: "unknown" | "proposal" | "plan" | "order" | "option";
+
+    code?: CodeableConcept;
+    description?: string;
+    priority?: "routine" | "urgent" | "asap" | "stat";
+
+    for: Reference;
+    encounter?: Reference;
+    owner?: Reference;
+
+    supportingInfo?: Reference[];
+    reasonCode?: CodeableConcept;
+    reasonReference?: Reference;
+    note?: Annotation[];
+}

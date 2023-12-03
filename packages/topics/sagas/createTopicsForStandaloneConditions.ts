@@ -11,9 +11,9 @@ import { loadTopics } from "../Topic";
 export function* createTopicsForStandaloneConditionsSaga() {
     const resources = yield* select((s: RootState) => s.fhir.resourcesWithEdits);
     const patientId = yield* select((s: RootState) => s.fhir.patientId);
-    const { conditions, compositions, patients, medicationRequests: prescriptions } = resources;
+    const { conditions, compositions, patients, medicationRequests: prescriptions, tasks } = resources;
 
-    const fromCompositions = loadTopics(conditions, compositions, prescriptions);
+    const fromCompositions = loadTopics(conditions, compositions, prescriptions, tasks);
 
     const conditionsInTopics = new Set(fromCompositions.flatMap((t) => t.conditions).map((c) => c.id));
 

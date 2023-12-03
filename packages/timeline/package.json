@@ -2,7 +2,7 @@
     "name": "@topical-ehr/timeline",
     "packageManager": "yarn@3.6.0",
     "dependencies": {
-        "@fluentui/react-components": "9.25.1",
+        "@fluentui/react-components": "9.42.0",
         "@fluentui/react-icons": "2.0.204",
         "@griffel/react": "1.5.10",
         "@topical-ehr/fhir-store": "workspace:*",

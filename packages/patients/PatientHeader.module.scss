@@ -1,7 +1,6 @@
-.container {
+.patientHeader {
   display: flex;
   align-items: center;
-  margin-bottom: 2em;
 }
 .name {
   font-size: x-large;
@@ -11,6 +10,6 @@
   margin-left: 0.5em;
 }
 
-.container :global(.ms-SearchBox) {
+.patientHeader :global(.ms-SearchBox) {
   margin-left: 3em;
 }

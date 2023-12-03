@@ -29,7 +29,7 @@ export function TitleEdit(props: Props) {
 
     return (
         <>
-            <div>Topic title</div>
+            <div>Title</div>
             <TextField
                 label=""
                 errorMessage=""

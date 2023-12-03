@@ -6,6 +6,7 @@ import { ConditionOption } from "./conditions/ConditionAutocomplete";
 import icon from "/icons/bootstrap/plus.svg";
 import { SearchScope } from "@topical-ehr/terminology/FhirTerminology";
 import { Config } from "./AutocompleteConfig";
+import { TaskOption } from "./tasks/TaskAutocomplete";
 
 export class BlankOrderState extends AutocompleteStateBase {
     constructor(topic: FHIR.Composition, config: Config) {
@@ -23,14 +24,24 @@ export class BlankOrderState extends AutocompleteStateBase {
     icon = icon;
 
     async getSuggestedOptions(input: string): Promise<AutocompleteOptionBase[]> {
-        return await this.loadOptionsFromTerminology<AutocompleteOptionBase>(input, SearchScope.root, (termType, term) => {
-            switch (termType) {
-                case "finding":
-                case "disorder":
-                    return [new ConditionOption(term)];
-                case "substance":
-                    return [new MedicationOption(term)];
+        const options = await this.loadOptionsFromTerminology<AutocompleteOptionBase>(
+            input,
+            SearchScope.root,
+            (termType, term) => {
+                switch (termType) {
+                    case "finding":
+                    case "disorder":
+                        return [new ConditionOption(term)];
+                    case "substance":
+                        return [new MedicationOption(term)];
+                }
             }
-        });
+        );
+
+        if (options.length == 0 && input.length > 5) {
+            return [new TaskOption(input)];
+        }
+
+        return options;
     }
 }

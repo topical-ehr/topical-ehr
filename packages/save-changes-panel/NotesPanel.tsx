@@ -9,6 +9,8 @@ import {
     MenuList,
     MenuPopover,
     MenuTrigger,
+    Tab,
+    TabList,
     Tooltip,
 } from "@fluentui/react-components";
 import {
@@ -23,8 +25,10 @@ import {
 import { actions, useDispatch, useFHIR } from "@topical-ehr/fhir-store";
 import { GetRichTextContents, RichTextEditor } from "@topical-ehr/rich-text-editor";
 
-import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
 import { ChangesPanel } from "./ChangesPanel";
+
+import css from "./NotesPanel.module.scss";
+import { NotesList } from "./NotesList";
 
 const EditIcon = bundleIcon(EditFilled, EditRegular);
 const NoteIcon = bundleIcon(NoteFilled, NoteRegular);
@@ -32,15 +36,13 @@ const DocumentBulletListIcon = bundleIcon(DocumentBulletListFilled, DocumentBull
 
 interface Props {}
 
-export function EditsPanel(props: Props) {
+export function NotesPanel(props: Props) {
     // temporary hack to clear editor on save
     const saveGeneration = useFHIR((s) => s.fhir.saveGeneration);
-    return <EditsPanelInner key={saveGeneration} />;
+    return <NotesPanelInner key={saveGeneration} />;
 }
-function EditsPanelInner(props: Props) {
+function NotesPanelInner(props: Props) {
     const dispatch = useDispatch();
-    const patientId = useFHIR((s) => s.fhir.patientId);
-    const saveState = useFHIR((s) => s.fhir.saveState);
 
     const getRichTextContents = React.useRef<GetRichTextContents>();
 
@@ -66,27 +68,42 @@ function EditsPanelInner(props: Props) {
     }
 
     return (
-        <div style={{ marginLeft: "1em" }}>
+        <div className={css.notesPanel}>
+            <TabList
+                selectedValue={"existing"}
+                onTabSelect={() => {}}
+            >
+                <Tab
+                    id="existing"
+                    value="existing"
+                >
+                    Progress Notes
+                </Tab>
+            </TabList>
+
+            <NotesList />
+
             <Stack
                 horizontal
                 tokens={{ childrenGap: 10 }}
             >
                 {/* <DefaultButton text="🗄️ Template" /> */}
-                <TemplateMenu />
+                {/* <TemplateMenu /> */}
             </Stack>
 
-            <div style={{ marginTop: "1em", marginBottom: "1em" }}>
+            <div className={css.editor}>
                 <RichTextEditor
                     initialHTML=""
-                    placeholder={<p>Progress note</p>}
+                    placeholder={<p>New progress note</p>}
                     onChange={onNotesChanged}
                 />
             </div>
             {/* <div title="Minor notes are hidden in the timeline (by default)">
                 <Checkbox label="Minor" />
             </div> */}
-            <ChangesPanel />
+            {/* <ChangesPanel /> */}
             <Stack
+                className={css.buttons}
                 horizontal
                 tokens={{ childrenGap: 10 }}
             >

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { MutableRefObject } from "react";
+import { MultiValueGenericProps, MultiValueRemoveProps, OptionProps, components } from "react-select";
+import { Popover, PopoverTrigger, Button, PopoverSurface, MenuList, MenuItem } from "@fluentui/react-components";
+import { Tag, TagProps } from "@fluentui/react-components";
 import AsyncSelect from "react-select/async";
 import { useDispatch } from "@topical-ehr/fhir-store";
 import { logsFor } from "@topical-ehr/logging";
 
 import { useAutocompleteConfig } from "./AutocompleteConfig";
-import { AutocompleteOptionBase, AutocompleteStateBase } from "./AutocompleteBase";
+import { AutocompleteOptionBase, AutocompleteStateBase, UpdateResult } from "./AutocompleteBase";
 import css from "./AutocompleteEditor.module.scss";
+import { ErrorMessage } from "@topical-ehr/ui-elements/ErrorMessage";
 
 const log = logsFor("AutocompleteEditor");
 
@@ -18,6 +22,11 @@ interface Props {
     index: number;
     setHasData: (index: number, hasData: boolean) => void;
 }
+
+const StateContext = React.createContext<{ state: AutocompleteStateBase; applyUpdate(update: UpdateResult): void } | null>(
+    null
+);
+
 export function AutocompleteEditor(props: Props) {
     const dispatch = useDispatch();
     const config = useAutocompleteConfig();
@@ -53,20 +62,30 @@ export function AutocompleteEditor(props: Props) {
         const state = stateRef.current;
         log.debug("onOptionsChanged", { newOptions, state });
 
-        const result = applyNewOptions(newOptions);
-        if (isError(result)) {
-            log.error("onOptionsChanged", { result });
-        } else {
-            log.debug("onOptionsChanged", { result });
-            stateRef.current = result.newState;
-            result.newActions.forEach(dispatch);
-        }
-
         setOptions([...newOptions]);
         props.setHasData(props.index, newOptions.length > 0);
 
-        const nextOptions = await loadOptions("");
-        setDefaultOptions(nextOptions);
+        const result = applyNewOptions(newOptions);
+        await applyUpdate(result);
+    }
+
+    async function applyUpdate(update: UpdateResult) {
+        if (isError(update)) {
+            log.error("onOptionsChanged", { update });
+        } else {
+            log.debug("onOptionsChanged", { update });
+            stateRef.current = update.newState;
+            update.newActions.forEach(dispatch);
+
+            setOptions(update.newState.getOptions());
+        }
+
+        try {
+            const nextOptions = await loadOptions("");
+            setDefaultOptions(nextOptions);
+        } catch (err) {
+            log.error("applyUpdate/loadOptions failed", { err });
+        }
     }
 
     async function loadOptions(input: string) {
@@ -82,12 +101,8 @@ export function AutocompleteEditor(props: Props) {
         }
     }
 
-    return (
-        <div className={css.container}>
-            <img
-                src={stateRef.current.icon}
-                className={css.icon}
-            />
+    function renderControl() {
+        return (
             <AsyncSelect
                 placeholder={placeholder}
                 isClearable
@@ -95,6 +110,10 @@ export function AutocompleteEditor(props: Props) {
                 closeMenuOnSelect={false}
                 components={{
                     DropdownIndicator: null,
+                    Option: Option,
+                    // MultiValueContainer,
+                    MultiValueLabel,
+                    MultiValueRemove,
                 }}
                 onChange={onOptionsChanged}
                 loadOptions={loadOptions}
@@ -104,14 +123,144 @@ export function AutocompleteEditor(props: Props) {
                 // menuIsOpen
                 blurInputOnSelect={false}
                 // key={JSON.stringify(stateRef.current)}
+                loadingMessage={(input) => (input.inputValue.length < config.minInputLengthForSearch ? null : "Loading...")}
                 noOptionsMessage={(input) =>
-                    input.inputValue.length < config.minInputLengthForSearch ? null : "Loading..."
+                    input.inputValue.length < config.minInputLengthForSearch ? null : "No results"
                 }
             />
+        );
+    }
+
+    return (
+        <div className={css.container}>
+            <img
+                src={stateRef.current.icon}
+                className={css.icon}
+            />
+            <StateContext.Provider value={{ state: stateRef.current, applyUpdate }}>
+                {renderControl()}
+            </StateContext.Provider>
         </div>
     );
 }
 
 function isError(obj: any): obj is { error: string } {
     return typeof obj["error"] === "string";
+}
+
+function Option(props: OptionProps<AutocompleteOptionBase>) {
+    // @ts-ignore
+    const { dropdownPrefix } = props.data;
+
+    if (dropdownPrefix) {
+        return (
+            <components.Option {...props}>
+                {dropdownPrefix}
+                {props.children}
+            </components.Option>
+        );
+    } else {
+        return <components.Option {...props} />;
+    }
+}
+
+function MultiValueRemove(props: MultiValueRemoveProps<AutocompleteOptionBase>) {
+    if (props.data.inplaceEdit() === "remove-me") {
+        return <components.MultiValueRemove {...props} />;
+    } else {
+        return <div style={{ width: "6px" }}> </div>;
+    }
+}
+
+function MultiValueLabel(props: MultiValueGenericProps<{}>) {
+    return (
+        <Popover positioning="below">
+            <PopoverTrigger disableButtonEnhancement>
+                {/* <components.MultiValueLabel {...props} /> */}
+                <div
+                    style={{
+                        fontSize: "85%",
+                        padding: "3px",
+                        paddingLeft: "6px",
+                    }}
+                >
+                    {props.children}
+                </div>
+                {/* <Tag>{props.data.label}</Tag> */}
+            </PopoverTrigger>
+
+            <PopoverSurface tabIndex={-1}>
+                <PopoverEditor option={props.data} />
+            </PopoverSurface>
+        </Popover>
+    );
+}
+
+interface PopoverEditorProps {
+    option: AutocompleteOptionBase;
+}
+function PopoverEditor(props: PopoverEditorProps) {
+    const context = React.useContext(StateContext);
+    const state = context?.state;
+
+    const [options, setOptions] = React.useState<AutocompleteOptionBase[]>();
+    const [error, setError] = React.useState<any>();
+    const textarea = React.useRef<HTMLTextAreaElement>(null);
+
+    if (!state) {
+        return <ErrorMessage error="no state in context" />;
+    }
+
+    const inplaceEdit = props.option.inplaceEdit();
+
+    if (inplaceEdit === "disallow") {
+        return null;
+    } else if (inplaceEdit === "remove-me") {
+        const result = props.option.onRemoved(state);
+        if (isError(result)) {
+            return <ErrorMessage error={`onRemoved failed: ${result.error}`} />;
+        } else {
+            result.newState
+                .getSuggestedOptions("")
+                .then((options) => {
+                    setOptions(options);
+                })
+                .catch((err) => setError(err));
+        }
+
+        if (error) {
+            return <ErrorMessage error={error} />;
+        } else if (options) {
+            return (
+                <MenuList>
+                    {options.map((option) => (
+                        <MenuItem key={option.key}>{option.label}</MenuItem>
+                    ))}
+                </MenuList>
+            );
+        } else {
+            return "Loading...";
+        }
+    } else if (inplaceEdit.type === "textarea") {
+        return (
+            <div>
+                <textarea
+                    ref={textarea}
+                    defaultValue={inplaceEdit.initialValue}
+                ></textarea>
+                <br />
+                <button
+                    onClick={() => {
+                        const result = inplaceEdit.onSave(textarea.current?.value ?? "ERROR: no textarea", state);
+                        context.applyUpdate(result);
+                        document.body.click(); // close popover
+                    }}
+                >
+                    Save
+                </button>
+            </div>
+        );
+    } else {
+        return <ErrorMessage error="InplaceEdit not supported" />;
+    }
 }
