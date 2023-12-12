@@ -1599,6 +1599,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fluentui/react-search-preview@npm:0.1.33":
+  version: 0.1.33
+  resolution: "@fluentui/react-search-preview@npm:0.1.33"
+  dependencies:
+    "@fluentui/react-icons": ^2.0.217
+    "@fluentui/react-input": ^9.4.53
+    "@fluentui/react-jsx-runtime": ^9.0.20
+    "@fluentui/react-theme": ^9.1.16
+    "@fluentui/react-utilities": ^9.15.2
+    "@griffel/react": ^1.5.14
+    "@swc/helpers": ^0.5.1
+  peerDependencies:
+    "@types/react": ">=16.14.0 <19.0.0"
+    "@types/react-dom": ">=16.14.0 <19.0.0"
+    react: ">=16.14.0 <19.0.0"
+    react-dom: ">=16.14.0 <19.0.0"
+  checksum: 9b41a57243aa88388236c7640495974592805ed75f5ef4d966b7c0ff49412b56de5bf7a85b28b4a72326678c7d139262fe517615a2774aa9c069ddfbb6f70d12
+  languageName: node
+  linkType: hard
+
 "@fluentui/react-select@npm:^9.1.53":
   version: 9.1.53
   resolution: "@fluentui/react-select@npm:9.1.53"
@@ -2954,6 +2974,7 @@ __metadata:
   resolution: "@topical-ehr/ui-autocomplete@workspace:packages/ui-autocomplete"
   dependencies:
     "@fluentui/react-components": 9.42.0
+    "@fluentui/react-search-preview": 0.1.33
     "@topical-ehr/fhir-store": "workspace:*"
     "@topical-ehr/fhir-types": "workspace:*"
     "@topical-ehr/formatting": "workspace:*"
@@ -2963,6 +2984,7 @@ __metadata:
     "@types/react": 18.2.14
     react: 18.2.0
     react-select: 5.4.0
+    remeda: 0.0.35
   languageName: unknown
   linkType: soft
 

@@ -15,6 +15,17 @@ export const practitionersApi = createApi({
 
     endpoints(build) {
         return {
+            getPractitioner: build.query<FHIR.Practitioner, string>({
+                async queryFn(arg, api) {
+                    const reduxState = api.getState() as any;
+                    const fhir = await fhirUp(reduxState.fhir.serverConfig);
+                    const practitioner = await fhir.get(`Practitioner/${arg}`);
+                    return { data: practitioner };
+                },
+                providesTags(result) {
+                    return [{ type: "Practitioner" as const, id: result.id }];
+                },
+            }),
             getPractitioners: build.query<PractitionerWithRole[], void>({
                 async queryFn(arg, api) {
                     const reduxState = api.getState() as any;
@@ -51,19 +62,15 @@ export const practitionersApi = createApi({
                     const fhir = await fhirUp(reduxState.fhir.serverConfig);
 
                     const practitionerId = FHIR.newUuidId();
-                    const role = { ...arg.role, practitioner: { reference: practitionerId } };
+                    const role = {
+                        ...arg.role,
+                        id: FHIR.newUuidId(),
+                        practitioner: { reference: practitionerId },
+                    };
 
                     const bundle = FHIR.Bundle.newTransaction([
-                        {
-                            fullUrl: practitionerId,
-                            resource: arg.practitioner,
-                            request: { method: "POST", url: "Practitioner" },
-                        },
-                        {
-                            fullUrl: FHIR.newUuidId(),
-                            resource: role,
-                            request: { method: "POST", url: "PractitionerRole" },
-                        },
+                        FHIR.Bundle.entry(arg.practitioner),
+                        FHIR.Bundle.entry(role),
                     ]);
 
                     const result = await fhir.post(bundle);
@@ -84,9 +91,15 @@ export const practitionersApi = createApi({
                     const reduxState = api.getState() as any;
                     const fhir = await fhirUp(reduxState.fhir.serverConfig);
 
+                    const role = {
+                        ...arg.role,
+                        id: FHIR.newUuidId(),
+                        practitioner: FHIR.referenceTo(arg.practitioner),
+                    };
+
                     const bundle = FHIR.Bundle.newTransaction([
-                        FHIR.Bundle.putEntry(arg.practitioner),
-                        FHIR.Bundle.putEntry(arg.role),
+                        FHIR.Bundle.entry(arg.practitioner),
+                        FHIR.Bundle.entry(role),
                     ]);
 
                     const result = await fhir.post(bundle);
@@ -103,4 +116,9 @@ export const practitionersApi = createApi({
     tagTypes: ["Practitioner"],
 });
 
-export const { useGetPractitionersQuery, useAddPractitionerMutation, useUpdatePractitionerMutation } = practitionersApi;
+export const {
+    useGetPractitionerQuery,
+    useGetPractitionersQuery,
+    useAddPractitionerMutation,
+    useUpdatePractitionerMutation,
+} = practitionersApi;

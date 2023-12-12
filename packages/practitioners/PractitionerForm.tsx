@@ -3,7 +3,11 @@ import { makeStyles, shorthands, useId, Input, Label, Button, Field } from "@flu
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 
 import * as FHIR from "@topical-ehr/fhir-types";
-import { useAddPractitionerMutation } from "@topical-ehr/fhir-store/practitioner-slice";
+import {
+    PractitionerWithRole,
+    useAddPractitionerMutation,
+    useUpdatePractitionerMutation,
+} from "@topical-ehr/fhir-store/practitioner-slice";
 import { ErrorMessage } from "@topical-ehr/ui-elements/ErrorMessage";
 
 const useStyles = makeStyles({
@@ -26,40 +30,51 @@ const useStyles = makeStyles({
     },
 });
 
-interface FormValues {
+interface PractitionerFormValues {
     "First name": string;
     "Last name": string;
     Role: string;
 }
 
 interface Props {
-    onAdded(): void;
+    existing?: PractitionerWithRole;
+    onSubmitted(): void;
 }
-export function AddPractitionerForm(props: Props) {
+export function PractitionerForm(props: Props) {
     const styles = useStyles();
 
-    const methods = useForm<FormValues>();
+    const methods = useForm<PractitionerFormValues>({
+        defaultValues: {
+            "First name": props?.existing?.practitioner?.name?.[0]?.given,
+            "Last name": props?.existing?.practitioner?.name?.[0]?.family,
+            Role: props?.existing?.role?.code?.[0]?.text,
+        },
+    });
 
-    const [addPractitioner, result] = useAddPractitionerMutation();
+    const [addPractitioner, resultAdd] = useAddPractitionerMutation();
+    const [updatePractitioner, resultUpdate] = useUpdatePractitionerMutation();
 
-    function onSubmit(data: FormValues) {
-        console.log("onSubmit", data);
-
-        addPractitioner({
+    function onSubmit(data: PractitionerFormValues) {
+        const newResoure: PractitionerWithRole = {
             practitioner: {
                 resourceType: "Practitioner",
+                ...(props.existing?.practitioner ?? FHIR.newMeta()),
                 name: [{ family: data["Last name"], given: data["First name"] }],
-                ...FHIR.newMeta(),
             },
             role: {
                 resourceType: "PractitionerRole",
+                ...(props.existing?.role ?? FHIR.newMeta()),
                 code: [{ text: data.Role }],
-                ...FHIR.newMeta(),
             },
-        })
+        };
+
+        const mutation = props.existing ? updatePractitioner : addPractitioner;
+        console.log("onSubmit", { data, existing: props.existing, mutation });
+
+        mutation(newResoure)
             .unwrap()
             .then(() => {
-                props.onAdded();
+                props.onSubmitted();
             });
     }
 
@@ -78,18 +93,18 @@ export function AddPractitionerForm(props: Props) {
                     className={styles.button}
                     appearance="primary"
                     type="submit"
-                    disabled={result.isLoading}
+                    disabled={resultAdd.isLoading || resultUpdate.isLoading}
                 >
-                    Add
+                    {props.existing ? "Update" : "Add"}
                 </Button>
-                {result.isError && <ErrorMessage error={result.error} />}
+                <ErrorMessage error={resultAdd.error ?? resultUpdate.error} />
             </form>
         </FormProvider>
     );
 }
 
-function TextField(props: { field: keyof FormValues }) {
-    const methods = useFormContext<FormValues>();
+function TextField(props: { field: keyof PractitionerFormValues }) {
+    const methods = useFormContext<PractitionerFormValues>();
 
     const htmlId = useId("add-practitioner-");
     const styles = useStyles();

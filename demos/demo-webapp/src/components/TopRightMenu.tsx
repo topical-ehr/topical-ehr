@@ -13,6 +13,7 @@ import {
 } from "@fluentui/react-components";
 import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
 import { fhirUp, useFhirServerConfig } from "@topical-ehr/fhir-store/fhir-server";
+import { useFHIR } from "@topical-ehr/fhir-store";
 import { SelectPractitionerDialog } from "@topical-ehr/practitioners/SelectPractitionerDialog";
 
 import { ArrowDownloadFilled, ArrowDownloadRegular, bundleIcon } from "@fluentui/react-icons";
@@ -20,9 +21,10 @@ import { ArrowResetFilled, ArrowResetRegular } from "@fluentui/react-icons";
 import { ArrowSwapFilled, ArrowSwapRegular } from "@fluentui/react-icons";
 import { SettingsFilled, SettingsRegular } from "@fluentui/react-icons";
 
-import * as FHIR from "/home/eug/topical-ehr/packages/fhir-types";
+import * as FHIR from "@topical-ehr/fhir-types";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 import { actions } from "@topical-ehr/fhir-store";
+import { useGetPractitionerQuery } from "@topical-ehr/fhir-store/practitioner-slice";
 
 const SwapIcon = bundleIcon(ArrowSwapFilled, ArrowSwapRegular);
 const DownloadIcon = bundleIcon(ArrowDownloadFilled, ArrowDownloadRegular);
@@ -41,6 +43,9 @@ export function TopRightMenu(props: Props) {
     const classes = styles();
 
     const fhirConfig = useFhirServerConfig();
+
+    const practitionerId = useFHIR((s) => s.fhir.practitionerId);
+    const practitioner = useGetPractitionerQuery(practitionerId);
 
     function onSettings() {
         alert("TODO");
@@ -70,6 +75,11 @@ export function TopRightMenu(props: Props) {
         setSelectPractitioner(false);
     }
 
+    if (practitioner.isLoading) {
+        return null;
+    }
+    const name = practitioner.data?.name?.[0];
+
     return (
         <div className={classes.topRight}>
             {selectPractitioner && <SelectPractitionerDialog onClose={onSelectedPractitioner} />}
@@ -78,7 +88,9 @@ export function TopRightMenu(props: Props) {
                 hoverDelay={1}
             >
                 <MenuTrigger disableButtonEnhancement>
-                    <MenuButton size="medium">🧑‍⚕️ Test User</MenuButton>
+                    <MenuButton size="medium">
+                        🧑‍⚕️ {name?.given} {name?.family}
+                    </MenuButton>
                 </MenuTrigger>
                 <MenuPopover>
                     <MenuList>

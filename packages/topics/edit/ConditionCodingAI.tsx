@@ -114,7 +114,7 @@ export function ConditionCodingAI(props: Props) {
             {suggestions === null && (
                 <Button
                     disabled={waiting}
-                    appearance="subtle"
+                    appearance="secondary"
                     onClick={onSuggest}
                     className={classes.vspace}
                     title={"Suggest conditions using " + modelNameFull}

@@ -9062,6 +9062,39 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@fluentui/react-search-preview", [\
+        ["npm:0.1.33", {\
+          "packageLocation": "./.yarn/cache/@fluentui-react-search-preview-npm-0.1.33-029c22981a-9b41a57243.zip/node_modules/@fluentui/react-search-preview/",\
+          "packageDependencies": [\
+            ["@fluentui/react-search-preview", "npm:0.1.33"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:cceca24c5a4acb41b985194cefebfbf2f4e6c6df46dd035913e120a729849d884a53d27f90417cf43480aeaacfd14e04b6175d24fc4f5d75dcd3dc9e48ee38ad#npm:0.1.33", {\
+          "packageLocation": "./.yarn/__virtual__/@fluentui-react-search-preview-virtual-ae611886b6/0/cache/@fluentui-react-search-preview-npm-0.1.33-029c22981a-9b41a57243.zip/node_modules/@fluentui/react-search-preview/",\
+          "packageDependencies": [\
+            ["@fluentui/react-search-preview", "virtual:cceca24c5a4acb41b985194cefebfbf2f4e6c6df46dd035913e120a729849d884a53d27f90417cf43480aeaacfd14e04b6175d24fc4f5d75dcd3dc9e48ee38ad#npm:0.1.33"],\
+            ["@fluentui/react-icons", "virtual:e7e5c195e54ff765a310440e7e392a4f8f3fc64bff8c101156ca9881cca4ef22f07880738d44e48d6c78b09f42b8bd0c93e36e247f6e8b2a727c5357bc563b34#npm:2.0.223"],\
+            ["@fluentui/react-input", "virtual:518f3bb9aff4a5001fbe009717186cb3d1f03b370e3826b2c2dd35073bddee7231428ef82b811631c280ad4d2cf5dbbb2c326fb4a558b9f8a5ad20382bdb7edc#npm:9.4.53"],\
+            ["@fluentui/react-jsx-runtime", "virtual:e7e5c195e54ff765a310440e7e392a4f8f3fc64bff8c101156ca9881cca4ef22f07880738d44e48d6c78b09f42b8bd0c93e36e247f6e8b2a727c5357bc563b34#npm:9.0.20"],\
+            ["@fluentui/react-theme", "npm:9.1.16"],\
+            ["@fluentui/react-utilities", "virtual:a5f515f6e5a7a129773e98cc32aa3070d0915ca9c316dc1a15e512e81ac5aa5ddfe7d8a7c0e5d45569162867f77be2a089ca46b900c5221a31f8e3081c24a56c#npm:9.15.2"],\
+            ["@griffel/react", "virtual:a5f515f6e5a7a129773e98cc32aa3070d0915ca9c316dc1a15e512e81ac5aa5ddfe7d8a7c0e5d45569162867f77be2a089ca46b900c5221a31f8e3081c24a56c#npm:1.5.19"],\
+            ["@swc/helpers", "npm:0.5.3"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["@types/react-dom", null],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", null]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@fluentui/react-select", [\
         ["npm:9.1.53", {\
           "packageLocation": "./.yarn/cache/@fluentui-react-select-npm-9.1.53-a11ac3a9d1-356f043c82.zip/node_modules/@fluentui/react-select/",\
@@ -13076,6 +13109,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@topical-ehr/ui-autocomplete", "workspace:packages/ui-autocomplete"],\
             ["@fluentui/react-components", "virtual:cceca24c5a4acb41b985194cefebfbf2f4e6c6df46dd035913e120a729849d884a53d27f90417cf43480aeaacfd14e04b6175d24fc4f5d75dcd3dc9e48ee38ad#npm:9.42.0"],\
+            ["@fluentui/react-search-preview", "virtual:cceca24c5a4acb41b985194cefebfbf2f4e6c6df46dd035913e120a729849d884a53d27f90417cf43480aeaacfd14e04b6175d24fc4f5d75dcd3dc9e48ee38ad#npm:0.1.33"],\
             ["@topical-ehr/fhir-store", "workspace:packages/fhir-store"],\
             ["@topical-ehr/fhir-types", "workspace:packages/fhir-types"],\
             ["@topical-ehr/formatting", "workspace:packages/formatting"],\
@@ -13084,7 +13118,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@topical-ehr/ui-elements", "workspace:packages/ui-elements"],\
             ["@types/react", "npm:18.2.14"],\
             ["react", "npm:18.2.0"],\
-            ["react-select", "virtual:cceca24c5a4acb41b985194cefebfbf2f4e6c6df46dd035913e120a729849d884a53d27f90417cf43480aeaacfd14e04b6175d24fc4f5d75dcd3dc9e48ee38ad#npm:5.4.0"]\
+            ["react-select", "virtual:cceca24c5a4acb41b985194cefebfbf2f4e6c6df46dd035913e120a729849d884a53d27f90417cf43480aeaacfd14e04b6175d24fc4f5d75dcd3dc9e48ee38ad#npm:5.4.0"],\
+            ["remeda", "npm:0.0.35"]\
           ],\
           "linkType": "SOFT"\
         }]\

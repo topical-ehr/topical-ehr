@@ -19,7 +19,7 @@ import { MoreHorizontal20Regular } from "@fluentui/react-icons";
 import { Card, CardHeader } from "@fluentui/react-components";
 
 import * as FHIR from "@topical-ehr/fhir-types";
-import { useGetPractitionersQuery } from "@topical-ehr/fhir-store/practitioner-slice";
+import { PractitionerWithRole, useGetPractitionersQuery } from "@topical-ehr/fhir-store/practitioner-slice";
 import { fhirTypeId } from "@topical-ehr/fhir-types/FhirUtils";
 import { FhirSVG } from "@topical-ehr/ui-elements/FhirSVG";
 import { EditIcon, DeleteIcon } from "@topical-ehr/ui-elements/Icons";
@@ -40,6 +40,7 @@ const useStyles = makeStyles({
 
 interface Props {
     onSelected(selected: FHIR.Practitioner | null): void;
+    onEdit(selected: PractitionerWithRole): void;
 }
 
 export function SelectPractitionerList(props: Props) {
@@ -91,7 +92,14 @@ export function SelectPractitionerList(props: Props) {
 
                                 <MenuPopover>
                                     <MenuList>
-                                        <MenuItem icon={<EditIcon />}>Edit</MenuItem>
+                                        <MenuItem
+                                            onClick={() => {
+                                                props.onEdit(practitioner);
+                                            }}
+                                            icon={<EditIcon />}
+                                        >
+                                            Edit
+                                        </MenuItem>
                                         <MenuItem icon={<DeleteIcon />}>Delete</MenuItem>
                                         <MenuItemLink
                                             href={`/edit-fhir?fhirUrl=${encodeURIComponent(

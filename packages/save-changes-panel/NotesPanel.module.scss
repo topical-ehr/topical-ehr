@@ -1,13 +1,12 @@
 .notesPanel {
-    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
 .editor :global(.editor-root-div) {
-    min-height: 10em;
+    min-height: 5em;
 }
 
 .buttons {
-    margin-bottom: 0.2em;
+    margin-bottom: 1em;
 }

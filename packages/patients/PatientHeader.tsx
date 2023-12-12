@@ -11,6 +11,8 @@ export function PatientHeader() {
     const dispatch = useAppDispatch();
     const patient = useFHIR((s) => s.fhir.resourcesWithEdits.patients[s.fhir.patientId]);
 
+    const showSearch = false;
+
     const pf = formatting.patient(patient);
     const { age, gender, born } = pf.ageGenderBorn;
     const lines = [
@@ -31,11 +33,13 @@ export function PatientHeader() {
                     </div>
                 ))}
             </div>
-            <SearchBox
-                placeholder="Search"
-                showIcon
-                onChange={(ev, newValue) => dispatch(actions.setSearchingFor(newValue ?? ""))}
-            />
+            {showSearch && (
+                <SearchBox
+                    placeholder="Search"
+                    showIcon
+                    onChange={(ev, newValue) => dispatch(actions.setSearchingFor(newValue ?? ""))}
+                />
+            )}
         </div>
     );
 }

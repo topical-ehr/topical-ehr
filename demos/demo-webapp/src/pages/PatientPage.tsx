@@ -1,8 +1,9 @@
 import { Stack } from "@fluentui/react";
+import * as FHIR from "@topical-ehr/fhir-types";
 import { EHRConfig } from "@topical-ehr/fhir-store/config";
 import { EHRPageConfig } from "@topical-ehr/fhir-store/config-provider";
 import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
-import { NotesPanel } from "@topical-ehr/save-changes-panel/NotesPanel";
+import { NewNote } from "@topical-ehr/save-changes-panel/NewNote";
 import { RecordObsPanel } from "@topical-ehr/timeline/panels/RecordObsPanel";
 import { RecordMedsPanel } from "@topical-ehr/timeline/panels/RecordMedsPanel";
 import { TimelineViewMenu } from "@topical-ehr/timeline/buttons/TimelineViewMenu";
@@ -23,6 +24,7 @@ import { TitleEdit } from "@topical-ehr/topics/edit/TitleEdit";
 import { StatusEdit } from "@topical-ehr/topics/edit/StatusEdit";
 import { createTopicsForStandaloneConditionsSaga } from "@topical-ehr/topics/sagas/createTopicsForStandaloneConditions";
 import { ChartsView } from "@topical-ehr/topics/view/ChartsView";
+import { TasksView } from "@topical-ehr/topics/view/TaskView";
 import { ConditionsView } from "@topical-ehr/topics/view/ConditionView";
 import { DecisionSupportTiles } from "@topical-ehr/topics/view/DecisionSupportTiles";
 import { PrescriptionsView } from "@topical-ehr/topics/view/PrescriptionView";
@@ -35,6 +37,7 @@ import { useParams, useSearchParams } from "react-router-dom";
 import { TopRightMenu } from "../components/TopRightMenu";
 
 import css from "./PatientPage.module.scss";
+import { SelectPractitionerDialog } from "@topical-ehr/practitioners/SelectPractitionerDialog";
 
 export default function PatientPage() {
     const { patientId } = useParams();
@@ -43,9 +46,33 @@ export default function PatientPage() {
         throw new Error(`PatientPage is missing patientId`);
     }
 
+    const practitionerId = searchParams.get("practitioner");
+    function onSelectedPractitioner(selected: FHIR.Practitioner | null) {
+        if (selected) {
+            setSearchParams((prev) => {
+                prev.set("practitioner", selected.id);
+                return prev;
+            });
+        }
+    }
+    if (!practitionerId) {
+        const config: EHRConfig = {
+            patientId,
+            practitionerId: "",
+            additionalSagas: [],
+        };
+        return (
+            <div>
+                <EHRPageConfig config={config}>
+                    <SelectPractitionerDialog onClose={onSelectedPractitioner} />
+                </EHRPageConfig>
+            </div>
+        );
+    }
+
     const config: EHRConfig = {
         patientId,
-        practitionerId: "123",
+        practitionerId,
         additionalSagas: [createTopicsForStandaloneConditionsSaga],
     };
 
@@ -99,6 +126,7 @@ export default function PatientPage() {
 
                             <ConditionCodingAI apiUrl="https://ai-server-k6k6b76nja-ts.a.run.app/v1/coding" />
 
+                            <TasksView />
                             <TasksEdit />
 
                             <ConditionsView />
@@ -114,7 +142,15 @@ export default function PatientPage() {
                     </Column>
 
                     <Column width="30%">
-                        <NotesPanel />
+                        <div className={css.notesColumn}>
+                            <div className={css.notesTimeline}>
+                                <Timeline
+                                    groupers={[groupNotes]}
+                                    renderer={defaultRenderer}
+                                />
+                            </div>
+                            <NewNote />
+                        </div>
                     </Column>
                 </ColumnLayout>
             </EHRPageConfig>

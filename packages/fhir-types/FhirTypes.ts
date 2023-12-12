@@ -58,6 +58,17 @@ export const Bundle = {
             request: { method: "PUT", url: typeId(resource) },
         };
     },
+    entry(resource: Resource) {
+        const isNew = resource.id.startsWith("urn:uuid");
+        return {
+            fullUrl: isNew ? resource.id : typeId(resource),
+            request: {
+                method: isNew ? "POST" : "PUT",
+                url: isNew ? resource.resourceType : typeId(resource),
+            },
+            resource,
+        };
+    },
 };
 
 export function parseRef(ref: string | null | undefined, resourceType?: string) {

@@ -3,6 +3,7 @@
     "packageManager": "yarn@3.6.0",
     "dependencies": {
         "@fluentui/react-components": "9.42.0",
+        "@fluentui/react-search-preview": "0.1.33",
         "@topical-ehr/fhir-store": "workspace:*",
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/formatting": "workspace:*",
@@ -10,7 +11,8 @@
         "@topical-ehr/terminology": "workspace:*",
         "@topical-ehr/ui-elements": "workspace:*",
         "react": "18.2.0",
-        "react-select": "5.4.0"
+        "react-select": "5.4.0",
+        "remeda": "0.0.35"
     },
     "devDependencies": {
         "@types/react": "18.2.14"

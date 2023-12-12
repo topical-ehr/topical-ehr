@@ -15,8 +15,9 @@ import {
 } from "@fluentui/react-components";
 
 import * as FHIR from "@topical-ehr/fhir-types";
-import { AddPractitionerForm } from "./AddPractitionerForm";
+import { PractitionerForm } from "./PractitionerForm";
 import { SelectPractitionerList } from "./SelectPractitionerList";
+import { PractitionerWithRole } from "@topical-ehr/fhir-store/practitioner-slice";
 
 interface Props {
     onClose(selected: FHIR.Practitioner | null): void;
@@ -24,7 +25,9 @@ interface Props {
 
 export function SelectPractitionerDialog(props: Props) {
     const [selectedTab, setSelectedTab] = React.useState<string>("existing");
+
     const [selected, setSelected] = React.useState<FHIR.Practitioner | null>(null);
+    const [editing, setEditing] = React.useState<PractitionerWithRole | null>(null);
 
     const onTabSelect = (event: SelectTabEvent, data: SelectTabData) => {
         if (data.value === "add") {
@@ -32,12 +35,17 @@ export function SelectPractitionerDialog(props: Props) {
         }
         setSelectedTab(data.value as string);
     };
-    function onAdded() {
+    function onSubmitted() {
         setSelectedTab("existing");
+        setEditing(null);
     }
 
     function onSelected(practitioner: FHIR.Practitioner | null) {
         setSelected(practitioner);
+    }
+    function onEdit(practitioner: PractitionerWithRole) {
+        setEditing(practitioner);
+        setSelectedTab("edit");
     }
     function onCloseButton() {
         props.onClose(null);
@@ -70,6 +78,14 @@ export function SelectPractitionerDialog(props: Props) {
                             >
                                 Existing
                             </Tab>
+                            {editing && (
+                                <Tab
+                                    id="edit"
+                                    value="edit"
+                                >
+                                    Edit
+                                </Tab>
+                            )}
                             <Tab
                                 id="add"
                                 value="add"
@@ -77,8 +93,19 @@ export function SelectPractitionerDialog(props: Props) {
                                 Add new
                             </Tab>
                         </TabList>
-                        {selectedTab === "existing" && <SelectPractitionerList onSelected={onSelected} />}
-                        {selectedTab === "add" && <AddPractitionerForm onAdded={onAdded} />}
+                        {selectedTab === "existing" && (
+                            <SelectPractitionerList
+                                onEdit={onEdit}
+                                onSelected={onSelected}
+                            />
+                        )}
+                        {selectedTab === "add" && <PractitionerForm onSubmitted={onSubmitted} />}
+                        {editing && selectedTab === "edit" && (
+                            <PractitionerForm
+                                onSubmitted={onSubmitted}
+                                existing={editing}
+                            />
+                        )}
                     </DialogContent>
                     <DialogActions>
                         <DialogTrigger disableButtonEnhancement>

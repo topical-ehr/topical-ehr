@@ -18,6 +18,7 @@ const styles = makeStyles({
         gridTemplateColumns: "auto 8em 1fr",
         ...shorthands.gap(tokens.spacingHorizontalM),
         alignItems: "center",
+        ...shorthands.margin(tokens.spacingHorizontalS),
     },
     hButtons: {
         "& button": {

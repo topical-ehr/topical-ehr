@@ -97,7 +97,7 @@ function Changes(props: { r: FHIR.Resource; versionId: string }) {
         }
 
         const baseIndex = historyBundle.entry?.findIndex((entry) => entry.resource.meta.versionId === props.versionId);
-        if (!baseIndex) {
+        if (baseIndex == null) {
             throw new Error(`Failed to find baseIndex`);
         }
 
@@ -157,7 +157,7 @@ function Changes(props: { r: FHIR.Resource; versionId: string }) {
 
     return (
         <div>
-            Changed {props.r.resourceType}/${props.r.id}{" "}
+            Changed {props.r.resourceType}/{props.r.id}{" "}
         </div>
     );
 }

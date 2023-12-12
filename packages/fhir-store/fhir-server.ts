@@ -102,6 +102,7 @@ export async function fhirUp({ server }: FhirServerConfigData) {
         },
 
         async post(bundle: FHIR.Bundle<FHIR.Resource>) {
+            console.log("FHIR POST", { bundle });
             const body = JSON.stringify(bundle, null, 2);
             const response = await methods.doRequest("POST", "", body);
             return JSON.parse(response.json);

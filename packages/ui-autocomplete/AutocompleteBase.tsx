@@ -72,11 +72,9 @@ export type UpdateResult =
       }
     | { error: string };
 
-export type InplaceEdit =
-    | {
-          type: "textarea";
-          initialValue: string;
-          onSave(value: string, state: AutocompleteStateBase): UpdateResult;
-      }
-    | "remove-me"
-    | "disallow";
+export type InplaceEditText = {
+    type: "textarea";
+    initialValue: string;
+    onSave(value: string, state: AutocompleteStateBase): UpdateResult;
+};
+export type InplaceEdit = InplaceEditText | "remove-me" | "disallow";
