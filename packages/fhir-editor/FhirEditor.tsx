@@ -297,7 +297,7 @@ export function FhirEditorWithServer({ server }: { server: FhirServerMethods }) 
                     <div className={classes.twoColumns}>
                         {[...lastHttpHeaders].map(([name, value]) => (
                             <div key={name + value}>
-                                <b>{name}</b>: {value}
+                                <b>{name}</b>: {value} {headerExtraInfo(name, value)}
                             </div>
                         ))}
                     </div>
@@ -305,6 +305,16 @@ export function FhirEditorWithServer({ server }: { server: FhirServerMethods }) 
             )}
         </div>
     );
+}
+
+function headerExtraInfo(name: string, value: string) {
+    switch (name.toLowerCase()) {
+        case "last-modified":
+            // show in local time
+            return `(${new Date(value).toLocaleString()})`;
+        default:
+            return null;
+    }
 }
 
 function formatJson(json: string) {
