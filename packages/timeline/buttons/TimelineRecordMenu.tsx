@@ -3,13 +3,11 @@ import React from "react";
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 
-import { Menu, MenuButton, MenuDivider, MenuItem, MenuList, MenuPopover, MenuTrigger } from "@fluentui/react-components";
+import { Menu, MenuButton, MenuItem, MenuList, MenuPopover, MenuTrigger } from "@fluentui/react-components";
 import { RecordObsPanelId } from "../panels/RecordObsPanel";
 import { RecordMedsPanelId } from "../panels/RecordMedsPanel";
 
-interface Props {}
-
-export function TimelineRecordMenu(props: Props) {
+export function TimelineRecordMenu() {
     const showingPanels = useFHIR((s) => s.fhir.showingPanels);
 
     return (

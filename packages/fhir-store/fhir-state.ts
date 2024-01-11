@@ -138,7 +138,15 @@ export interface State {
 
     // misc
     showingPanels: Record<string, boolean>;
+    showingInTimeline: ShowInTimeline;
     searchingFor: string | null;
+}
+
+export interface ShowInTimeline {
+    obs: boolean;
+    labs: boolean;
+    meds: boolean;
+    notes: boolean;
 }
 
 export function initialState(config: EHRConfig | null, serverConfig: FhirServerConfigData): State {
@@ -160,6 +168,12 @@ export function initialState(config: EHRConfig | null, serverConfig: FhirServerC
         serverConfig,
 
         showingPanels: {},
+        showingInTimeline: {
+            obs: true,
+            labs: true,
+            meds: true,
+            notes: false,
+        },
         searchingFor: null,
     };
 }
@@ -316,6 +330,9 @@ export const fhirSlice = createSlice({
         setSearchingFor(state, { payload }: PayloadAction<string>) {
             state.searchingFor = payload || null;
         },
+        setShowInTimeline(state, { payload }: PayloadAction<{ group: keyof ShowInTimeline; show: boolean }>) {
+            state.showingInTimeline[payload.group] = payload.show;
+        },
 
         setPractitioner(state, { payload }: PayloadAction<FHIR.Practitioner>) {
             state.practitionerId = payload.id;
@@ -420,11 +437,11 @@ export function* coreFhirSagas() {
     const serverConfig = yield* select((s: RootState) => s.fhir.serverConfig);
     const fhirServer = yield* call(fhirUp, serverConfig);
 
-    yield takeEvery(actions.query, onQuerySaga, fhirServer);
-    yield takeEvery(actions.queryLoaded, updateObservationsByCodeSaga);
+    yield takeEvery(actions.query.type, onQuerySaga, fhirServer);
+    yield takeEvery(actions.queryLoaded.type, updateObservationsByCodeSaga);
 
-    yield takeEvery(actions.save, onSaveSaga, fhirServer);
-    yield takeEvery(actions.deleteImmediately, onDeleteImmediately, fhirServer);
+    yield takeEvery(actions.save.type, onSaveSaga, fhirServer);
+    yield takeEvery(actions.deleteImmediately.type, onDeleteImmediately, fhirServer);
 
     yield fork(loadAllResourcesSaga);
 }

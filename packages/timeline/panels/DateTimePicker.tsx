@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Field, Input, InputProps } from "@fluentui/react-components";
+import { Field, Input, InputProps } from "@fluentui/react-components";
 
 import { styles, controlSize } from "./styles";
 

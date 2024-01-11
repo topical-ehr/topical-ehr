@@ -93,7 +93,6 @@ export default function PatientPage() {
                             horizontal
                             tokens={{ childrenGap: 10 }}
                             style={{ marginBottom: "0.5em" }}
-                            // style={{ justifyContent: "space-between" }}
                         >
                             <TimelineRecordMenu />
                             <TimelineViewMenu />
@@ -143,12 +142,13 @@ export default function PatientPage() {
 
                     <Column width="30%">
                         <div className={css.notesColumn}>
-                            <div className={css.notesTimeline}>
-                                <Timeline
-                                    groupers={[groupNotes]}
-                                    renderer={defaultRenderer}
-                                />
-                            </div>
+                            <Timeline
+                                groupers={[groupNotes]}
+                                showOverride={{ notes: true }}
+                                renderer={defaultRenderer}
+                                scrollToBottom
+                                oldestFirst
+                            />
                             <NewNote />
                         </div>
                     </Column>

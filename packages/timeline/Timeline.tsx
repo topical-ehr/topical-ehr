@@ -1,7 +1,7 @@
 import React from "react";
 import { DateTime } from "luxon";
 
-import { FhirResources, State, useFHIR } from "@topical-ehr/fhir-store";
+import { FhirResources, ShowInTimeline, State, useFHIR } from "@topical-ehr/fhir-store";
 import { createSearcher } from "@topical-ehr/fhir-store/search";
 import { ObservationDisplay } from "@topical-ehr/observations/ObservationDisplay";
 
@@ -11,12 +11,15 @@ import { MedicationTimelineView } from "./medications/MedicationTimelineView";
 
 import css from "./Timeline.module.scss";
 
-export type Grouper = (resources: FhirResources) => TimelineItem[];
+export type Grouper = (resources: FhirResources, showing: Partial<ShowInTimeline>) => TimelineItem[];
 export type Renderer = (item: TimelineItem, byCode: State["byCode"]) => React.ReactNode;
 
 interface Props {
     groupers: Grouper[];
     renderer: Renderer;
+    scrollToBottom?: boolean;
+    oldestFirst?: boolean;
+    showOverride?: Partial<ShowInTimeline>;
 }
 
 export function defaultRenderer(item: TimelineItem, byCode: State["byCode"]) {
@@ -73,16 +76,20 @@ export function Timeline(props: Props) {
     const byCode = useFHIR((s) => s.fhir.byCode);
     const searchingFor = useFHIR((s) => s.fhir.searchingFor);
 
+    const showingInTimelineRedux = useFHIR((s) => s.fhir.showingInTimeline);
+    const showingInTimeline = props.showOverride ?? showingInTimelineRedux;
+
     const items = React.useMemo(() => {
         // const filteredResources = searchingFor ? searchResources(resources, searchingFor) : resources;
 
-        const items = groupers.flatMap((g) => g(resources));
+        const items = groupers.flatMap((g) => g(resources, showingInTimeline));
 
         // newest first
-        items.sort((a, b) => b.dateTimeString.localeCompare(a.dateTimeString));
+        const order = props.oldestFirst ? -1 : 1;
+        items.sort((a, b) => b.dateTimeString.localeCompare(a.dateTimeString) * order);
 
         return items;
-    }, [groupers, resources]);
+    }, [groupers, resources, showingInTimeline, props.oldestFirst]);
 
     const dateGroups = React.useMemo(() => {
         // apply search filter
@@ -113,8 +120,23 @@ export function Timeline(props: Props) {
         target.nextElementSibling?.scrollTo(0, 0);
     }
 
+    // scroll to bottom on mounting
+    const listRef = React.useRef<HTMLDivElement>(null);
+    React.useEffect(() => {
+        function scroll() {
+            if (props.scrollToBottom && listRef.current) {
+                listRef.current.scrollTo(0, listRef.current.scrollHeight);
+                console.debug("scrollHeight", listRef.current.scrollHeight);
+            }
+        }
+        scroll();
+    }, [props.scrollToBottom]);
+
     return (
-        <div>
+        <div
+            ref={listRef}
+            style={{ overflow: "auto" }}
+        >
             {[...dateGroups.entries()].map(([date, items]) => (
                 <div key={date}>
                     <div

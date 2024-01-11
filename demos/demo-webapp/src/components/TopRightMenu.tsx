@@ -89,7 +89,7 @@ export function TopRightMenu(props: Props) {
             >
                 <MenuTrigger disableButtonEnhancement>
                     <MenuButton size="medium">
-                        🧑‍⚕️ {name?.given} {name?.family}
+                        🧑‍⚕️ {name?.prefix} {name?.given} {name?.family}
                     </MenuButton>
                 </MenuTrigger>
                 <MenuPopover>

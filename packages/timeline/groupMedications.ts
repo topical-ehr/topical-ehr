@@ -2,12 +2,16 @@ import { DateTime } from "luxon";
 import * as R from "remeda";
 
 import * as FHIR from "@topical-ehr/fhir-types";
-import { FhirResources } from "@topical-ehr/fhir-store";
+import { FhirResources, ShowInTimeline } from "@topical-ehr/fhir-store";
 
 import { TimelineItem } from "./TimelineItem";
 
-export function groupMedications(resources: FhirResources) {
+export function groupMedications(resources: FhirResources, show: ShowInTimeline) {
     const { medicationAdministrations } = resources;
+
+    if (!show.meds) {
+        return [];
+    }
 
     const items: TimelineItem[] = R.pipe(
         Object.values(medicationAdministrations),

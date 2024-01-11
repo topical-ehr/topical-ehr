@@ -1,11 +1,11 @@
 import { DateTime } from "luxon";
 
 import * as FHIR from "@topical-ehr/fhir-types";
-import { FhirResources } from "@topical-ehr/fhir-store";
+import { FhirResources, ShowInTimeline } from "@topical-ehr/fhir-store";
 
 import { TimelineItem } from "./TimelineItem";
 
-export function groupObservations(resources: FhirResources) {
+export function groupObservations(resources: FhirResources, showing: ShowInTimeline) {
     const { diagnosticReports, observations } = resources;
 
     const items: TimelineItem[] = [];
@@ -28,17 +28,19 @@ export function groupObservations(resources: FhirResources) {
         if (title && report.result?.length && report.effectiveDateTime) {
             const observations = report.result.map(observationByReference);
 
-            items.push({
-                id: "DiagnosticReport/" + report.id,
-                dateTime: DateTime.fromISO(report.effectiveDateTime),
-                dateTimeString: report.effectiveDateTime,
-                item: {
-                    type: "observation-group",
-                    title,
-                    titleFull: report.code.text ?? title,
-                    observations,
-                },
-            });
+            if (showing.labs) {
+                items.push({
+                    id: "DiagnosticReport/" + report.id,
+                    dateTime: DateTime.fromISO(report.effectiveDateTime),
+                    dateTimeString: report.effectiveDateTime,
+                    item: {
+                        type: "observation-group",
+                        title,
+                        titleFull: report.code.text ?? title,
+                        observations,
+                    },
+                });
+            }
 
             observations.forEach((ob) => groupedObservationIds.add(ob.id));
         } else {
@@ -53,6 +55,15 @@ export function groupObservations(resources: FhirResources) {
                     console.warn("Observation without date", { ob });
                     continue;
                 }
+
+                const category = ob.category?.[0]?.coding?.[0].code;
+                if (category === "vital-signs" && !showing.obs) {
+                    continue;
+                }
+                if (category?.startsWith("lab") && !showing.labs) {
+                    continue;
+                }
+
                 items.push({
                     id: "Observation/" + ob.id,
                     dateTime: DateTime.fromISO(ob.effectiveDateTime),
