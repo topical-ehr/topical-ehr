@@ -1,12 +1,12 @@
-import { Stack } from "@fluentui/react";
 import * as FHIR from "@topical-ehr/fhir-types";
 import { EHRConfig } from "@topical-ehr/fhir-store/config";
 import { EHRPageConfig } from "@topical-ehr/fhir-store/config-provider";
 import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
 import { NewNote } from "@topical-ehr/save-changes-panel/NewNote";
+import { MarkAsReadButton } from "@topical-ehr/timeline/MarkAsReadButton";
 import { RecordObsPanel } from "@topical-ehr/timeline/panels/RecordObsPanel";
 import { RecordMedsPanel } from "@topical-ehr/timeline/panels/RecordMedsPanel";
-import { TimelineViewMenu } from "@topical-ehr/timeline/buttons/TimelineViewMenu";
+import { TimelineViewButtons } from "@topical-ehr/timeline/buttons/TimelineViewButtons";
 import { TimelineRecordMenu } from "@topical-ehr/timeline/buttons/TimelineRecordMenu";
 import { groupNotes } from "@topical-ehr/timeline/groupNotes";
 import { groupMedications } from "@topical-ehr/timeline/groupMedications";
@@ -18,6 +18,7 @@ import { TasksEdit } from "@topical-ehr/topics/edit/TasksEdit";
 import { ConditionsEdit } from "@topical-ehr/topics/edit/ConditionEdit";
 import { NewItem } from "@topical-ehr/topics/edit/NewItem";
 import { NewTopicButton } from "@topical-ehr/topics/edit/NewTopicButton";
+import { AIButton } from "@topical-ehr/topics/edit/AIButton";
 import { PrescriptionsEdit } from "@topical-ehr/topics/edit/PrescriptionsEdit";
 import { SummaryEdit } from "@topical-ehr/topics/edit/SummaryEdit";
 import { TitleEdit } from "@topical-ehr/topics/edit/TitleEdit";
@@ -32,6 +33,7 @@ import { SummaryView } from "@topical-ehr/topics/view/SummaryView";
 import { TitleView } from "@topical-ehr/topics/view/TitleView";
 import { TopicHoverButtons } from "@topical-ehr/topics/view/TopicHoverButtons";
 import { Column, ColumnLayout } from "@topical-ehr/ui-elements/layout/ColumnLayout";
+import { ButtonRow } from "@topical-ehr/ui-elements/layout/ButtonRow";
 import { FieldGrid } from "@topical-ehr/ui-elements/layout/FieldGrid";
 import { useParams, useSearchParams } from "react-router-dom";
 import { TopRightMenu } from "../components/TopRightMenu";
@@ -89,14 +91,10 @@ export default function PatientPage() {
                         width="40%"
                         marginLeft="1em"
                     >
-                        <Stack
-                            horizontal
-                            tokens={{ childrenGap: 10 }}
-                            style={{ marginBottom: "0.5em" }}
-                        >
+                        <ButtonRow>
                             <TimelineRecordMenu />
-                            <TimelineViewMenu />
-                        </Stack>
+                            <TimelineViewButtons />
+                        </ButtonRow>
 
                         <RecordObsPanel />
                         <RecordMedsPanel />
@@ -108,7 +106,10 @@ export default function PatientPage() {
                     </Column>
 
                     <Column width="30%">
-                        <NewTopicButton />
+                        <ButtonRow>
+                            <NewTopicButton />
+                            <AIButton />
+                        </ButtonRow>
 
                         <TopicsColumn>
                             <TopicHoverButtons />
@@ -142,6 +143,10 @@ export default function PatientPage() {
 
                     <Column width="30%">
                         <div className={css.notesColumn}>
+                            <ButtonRow>
+                                <MarkAsReadButton />
+                            </ButtonRow>
+
                             <Timeline
                                 groupers={[groupNotes]}
                                 showOverride={{ notes: true }}

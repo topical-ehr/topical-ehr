@@ -695,7 +695,7 @@ export function CandleLiteServer__transaction_Z78D02DA(this$, req) {
                                     addToDict(fullUrlToResolvedId, fullUrl, typeId_1);
                                 }
                                 catch (matchValue_8) {
-                                    throw matchValue_8;
+                                    CandleLiteServer__raiseOO(this$, 400, new OperationOutcomeCodes(2, []), `Bundle has duplicate fullUrl ${fullUrl}`);
                                 }
                             }
                             break;

@@ -23,6 +23,7 @@ import { EditIcon, DeleteIcon } from "@topical-ehr/ui-elements/Icons";
 import { ChangesView } from "./ChangesView";
 
 import css from "./DocumentView.module.scss";
+import { ReadIndicator } from "../ReadIndicator";
 
 export interface Props {
     document: FHIR.Composition;
@@ -63,59 +64,67 @@ export function DocumentView(props: Props) {
         dispatch(actions.deleteImmediately(composition));
     }
 
+    function markUnread() {
+        dispatch(actions.markUnread(composition));
+    }
+
     function onCancel() {
         setEdit(false);
     }
 
     return (
-        <div className={css.document}>
-            <DocumentMenu
-                {...props}
-                setEdit={setEdit}
-                delete={onDelete}
-            />
-            <div>
-                {props.time}
-                <h4>{title}</h4>
-            </div>
-            <div className={css.body}>
-                {!edit && (
-                    <div
-                        dangerouslySetInnerHTML={{
-                            __html: DOMPurify.sanitize(html, { USE_PROFILES: { html: true } }),
-                        }}
-                    ></div>
-                )}
+        <ReadIndicator resource={composition}>
+            <div className={css.document}>
+                <DocumentMenu
+                    {...props}
+                    setEdit={setEdit}
+                    delete={onDelete}
+                    markUnread={markUnread}
+                />
+                <div>
+                    {props.time}
+                    <h4>{title}</h4>
+                </div>
+                <div className={css.body}>
+                    {!edit && (
+                        <div
+                            dangerouslySetInnerHTML={{
+                                __html: DOMPurify.sanitize(html, { USE_PROFILES: { html: true } }),
+                            }}
+                        ></div>
+                    )}
 
-                {edit && (
-                    <>
-                        <RichTextEditor
-                            initialHTML={html}
-                            placeholder={<></>}
-                            onChange={onChanged}
-                        />
-                        <div className={css.buttons}>
-                            <Button
-                                onClick={onSave}
-                                disabled={!getRichTextContents}
-                                appearance="primary"
-                            >
-                                Save
-                            </Button>
-                            <Button onClick={onCancel}>Cancel</Button>
-                        </div>
-                    </>
-                )}
+                    {edit && (
+                        <>
+                            <RichTextEditor
+                                initialHTML={html}
+                                placeholder={<></>}
+                                onChange={onChanged}
+                            />
+                            <div className={css.buttons}>
+                                <Button
+                                    onClick={onSave}
+                                    disabled={!getRichTextContents}
+                                    appearance="primary"
+                                >
+                                    Save
+                                </Button>
+                                <Button onClick={onCancel}>Cancel</Button>
+                            </div>
+                        </>
+                    )}
 
-                <ChangesView {...props} />
+                    <ChangesView {...props} />
+                </div>
             </div>
-        </div>
+        </ReadIndicator>
     );
 }
 
 interface MenuProps {
     setEdit: (edit: boolean) => void;
     delete: () => void;
+    markUnread: () => void;
 }
 
 function DocumentMenu(props: Props & MenuProps) {
@@ -134,6 +143,12 @@ function DocumentMenu(props: Props & MenuProps) {
             </MenuTrigger>
             <MenuPopover>
                 <MenuList>
+                    <MenuItem
+                        icon={"️✉"}
+                        onClick={() => props.markUnread()}
+                    >
+                        Mark as unread
+                    </MenuItem>
                     <MenuItem
                         icon={<EditIcon />}
                         onClick={() => props.setEdit(true)}

@@ -101,10 +101,11 @@ export async function fhirUp({ server }: FhirServerConfigData) {
             return JSON.parse(response.json);
         },
 
-        async post(bundle: FHIR.Bundle<FHIR.Resource>) {
-            console.log("FHIR POST", { bundle });
-            const body = JSON.stringify(bundle, null, 2);
-            const response = await methods.doRequest("POST", "", body);
+        async post(resource: FHIR.Bundle<FHIR.Resource> | FHIR.Resource) {
+            const url = resource.resourceType === "Bundle" ? "" : resource.resourceType;
+            console.log("FHIR POST", { resource, url });
+            const body = JSON.stringify(resource, null, 2);
+            const response = await methods.doRequest("POST", url, body);
             return JSON.parse(response.json);
         },
 

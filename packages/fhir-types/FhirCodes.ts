@@ -64,6 +64,17 @@ export const Codes = {
         ResolveAsVersionSpecific: "http://hl7.org/fhir/StructureDefinition/resolve-as-version-specific",
         VersionModified: "https://topicalehr.io/fhir-codes/Extension/VersionModified",
     },
+    List: {
+        Unread: {
+            coding: [
+                {
+                    system: "https://topicalehr.io/fhir-codes/List/Code",
+                    code: "unread",
+                    display: "Resources not yet read by this practitioner",
+                },
+            ],
+        },
+    },
     Observation: {
         BloodPressure: {
             Panel: {

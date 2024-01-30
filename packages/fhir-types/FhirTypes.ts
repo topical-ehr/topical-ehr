@@ -122,7 +122,9 @@ export function areOverlapping(cc1: CodeableConcept, cc2: CodeableConcept) {
         return false;
     }
     return c1.some(({ code, system }) =>
-        c2.some(({ code: code2, system: system2 }) => code === code2 && system === system2)
+        c2.some(
+            ({ code: code2, system: system2 }) => code === code2 && system === system2
+        )
     );
 }
 
@@ -195,17 +197,21 @@ interface Identifier {
     period?: Period;
 }
 
-export interface HumanName {
+interface WithKey {
+    __key?: string;
+}
+
+export interface HumanName extends WithKey {
     use?: "usual" | "official" | "temp" | "nickname" | "anonymous" | "old" | "maiden";
     text?: string;
     family?: string;
-    given?: string;
-    prefix?: string;
-    suffix?: string;
+    given?: string[];
+    prefix?: string[];
+    suffix?: string[];
     period?: Period;
 }
 
-interface ContactPoint {
+interface ContactPoint extends WithKey {
     use?: "home" | "work" | "temp" | "old" | "mobile";
     system?: "phone" | "fax" | "email" | "pager" | "url" | "sms" | "other";
     value?: string;
@@ -295,7 +301,7 @@ export function newMeta() {
     };
 }
 
-interface Address {
+interface Address extends WithKey {
     use?: "home" | "work" | "temp" | "old" | "billing";
     type?: "postal" | "physical" | "both";
     text?: string;
@@ -320,6 +326,14 @@ export interface Patient extends Resource {
     deceasedBoolean?: boolean;
     deceasedDateTime?: string;
 }
+export const Patient = {
+    new(): Patient {
+        return {
+            resourceType: "Patient",
+            ...newMeta(),
+        };
+    },
+};
 
 export interface Practitioner extends Resource {
     resourceType: "Practitioner";
@@ -485,7 +499,12 @@ export function isComposition(r: Resource): r is Composition {
     return r.resourceType === "Composition";
 }
 export const Composition = {
-    new(props: Pick<Composition, "subject" | "status" | "type" | "category" | "date" | "title" | "section">): Composition {
+    new(
+        props: Pick<
+            Composition,
+            "subject" | "status" | "type" | "category" | "date" | "title" | "section"
+        >
+    ): Composition {
         return {
             resourceType: "Composition",
             ...newMeta(),
@@ -501,7 +520,12 @@ export const Composition = {
                     status: "additional",
                     div: `<div>${content.html}</div>`,
                     _div: {
-                        extension: [{ url: Codes.Extension.RenderingMarkdown, valueMarkdown: content.markdown }],
+                        extension: [
+                            {
+                                url: Codes.Extension.RenderingMarkdown,
+                                valueMarkdown: content.markdown,
+                            },
+                        ],
                     },
                 },
             },
@@ -510,8 +534,9 @@ export const Composition = {
         return { ...c, section: newSections };
     },
     getMarkdown(c: Composition): string | undefined {
-        return c.section?.[0]?.text?._div?.extension?.filter((e) => e.url === Codes.Extension.RenderingMarkdown)[0]
-            .valueMarkdown;
+        return c.section?.[0]?.text?._div?.extension?.filter(
+            (e) => e.url === Codes.Extension.RenderingMarkdown
+        )[0].valueMarkdown;
     },
     setEntries(newEntries: Reference[], c: Composition): Composition {
         const sections = c.section ?? [];
@@ -625,7 +650,14 @@ export type ValueSetCode = ValueSet["expansion"]["contains"][0];
 export interface MedicationAdministration extends Resource {
     resourceType: "MedicationAdministration";
 
-    status: "in-progress" | "not-done" | "on-hold" | "completed" | "entered-in-error" | "stopped" | "unknown";
+    status:
+        | "in-progress"
+        | "not-done"
+        | "on-hold"
+        | "completed"
+        | "entered-in-error"
+        | "stopped"
+        | "unknown";
     statusReason?: CodeableConcept;
     category?: CodeableConcept;
 
@@ -676,7 +708,15 @@ export const MedicationAdministration = {
 export interface MedicationRequest extends Resource {
     resourceType: "MedicationRequest";
 
-    status: "active" | "on-hold" | "cancelled" | "completed" | "entered-in-error" | "stopped" | "draft" | "unknown";
+    status:
+        | "active"
+        | "on-hold"
+        | "cancelled"
+        | "completed"
+        | "entered-in-error"
+        | "stopped"
+        | "draft"
+        | "unknown";
     intent:
         | "proposal"
         | "plan"
@@ -746,7 +786,14 @@ export const MedicationRequest = {
 export interface ServiceRequest extends Resource {
     resourceType: "ServiceRequest";
 
-    status: "draft" | "active" | "on-hold" | "revoked" | "completed" | "entered-in-error" | "unknown";
+    status:
+        | "draft"
+        | "active"
+        | "on-hold"
+        | "revoked"
+        | "completed"
+        | "entered-in-error"
+        | "unknown";
     intent:
         | "proposal"
         | "plan"
@@ -808,4 +855,29 @@ export interface Task extends Resource {
     reasonCode?: CodeableConcept;
     reasonReference?: Reference;
     note?: Annotation[];
+}
+
+export interface List extends Resource {
+    resourceType: "List";
+
+    status: "current" | "retired" | "entered-in-error";
+    mode: "working" | "snapshot" | "changes";
+
+    title?: string;
+    code?: CodeableConcept;
+
+    subject?: Reference;
+    encounter?: Reference;
+    source?: Reference;
+
+    note?: Annotation[];
+    entry?: {
+        flag?: CodeableConcept;
+        deleted?: boolean;
+        date?: string;
+        item: Reference;
+    }[];
+}
+export function isList(r: Resource): r is List {
+    return r.resourceType === "List";
 }
