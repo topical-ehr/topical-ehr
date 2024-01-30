@@ -30,7 +30,6 @@ function tasksFromComposition(c: FHIR.Composition, tasks: FhirResourceById<FHIR.
         .flatMap((section) => section.entry)
         .map((ref) => tasks[FHIR.parseRef(ref?.reference, "Task")?.id ?? ""])
         .filter((c) => c);
-    debugger;
     return _resources;
 }
 
