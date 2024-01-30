@@ -3,6 +3,8 @@
     "packageManager": "yarn@3.6.0",
     "dependencies": {
         "@fluentui/react": "8.67.2",
+        "@fluentui/react-components": "9.42.0",
+        "@fluentui/react-icons": "2.0.204",
         "@topical-ehr/fhir-store": "workspace:*",
         "@topical-ehr/fhir-types": "workspace:*",
         "@topical-ehr/formatting": "workspace:*",
@@ -12,7 +14,9 @@
         "@topical-ehr/terminology": "workspace:*",
         "@topical-ehr/ui-elements": "workspace:*",
         "dompurify": "^2.3.10",
+        "immer": "9.0.21",
         "react": "18.2.0",
+        "react-hook-form": "7.45.1",
         "react-select": "5.4.0",
         "redux-saga": "1.1.3",
         "remeda": "0.0.35",
@@ -20,6 +24,8 @@
     },
     "devDependencies": {
         "@rollup/plugin-dsv": "^2.0.3",
-        "@types/dompurify": "^2.3.3"
+        "@types/dompurify": "^2.3.3",
+        "@types/luxon": "2.3.1",
+        "@types/react": "18.2.14"
     }
 }

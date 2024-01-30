@@ -1,5 +1,13 @@
 import * as React from "react";
-import { makeStyles, shorthands, useId, Input, Label, Button, Field } from "@fluentui/react-components";
+import {
+    makeStyles,
+    shorthands,
+    useId,
+    Input,
+    Label,
+    Button,
+    Field,
+} from "@fluentui/react-components";
 import { FormProvider, useForm, useFormContext } from "react-hook-form";
 
 import * as FHIR from "@topical-ehr/fhir-types";
@@ -23,14 +31,13 @@ const useStyles = makeStyles({
     fields: {
         display: "flex",
         flexDirection: "column",
-        // Use 2px gap below the label (per the design system)
         ...shorthands.gap("2px"),
-        // Prevent the example from taking the full width of the page (optional)
         maxWidth: "400px",
     },
 });
 
 interface PractitionerFormValues {
+    Title: string;
     "First name": string;
     "Last name": string;
     Role: string;
@@ -45,7 +52,8 @@ export function PractitionerForm(props: Props) {
 
     const methods = useForm<PractitionerFormValues>({
         defaultValues: {
-            "First name": props?.existing?.practitioner?.name?.[0]?.given,
+            Title: props?.existing?.practitioner?.name?.[0]?.prefix?.[0],
+            "First name": props?.existing?.practitioner?.name?.[0]?.given?.[0],
             "Last name": props?.existing?.practitioner?.name?.[0]?.family,
             Role: props?.existing?.role?.code?.[0]?.text,
         },
@@ -59,7 +67,13 @@ export function PractitionerForm(props: Props) {
             practitioner: {
                 resourceType: "Practitioner",
                 ...(props.existing?.practitioner ?? FHIR.newMeta()),
-                name: [{ family: data["Last name"], given: data["First name"] }],
+                name: [
+                    {
+                        prefix: [data.Title],
+                        family: data["Last name"],
+                        given: [data["First name"]],
+                    },
+                ],
             },
             role: {
                 resourceType: "PractitionerRole",
@@ -85,6 +99,7 @@ export function PractitionerForm(props: Props) {
                 className={styles.form}
             >
                 <div className={styles.fields}>
+                    <TextField field="Title" />
                     <TextField field="First name" />
                     <TextField field="Last name" />
                     <TextField field="Role" />
@@ -105,9 +120,9 @@ export function PractitionerForm(props: Props) {
 
 function TextField(props: { field: keyof PractitionerFormValues }) {
     const methods = useFormContext<PractitionerFormValues>();
-
-    const htmlId = useId("add-practitioner-");
+    const htmlId = useId("practitioner-form-");
     const styles = useStyles();
+
     return (
         <Field
             validationMessage={methods.formState.errors?.[props.field]?.message}
@@ -116,7 +131,9 @@ function TextField(props: { field: keyof PractitionerFormValues }) {
             <Label htmlFor={htmlId}>{props.field}</Label>
             <Input
                 id={htmlId}
-                {...methods.register(props.field, { required: "Please enter the " + props.field.toLowerCase() })}
+                {...methods.register(props.field, {
+                    required: "Please enter the " + props.field.toLowerCase(),
+                })}
             />
         </Field>
     );

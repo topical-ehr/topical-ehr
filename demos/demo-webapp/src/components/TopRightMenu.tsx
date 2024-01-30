@@ -16,7 +16,11 @@ import { fhirUp, useFhirServerConfig } from "@topical-ehr/fhir-store/fhir-server
 import { useFHIR } from "@topical-ehr/fhir-store";
 import { SelectPractitionerDialog } from "@topical-ehr/practitioners/SelectPractitionerDialog";
 
-import { ArrowDownloadFilled, ArrowDownloadRegular, bundleIcon } from "@fluentui/react-icons";
+import {
+    ArrowDownloadFilled,
+    ArrowDownloadRegular,
+    bundleIcon,
+} from "@fluentui/react-icons";
 import { ArrowResetFilled, ArrowResetRegular } from "@fluentui/react-icons";
 import { ArrowSwapFilled, ArrowSwapRegular } from "@fluentui/react-icons";
 import { SettingsFilled, SettingsRegular } from "@fluentui/react-icons";
@@ -82,7 +86,9 @@ export function TopRightMenu(props: Props) {
 
     return (
         <div className={classes.topRight}>
-            {selectPractitioner && <SelectPractitionerDialog onClose={onSelectedPractitioner} />}
+            {selectPractitioner && (
+                <SelectPractitionerDialog onClose={onSelectedPractitioner} />
+            )}
             <Menu
                 openOnHover
                 hoverDelay={1}
