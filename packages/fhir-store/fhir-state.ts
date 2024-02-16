@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Draft } from "immer";
 import * as Redux from "react-redux";
-import { fork, put, take, takeEvery } from "redux-saga/effects";
-import { call, select } from "typed-redux-saga";
+import { put, takeEvery } from "redux-saga/effects";
+import { call, fork, select } from "typed-redux-saga";
 
 import * as FHIR from "@topical-ehr/fhir-types";
 import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
@@ -12,7 +12,7 @@ import type { RootState } from "./store";
 import { EHRConfig } from "./config";
 import { FhirServerConfigData, FhirServerMethods, fhirUp } from "./fhir-server";
 
-interface QueryRequest {
+export interface QueryRequest {
     id: string;
     query: string;
     showLoadingScreen: boolean;
@@ -38,7 +38,10 @@ function getResourcesToSave(state: State, saveRequest: SaveRequest) {
     }
 }
 
-type SaveState = { state: "saving" } | { state: "error"; error: unknown } | { state: "saved" };
+type SaveState =
+    | { state: "saving" }
+    | { state: "error"; error: unknown }
+    | { state: "saved" };
 
 export interface FhirResources<T = never> {
     compositions: FhirResourceById<FHIR.Composition | T>;
@@ -52,7 +55,7 @@ export interface FhirResources<T = never> {
     serviceRequests: FhirResourceById<FHIR.ServiceRequest | T>;
     tasks: FhirResourceById<FHIR.Task | T>;
 }
-const emptyResources: FhirResources = {
+export const emptyResources: FhirResources = {
     compositions: {},
     conditions: {},
     patients: {},
@@ -98,7 +101,10 @@ function setResource(resources: Draft<FhirResources>, r: FHIR.Resource) {
     container[r.id] = r;
 }
 
-export function getResource(resources: Draft<FhirResources>, r: FHIR.Resource): FHIR.Resource {
+export function getResource(
+    resources: Draft<FhirResources>,
+    r: FHIR.Resource
+): FHIR.Resource {
     const container = getResourceContainer(resources, r.resourceType);
     return container[r.id];
 }
@@ -155,7 +161,10 @@ export interface ShowInTimeline {
     notes: boolean;
 }
 
-export function initialState(config: EHRConfig | null, serverConfig: FhirServerConfigData): State {
+export function initialState(
+    config: EHRConfig | null,
+    serverConfig: FhirServerConfigData
+): State {
     return {
         queries: {},
         resourcesWithEdits: emptyResources,
@@ -359,7 +368,10 @@ export const fhirSlice = createSlice({
         setSearchingFor(state, { payload }: PayloadAction<string>) {
             state.searchingFor = payload || null;
         },
-        setShowInTimeline(state, { payload }: PayloadAction<{ group: keyof ShowInTimeline; show: boolean }>) {
+        setShowInTimeline(
+            state,
+            { payload }: PayloadAction<{ group: keyof ShowInTimeline; show: boolean }>
+        ) {
             state.showingInTimeline[payload.group] = payload.show;
         },
 
@@ -373,7 +385,10 @@ export const fhirSlice = createSlice({
     },
 });
 
-function* onQuerySaga(fhirServer: FhirServerMethods, action: PayloadAction<QueryRequest>) {
+function* onQuerySaga(
+    fhirServer: FhirServerMethods,
+    action: PayloadAction<QueryRequest>
+) {
     const { query } = action.payload;
     const state = yield* select((s: RootState) => s.fhir.queries[query]);
     if (!state) {
@@ -383,7 +398,12 @@ function* onQuerySaga(fhirServer: FhirServerMethods, action: PayloadAction<Query
             // Call FHIR server
             const data: FHIR.Resource = yield* call(fhirServer.get, query);
             if (FHIR.isBundle(data)) {
-                yield put(actions.queryLoaded([action.payload, data.entry?.map((e) => e.resource) || []]));
+                yield put(
+                    actions.queryLoaded([
+                        action.payload,
+                        data.entry?.map((e) => e.resource) || [],
+                    ])
+                );
             } else {
                 yield put(actions.queryLoaded([action.payload, [data]]));
             }
@@ -402,7 +422,9 @@ function addToMappedList<T>(map: ByCode<T>, key: string, value: T) {
         map[key] = [value];
     }
 }
-function* updateObservationsByCodeSaga(action: PayloadAction<[QueryRequest, FHIR.Resource[]]>) {
+function* updateObservationsByCodeSaga(
+    action: PayloadAction<[QueryRequest, FHIR.Resource[]]>
+) {
     const [request] = action.payload;
     const { query } = request;
 
@@ -410,7 +432,9 @@ function* updateObservationsByCodeSaga(action: PayloadAction<[QueryRequest, FHIR
         return;
     }
 
-    const observations = yield* select((s: RootState) => s.fhir.resourcesWithEdits.observations);
+    const observations = yield* select(
+        (s: RootState) => s.fhir.resourcesWithEdits.observations
+    );
     const observationsByCode: ByCode<FHIR.Observation> = {};
     for (const observation of Object.values(observations)) {
         for (const code of observation.code.coding ?? []) {
@@ -419,69 +443,6 @@ function* updateObservationsByCodeSaga(action: PayloadAction<[QueryRequest, FHIR
         }
     }
     yield put(actions.setObservationsByCode(observationsByCode));
-}
-
-function* unreadListSaga(fhirServer: FhirServerMethods, action: PayloadAction<[QueryRequest, FHIR.Resource[]]>) {
-    const [request, resources] = action.payload;
-
-    // this saga is called in response to query-loaded
-    // it cares about the get-unread query
-    if (request.id !== "get-unread") {
-        return;
-    }
-
-    if (resources.length === 0) {
-        // unread list doesn't exist yet
-        console.debug("unread list doesn't exist yet");
-
-        // wait for FHIR queries to load
-        while (true) {
-            const queries = yield* select((s: RootState) => s.fhir.queries);
-            if (Object.values(queries).filter((q) => q.state === "loading").length === 0) {
-                break;
-            } else {
-                yield take(actions.queryLoaded.type);
-            }
-        }
-
-        const resourcesMap = yield* select((s: RootState) => s.fhir.resourcesFromServer);
-        const resources2 = [resourcesMap.observations, resourcesMap.compositions, resourcesMap.diagnosticReports].map(
-            Object.values<FHIR.Resource>
-        );
-
-        const { patientId, practitionerId } = yield* select((s: RootState) => s.fhir);
-
-        const newList: FHIR.List = {
-            resourceType: "List",
-            ...FHIR.newMeta(),
-            status: "current",
-            mode: "working",
-            code: Codes.List.Unread,
-            entry: resources2.flatMap((r) =>
-                r.map((r) => ({
-                    item: FHIR.referenceTo(r),
-                }))
-            ),
-            subject: { reference: `Patient/${patientId}` },
-            source: { reference: `Practitioner/${practitionerId}` },
-        };
-
-        const response: FHIR.Resource = yield* call(fhirServer.post, newList);
-        if (response.resourceType !== "List") {
-            console.error("unreadListSaga failed to save the List", { response, newList });
-            throw new Error("unreadListSaga failed to save the List");
-        }
-
-        yield put(actions.updateUnread(newList));
-    } else {
-        const list = resources[0];
-        if (FHIR.isList(list) && list.code?.coding?.[0].code === "unread") {
-            console.debug("unread list loaded", { list });
-            yield put(actions.updateUnread(list));
-        } else {
-            console.warn("get-unread got an invalid list", { list });
-        }
-    }
 }
 
 function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveRequest>) {
@@ -497,7 +458,9 @@ function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveRe
             resource,
             request: {
                 method: isUUID ? "POST" : "PUT",
-                url: isUUID ? resource.resourceType : resource.resourceType + "/" + resource.id,
+                url: isUUID
+                    ? resource.resourceType
+                    : resource.resourceType + "/" + resource.id,
             },
         };
     });
@@ -518,7 +481,10 @@ function* onSaveSaga(fhirServer: FhirServerMethods, action: PayloadAction<SaveRe
     }
 }
 
-function* onDeleteImmediately(fhirServer: FhirServerMethods, { payload: resource }: PayloadAction<FHIR.Resource>) {
+function* onDeleteImmediately(
+    fhirServer: FhirServerMethods,
+    { payload: resource }: PayloadAction<FHIR.Resource>
+) {
     try {
         // send DELETE to FHIR server
         yield* call(fhirServer.delete, resource);
@@ -528,44 +494,19 @@ function* onDeleteImmediately(fhirServer: FhirServerMethods, { payload: resource
     }
 }
 
-export function* coreFhirSagas() {
+export function* coreFhirSagas(additionalSagas: ((...args: any[]) => any)[]) {
     const serverConfig = yield* select((s: RootState) => s.fhir.serverConfig);
     const fhirServer = yield* call(fhirUp, serverConfig);
 
     yield takeEvery(actions.query.type, onQuerySaga, fhirServer);
     yield takeEvery(actions.queryLoaded.type, updateObservationsByCodeSaga);
-    yield takeEvery(actions.queryLoaded.type, unreadListSaga, fhirServer);
 
     yield takeEvery(actions.save.type, onSaveSaga, fhirServer);
     yield takeEvery(actions.deleteImmediately.type, onDeleteImmediately, fhirServer);
 
-    yield fork(loadAllResourcesSaga);
-}
-
-export function* loadAllResourcesSaga() {
-    const { patientId, practitionerId } = yield* select((s: RootState) => s.fhir);
-
-    for (const key of Object.keys(emptyResources)) {
-        // uppercase first letter, and remove trailing s
-        const resourceType = key.charAt(0).toUpperCase() + key.slice(1, -1);
-
-        function searchUrl() {
-            if (resourceType === "Patient") {
-                return `Patient/${patientId}`;
-            } else {
-                return `${resourceType}?subject=Patient/${patientId}`;
-            }
-        }
-        yield put(actions.query({ id: "load-all", query: searchUrl(), showLoadingScreen: true }));
+    for (const saga of additionalSagas) {
+        yield* fork(saga, fhirServer);
     }
-
-    yield put(
-        actions.query({
-            id: "get-unread",
-            query: `List?subject=Patient/${patientId}&source=Practitioner/${practitionerId}&code=unread`,
-            showLoadingScreen: true,
-        })
-    );
 }
 
 export const useFHIR: Redux.TypedUseSelectorHook<{ fhir: State }> = Redux.useSelector;

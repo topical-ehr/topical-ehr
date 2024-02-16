@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import createSagaMiddleware from "redux-saga";
-import { fork } from "redux-saga/effects";
+import { call, fork, join } from "redux-saga/effects";
 
 import { coreFhirSagas, fhirSlice, initialState } from "./fhir-state";
 import { EHRConfig } from "./config";
@@ -9,7 +9,7 @@ import { FhirServerConfigData } from "./fhir-server";
 import { practitionersApi } from "./practitioner-slice";
 
 export function createStore(config: EHRConfig, serverConfig: FhirServerConfigData) {
-    const sagaMiddleware = createSagaMiddleware();
+    const sagaMiddleware = createSagaMiddleware({});
 
     const store = configureStore({
         reducer: {
@@ -19,15 +19,15 @@ export function createStore(config: EHRConfig, serverConfig: FhirServerConfigDat
         preloadedState: {
             fhir: initialState(config, serverConfig),
         },
-        middleware: (getDefaultMiddleware) => [...getDefaultMiddleware({}), practitionersApi.middleware, sagaMiddleware],
+        middleware: (getDefaultMiddleware) => [
+            ...getDefaultMiddleware({}),
+            practitionersApi.middleware,
+            sagaMiddleware,
+        ],
     });
 
     function* rootSaga() {
-        yield fork(coreFhirSagas);
-
-        for (const saga of config.additionalSagas) {
-            yield fork(saga);
-        }
+        yield fork(coreFhirSagas, config.additionalSagas);
     }
     const rootSagaTask = sagaMiddleware.run(rootSaga);
     rootSagaTask.toPromise().catch((err) => {

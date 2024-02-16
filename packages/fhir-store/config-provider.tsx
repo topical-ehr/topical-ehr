@@ -30,14 +30,19 @@ export function EHRPageConfig(props: Props) {
  * */
 function Loader(props: { children: React.ReactNode }) {
     const state = useFHIR((s) => s.fhir.queries);
-    const values = Object.values(state);
-    const isError = values.some((q) => q.state === "error");
-    const isLoading = values.length === 0 || values.some((q) => q.state === "loading" && q.showLoadingScreen);
+    const queries = Object.values(state);
+    const isError = queries.some((q) => q.state === "error");
+    const isLoading =
+        queries.length === 0 ||
+        queries.some((q) => q.state === "loading" && q.showLoadingScreen);
 
     if (isError) {
         const errors = Object.entries(state)
             .filter((entry) => entry[1].state === "error")
-            .map((entry) => ({ query: entry[0], error: entry[1].state === "error" && entry[1].error?.toString() }));
+            .map((entry) => ({
+                query: entry[0],
+                error: entry[1].state === "error" && entry[1].error?.toString(),
+            }));
 
         // output errors as json
         return (

@@ -1,5 +1,9 @@
 import * as FHIR from "@topical-ehr/fhir-types";
 import { EHRConfig } from "@topical-ehr/fhir-store/config";
+import {
+    loadPatientResourcesSaga,
+    unreadListSaga,
+} from "@topical-ehr/fhir-store/patients";
 import { EHRPageConfig } from "@topical-ehr/fhir-store/config-provider";
 import { PatientHeader } from "@topical-ehr/patients/PatientHeader";
 import { NewNote } from "@topical-ehr/save-changes-panel/NewNote";
@@ -75,7 +79,11 @@ export default function PatientPage() {
     const config: EHRConfig = {
         patientId,
         practitionerId,
-        additionalSagas: [createTopicsForStandaloneConditionsSaga],
+        additionalSagas: [
+            unreadListSaga,
+            loadPatientResourcesSaga,
+            createTopicsForStandaloneConditionsSaga,
+        ],
     };
 
     return (

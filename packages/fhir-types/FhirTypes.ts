@@ -255,23 +255,25 @@ interface Extension {
 
     extension?: Extension[];
 
-    valueUri?: string;
-    valueUrl?: string;
-    valueQuantity?: Quantity;
+    valueBoolean?: boolean;
     valueCode?: string;
     valueCodeableConcept?: CodeableConcept;
     valueDate?: string;
-    valueMarkdown?: string;
-    valueString?: string;
-    valueBoolean?: boolean;
+    valueDateTime?: FhirDateTime;
+    valueDecimal?: number;
     valueInteger?: number;
+    valueInteger64?: string;
+    valueMarkdown?: string;
+    valuePeriod?: Period;
+    valueQuantity?: Quantity;
     valueRange?: Range;
     valueRatio?: Ratio;
     valueReference?: Reference;
     valueSampledData?: SampledData;
+    valueString?: string;
     valueTime?: FhirTime;
-    valueDateTime?: FhirDateTime;
-    valuePeriod?: Period;
+    valueUri?: string;
+    valueUrl?: string;
 }
 interface Element {
     id?: string;

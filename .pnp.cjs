@@ -1019,12 +1019,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:18.2.11"\
       ],\
       [\
+        "@types/react-beautiful-dnd",\
+        "npm:13.1.8"\
+      ],\
+      [\
         "@types/react-dom",\
         "npm:18.2.6"\
       ],\
       [\
         "@types/react-grid-layout",\
         "npm:1.3.2"\
+      ],\
+      [\
+        "@types/react-redux",\
+        "npm:7.1.33"\
       ],\
       [\
         "@types/react-transition-group",\
@@ -1293,6 +1301,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "cross-spawn",\
         "npm:7.0.3"\
+      ],\
+      [\
+        "css-box-model",\
+        "npm:1.2.1"\
       ],\
       [\
         "csstype",\
@@ -2199,6 +2211,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         "npm:4.0.4"\
       ],\
       [\
+        "raf-schd",\
+        "npm:4.0.3"\
+      ],\
+      [\
         "react",\
         "npm:18.2.0"\
       ],\
@@ -2465,6 +2481,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       [\
         "thread-stream",\
         "npm:2.3.0"\
+      ],\
+      [\
+        "tiny-invariant",\
+        "npm:1.3.1"\
       ],\
       [\
         "tiny-lru",\
@@ -3081,6 +3101,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@babel/runtime", "npm:7.22.6"],\
             ["regenerator-runtime", "npm:0.13.11"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:7.23.9", {\
+          "packageLocation": "./.yarn/cache/@babel-runtime-npm-7.23.9-3b96e23cc2-6bbebe8d27.zip/node_modules/@babel/runtime/",\
+          "packageDependencies": [\
+            ["@babel/runtime", "npm:7.23.9"],\
+            ["regenerator-runtime", "npm:0.14.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -4891,41 +4919,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
-      ["@fluentui/react-calendar-compat", [\
-        ["npm:0.0.9", {\
-          "packageLocation": "./.yarn/cache/@fluentui-react-calendar-compat-npm-0.0.9-e4729ccec8-d0fa0b4ec3.zip/node_modules/@fluentui/react-calendar-compat/",\
-          "packageDependencies": [\
-            ["@fluentui/react-calendar-compat", "npm:0.0.9"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:cf116c4b691ceb14d5b7c5410b61d25326054770b09890bacf1c51a70a4ccb5250682e96954abb83f879bee2ba432de55e63d902d8d15f8e42a5c837c8de28f2#npm:0.0.9", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-calendar-compat-virtual-26bab1a695/0/cache/@fluentui-react-calendar-compat-npm-0.0.9-e4729ccec8-d0fa0b4ec3.zip/node_modules/@fluentui/react-calendar-compat/",\
-          "packageDependencies": [\
-            ["@fluentui/react-calendar-compat", "virtual:cf116c4b691ceb14d5b7c5410b61d25326054770b09890bacf1c51a70a4ccb5250682e96954abb83f879bee2ba432de55e63d902d8d15f8e42a5c837c8de28f2#npm:0.0.9"],\
-            ["@fluentui/keyboard-keys", "npm:9.0.7"],\
-            ["@fluentui/react-icons", "virtual:e7e5c195e54ff765a310440e7e392a4f8f3fc64bff8c101156ca9881cca4ef22f07880738d44e48d6c78b09f42b8bd0c93e36e247f6e8b2a727c5357bc563b34#npm:2.0.223"],\
-            ["@fluentui/react-jsx-runtime", "virtual:e7e5c195e54ff765a310440e7e392a4f8f3fc64bff8c101156ca9881cca4ef22f07880738d44e48d6c78b09f42b8bd0c93e36e247f6e8b2a727c5357bc563b34#npm:9.0.20"],\
-            ["@fluentui/react-shared-contexts", "virtual:a5f515f6e5a7a129773e98cc32aa3070d0915ca9c316dc1a15e512e81ac5aa5ddfe7d8a7c0e5d45569162867f77be2a089ca46b900c5221a31f8e3081c24a56c#npm:9.13.0"],\
-            ["@fluentui/react-tabster", "virtual:518f3bb9aff4a5001fbe009717186cb3d1f03b370e3826b2c2dd35073bddee7231428ef82b811631c280ad4d2cf5dbbb2c326fb4a558b9f8a5ad20382bdb7edc#npm:9.15.0"],\
-            ["@fluentui/react-theme", "npm:9.1.16"],\
-            ["@fluentui/react-utilities", "virtual:a5f515f6e5a7a129773e98cc32aa3070d0915ca9c316dc1a15e512e81ac5aa5ddfe7d8a7c0e5d45569162867f77be2a089ca46b900c5221a31f8e3081c24a56c#npm:9.15.2"],\
-            ["@griffel/react", "virtual:a5f515f6e5a7a129773e98cc32aa3070d0915ca9c316dc1a15e512e81ac5aa5ddfe7d8a7c0e5d45569162867f77be2a089ca46b900c5221a31f8e3081c24a56c#npm:1.5.19"],\
-            ["@swc/helpers", "npm:0.5.3"],\
-            ["@types/react", "npm:18.2.14"],\
-            ["@types/react-dom", null],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", null]\
-          ],\
-          "packagePeers": [\
-            "@types/react-dom",\
-            "@types/react",\
-            "react-dom",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
       ["@fluentui/react-card", [\
         ["npm:9.0.56", {\
           "packageLocation": "./.yarn/cache/@fluentui-react-card-npm-9.0.56-0f67dedf52-24ab007369.zip/node_modules/@fluentui/react-card/",\
@@ -5862,47 +5855,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "react-dom",\
             "react",\
             "scheduler"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@fluentui/react-datepicker-compat", [\
-        ["npm:0.4.7", {\
-          "packageLocation": "./.yarn/cache/@fluentui-react-datepicker-compat-npm-0.4.7-cbb43fb743-d73704deaa.zip/node_modules/@fluentui/react-datepicker-compat/",\
-          "packageDependencies": [\
-            ["@fluentui/react-datepicker-compat", "npm:0.4.7"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:8fe04bc0d2225b3c2f3068d055d0e0810698f34105aab27a2f023827ccbe8aef7cb0dac4b3c189b7b6cbeffac6f4a487585c3b75d4f3e7309f9713464ef4198b#npm:0.4.7", {\
-          "packageLocation": "./.yarn/__virtual__/@fluentui-react-datepicker-compat-virtual-cf116c4b69/0/cache/@fluentui-react-datepicker-compat-npm-0.4.7-cbb43fb743-d73704deaa.zip/node_modules/@fluentui/react-datepicker-compat/",\
-          "packageDependencies": [\
-            ["@fluentui/react-datepicker-compat", "virtual:8fe04bc0d2225b3c2f3068d055d0e0810698f34105aab27a2f023827ccbe8aef7cb0dac4b3c189b7b6cbeffac6f4a487585c3b75d4f3e7309f9713464ef4198b#npm:0.4.7"],\
-            ["@fluentui/keyboard-keys", "npm:9.0.7"],\
-            ["@fluentui/react-calendar-compat", "virtual:cf116c4b691ceb14d5b7c5410b61d25326054770b09890bacf1c51a70a4ccb5250682e96954abb83f879bee2ba432de55e63d902d8d15f8e42a5c837c8de28f2#npm:0.0.9"],\
-            ["@fluentui/react-field", "virtual:518f3bb9aff4a5001fbe009717186cb3d1f03b370e3826b2c2dd35073bddee7231428ef82b811631c280ad4d2cf5dbbb2c326fb4a558b9f8a5ad20382bdb7edc#npm:9.1.43"],\
-            ["@fluentui/react-icons", "virtual:e7e5c195e54ff765a310440e7e392a4f8f3fc64bff8c101156ca9881cca4ef22f07880738d44e48d6c78b09f42b8bd0c93e36e247f6e8b2a727c5357bc563b34#npm:2.0.223"],\
-            ["@fluentui/react-input", "virtual:518f3bb9aff4a5001fbe009717186cb3d1f03b370e3826b2c2dd35073bddee7231428ef82b811631c280ad4d2cf5dbbb2c326fb4a558b9f8a5ad20382bdb7edc#npm:9.4.53"],\
-            ["@fluentui/react-jsx-runtime", "virtual:e7e5c195e54ff765a310440e7e392a4f8f3fc64bff8c101156ca9881cca4ef22f07880738d44e48d6c78b09f42b8bd0c93e36e247f6e8b2a727c5357bc563b34#npm:9.0.20"],\
-            ["@fluentui/react-popover", "virtual:518f3bb9aff4a5001fbe009717186cb3d1f03b370e3826b2c2dd35073bddee7231428ef82b811631c280ad4d2cf5dbbb2c326fb4a558b9f8a5ad20382bdb7edc#npm:9.8.23"],\
-            ["@fluentui/react-portal", "virtual:518f3bb9aff4a5001fbe009717186cb3d1f03b370e3826b2c2dd35073bddee7231428ef82b811631c280ad4d2cf5dbbb2c326fb4a558b9f8a5ad20382bdb7edc#npm:9.4.3"],\
-            ["@fluentui/react-positioning", "virtual:518f3bb9aff4a5001fbe009717186cb3d1f03b370e3826b2c2dd35073bddee7231428ef82b811631c280ad4d2cf5dbbb2c326fb4a558b9f8a5ad20382bdb7edc#npm:9.10.2"],\
-            ["@fluentui/react-shared-contexts", "virtual:a5f515f6e5a7a129773e98cc32aa3070d0915ca9c316dc1a15e512e81ac5aa5ddfe7d8a7c0e5d45569162867f77be2a089ca46b900c5221a31f8e3081c24a56c#npm:9.13.0"],\
-            ["@fluentui/react-tabster", "virtual:518f3bb9aff4a5001fbe009717186cb3d1f03b370e3826b2c2dd35073bddee7231428ef82b811631c280ad4d2cf5dbbb2c326fb4a558b9f8a5ad20382bdb7edc#npm:9.15.0"],\
-            ["@fluentui/react-theme", "npm:9.1.16"],\
-            ["@fluentui/react-utilities", "virtual:a5f515f6e5a7a129773e98cc32aa3070d0915ca9c316dc1a15e512e81ac5aa5ddfe7d8a7c0e5d45569162867f77be2a089ca46b900c5221a31f8e3081c24a56c#npm:9.15.2"],\
-            ["@griffel/react", "virtual:a5f515f6e5a7a129773e98cc32aa3070d0915ca9c316dc1a15e512e81ac5aa5ddfe7d8a7c0e5d45569162867f77be2a089ca46b900c5221a31f8e3081c24a56c#npm:1.5.19"],\
-            ["@swc/helpers", "npm:0.5.3"],\
-            ["@types/react", "npm:18.2.14"],\
-            ["@types/react-dom", null],\
-            ["react", "npm:18.2.0"],\
-            ["react-dom", null]\
-          ],\
-          "packagePeers": [\
-            "@types/react-dom",\
-            "@types/react",\
-            "react-dom",\
-            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -12867,7 +12819,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@topical-ehr/patients", "workspace:packages/patients"],\
             ["@fluentui/react", "virtual:8fe04bc0d2225b3c2f3068d055d0e0810698f34105aab27a2f023827ccbe8aef7cb0dac4b3c189b7b6cbeffac6f4a487585c3b75d4f3e7309f9713464ef4198b#npm:8.67.2"],\
             ["@fluentui/react-components", "virtual:cceca24c5a4acb41b985194cefebfbf2f4e6c6df46dd035913e120a729849d884a53d27f90417cf43480aeaacfd14e04b6175d24fc4f5d75dcd3dc9e48ee38ad#npm:9.42.0"],\
-            ["@fluentui/react-datepicker-compat", "virtual:8fe04bc0d2225b3c2f3068d055d0e0810698f34105aab27a2f023827ccbe8aef7cb0dac4b3c189b7b6cbeffac6f4a487585c3b75d4f3e7309f9713464ef4198b#npm:0.4.7"],\
             ["@fluentui/react-icons", "virtual:a821d56627b68fc1b8830c16bcaab21f99d3d8fab12b3ac5995c868ba9a08fb9cfd7929f1316d381331f251faa8d49263ef8a7f6a81c20fc4f8ea884ed6c391c#npm:2.0.204"],\
             ["@rollup/plugin-dsv", "npm:2.0.3"],\
             ["@topical-ehr/fhir-store", "workspace:packages/fhir-store"],\
@@ -12881,9 +12832,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/dompurify", "npm:2.4.0"],\
             ["@types/luxon", "npm:2.3.1"],\
             ["@types/react", "npm:18.2.14"],\
+            ["@types/react-beautiful-dnd", "npm:13.1.8"],\
             ["dompurify", "npm:2.4.5"],\
             ["immer", "npm:9.0.21"],\
             ["react", "npm:18.2.0"],\
+            ["react-beautiful-dnd", "virtual:8fe04bc0d2225b3c2f3068d055d0e0810698f34105aab27a2f023827ccbe8aef7cb0dac4b3c189b7b6cbeffac6f4a487585c3b75d4f3e7309f9713464ef4198b#npm:13.1.1"],\
             ["react-hook-form", "virtual:8fe04bc0d2225b3c2f3068d055d0e0810698f34105aab27a2f023827ccbe8aef7cb0dac4b3c189b7b6cbeffac6f4a487585c3b75d4f3e7309f9713464ef4198b#npm:7.45.1"],\
             ["react-select", "virtual:cceca24c5a4acb41b985194cefebfbf2f4e6c6df46dd035913e120a729849d884a53d27f90417cf43480aeaacfd14e04b6175d24fc4f5d75dcd3dc9e48ee38ad#npm:5.4.0"],\
             ["redux-saga", "npm:1.1.3"],\
@@ -13137,6 +13090,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["hoist-non-react-statics", "npm:3.3.2"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:3.3.5", {\
+          "packageLocation": "./.yarn/cache/@types-hoist-non-react-statics-npm-3.3.5-98b8d8e47b-b645b062a2.zip/node_modules/@types/hoist-non-react-statics/",\
+          "packageDependencies": [\
+            ["@types/hoist-non-react-statics", "npm:3.3.5"],\
+            ["@types/react", "npm:18.2.11"],\
+            ["hoist-non-react-statics", "npm:3.3.2"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/json-schema", [\
@@ -13206,6 +13168,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@types/react-beautiful-dnd", [\
+        ["npm:13.1.8", {\
+          "packageLocation": "./.yarn/cache/@types-react-beautiful-dnd-npm-13.1.8-a498956230-f71c64ba7e.zip/node_modules/@types/react-beautiful-dnd/",\
+          "packageDependencies": [\
+            ["@types/react-beautiful-dnd", "npm:13.1.8"],\
+            ["@types/react", "npm:18.2.11"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@types/react-dom", [\
         ["npm:18.2.6", {\
           "packageLocation": "./.yarn/cache/@types-react-dom-npm-18.2.6-7f191ee628-b56e42efab.zip/node_modules/@types/react-dom/",\
@@ -13222,6 +13194,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/react-grid-layout", "npm:1.3.2"],\
             ["@types/react", "npm:18.2.11"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/react-redux", [\
+        ["npm:7.1.33", {\
+          "packageLocation": "./.yarn/cache/@types-react-redux-npm-7.1.33-b668ae02f3-063e98c0d8.zip/node_modules/@types/react-redux/",\
+          "packageDependencies": [\
+            ["@types/react-redux", "npm:7.1.33"],\
+            ["@types/hoist-non-react-statics", "npm:3.3.5"],\
+            ["@types/react", "npm:18.2.11"],\
+            ["hoist-non-react-statics", "npm:3.3.2"],\
+            ["redux", "npm:4.2.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -14148,6 +14133,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["path-key", "npm:3.1.1"],\
             ["shebang-command", "npm:2.0.0"],\
             ["which", "npm:2.0.2"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["css-box-model", [\
+        ["npm:1.2.1", {\
+          "packageLocation": "./.yarn/cache/css-box-model-npm-1.2.1-d4e0001730-4d113f26fe.zip/node_modules/css-box-model/",\
+          "packageDependencies": [\
+            ["css-box-model", "npm:1.2.1"],\
+            ["tiny-invariant", "npm:1.3.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -16739,12 +16734,54 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["raf-schd", [\
+        ["npm:4.0.3", {\
+          "packageLocation": "./.yarn/cache/raf-schd-npm-4.0.3-18f72af738-45514041c5.zip/node_modules/raf-schd/",\
+          "packageDependencies": [\
+            ["raf-schd", "npm:4.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["react", [\
         ["npm:18.2.0", {\
           "packageLocation": "./.yarn/cache/react-npm-18.2.0-1eae08fee2-88e38092da.zip/node_modules/react/",\
           "packageDependencies": [\
             ["react", "npm:18.2.0"],\
             ["loose-envify", "npm:1.4.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["react-beautiful-dnd", [\
+        ["npm:13.1.1", {\
+          "packageLocation": "./.yarn/cache/react-beautiful-dnd-npm-13.1.1-ddc8adf565-5f90f7c0ab.zip/node_modules/react-beautiful-dnd/",\
+          "packageDependencies": [\
+            ["react-beautiful-dnd", "npm:13.1.1"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:8fe04bc0d2225b3c2f3068d055d0e0810698f34105aab27a2f023827ccbe8aef7cb0dac4b3c189b7b6cbeffac6f4a487585c3b75d4f3e7309f9713464ef4198b#npm:13.1.1", {\
+          "packageLocation": "./.yarn/__virtual__/react-beautiful-dnd-virtual-34b62dafe3/0/cache/react-beautiful-dnd-npm-13.1.1-ddc8adf565-5f90f7c0ab.zip/node_modules/react-beautiful-dnd/",\
+          "packageDependencies": [\
+            ["react-beautiful-dnd", "virtual:8fe04bc0d2225b3c2f3068d055d0e0810698f34105aab27a2f023827ccbe8aef7cb0dac4b3c189b7b6cbeffac6f4a487585c3b75d4f3e7309f9713464ef4198b#npm:13.1.1"],\
+            ["@babel/runtime", "npm:7.22.5"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["@types/react-dom", null],\
+            ["css-box-model", "npm:1.2.1"],\
+            ["memoize-one", "npm:5.2.1"],\
+            ["raf-schd", "npm:4.0.3"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", null],\
+            ["react-redux", "virtual:34b62dafe3395af1ad184738d95bb65410067905d1af31d1b6c62747142ce2c9a6908fcc3d9f17176e7f678d45108242e16101856439fc58ab9cc52a88190bfa#npm:7.2.9"],\
+            ["redux", "npm:4.2.1"],\
+            ["use-memo-one", "virtual:34b62dafe3395af1ad184738d95bb65410067905d1af31d1b6c62747142ce2c9a6908fcc3d9f17176e7f678d45108242e16101856439fc58ab9cc52a88190bfa#npm:1.1.3"]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react",\
+            "react-dom",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -16948,12 +16985,46 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["react-redux", [\
+        ["npm:7.2.9", {\
+          "packageLocation": "./.yarn/cache/react-redux-npm-7.2.9-612aa35519-369a2bdcf8.zip/node_modules/react-redux/",\
+          "packageDependencies": [\
+            ["react-redux", "npm:7.2.9"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
         ["npm:8.0.1", {\
           "packageLocation": "./.yarn/cache/react-redux-npm-8.0.1-93fc120cd1-d7c004b4bf.zip/node_modules/react-redux/",\
           "packageDependencies": [\
             ["react-redux", "npm:8.0.1"]\
           ],\
           "linkType": "SOFT"\
+        }],\
+        ["virtual:34b62dafe3395af1ad184738d95bb65410067905d1af31d1b6c62747142ce2c9a6908fcc3d9f17176e7f678d45108242e16101856439fc58ab9cc52a88190bfa#npm:7.2.9", {\
+          "packageLocation": "./.yarn/__virtual__/react-redux-virtual-b4a6d53f27/0/cache/react-redux-npm-7.2.9-612aa35519-369a2bdcf8.zip/node_modules/react-redux/",\
+          "packageDependencies": [\
+            ["react-redux", "virtual:34b62dafe3395af1ad184738d95bb65410067905d1af31d1b6c62747142ce2c9a6908fcc3d9f17176e7f678d45108242e16101856439fc58ab9cc52a88190bfa#npm:7.2.9"],\
+            ["@babel/runtime", "npm:7.23.9"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["@types/react-dom", null],\
+            ["@types/react-native", null],\
+            ["@types/react-redux", "npm:7.1.33"],\
+            ["hoist-non-react-statics", "npm:3.3.2"],\
+            ["loose-envify", "npm:1.4.0"],\
+            ["prop-types", "npm:15.8.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", null],\
+            ["react-is", "npm:17.0.2"],\
+            ["react-native", null]\
+          ],\
+          "packagePeers": [\
+            "@types/react-dom",\
+            "@types/react-native",\
+            "@types/react",\
+            "react-dom",\
+            "react-native",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
         }],\
         ["virtual:8bb75ff895c5b2efc9bc0045131f31c4cd8c97d7774966c4d9ea595eaf1fb286a604c87488763a7dec4503e4fc0de9a850880598cca8330194cedba67631dab8#npm:8.0.1", {\
           "packageLocation": "./.yarn/__virtual__/react-redux-virtual-6ce8bb82a4/0/cache/react-redux-npm-8.0.1-93fc120cd1-d7c004b4bf.zip/node_modules/react-redux/",\
@@ -17387,6 +17458,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/regenerator-runtime-npm-0.13.11-90bf536060-27481628d2.zip/node_modules/regenerator-runtime/",\
           "packageDependencies": [\
             ["regenerator-runtime", "npm:0.13.11"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["npm:0.14.1", {\
+          "packageLocation": "./.yarn/cache/regenerator-runtime-npm-0.14.1-a6c97c609a-9f57c93277.zip/node_modules/regenerator-runtime/",\
+          "packageDependencies": [\
+            ["regenerator-runtime", "npm:0.14.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -17914,6 +17992,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["tiny-invariant", [\
+        ["npm:1.3.1", {\
+          "packageLocation": "./.yarn/cache/tiny-invariant-npm-1.3.1-a8ca214e49-872dbd1ff2.zip/node_modules/tiny-invariant/",\
+          "packageDependencies": [\
+            ["tiny-invariant", "npm:1.3.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["tiny-lru", [\
         ["npm:11.0.1", {\
           "packageLocation": "./.yarn/cache/tiny-lru-npm-11.0.1-b5863acacc-709ab58a45.zip/node_modules/tiny-lru/",\
@@ -18270,6 +18357,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/react-dom",\
             "@types/react",\
             "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["use-memo-one", [\
+        ["npm:1.1.3", {\
+          "packageLocation": "./.yarn/cache/use-memo-one-npm-1.1.3-b9dc77468a-8f08eba26d.zip/node_modules/use-memo-one/",\
+          "packageDependencies": [\
+            ["use-memo-one", "npm:1.1.3"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:34b62dafe3395af1ad184738d95bb65410067905d1af31d1b6c62747142ce2c9a6908fcc3d9f17176e7f678d45108242e16101856439fc58ab9cc52a88190bfa#npm:1.1.3", {\
+          "packageLocation": "./.yarn/__virtual__/use-memo-one-virtual-c1edde589d/0/cache/use-memo-one-npm-1.1.3-b9dc77468a-8f08eba26d.zip/node_modules/use-memo-one/",\
+          "packageDependencies": [\
+            ["use-memo-one", "virtual:34b62dafe3395af1ad184738d95bb65410067905d1af31d1b6c62747142ce2c9a6908fcc3d9f17176e7f678d45108242e16101856439fc58ab9cc52a88190bfa#npm:1.1.3"],\
+            ["@types/react", "npm:18.2.14"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/react",\
             "react"\
           ],\
           "linkType": "HARD"\

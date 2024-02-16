@@ -24,7 +24,7 @@ export function PatientHeader() {
         // born,
     ];
 
-    const [showEditDialog, setShowEditDialog] = React.useState(true);
+    const [showEditDialog, setShowEditDialog] = React.useState(false);
 
     function onClick() {
         setShowEditDialog(!showEditDialog);

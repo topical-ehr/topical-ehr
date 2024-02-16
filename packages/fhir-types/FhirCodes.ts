@@ -1,7 +1,3 @@
-import * as FHIR from "@topical-ehr/fhir-types";
-
-type CodeDefinitions = FHIR.CodeableConcept | { [key: string]: CodeDefinitions };
-
 export const Codes = {
     Composition: {
         Type: {
@@ -61,16 +57,29 @@ export const Codes = {
     },
     Extension: {
         RenderingMarkdown: "http://hl7.org/fhir/StructureDefinition/rendering-markdown",
-        ResolveAsVersionSpecific: "http://hl7.org/fhir/StructureDefinition/resolve-as-version-specific",
+        ResolveAsVersionSpecific:
+            "http://hl7.org/fhir/StructureDefinition/resolve-as-version-specific",
         VersionModified: "https://topicalehr.io/fhir-codes/Extension/VersionModified",
     },
     List: {
+        Extension: {
+            Order: "https://topicalehr.io/fhir-codes/List/Order",
+        },
         Unread: {
             coding: [
                 {
                     system: "https://topicalehr.io/fhir-codes/List/Code",
                     code: "unread",
                     display: "Resources not yet read by this practitioner",
+                },
+            ],
+        },
+        Patients: {
+            coding: [
+                {
+                    system: "https://topicalehr.io/fhir-codes/List/Code",
+                    code: "patients",
+                    display: "List of patients",
                 },
             ],
         },
