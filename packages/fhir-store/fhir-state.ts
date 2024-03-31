@@ -25,14 +25,24 @@ type QueryState =
 interface SaveRequest {
     // enables saving a subset of edited resources (e.g. just-added obs)
     filter?(editedResource: FHIR.Resource): boolean;
+    resource?: FHIR.Resource;
+
     progressNote?: { html: string; markdown: string };
 }
 
-function getResourcesToSave(state: State, saveRequest: SaveRequest) {
+function getResourcesToSave(state: State, saveRequest: SaveRequest | FHIR.Resource) {
+    if (FHIR.isResource(saveRequest)) {
+        return [saveRequest];
+    }
+
     const resources: FHIR.Resource[] = Object.values(state.edits).flatMap(Object.values);
-    const { filter } = saveRequest;
+    const { filter, resource } = saveRequest;
     if (filter) {
         return resources.filter(filter);
+    } else if (resource) {
+        return resources.filter(
+            (r) => r.resourceType === resource.resourceType && r.id === resource.id
+        );
     } else {
         return resources;
     }
@@ -225,6 +235,41 @@ export const fhirSlice = createSlice({
             };
         },
 
+        listAdd(
+            state,
+            { payload }: PayloadAction<{ list: FHIR.List; add: FHIR.Resource }>
+        ) {
+            // update the immer draft inside the store
+            const list = state.resourcesWithEdits.lists[payload.list.id];
+            list.entry = (list.entry ?? []).concat({
+                item: FHIR.referenceTo(payload.add),
+            });
+
+            setResource(state.edits, list);
+            setResource(state.resourcesWithEdits, list);
+            state.saveState = null;
+        },
+        listRemove(
+            state,
+            { payload }: PayloadAction<{ list: FHIR.List; remove: FHIR.Resource }>
+        ) {
+            // update the immer draft inside the store
+            const toRemove = FHIR.referenceTo(payload.remove).reference;
+
+            const list = state.resourcesWithEdits.lists[payload.list.id];
+            const index = (list.entry ?? []).findIndex(
+                (val) => val.item.reference === toRemove
+            );
+
+            if (index >= 0) {
+                list.entry = (list.entry ?? []).splice(index, 1);
+            }
+
+            setResource(state.edits, list);
+            setResource(state.resourcesWithEdits, list);
+            state.saveState = null;
+        },
+
         edit(state, { payload: resource }: PayloadAction<FHIR.Resource>) {
             setResource(state.edits, resource);
             setResource(state.resourcesWithEdits, resource);
@@ -256,8 +301,10 @@ export const fhirSlice = createSlice({
             setResource(state.resourcesWithEdits, original);
         },
 
-        save(state, action: PayloadAction<SaveRequest>) {
-            const { progressNote } = action.payload;
+        save(state, action: PayloadAction<SaveRequest | FHIR.Resource>) {
+            const progressNote = FHIR.isResource(action.payload)
+                ? null
+                : action.payload.progressNote;
             if (progressNote) {
                 const toSave = getResourcesToSave(state, action.payload);
                 const references: FHIR.Reference[] = toSave.map((r) => ({

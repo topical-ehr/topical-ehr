@@ -7,6 +7,7 @@ import { coreFhirSagas, fhirSlice, initialState } from "./fhir-state";
 import { EHRConfig } from "./config";
 import { FhirServerConfigData } from "./fhir-server";
 import { practitionersApi } from "./practitioner-slice";
+import { patientsApi } from "./patient-slice";
 
 export function createStore(config: EHRConfig, serverConfig: FhirServerConfigData) {
     const sagaMiddleware = createSagaMiddleware({});
@@ -14,6 +15,7 @@ export function createStore(config: EHRConfig, serverConfig: FhirServerConfigDat
     const store = configureStore({
         reducer: {
             fhir: fhirSlice.reducer,
+            [patientsApi.reducerPath]: patientsApi.reducer,
             [practitionersApi.reducerPath]: practitionersApi.reducer,
         },
         preloadedState: {
@@ -21,6 +23,7 @@ export function createStore(config: EHRConfig, serverConfig: FhirServerConfigDat
         },
         middleware: (getDefaultMiddleware) => [
             ...getDefaultMiddleware({}),
+            patientsApi.middleware,
             practitionersApi.middleware,
             sagaMiddleware,
         ],

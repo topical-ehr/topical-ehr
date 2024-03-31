@@ -8,9 +8,9 @@ import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 initializeIcons(/* optional base url */);
 
 ReactDOM.createRoot(document.getElementById("app") as HTMLElement).render(
-    <React.StrictMode>
-        <FluentProvider theme={webLightTheme}>
-            <App />
-        </FluentProvider>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <FluentProvider theme={webLightTheme}>
+        <App />
+    </FluentProvider>
+    // </React.StrictMode>
 );

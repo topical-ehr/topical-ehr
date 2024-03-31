@@ -1,0 +1,37 @@
+.board {
+    background-color: #eceeff;
+    border-radius: 0.5em;
+    min-height: 100vh;
+
+    /* like display:flex but will allow bleeding over the window width */
+    min-width: 100vw;
+    display: flex;
+}
+
+.columns {
+    display: flex;
+}
+
+.column {
+    width: 20em;
+    border: 2px solid grey;
+    border-radius: 0.5em;
+    margin: 1em;
+
+    h3 {
+        text-align: center;
+    }
+
+    // // show menu when hovering
+    // &  button {
+    //     display: none;
+    // }
+    // &:hover  button {
+    //     display: inline-flex;
+    // }
+}
+
+.patientCard {
+    width: 280px;
+    height: fit-content;
+}

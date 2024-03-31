@@ -883,3 +883,7 @@ export interface List extends Resource {
 export function isList(r: Resource): r is List {
     return r.resourceType === "List";
 }
+
+export function isResource(r: any): r is Resource {
+    return r.resourceType;
+}
