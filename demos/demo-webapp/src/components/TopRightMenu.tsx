@@ -35,17 +35,9 @@ const DownloadIcon = bundleIcon(ArrowDownloadFilled, ArrowDownloadRegular);
 const ResetIcon = bundleIcon(ArrowResetFilled, ArrowResetRegular);
 const SettingsIcon = bundleIcon(SettingsFilled, SettingsRegular);
 
-export const styles = makeStyles({
-    topRight: {
-        float: "right",
-    },
-});
-
 interface Props {}
 
 export function TopRightMenu(props: Props) {
-    const classes = styles();
-
     const fhirConfig = useFhirServerConfig();
 
     const practitionerId = useFHIR((s) => s.fhir.practitionerId);
@@ -85,7 +77,7 @@ export function TopRightMenu(props: Props) {
     const name = practitioner.data?.name?.[0];
 
     return (
-        <div className={classes.topRight}>
+        <div>
             {selectPractitioner && (
                 <SelectPractitionerDialog onClose={onSelectedPractitioner} />
             )}

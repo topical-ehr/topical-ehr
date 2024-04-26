@@ -44,6 +44,7 @@ import { TopRightMenu } from "../components/TopRightMenu";
 
 import css from "./PatientPage.module.scss";
 import { SelectPractitionerDialog } from "@topical-ehr/practitioners/SelectPractitionerDialog";
+import TopRightButtons from "../components/TopRightButtons";
 
 export default function PatientPage() {
     const { patientId } = useParams();
@@ -91,7 +92,10 @@ export default function PatientPage() {
             <EHRPageConfig config={config}>
                 <div className={css.patientPageHeader}>
                     <PatientHeader />
-                    <TopRightMenu />
+                    <TopRightButtons>
+                        <AIButton />
+                        <TopRightMenu />
+                    </TopRightButtons>
                 </div>
 
                 <ColumnLayout>
@@ -116,7 +120,6 @@ export default function PatientPage() {
                     <Column width="30%">
                         <ButtonRow>
                             <NewTopicButton />
-                            <AIButton />
                         </ButtonRow>
 
                         <TopicsColumn>
