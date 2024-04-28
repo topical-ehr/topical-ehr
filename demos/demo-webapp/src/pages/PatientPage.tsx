@@ -22,12 +22,13 @@ import { TasksEdit } from "@topical-ehr/topics/edit/TasksEdit";
 import { ConditionsEdit } from "@topical-ehr/topics/edit/ConditionEdit";
 import { NewItem } from "@topical-ehr/topics/edit/NewItem";
 import { NewTopicButton } from "@topical-ehr/topics/edit/NewTopicButton";
+import { NewEncounterButton } from "@topical-ehr/topics/edit/NewEncounterButton";
 import { AIButton } from "@topical-ehr/topics/edit/AIButton";
 import { PrescriptionsEdit } from "@topical-ehr/topics/edit/PrescriptionsEdit";
 import { SummaryEdit } from "@topical-ehr/topics/edit/SummaryEdit";
 import { TitleEdit } from "@topical-ehr/topics/edit/TitleEdit";
 import { StatusEdit } from "@topical-ehr/topics/edit/StatusEdit";
-import { createTopicsForStandaloneConditionsSaga } from "@topical-ehr/topics/sagas/createTopicsForStandaloneConditions";
+import { createTopicsForStandaloneResourcesSaga } from "@topical-ehr/topics/sagas/createTopicsForStandaloneConditions";
 import { ChartsView } from "@topical-ehr/topics/view/ChartsView";
 import { TasksView } from "@topical-ehr/topics/view/TaskView";
 import { ConditionsView } from "@topical-ehr/topics/view/ConditionView";
@@ -83,7 +84,7 @@ export default function PatientPage() {
         additionalSagas: [
             unreadListSaga,
             loadPatientResourcesSaga,
-            createTopicsForStandaloneConditionsSaga,
+            createTopicsForStandaloneResourcesSaga,
         ],
     };
 
@@ -119,6 +120,7 @@ export default function PatientPage() {
 
                     <Column width="30%">
                         <ButtonRow>
+                            <NewEncounterButton />
                             <NewTopicButton />
                         </ButtonRow>
 

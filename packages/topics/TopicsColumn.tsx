@@ -1,10 +1,11 @@
 import React from "react";
 import * as R from "remeda";
 
+import * as FHIR from "@topical-ehr/fhir-types";
 import { actions, useFHIR } from "@topical-ehr/fhir-store";
 import { createSearcher } from "@topical-ehr/fhir-store/search";
 import { useAppDispatch } from "@topical-ehr/fhir-store/store";
-import { Topic, activeStatus, loadTopics } from "./Topic";
+import { Topic, isActive, loadTopics } from "./Topic";
 import { TopicContext } from "./TopicContext";
 
 import css from "./TopicsColumn.module.scss";
@@ -27,34 +28,50 @@ interface Props {
 
 export function TopicsColumn(props: Props) {
     const compositions = useFHIR((s) => s.fhir.resourcesWithEdits.compositions);
+    const encounters = useFHIR((s) => s.fhir.resourcesWithEdits.encounters);
     const conditions = useFHIR((s) => s.fhir.resourcesWithEdits.conditions);
-    const medicationRequests = useFHIR((s) => s.fhir.resourcesWithEdits.medicationRequests);
+    const medicationRequests = useFHIR(
+        (s) => s.fhir.resourcesWithEdits.medicationRequests
+    );
     const tasks = useFHIR((s) => s.fhir.resourcesWithEdits.tasks);
     const searchingFor = useFHIR((s) => s.fhir.searchingFor);
 
     // TODO: don't filter out topics as they're being edited
     const searcher = createSearcher(searchingFor);
-    const topics = loadTopics(conditions, compositions, medicationRequests, tasks).filter(searcher);
+    const topics = loadTopics(
+        compositions,
+        encounters,
+        conditions,
+        medicationRequests,
+        tasks
+    ).filter(searcher);
 
-    const [added, existing] = R.partition(topics, (t) => t.composition.id.startsWith("urn:"));
-    const [active, inactive] = R.partition(existing, (t) => activeStatus(t) === "active");
+    const [topicsWithEncounter, otherTopics] = R.partition(topics, (t) => !!t.encounter);
+    const [addedEncounters, existingEncounters] = R.partition(topicsWithEncounter, (t) =>
+        FHIR.isNew(t.encounter!)
+    );
+    const [activeEncounters, inactiveEncounters] = R.partition(
+        existingEncounters,
+        isActive
+    );
+
+    const [added, existing] = R.partition(otherTopics, (t) => FHIR.isNew(t.composition));
+    const [active, inactive] = R.partition(existing, isActive);
 
     return (
-        <div style={{ marginTop: "1em" }}>
+        <div>
+            <TopicGroup topics={addedEncounters}>{props.children}</TopicGroup>
+            <TopicGroup topics={activeEncounters}>{props.children}</TopicGroup>
             <TopicGroup
-                title="New"
-                initiallyCollapsed={false}
-                topics={added}
+                title="Past encounters"
+                initiallyCollapsed
+                topics={inactiveEncounters}
             >
                 {props.children}
             </TopicGroup>
-            <TopicGroup
-                title=""
-                initiallyCollapsed={false}
-                topics={active}
-            >
-                {props.children}
-            </TopicGroup>
+
+            <TopicGroup topics={added}>{props.children}</TopicGroup>
+            <TopicGroup topics={active}>{props.children}</TopicGroup>
             <TopicGroup
                 title="Inactive"
                 initiallyCollapsed
@@ -91,8 +108,8 @@ TopicsColumn.Defaults = function () {
 };
 
 interface TopicGroupProps {
-    title: string;
-    initiallyCollapsed: boolean;
+    title?: string;
+    initiallyCollapsed?: boolean;
     topics: Topic[];
     children: React.ReactNode[];
 }

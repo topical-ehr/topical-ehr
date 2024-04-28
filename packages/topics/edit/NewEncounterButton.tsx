@@ -5,14 +5,23 @@ import { useAppDispatch } from "@topical-ehr/fhir-store/store";
 
 import * as FHIR from "@topical-ehr/fhir-types";
 import { Codes } from "@topical-ehr/fhir-types/FhirCodes";
+import { isEncounterActive } from "../Topic";
+
+import calendarIcon from "/icons/calendar-icons8.svg";
 
 interface Props {}
 
-export function NewTopicButton(props: Props) {
+export function NewEncounterButton(props: Props) {
     const dispatch = useAppDispatch();
     const patientId = useFHIR((s) => s.fhir.patientId);
+    const encounters = useFHIR((s) => s.fhir.resourcesWithEdits.encounters);
 
-    function onNewTopic() {
+    const anyActive = Object.values(encounters).some(isEncounterActive);
+    if (anyActive) {
+        return null;
+    }
+
+    function onNewEncounter() {
         const now = new Date().toISOString();
         const newComposition = FHIR.Composition.new({
             subject: { reference: `Patient/${patientId}` },
@@ -25,8 +34,11 @@ export function NewTopicButton(props: Props) {
         dispatch(actions.edit(newComposition));
     }
     return (
-        <div>
-            <Button onClick={onNewTopic}>➕ New topic</Button>
-        </div>
+        <Button
+            icon={<img src={calendarIcon} />}
+            onClick={onNewEncounter}
+        >
+            New encounter
+        </Button>
     );
 }
