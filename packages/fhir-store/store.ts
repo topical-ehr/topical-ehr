@@ -1,13 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 import createSagaMiddleware from "redux-saga";
-import { call, fork, join } from "redux-saga/effects";
+import { fork } from "redux-saga/effects";
 
 import { coreFhirSagas, fhirSlice, initialState } from "./fhir-state";
 import { EHRConfig } from "./config";
 import { FhirServerConfigData } from "./fhir-server";
 import { practitionersApi } from "./practitioner-slice";
 import { patientsApi } from "./patient-slice";
+import { topicsSlice } from "./topics-slice";
 
 export function createStore(config: EHRConfig, serverConfig: FhirServerConfigData) {
     const sagaMiddleware = createSagaMiddleware({});
@@ -15,6 +16,7 @@ export function createStore(config: EHRConfig, serverConfig: FhirServerConfigDat
     const store = configureStore({
         reducer: {
             fhir: fhirSlice.reducer,
+            topics: topicsSlice.reducer,
             [patientsApi.reducerPath]: patientsApi.reducer,
             [practitionersApi.reducerPath]: practitionersApi.reducer,
         },

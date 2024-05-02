@@ -48,7 +48,7 @@ export function TopicsColumn(props: Props) {
 
     const [topicsWithEncounter, otherTopics] = R.partition(topics, (t) => !!t.encounter);
     const [addedEncounters, existingEncounters] = R.partition(topicsWithEncounter, (t) =>
-        FHIR.isNew(t.encounter!)
+        FHIR.isNew(t.composition)
     );
     const [activeEncounters, inactiveEncounters] = R.partition(
         existingEncounters,

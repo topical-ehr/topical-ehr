@@ -29,33 +29,34 @@ export function EHRPageConfig(props: Props) {
  * Show loading screen while waiting for loadAllResources to complete
  * */
 function Loader(props: { children: React.ReactNode }) {
-    const state = useFHIR((s) => s.fhir.queries);
-    const queries = Object.values(state);
-    const isError = queries.some((q) => q.state === "error");
-    const isLoading =
-        queries.length === 0 ||
-        queries.some((q) => q.state === "loading" && q.showLoadingScreen);
+    const showLoadingScreen = useFHIR((s) => s.fhir.showLoadingScreen);
+    const showErrors = useFHIR((s) => s.fhir.showErrors);
 
-    if (isError) {
-        const errors = Object.entries(state)
-            .filter((entry) => entry[1].state === "error")
-            .map((entry) => ({
-                query: entry[0],
-                error: entry[1].state === "error" && entry[1].error?.toString(),
-            }));
-
-        // output errors as json
-        return (
-            <div>
-                <h1>FHIR load errors</h1>
-                <pre>{JSON.stringify(errors, null, 2)}</pre>
-            </div>
-        );
+    if (showErrors) {
+        return <FHIRErrors />;
     }
-
-    if (isLoading) {
+    if (showLoadingScreen) {
         return <div style={{ margin: "2em" }}>Loading...</div>;
     }
 
     return props.children;
+}
+
+function FHIRErrors() {
+    const state = useFHIR((s) => s.fhir.queries);
+
+    const errors = Object.entries(state)
+        .filter((entry) => entry[1].state === "error")
+        .map((entry) => ({
+            query: entry[0],
+            error: entry[1].state === "error" && entry[1].error?.toString(),
+        }));
+
+    // output errors as json
+    return (
+        <div>
+            <h1>FHIR errors</h1>
+            <pre>{JSON.stringify(errors, null, 2)}</pre>
+        </div>
+    );
 }

@@ -23,14 +23,22 @@ export function NewEncounterButton(props: Props) {
 
     function onNewEncounter() {
         const now = new Date().toISOString();
+        const newEncounter = FHIR.Encounter.new({
+            subject: { reference: `Patient/${patientId}` },
+            status: "in-progress",
+            period: { start: now },
+        });
+
         const newComposition = FHIR.Composition.new({
             subject: { reference: `Patient/${patientId}` },
             status: "preliminary",
             type: Codes.Composition.Type.Topic,
+            encounter: FHIR.referenceTo(newEncounter),
             date: now,
             title: "New topic",
             section: [{}],
         });
+        dispatch(actions.edit(newEncounter));
         dispatch(actions.edit(newComposition));
     }
     return (

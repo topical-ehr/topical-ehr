@@ -8,7 +8,11 @@
         "resolveJsonModule": true,
         "strictNullChecks": true,
         "strictFunctionTypes": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "noEmit": true,
+        "paths": {
+            "@topical-ehr/*": ["./packages/*"]
+        }
     },
     "exclude": ["node_modules", "**/node_modules/*"]
 }

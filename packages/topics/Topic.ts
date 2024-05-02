@@ -12,37 +12,43 @@ export interface Topic {
     tasks: FHIR.Task[];
 }
 
-function conditionsFromComposition(
+function getResourcesFromComposition<T extends FHIR.Resource>(
     c: FHIR.Composition,
-    conditions: FhirResourceById<FHIR.Condition>
-) {
-    const _conditions = (c.section ?? [])
-        .flatMap((section) => section.entry)
-        .map((ref) => conditions[FHIR.parseRef(ref?.reference, "Condition")?.id ?? ""])
-        .filter((c) => c);
-    return _conditions;
-}
-function prescriptionsFromComposition(
-    c: FHIR.Composition,
-    prescriptions: FhirResourceById<FHIR.MedicationRequest>
-) {
+    resources: FhirResourceById<T>,
+    resourceType: string
+): T[] {
+    function logMissing(ref: FHIR.Reference | undefined) {
+        console.warn("getResourcesFromComposition: missing resource", ref);
+        return "";
+    }
     const _resources = (c.section ?? [])
         .flatMap((section) => section.entry)
         .map(
             (ref) =>
-                prescriptions[
-                    FHIR.parseRef(ref?.reference, "MedicationRequest")?.id ?? ""
+                resources[
+                    FHIR.parseRef(ref?.reference, resourceType)?.id ?? logMissing(ref)
                 ]
         )
         .filter((c) => c);
     return _resources;
 }
+
+function conditionsFromComposition(
+    c: FHIR.Composition,
+    conditions: FhirResourceById<FHIR.Condition>
+) {
+    return getResourcesFromComposition(c, conditions, "Condition");
+}
+
+function prescriptionsFromComposition(
+    c: FHIR.Composition,
+    prescriptions: FhirResourceById<FHIR.MedicationRequest>
+) {
+    return getResourcesFromComposition(c, prescriptions, "MedicationRequest");
+}
+
 function tasksFromComposition(c: FHIR.Composition, tasks: FhirResourceById<FHIR.Task>) {
-    const _resources = (c.section ?? [])
-        .flatMap((section) => section.entry)
-        .map((ref) => tasks[FHIR.parseRef(ref?.reference, "Task")?.id ?? ""])
-        .filter((c) => c);
-    return _resources;
+    return getResourcesFromComposition(c, tasks, "Task");
 }
 
 export function loadTopics(

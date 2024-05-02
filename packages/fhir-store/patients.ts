@@ -24,7 +24,7 @@ export function* loadPatientResourcesSaga() {
                 return `${resourceType}?subject=Patient/${patientId}`;
             }
         }
-        console.log("loading", searchUrl());
+
         yield put(
             actions.query({ id: "load-all", query: searchUrl(), showLoadingScreen: true })
         );
