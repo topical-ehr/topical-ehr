@@ -941,7 +941,7 @@ export interface Encounter extends Resource {
         | "finished"
         | "cancelled";
 
-    class: string;
+    class: Coding;
     type?: CodeableConcept[];
     serviceType?: CodeableConcept;
     priority?: CodeableConcept;
@@ -976,7 +976,7 @@ export interface Encounter extends Resource {
     }[];
 }
 export const Encounter = {
-    new(props: Pick<Encounter, "status" | "subject" | "period">): Encounter {
+    new(props: Pick<Encounter, "status" | "class" | "subject" | "period">): Encounter {
         return {
             resourceType: "Encounter",
             ...newMeta(),

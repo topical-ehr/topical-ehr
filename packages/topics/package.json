@@ -21,7 +21,6 @@
         "typed-redux-saga": "1.4.0"
     },
     "devDependencies": {
-        "@rollup/plugin-dsv": "^2.0.3",
         "@types/dompurify": "^2.3.3",
         "@types/react": "18.2.11"
     },

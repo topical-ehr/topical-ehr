@@ -10,6 +10,7 @@
         "strictFunctionTypes": true,
         "sourceMap": true,
         "noEmit": true,
+        "skipLibCheck": true,
         "paths": {
             "@topical-ehr/*": ["./packages/*"]
         }

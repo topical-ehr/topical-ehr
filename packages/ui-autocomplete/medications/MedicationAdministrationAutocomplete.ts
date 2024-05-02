@@ -1,13 +1,24 @@
 import * as FHIR from "@topical-ehr/fhir-types";
 
-import { AutocompleteStateBase, AutocompleteOptionBase, UpdateResult } from "../AutocompleteBase";
+import {
+    AutocompleteStateBase,
+    AutocompleteOptionBase,
+    UpdateResult,
+    InplaceEdit,
+} from "../AutocompleteBase";
 
 import { actions } from "@topical-ehr/fhir-store";
 import { logsFor } from "@topical-ehr/logging";
 
 import icon from "/icons/pill.svg";
 import { Config } from "../AutocompleteConfig";
-import { getDosesFor, formatDose, isNumeric, parseDose, throwError } from "./prescriptionUtils";
+import {
+    getDosesFor,
+    formatDose,
+    isNumeric,
+    parseDose,
+    throwError,
+} from "./prescriptionUtils";
 import { BlankMedicationAdministrationState } from "../BlankMedicationAdministration";
 
 export class MedicationAdministrationAutocompleteState extends AutocompleteStateBase {
@@ -19,13 +30,21 @@ export class MedicationAdministrationAutocompleteState extends AutocompleteState
 
     icon = icon;
 
-    constructor(public readonly MA: FHIR.MedicationAdministration, topic: FHIR.Composition, config: Config) {
+    constructor(
+        public readonly MA: FHIR.MedicationAdministration,
+        topic: FHIR.Composition,
+        config: Config
+    ) {
         super(topic, config);
     }
 
     updateTo(next: FHIR.MedicationAdministration) {
         return {
-            newState: new MedicationAdministrationAutocompleteState(next, this.topic, this.config),
+            newState: new MedicationAdministrationAutocompleteState(
+                next,
+                this.topic,
+                this.config
+            ),
             newActions: [actions.edit(next)],
         };
     }
@@ -81,7 +100,11 @@ export class MedicationAdministrationAutocompleteState extends AutocompleteState
             }
 
             const options = [...userEnteredDoses, ...productDoses].map(
-                (dose) => new DosageOption(parseDose(dose) ?? throwError("dose could not be parsed"), dose)
+                (dose) =>
+                    new DosageOption(
+                        parseDose(dose) ?? throwError("dose could not be parsed"),
+                        dose
+                    )
             );
 
             return options;
@@ -116,7 +139,11 @@ export class MedicationOption extends AutocompleteOptionBase {
         };
 
         return {
-            newState: new MedicationAdministrationAutocompleteState(next, state.topic, state.config),
+            newState: new MedicationAdministrationAutocompleteState(
+                next,
+                state.topic,
+                state.config
+            ),
             newActions: [actions.edit(next), state.addToComposition(next)],
         };
     }
@@ -125,16 +152,28 @@ export class MedicationOption extends AutocompleteOptionBase {
         const { log } = this;
         if (state instanceof MedicationAdministrationAutocompleteState) {
             return {
-                newState: new BlankMedicationAdministrationState(state.topic, state.config),
-                newActions: [actions.delete(state.MA), state.removeFromComposition(state.MA)],
+                newState: new BlankMedicationAdministrationState(
+                    state.topic,
+                    state.config
+                ),
+                newActions: [
+                    actions.delete(state.MA),
+                    state.removeFromComposition(state.MA),
+                ],
             };
         } else {
             throw log.exception("unexpected state type", { state });
         }
     }
+
+    inplaceEdit(): InplaceEdit {
+        return "disallow";
+    }
 }
 
-function assertState(state: AutocompleteStateBase): asserts state is MedicationAdministrationAutocompleteState {
+function assertState(
+    state: AutocompleteStateBase
+): asserts state is MedicationAdministrationAutocompleteState {
     if (!(state instanceof MedicationAdministrationAutocompleteState)) {
         throw new Error("unexpected state type");
     }
@@ -171,5 +210,9 @@ class DosageOption extends AutocompleteOptionBase {
             },
         };
         return state.updateTo(next);
+    }
+
+    inplaceEdit(): InplaceEdit {
+        return "disallow";
     }
 }

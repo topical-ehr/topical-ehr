@@ -5,7 +5,7 @@ import { FhirResources, ShowInTimeline } from "@topical-ehr/fhir-store";
 
 import { TimelineItem } from "./TimelineItem";
 
-export function groupObservations(resources: FhirResources, showing: ShowInTimeline) {
+export function groupObservations(resources: FhirResources, showing: Partial<ShowInTimeline>) {
     const { diagnosticReports, observations } = resources;
 
     const items: TimelineItem[] = [];

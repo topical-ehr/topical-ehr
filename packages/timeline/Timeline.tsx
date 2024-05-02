@@ -11,7 +11,10 @@ import { MedicationTimelineView } from "./medications/MedicationTimelineView";
 
 import css from "./Timeline.module.scss";
 
-export type Grouper = (resources: FhirResources, showing: Partial<ShowInTimeline>) => TimelineItem[];
+export type Grouper = (
+    resources: FhirResources<never>,
+    showing: Partial<ShowInTimeline>
+) => TimelineItem[];
 export type Renderer = (item: TimelineItem, byCode: State["byCode"]) => React.ReactNode;
 
 interface Props {
@@ -93,7 +96,9 @@ export function Timeline(props: Props) {
 
     const dateGroups = React.useMemo(() => {
         // apply search filter
-        const filteredItems = searchingFor ? items.filter(createSearcher(searchingFor)) : items;
+        const filteredItems = searchingFor
+            ? items.filter(createSearcher(searchingFor))
+            : items;
 
         // group by date
         // use Map as it preserves the insertion order
@@ -101,9 +106,9 @@ export function Timeline(props: Props) {
 
         for (const item of filteredItems) {
             const dateTime = item.dateTime;
-            const date = `${dateTime.year}${dateTime.month.toString().padStart(2, "0")}${dateTime.day
+            const date = `${dateTime.year}${dateTime.month
                 .toString()
-                .padStart(2, "0")}`;
+                .padStart(2, "0")}${dateTime.day.toString().padStart(2, "0")}`;
             const array = map.get(date);
             if (array) {
                 array.push(item);

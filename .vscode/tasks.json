@@ -1,0 +1,13 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "process",
+            "command": "yarn",
+            "args": ["tsc"],
+            "problemMatcher": ["$tsc"],
+            "group": "build",
+            "label": "tsc: build - yarn"
+        }
+    ]
+}

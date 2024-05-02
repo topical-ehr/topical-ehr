@@ -55,6 +55,15 @@ export const Codes = {
             },
         },
     },
+    Encounter: {
+        Class: {
+            Ambulatory: {
+                system: "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                code: "AMB",
+                display: "ambulatory",
+            },
+        },
+    },
     Extension: {
         RenderingMarkdown: "http://hl7.org/fhir/StructureDefinition/rendering-markdown",
         ResolveAsVersionSpecific:

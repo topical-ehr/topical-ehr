@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { initializeIcons } from "@fluentui/react/lib/Icons";
-import { App } from "./App.tsx";
+import { App } from "./App";
 import "./index.css";
 import { FluentProvider, webLightTheme } from "@fluentui/react-components";
 

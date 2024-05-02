@@ -25,6 +25,7 @@ export function NewEncounterButton(props: Props) {
         const now = new Date().toISOString();
         const newEncounter = FHIR.Encounter.new({
             subject: { reference: `Patient/${patientId}` },
+            class: Codes.Encounter.Class.Ambulatory,
             status: "in-progress",
             period: { start: now },
         });
