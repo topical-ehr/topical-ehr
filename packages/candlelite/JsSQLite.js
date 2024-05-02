@@ -7,7 +7,7 @@ import { class_type } from "./fable_modules/fable-library.4.0.0-theta-018/Reflec
 export class JsSQLiteImpl {
     constructor(db, sqlite3) {
         this.db = db;
-        this.log = Logger_$ctor_Z721C83C5("/home/eug/candlelite/CandleLite.JS/JsSQLite.fs");
+        this.log = Logger_$ctor_Z721C83C5("/home/eug/src/candlelite/CandleLite.JS/JsSQLite.fs");
         Logger__Info_Z16373198(this.log, "Opening sqlite db");
         JsSQLiteImpl__createDB(this);
     }

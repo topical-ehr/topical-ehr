@@ -28,7 +28,7 @@ export class CandleLiteServer {
         this.config = config;
         this.dbImpl = dbImpl;
         this.jsonImpl = jsonImpl;
-        this.log = Logger_$ctor_Z721C83C5("/home/eug/candlelite/CandleLite.Core/Server.fs");
+        this.log = Logger_$ctor_Z721C83C5("/home/eug/src/candlelite/CandleLite.Core/Server.fs");
         this.runQuery = ((objectArg = this.dbImpl, (arg) => objectArg.RunSql(arg)));
         this.runCommand = ((f1 = ((objectArg_1 = this.dbImpl, (arg_1) => objectArg_1.RunSql(arg_1))), (arg_2) => {
             f1(arg_2);

@@ -244,7 +244,7 @@ export class JsJSON {
     ParseBundle(resource) {
         const this$ = this;
         const matchValue = fromValue("$", this$.bundleDecoder, JsonViaJSObj__get_Object(resource));
-        return (matchValue.tag === 1) ? raiseOO(400, new OperationOutcomeCodes(0, []), matchValue.fields[0]) : matchValue.fields[0];
+        return (matchValue.tag === 1) ? raiseOO(400, new OperationOutcomeCodes(0, []), "Error parsing as Budle: " + matchValue.fields[0]) : matchValue.fields[0];
     }
 }
 

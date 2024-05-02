@@ -59,12 +59,12 @@ export const Bundle = {
         };
     },
     entry(resource: Resource) {
-        const isNew = resource.id.startsWith("urn:uuid");
+        const _new = isNew(resource);
         return {
-            fullUrl: isNew ? resource.id : typeId(resource),
+            fullUrl: _new ? resource.id : typeId(resource),
             request: {
-                method: isNew ? "POST" : "PUT",
-                url: isNew ? resource.resourceType : typeId(resource),
+                method: _new ? "POST" : "PUT",
+                url: _new ? resource.resourceType : typeId(resource),
             },
             resource,
         };
@@ -86,10 +86,6 @@ export function parseRef(ref: string | null | undefined, resourceType?: string) 
         const s = ref.split("/");
         return { resourceType: s[0], id: s[1] };
     }
-}
-
-export function newUuidId() {
-    return `urn:uuid:${uuidv4()}`;
 }
 
 type Markdown = string;
@@ -250,6 +246,10 @@ export interface Resource {
         div: string;
     };
 }
+export function isResource(r: any): r is Resource {
+    return !!r.resourceType;
+}
+
 interface Extension {
     url: string;
 
@@ -280,8 +280,16 @@ interface Element {
     extension?: Extension[];
 }
 
+export function newUuidId() {
+    return `urn:uuid:${uuidv4()}`;
+}
+
+export function isNew(resource: Resource) {
+    return resource.id.startsWith("urn:uuid:");
+}
+
 export function referenceTo(resource: Resource) {
-    if (resource.id.startsWith("urn:uuid:")) {
+    if (isNew(resource)) {
         return { reference: resource.id, type: resource.resourceType };
     } else {
         return { reference: resource.resourceType + "/" + resource.id };
@@ -504,7 +512,14 @@ export const Composition = {
     new(
         props: Pick<
             Composition,
-            "subject" | "status" | "type" | "category" | "date" | "title" | "section"
+            | "subject"
+            | "status"
+            | "type"
+            | "category"
+            | "date"
+            | "title"
+            | "section"
+            | "encounter"
         >
     ): Composition {
         return {
@@ -884,6 +899,88 @@ export function isList(r: Resource): r is List {
     return r.resourceType === "List";
 }
 
-export function isResource(r: any): r is Resource {
-    return r.resourceType;
+export interface Group extends Resource {
+    resourceType: "Group";
+
+    identifier?: Identifier[];
+    active?: boolean;
+    type: "person" | "animal" | "practitioner" | "device" | "medication" | "substance";
+    actual: boolean;
+
+    code?: CodeableConcept;
+    name?: string;
+
+    managingEntity?: Reference;
+
+    characteristic?: {
+        code: CodeableConcept;
+        valueCodeableConcept?: CodeableConcept;
+        exclude: boolean;
+        period?: Period;
+    }[];
+
+    member?: {
+        entity: Reference;
+        period?: Period;
+        inactive?: boolean;
+    }[];
 }
+export function isGroup(r: Resource): r is Group {
+    return r.resourceType === "Group";
+}
+
+export interface Encounter extends Resource {
+    resourceType: "Encounter";
+    identifier?: Identifier[];
+    status:
+        | "planned"
+        | "arrived"
+        | "triaged"
+        | "in-progress"
+        | "onleave"
+        | "finished"
+        | "cancelled";
+
+    class: string;
+    type?: CodeableConcept[];
+    serviceType?: CodeableConcept;
+    priority?: CodeableConcept;
+
+    subject?: Reference;
+    serviceProvider?: Reference;
+    partOf?: Reference;
+    episodeOfCare?: Reference[];
+    basedOn?: Reference[];
+    account?: Reference;
+
+    period?: Period;
+
+    reasonCode?: CodeableConcept[];
+    reasonReference?: Reference[];
+
+    diagnosis?: {
+        condition: Reference;
+        use?: CodeableConcept;
+        rank?: number;
+    }[];
+
+    hospitalization?: {
+        // TODO
+    }[];
+
+    location?: {
+        location: Reference;
+        status?: "planned" | "active" | "reserved" | "completed";
+        physicalType?: CodeableConcept;
+        period?: Period;
+    }[];
+}
+export const Encounter = {
+    new(props: Pick<Encounter, "status" | "subject" | "period">): Encounter {
+        return {
+            resourceType: "Encounter",
+            ...newMeta(),
+            ...props,
+        };
+    },
+};
